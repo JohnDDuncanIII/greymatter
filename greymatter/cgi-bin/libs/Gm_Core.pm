@@ -48,6 +48,7 @@ package Gm_Core;
 use strict;
 use warnings;
 
+
 use Gm_Constants;
 use Gm_Storage;
 use Gm_Utils;
@@ -608,15 +609,15 @@ sub translateEntryTemplates {
 		}
 		if (($entryreturn =~ m/{{logshortentrylist /i) || ($entryreturn =~ m/{{logmoreentrylist /i) || 
 				($entryreturn =~ m/{{logentrylist /i)) {
-	
+			
 			my $gmauthors = Gm_Storage::getAuthors( errHandler=>$errHandler );
 	
 			foreach my $author ( keys( %$gmauthors ) ) {
 				my $thisentryloglistauthor = $gmauthors->{$author}{'author'};
-
+				
 				my $entryLogAuthorVars = generateEntryLogListAuthor( author=>$thisentryloglistauthor, 
 					errHandler=>$errHandler );
-
+				
 				$entryreturn =~ s/{{logshortentrylist $thisentryloglistauthor}}/$entryLogAuthorVars->{'logshortentrylistfinal'}/gi;
 				$entryreturn =~ s/{{logmoreentrylist $thisentryloglistauthor}}/$entryLogAuthorVars->{'logmoreentrylistfinal'}/gi;
 				$entryreturn =~ s/{{logentrylist $thisentryloglistauthor}}/$entryLogAuthorVars->{'logentrylistfinal'}/gi;
@@ -3549,8 +3550,12 @@ sub generateEntryLogListAuthor {
 	my $listdaymarker = "tommy";
 	my $listmonthmarker = "tommy";
 	my $listyearmarker = "tommy";
+	
+	# PF 
+	my $listsubsub='';
 
 	foreach my $elkey (@gmsortkeys) {
+		
 		my $loglistnumber = $gmentrylist->{$elkey}{'id'};
 		my $loglistauthor = $gmentrylist->{$elkey}{'author'};
 		my $loglistsubject = $gmentrylist->{$elkey}{'subject'};
@@ -3558,6 +3563,7 @@ sub generateEntryLogListAuthor {
 		my $loglisttimeampm = $gmentrylist->{$elkey}{'createt'};
 		my $loglistopenstatus = $gmentrylist->{$elkey}{'status'};
 		my $loglistmorestatus = $gmentrylist->{$elkey}{'extended'};
+		
 	
 		unless (($loglistopenstatus eq 'C') || ($thisentryloglistauthor ne $loglistauthor)) {
 	
@@ -3591,36 +3597,43 @@ sub generateEntryLogListAuthor {
 				$usethislinktemplate = "$TEMPLATES->{'gmentrypagelinkyearseparatortemplate'}".
 					"|*|$usethislinktemplate";
 			}
-			
+			# PF remove my
 			my $listsubsub = '';
 			if ($loglistmorestatus eq 'Y') {
 				$moreentrycounter++;
-				my $listsubsub = translateArchiveTemplates( 
+				# PF remove my
+				$listsubsub = translateArchiveTemplates( 
 					template=>$usethismorelinktemplate,
 					archiveVars=>$gmLogListVars, errHandler=>$errHandler );
 						
 				$listsubsub .= "|*|";
 				$logmoreentrylistfinal .= $listsubsub;
+				
 			} else {
 				$shortentrycounter++;
-				my $listsubsub = translateArchiveTemplates( 
+				# PF
+				$listsubsub = translateArchiveTemplates( 
 					template=>$usethislinktemplate,
 					archiveVars=>$gmLogListVars, errHandler=>$errHandler );
 						
 				$listsubsub .= "|*|";
 				$logshortentrylistfinal .= $listsubsub;
+				
 			}
-	
+			
 			$allentrycounter++;
+			
+			
 			$logentrylistfinal .= $listsubsub;
-	
+			
 			$listdaymarker = $gmLogListVars->{'loglistday'};
 			$listmonthmarker = $gmLogListVars->{'loglistmonth'};
 			$listyearmarker = $gmLogListVars->{'loglistyear'};
 	
 		}
 	}
-
+	
+	
 	my @logshortentrylistfinalcollection = split (/\|\*\|/, $logshortentrylistfinal);
 	my @logmoreentrylistfinalcollection = split (/\|\*\|/, $logmoreentrylistfinal);
 	my @logentrylistfinalcollection = split (/\|\*\|/, $logentrylistfinal);
@@ -3635,7 +3648,7 @@ sub generateEntryLogListAuthor {
 	$entryLogAuthorVars{'logshortentrylistfinal'} = $logshortentrylistfinal;
 	$entryLogAuthorVars{'logmoreentrylistfinal'} = $logmoreentrylistfinal;
 	$entryLogAuthorVars{'logentrylistfinal'} = $logentrylistfinal;
-
+	
 	return( \%entryLogAuthorVars );
 }
 
