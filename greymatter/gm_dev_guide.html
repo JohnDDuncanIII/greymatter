@@ -1,0 +1,729 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>GreyMatter Development Guide</title>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta content="NOINDEX, NOFOLLOW, NOIMAGEINDEX, NOIMAGECLICK" name=ROBOTS>
+<meta content="Home of the Weblogging software, Greymatter." name=DESCRIPTION>
+<meta content="Copyright (c)2000-2001 Noah Grey.  All rights reserved." name=COPYRIGHT>
+<meta content="Greysoft, Greymatter, Noah Grey, perl, CGI, software, Weblogs, journals, Weblogging, journaling" name=KEYWORDS>
+<style type="text/css">
+
+<!--
+.entryheader {
+
+	BORDER-RIGHT: #000000 1px solid; 
+	PADDING-RIGHT: 5px; 
+	BORDER-TOP: #000000 1px solid; 
+	PADDING-LEFT: 5px; 
+	PADDING-BOTTOM: 5px; 
+	BORDER-LEFT: #000000 1px solid; 
+	PADDING-TOP: 5px; 
+	BORDER-BOTTOM: #000000 1px solid; 
+	BACKGROUND-COLOR: #EAE8E8; border: #000000; 
+	border-style: solid; 
+	border-top-width: 1px; 
+	border-right-width: 1px; 
+	border-bottom-width: 1px; 
+	border-left-width: 1px;
+}
+.title {
+
+	FONT-SIZE: 150%;
+}
+
+BODY {
+
+ background-color: #FFFFFF;
+}
+
+
+.headers {  
+	border: #000000; 
+	border-style: solid; 
+	border-top-width: 1px; 
+	border-right-width: 1px; 
+	border-bottom-width: 1px; 
+	border-left-width: 1px;
+}
+
+.code {
+	margin:  5px;
+	padding: 5px;
+	border: 1px solid #222244;
+	background-color: #CCCCEE;
+}
+
+-->
+</style>
+
+</head>
+<body>
+
+<!-- Top Header -->
+<table cellspacing=0 cellpadding=5 width="100%" bgcolor=#C2C2CD border=0 class="headers">
+  <tbody> 
+  <tr>
+			<td align=left><font face="VERDANA, ARIAL, HELVETICA" size=4><b>Greymatter: Logware</b></font></td>
+				</tr>
+			</tbody>
+		</table>
+<!-- End Top Header -->
+
+
+<!-- Sub Header with Linkage -->
+<table cellspacing=0 cellpadding=5 width="100%" bgcolor=#EAE8E8 border=0 class="headers">
+  <tbody> 
+  <tr>
+		<td align=right>
+		<font face="VERDANA, ARIAL, HELVETICA" size=2>
+		<a class=hoverlink onMouseOver="window.status='News, updates and everything else.';return true" onMouseOut="window.status='';return true" href="http://greymatterforum.proboards82.com/">home</a>
+		</font>
+		</td>
+		</tr>
+	</tbody>
+</table>
+<!-- End Sub Header with Linkage -->
+
+
+<!-- Begin Body -->
+		<table cellspacing=1 cellpadding=0 width="100%" border=0>
+			<tbody>
+				<tr>
+					<td valign=center align=left>
+						<font class=bodytext face="VERDANA, ARIAL, HELVETICA" size=2>
+
+
+<!-- Main Title -->
+							<p class=maintitle align=center>
+								<font size=6><b>Greymatter</b></font>
+								<br>
+								<font color=#000000><b>Weblog/Journal Software . Version 1.7.4 . Software Developers Guide</b></font>
+								<br>
+								<b>Copyright (c) 2000-2008 The Greymatter Team . All Rights Reserved</b>
+							</p>
+<!-- End Main Title -->
+
+
+<!-- A section -->
+	<p class=entryheader align=justify>
+		<font color=#000000><b>Purpose</b></font>
+	</p>
+
+	<p align=justify>These are documents outside of the code to help create a 'big picture'.  Note
+that code comments should supersede any documentation here.  This document contains
+file layout to document what the files hold (information-wise).  Api for the way to get this information
+should appear in the Perl Module.  For example, look at the libs/Gm_Storage.pm file and you 
+will see each public method with documentation on what arguments it takes, what it returns, 
+how to use it, and what (if anything) it deprecates.
+	</p>
+<!-- End of A section -->
+
+
+<!-- A section -->
+	<p class=entryheader align=justify>
+		<font color=#000000><b>API Changes</b></font>
+	</p>
+
+	<p align=justify>This is documentation for changes to the Greymatter API.  If a public function in 
+	a Gm library file changes, this is where it will be noticed.  By changes I mean different arguments or
+	different return values.  If the function is merely refactored to use different internal logic, then it 
+	will not be mentioned.  New functions and deprecations will also be noted here.</p>
+	
+	<p align=justify>If you are a developer looking to so see if a modification you made to Greymatter
+	will still work, this is the place to check.</p>
+
+	<p>
+	<ul><strong>Greymatter 1.8.2 Changes</strong>
+	<li>Gm_Core: 
+		<ul>
+			<li>sub writeToCplog: modified method to accept an optional 'force write' argument since sometimes, the cplog must be written to, regardless of configuration.  Other logic to determine if diag and repair has been run uses the cplog to determine this.</li>
+			<li>sub constructArchiveIndex: new method to build the archive index file.</li>
+			<li>sub constructArchives: new method to build the archive log files.</li>
+			<li>sub constructConnectedFiles: new method to build the connected files.</li>
+			<li>sub safeToPost renamed to hasPosted</li>
+			<li>sub hasDiagRun: new method that determines if Diagnosis and Repair has been run.</li>			
+		</ul>
+	</li>
+	<li>Gm_Web: 
+		<ul>
+			<li>sub getParam: new method to get the parameter from the Gm_Web object instead of getting a hash.  Will probably want to refactor usage into code.</li>
+		</ul>
+	</li>
+	</ul>
+	</p>
+
+	<p>
+	<ul><strong>Greymatter 1.8.1 Changes</strong>
+	<li>Gm_Core: 
+		<ul>
+			<li>sub constructMainIndex: new method to create the main index page (actually generates a file on the system).</li>
+			<li>sub safeToPost: new method to determine if an entry has been succesfully created, method needs to be renamed.</li>
+		</ul>
+	</li>
+	<li>Gm_Web: 
+		<ul>
+			<li>sub createAdminHeader: new method to return the admin header string, basic encapsulation.</li>
+			<li>sub displayAdminRedirectExit: new method to return the given page with an meta tag redirect.</li>
+		</ul>
+	</li>
+	</ul>
+	</p>
+
+	<p>
+	<ul><strong>Greymatter 1.7.4 Changes</strong>
+	<li>Gm_Core: 
+		<ul>
+			<li>sub banCheck: refactored into processBanCheck, since it had more logic in it than merely checking if banned.</li>
+			<li>sub banCheck: new method to check if a given ip has been banned</li>
+			<li>sub processBanCheck: new mehtod to handle if an ip has been banned, will write to log and give user feedback.</li>
+			<li>sub reconstructEntrylist: new method to go through entries and rebuild the entrylist file.</li>
+		</ul>
+	</li>
+	<li>Gm_Utils: 
+		<ul>
+			<li>sub sanitizeInput: new method to filter out funky characters that may give Greymatter a headache.</li>
+		</ul>
+	</li>
+	</ul>
+	</p>
+
+	<p>
+	<ul><strong>Greymatter 1.7.3 Changes</strong>
+	<li>Gm_Core: 
+		<ul>
+			<li>sub config: New method that will return the requested configuration value.  This is the 'official'
+			way to access the configuration variables.</li>
+			<li>sub text: New method that will retunr the localized text for the given Constant value.  This method
+			does not take the text to translate, but rather it works on a 'constant' string, so that the text can
+			be changed, without impacting the translation process.  It currently needs to be imporoved so that
+			plurals can be handled better.  The perldoc (perldoc.perl.org) has some interesting thoughts in the 'maketext'
+			documentation.</li>
+			<li>sub setLanguage: New method that will determine the localization file to use.  Note that this
+			method is not used yet, but will be integrated into the author screen.</li>
+			<li>sub sendEmail: New method that will send email to admin.  This is the 'official' method to use.</li>
+			<li>sub banCheck: New method that will determine if an ip has been banned.</li>
+		</ul>
+	</li>
+	<li>Gm_Storage: 
+		<ul>
+			<li>sub validateResources: the 'chmod' argument was changed to 'ch_mod' to avoid issues
+			with Perl's 'chmod' keyword.  It was a bad choice of argument name.</li>
+			<li>sub sub validateFile: New method to verify a file, which may or may not be a file
+			but may be stored in a database.  This follows the Process of data storage encapsulation.</li>
+			<li>sub getLanguages: New method to get the languages that are installed in the 'cgi-bin/lang' directory.</li>
+			<li>sub loadLangauge: New method to load the localized string labels, for the given language.</li>
+			<li>sub deleteBanlist: the return argument has changed.  It will still return 0 if there was an error,
+			but it now will return the data for the ip that was deleted from the banlist.  This is to avoid
+			having to look up the information for something before deleting it.</li>
+			<li>sub readFile: New method that should not be used unless absolutely unaviodable.  Expect this method
+			to be 'deprecated' quickly.  It currently centralizes 'open' calls so that we can scan for attacks.</li>
+			<li>sub saveFile: New arguments added for chmoddding and specifying if file path is relative.</li>
+		</ul>
+	</li>
+	<li>Gm_Web: 
+		<ul>
+			<li>sub createRadioButton: New 'id' that can be used for css or label tags (to enhance accessability).</li>
+			<li>sub altRowColor: New method that will return the 'next' color when given the last used.  Used for
+			alternating row colors in tables.</li>
+			<li>sub displayUserErrorExit: New 'official' method to display a user error.</li>
+			<li>sub displayUserRedirectExit: New 'official' method to redirect user to new page.</li>
+			<li>sub displayAdminErrorExit: New 'official' mehtod to dispaly and error to admin user.</li>
+			<li>sub displayAdminPageExit: New 'official' way to display a given admin page, so that it may change
+			in a central location, such as adding persistant navigation to each screen.</li>
+			<li>sub createPaging: New method to create 'paging' to avoid excesive data on screen.</li>
+			<li>sub createUserError: IS DEPRECATED AND SHOULD NOT BE USED, SEE ABOVE PUBLIC METHODS.</li>
+			<li>sub createAdminError: IS DEPRECATED AND SHOULD NOT BE USED, SEE ABOVE PUBLIC METHODS.</li>
+		</ul>
+	</li>
+	<li>Gm_Security: 
+		<ul>
+			<li>sub auth: New method that will return the Author who has authed, or will prompt author for authing
+			if necescary.</li>
+			<li>sub getUrlAuth: New method that will provide the currently authed credentials in URL format.</li>
+			<li>sub getFormAuth: New method that will provide the currently authed credentials in form format.</li>
+			<li>sub getHeaderAuth: New method that will provide the currently authed credentials for a header
+			request, e.g. a Cookie.</li>
+			<li>sub hackWebTest: New method that will check for signature signs of a crack attempt via 
+			the web, e.g. a XSS attack.</li>
+			<li>sub hackClTest: New method that will check for a signature sign of a crack attempt via 
+			the command line, e.g. the Null character attack.</li>
+		</ul>
+	</li>
+	</ul>
+	</p>
+<!-- End of A section -->
+
+
+<!-- A section -->
+	<p class=entryheader align=justify>
+		<font color=#000000><b>Todo:</b></font>
+	</p>
+
+	<p align=justify>This is a list of things todo, or my Roadmap.</p>
+
+	<p align=justify>
+	<ul>
+	<li>Tighten Security</li>
+	<li>Move code from gm-library to appropriate scripts (gm.cgi, libs)</li>
+	<li>Consolidate gm-comments.cgi and gm-karma.cgi into gm-user.cgi or action.cgi</li>
+	<li>Improve documentation</li>
+	
+	</ul>
+	</p>
+<!-- End of A section -->
+
+
+<!-- A section -->
+	<p class=entryheader align=justify>
+	<font color=#000000><b>Developer rules/guidelines/style guide</b></font>
+	</p>
+
+	<p align=justify>Note that I don't really care about style and format of the code,
+rather, I care that there are comments, I care that the api is used and not worked around.
+<ul>
+<li>Strict.  Always, always, always 'use Strict' in any new module.  Perl strict will
+catch countless careless mistakes (we've all made them) and no brainers that its just
+harder to develop without it.</li>  
+ 
+<li>Warn.  'use warnings'.  Similar reasons as above, but it encourages better code
+writing in that it reminds you to dot your i's and cross your t's.</li>
+
+<li>Constants.  Try to use constants wherever you can, specifically, use values in
+Gm_Constants.  Several defects have been tracked down due to mis-typings of constant
+values/flags (for example ' open' vs 'open' and 'template' vs 'template').</li>  
+
+<li>Handlers.  When appropriate take a 'handler' as a subroutine argument.  A
+handler is simply a reference to a subroutine.  This handler can then be determined
+by the calling subroutine (for example, if a user page (such as comments.cgi)
+calls a function, any errors
+should show the User Template, not the Admin look and feel).</li>  
+
+<li>Newlines.  Unless printing directly to the screen, avoid newlines.  
+Subroutines that save data should handle newlines if necessary.  For example, 
+Gm_Store::addLogMessage adds a newline because its working on a flat file.  But
+if it was stored a database, it wouldn't make sense to have the newline at the 
+end of the control panel message.  So when addLogMessage is called, it takes data
+that is 'persistent storage neutral'.  Let the Storage subroutines worry about
+newlines and flat-file storage.  When we switch to a database, then we won't have
+to hunt through the code getting rid of newline characters.</li>
+
+<li>Printing. Return a string rather than printing, this is just more elegant.  Leave prints
+to the calling subroutine if possible.</li>
+
+<li>Encapsulation. Private subroutines should start with the '_' character.  By private I mean 
+it will never be called outside of this package.</li>
+
+<li>Arguments.  If you have more than 1 or 2 parameters, especially if they are not required,
+ use named parameters such as in createRadioButton.  By putting stuff in a 
+ hash we gain the flexibility to add more optional parameters without having
+ to pass in '' placeholders or modify existing code.</li>
+
+<li>Quotes.  Use ' and " where appropriate.  If you don't have any variables or newlines
+ then use ', its quicker and cleaner.</li>  
+
+<li>Strings. Don't put all text on one huge long line.  It messes with some programs
+ that don't do line wraps well (some cvs, some text editors, etc.).  Its also makes 
+ reading through the code difficult since people have to scroll down AND over. </li>
+ 
+<li>Readability.  Make it easy to read for a human, so break things up onto multiple lines
+if the line of code scrolls off screen.  This also applies to perl'isms such as when in a subroutine
+calling 'shift' to get the arguments passed in, to make it more readable, explicitly say 'shift(@_)'.  
+Perl has many such hidden variables, always use the name and explicitly state them.</li>  
+ 
+</ul>
+	</p>
+<!-- End of A section -->
+
+
+<!-- A section -->
+	<p class=entryheader align=justify>
+		<font color=#000000><b>Comments</b></font>
+	</p>
+
+	<p align=justify>Many people hate to comment, but they are useful not only to others
+	but to yourself.  I am not going to go through and state all the reasons for commenting.
+	I would like to say _how_ to comment.</p>
+	<p align=justify>Do not say 'what' something is doing, unless its
+	not obvious (and that maybe a sign itself), regular expressions are the exception of course.
+	However, for comments on a subroutine to be useful (and to ensure that subroutine is found
+	and reused, because, if people don't know what your subroutine does, how likely are they
+	to reuse it?), always state the arguments it takes (such as 'ARG1', 'ARG2' for lists or 
+	'ARG errHandler' for named parameters) and what the subroutine returns.</p>
+	<p align=justify>It is also nice
+	to include a summary of what it does, if it isn't painfully obvious already.
+	</p>
+
+<!-- End of A section -->
+
+
+<!-- A section -->
+
+	<p class=entryheader align=justify>
+		<font color=#000000><b>Process</b></font>
+	</p>
+
+	<p align=justify>This is a road map of what I would like to do with the code and
+	where I am moving stuff to (i.e. the method to my madness).
+	</p>
+	
+	<p align=justify><b>The files</b><br />
+	While having everything in gm-library.cgi has its advantages in that
+	its easy to upgrade and install, the tradeoffs are too great.  I was amazed that the 
+	file has 12,000+ lines!  Such a file is hard to navigate it harder to see what might
+	be duplicating what.  By breaking this file into sections and refactoring the code
+	to use scoping and encapsulation, I think many of benefits will be achieved.  
+	The libs directory will be the new repository of the code, with no configuration or
+	data persistence in the libs, just the library files (perl modules).</p>
+	
+	<p align=justify>The library Gm_Core will contain all of the essential functions of
+	GreyMatter such as applying the templates, formatting an entry, etc.  Gm_Web will 
+	contain methods that relate primarily with communicating with the user, such as
+	displaying screens and forms.  Gm_Utils will contain the small miscellaneous functions
+	that will streamline other code, such as checking for hacks in a string and formatting
+	the date.</p>
+		
+	<p align=justify>Gm_Storage is the location of all data persistence mechanisms, by
+	which I mean flat file reading or if it was written, database access.  The idea is
+	that the rest of GreyMatter doesn't care _how_ the data is stored, as long as its
+	returned in a consistent manner.  Gm_Upgrade focuses on upgrading from one version
+	to another, without cluttering up the other code, particularly Gm_Storage since
+	upgrading does need to know how the data is stored.  Gm_Constants is just a file
+	of constants that are used to avoid careless mistakes such as 'Yes' vs 'yes', or
+	testing for an empty string '', but actually looking for a string with a space ' '.</p>
+		
+	<p align=justify><b>Static vs Dynamic</b><br />
+	As noted with Gm_Storage I am trying to remove GreyMatter's dependancy on flat-files
+	so that if someone wants to use a database, its at least possible if the Gm_Storage
+	library is rewritten.  However, GreyMatter also generates static content through
+	rebuilds, comments, etc.  For now, I think this is an advantage in that its quicker
+	and lighter (server loads) that dynamically generating each page.  The current 
+	GreyMatter is even flexible enough so that PHP pages could be generated instead 
+	of HTML, through the configs and templates.
+	</p>
+	
+	
+		
+	<p align=justify><b>Admin Issues</b><br />
+	Until I learned more about css, I did everything with tables for appearance in pages
+	such as doing borders and such, but with css, we not only get more flexibility but
+	the html is also easier to read when working on the code.  The current admin screens
+	are very table heavy and I would like to redo them to keep the same style but by using
+	div tags.  At the same time I would also like to redo the navigation of the admin screen
+	so that there is less clicking around.  I am planning a constant menu on every page that would
+	allow the user to at least jump around to the major sections.  And lastly, a help feature
+	would be useful.  Simply having a question icon next to words and fields, that would link
+	to the gm_manual (popup perhaps?).
+	</p>
+<!-- End of A section -->
+
+<!-- A section -->
+	<p class=entryheader align=justify>
+	<font color=#000000><b>Templates (gm-templates.cgi)</b></font>
+	</p>
+
+	<p align=justify>
+<ul>
+The template file is now order independent, meaning that there is no special 
+order to the templates stored within.  This is because the format of the template is
+now:</br >
+<b>template_name=template_value</b><br />
+One template per line, each line beginning with the name of the template.
+<li>Naming.  Template names should always end with the word 'template', as this will make it
+obvious that its a template and easy to pull out of a hash (form submission 
+for example will contain templates and other values).</li>
+<li>Todo: List template variables and what they are used for...</li>
+</ul>
+	</p>
+<!-- End of A section -->
+
+
+
+<!-- A section -->
+	<p class=entryheader align=justify>
+<font color=#000000><b>Configs (gm-configs.cgi)</b></font>
+	</p>
+
+	<p align=justify>
+<ul>
+The config file is now order independent, meaning that there is no special 
+order to the configuration variables stored within.  This is because the format of the config is
+now:</br >
+<b>config_name=config_value</b><br />
+One config per line, each line beginning with the name of the config.
+<li>Naming.  Config names should always start with the word 'gm', as this will make it
+obvious that its a GreyMatter config and easy to pull out of a hash (form submission 
+for example will contain configs and other values).</li>
+<li>Todo: List config variables and what they are used for...</li>
+</ul>
+	</p>
+<!-- End of A section -->
+
+
+
+<!-- A section -->
+	<p class=entryheader align=justify>
+	<font color=#000000><b>Counter (gm-counter.cgi)</b></font>
+	</p>
+
+	<p align=justify>
+<ul>
+The counter file is now order independent, meaning that there is no special 
+order to the counter values stored within.  This is because the format of the counter is
+now:</br >
+<b>counter_name=counter_value</b><br />
+One counter per line, each line beginning with the name of the counter variable.
+<li>Naming.  Counter variables don't follow as precise a pattern as configs and templates.
+Rather the counter name attempts to be descriptive, while not providing redundant information.</li>
+<li>The counter variables and their meaning:<br>
+<b>entrytotal</b> = total number of entries posted<br>
+<b>archivetotal</b> = total number of entries not on front page<br>
+<b>stayattopentry</b> = entry# designated as "Stay At Top", marked 0 if there's no such thing<br>
+<b>karmapos</b> = total positive karma votes<br>
+<b>karmaneg</b> = total negative karma votes<br>
+<b>commenttotal</b> = total comments posted<br>
+<b>opentotal</b> = total number of open entries<br>
+<b>closedtotal</b> = total number of closed entries<br>
+</li>
+</ul>
+	</p>
+<!-- End of A section -->
+
+
+<!-- A section -->
+	<p class=entryheader align=justify>
+	<font color=#000000><b>Entrylist (gm-entrylist.cgi)</b></font>
+	</p>
+
+	<p align=justify>
+<ul>
+The entrylist file is now order independent, meaning that there is no special 
+order to the entrylist lines within.  The order of the items isn't needed for any
+of the current functionality provided by GreyMatter and here is an example of sorting
+by entry number:<br />
+<div class="code">
+my $gmentrylist = Gm_Storage::getEntrylist( errHandler=>\&Gm_Web::displayAdminErrorExit );<br />
+<br />
+foreach my $entry ( sort { $gmentrylist->{$b}{'id'} <=> $gmentrylist->{$a}{'id'} } keys( %$gmentrylist ) ) {<br />
+...<br />
+</div>
+<li>One counter per line, each line containing the following values separated by the '|' character:
+<ol>
+<li><b>id</b> = the numerical id of the entry (key of returned hash)(usually order in which entered, never 0)</li>
+<li><b>author</b> =  entry author's name (must be alphanumeric)</li>
+<li><b>subject</b> = entry subject (must be alphanumeric)</li>
+<li><b>created</b> = CREATE Date of entry in the format of mm/dd/yy (does include leading zeros)</li>
+<li><b>createt</b> = CREATE Time of entry in the form of hh:mm [AM/PM] (does include leading zeros)</li>
+<li><b>status</b> = entry status: open/closed, either O or C</li>
+<li><b>extended</b> = is this an extended entry, either Y or N</li>
+<li><b>music</b> = current music of entry (well author really)</li>
+<li><b>mood</b> = current mood of entry (well author really)</li>
+<li><b>emoticons</b> = are emoticons enabled, yes or no</li>
+</ol></li>
+<li>Naming.  Counter variables don't follow as precise a pattern as configs and templates.
+Rather the counter name attempts to be descriptive, while not providing redundant information.</li>
+</ul>
+	</p>
+<!-- End of A section -->
+
+
+
+
+<!-- A section -->
+	<p class=entryheader align=justify>
+	<font color=#000000><b>Authors (gm-authors.cgi)</b></font>
+	</p>
+
+	<p align=justify>
+<ul>
+The authors file is now order independent, meaning that there is no special 
+order to the author information within.  The order of the items isn't needed for any
+of the current functionality provided by GreyMatter and here is an example of sorting
+by author name alphabetically:<br />
+<div class="code">
+my $gmauthors = Gm_Storage::getAuthors( errHandler=>\&Gm_Web::displayAdminErrorExit );<br />
+<br />
+foreach my $author ( sort { $gmauthors->{$a}{'author'} cmp $gmauthors->{$b}{'author'} } keys( %$gmauthors ) ) {<br />
+...<br />
+</div>
+<li>One author per line, each line containing the following values separated by the '|' character:
+<ol>
+<li><b>author</b> =  author's name (key of returned hash (case sensitive))</li>
+<li><b>password</b> = author's password (crypted)</li>
+<li><b>email</b> = author's email</li>
+<li><b>homepage</b> = author's homepage</li>
+<li><b>created</b> = CREATE Date of the author</li> 
+<li><b>posttotal</b> = total number of postings by this author</li>
+<li><b>postnew</b> = can this author make new posts Y or N</li>
+<li><b>editentries</b> = can this author edit entries Y or N</li>
+<li><b>editconfigs</b> = can this author edit configs Y or N</li>
+<li><b>edittemplates</b> = can this author edit templates Y or N</li>
+<li><b>editauthors</b> = can this author edit other authors Y or N</li>
+<li><b>rebuild</b> = can this author rebuild files Y or N</li>
+<li><b>viewcplog</b> = can this author view the control panel Y or N</li>
+<li><b>bookmarklets</b> = can this author use bookmarklets Y or N</li>
+<li><b>upload</b> = can this author upload files Y or N</li>
+<li><b>viewadmin</b> = can this author access the admin scene (gm.cgi) Y or N</li>
+</ol></li>
+<li>Naming.  Authors don't follow as precise a pattern as configs and templates.
+Rather the author variable name attempts to be descriptive, while not providing redundant information.</li>
+</ul>
+	</p>
+<!-- End of A section -->
+
+
+
+<!-- A section -->
+	<p class=entryheader align=justify>
+	<font color=#000000><b>Entry (00000001.cgi and up)</b></font>
+	</p>
+
+	<p align=justify>
+<ul>
+The entry file remains unchanged.  Note that the entry information is contained
+within the cgi file and it is generated to the html files (by default, the file type
+can be different than cgi).  This information was culled from the old
+greymatterforums site, originally contributed by Flipped Cracker (Robert).
+The layout of the file is much more complex then the other files.  The first 4 or 5
+lines give the majority of the information about a particular entry with comments
+appearing after the 4th line:<br />
+<ol>
+<li> line, information about the post/entry</li>
+<li> line, Karma-related information. The IP addresses and the votes associated 
+with those IP addresses are collated here.</li>
+<li> line, the "main text" of each entry.</li>
+<li> line, the "extended text" of each entry. If none, a blank line is left.</li>
+<li> line (and more if necessary), comments. One comment per line.</li>
+</ol>
+
+<li>The entry information is stored in the first line, with the following information separated 
+by the '|' character:
+<ol>
+<li><b>id</b>  = numeric, never 0</li>
+<li><b>author</b> = alphanumeric</li>
+<li><b>subject</b> = title of post alphanumeric (we hope)</li>
+<li><b>weekday</b> = numeric (0-6, 0=Sunday, 1=Monday, etc.)</li>
+<li><b>month</b> = month of post numeric (1-12, no leading zeroes)</li>
+<li><b>day</b> = day of post numeric (1-31, no leading zeroes)</li>
+<li><b>year</b> = year of post numeric (format: yyyy)</li>
+<li><b>hour</b> = hour of post numeric (1-12, no leading zeroes)</li>
+<li><b>minute</b> =  minute of post numeric (1-12, no leading zeroes)</li>
+<li><b>second</b> = second of post numeric (1-12, no leading zeroes)</li>
+<li><b>ampm</b> = either AM or PM</li>
+<li><b>karmapos</b> = positive karma numeric</li>
+<li><b>karmaneg</b> = negative karma numeric</li>
+<li><b>commenttotal</b> = number of comments numeric; 0 if no comments</li>
+<li><b>karma</b> = votes allowed yes/no</li>
+<li><b>comments</b> = comments allowed yes/no</li>
+<li><b>status</b> = entry open or closed open/closed</li>
+<li><b>music</b> = current music of entry (well author really)</li>
+<li><b>mood</b> = current mood of entry (well author really)</li>
+<li><b>emoticons</b> = are emoticons enabled, yes or no</li>
+</ol></li>
+
+<li>The karma votes is stored in the second line, with the following information separated 
+by the '|' character (note that each entry has the default line '0.0.0.0|I'):
+<ol>
+<li><b>ip</b> = the ip that cast the karma vote</li>
+<li><b>vote</b> = the karma vote, either a P for positive or N for negative</li>
+</ol></li>
+	
+<li>The main text of the entry is stored in the third line, with single line breaks
+replaced with '|*|' and double line breaks with '|*||*|'.  All the text is presented
+as one line.</li>
+
+<li>The extended text of the entry is stored in the fourth line, following the 
+same text conventions of line 3.</li>
+
+
+<li>The comments are stored in the fifth line and beyond, with the following information separated 
+by the '|' character:
+<ol>
+<li><b>name</b> = commenter's name alphanumeric</li>
+<li><b>ip</b> = in the form of xxx.xxx.xxx.xxx</li>
+<li><b>email</b> = in the form of user@email.com. If not provided, left blank.</li>
+<li><b>homepage</b> = commenter's webpage in the form of http://www.site.com. If not provided, left blank.</li>
+<li><b>weekday</b> = of comment numeric (0-6, 0=Sunday, 1=Monday, etc.)</li>
+<li><b>month</b> = of comment numeric (1-12, no leading zeroes)</li>
+<li><b>day</b> = of comment numeric (1-31, no leading zeroes)</li>
+<li><b>year</b> = of comment numeric (format: yyyy)</li>
+<li><b>hour</b> = of comment numeric (1-12, no leading zeroes)</li>
+<li><b>minute</b> = of comment numeric (1-12, no leading zeroes)</li>
+<li><b>second</b> = of comment numeric (1-12, no leading zeroes)</li>
+<li><b>ampm</b> = either AM or PM</li>
+<li><b>comment</b> = text presented all on one line, with the same text replacement 
+ conventions as in the main entry text. (See Line 3.)</li>
+</ol></li>
+</ul>
+	</p>
+<!-- End of A section -->
+
+
+<!-- A section -->
+	<p class=entryheader align=justify>
+	<font color=#000000><b>Banlist (gm-banlist.cgi)</b></font>
+	</p>
+
+	<p align=justify>
+<ul>
+The banlist is simply a list of Internet Protocal addresses that are prevented from 
+using the functionality of the GreyMatter software, such as posting comments to 
+accessing the admin page.  The banlist file is now order independent, meaning that there is no special 
+order to the banlist information within.  The order of the items isn't needed for any
+of the current functionality provided by GreyMatter.
+</div>
+<li>One banned ip per line, each line containing the following values separated by the '|' character:
+<ol>
+<li><b>ip</b> = ip address of machine to ban (key of returned hash)</li>
+<li><b>host</b> = the hostname of the banned ip (currently not used)</li>
+<li><b>label</b> = an optional label to describe the banned ip</li>
+</ol></li>
+<li>Naming.  Authors don't follow as precise a pattern as configs and templates.
+Rather the author variable name attempts to be descriptive, while not providing redundant information.</li>
+<li>Spam.  We are at the mercy of the webserver to tell us the i.p. of the request (through the REMOTE_HOST
+environment variable.  However, the webserver can be 'fooled' and given a bad i.p. (google: ip spoofing) also
+those users that use dialup or non-premium dsl/cable usually do not have a static i.p. (companies love to 
+charge for this convenience).  This means that banning by ip is usually ineffective to prevent spammers, but
+can usually be useful against nuisance users (most work places will be using static i.p.s) and if you notice a
+patter you could ban a range of i.p.s. </li>
+</ul>
+	</p>
+<!-- End of A section -->
+
+
+<!-- A section -->
+	<p class=entryheader align=justify>
+	<font color=#000000><b>Log (gm-cplist.cgi)</b></font>
+	</p>
+
+	<p align=justify>
+<ul>
+The cplog file is a listing of log entries entered by GreyMatter to keep the user
+informed of certain events.  This file is order dependent with the first line being the oldest and the 
+last being the most recent.  Note that Gm_Storage functions treat the cplog information as an
+array, mostly to preserve order (also, because there isn't really a logical key besides
+an arbitrary id number or the date+time the line was logged and this would be a pain to
+sort (probably).
+</div>
+<li>One log 'entry' per line, with the date and time of the log entry usually added, but not
+always.  Resetting the log is simply a matter of clearing out the file.</li>
+<li>Naming.  Authors don't follow as precise a pattern as configs and templates.
+Rather the author variable name attempts to be descriptive, while not providing redundant information.</li>
+<li>Spam.  We are at the mercy of the webserver to tell us the i.p. of the request (through the REMOTE_HOST
+environment variable.  However, the webserver can be 'fooled' and given a bad i.p. (google: ip spoofing) also
+those users that use dialup or non-premium dsl/cable usually do not have a static i.p. (companies love to 
+charge for this convenience).  This means that banning by ip is usually ineffective to prevent spammers, but
+can usually be useful against nuisance users (most work places will be using static i.p.s) and if you notice a
+patter you could ban a range of i.p.s. </li>
+</ul>
+	</p>
+<!-- End of A section -->
+
+
+							</font>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+</body>
+</html>

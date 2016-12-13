@@ -1,0 +1,134 @@
+#!/usr/bin/perl
+
+#
+# weblogUpdatesPing
+# version: 1.0
+# date:    2001.11.12
+# author:  Hans Kellner
+# website: http://www.hanskellner.com/
+#
+#
+# A Perl subroutine that pings the "rpc.pingomatic.com" server with a
+# specified weblog name and url.
+#
+# Copyright (C) 2001 Hans Kellner.
+#
+# Note: Be sure to set the weblog name and url variables below.
+#
+# Specification: "http://www.xmlrpc.com/weblogsCom".
+# Directory: "http://www.weblogs.com/"
+#
+
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+#
+
+use IO::Socket qw(:DEFAULT :crlf);
+
+# The name and url of your Weblog.
+# For example:
+#    $weblog_name = "Go Mountain Biking!";
+#    $weblog_url  = "http://www.gomtb.com/";
+$weblog_name = "";
+$weblog_url  = "";
+
+#
+# Pings the "rpc.weblogs.com" server with a Weblog name and url.
+# See the specification at "http://www.xmlrpc.com/weblogsCom".
+#
+# usage: weblogUpdatesPing( name, url );
+#           name    A string containing a descriptive name of your weblog.
+#           url     An url to your weblog.
+#
+# returns: A string formatted "(retcode) : message".
+#           retcode A return code; 0 if success, otherwise not 0.
+#           message A string message describing success or failure.
+#
+sub weblogUpdatesPing($$)
+{
+    my $name = shift;
+    my $url  = shift;
+
+    if ( !$name || !$url ) {
+        return "(-1) : Invalid weblog name or url.  Please set both.";
+    }
+
+    my $ret = "(-1) : Unknown error.";   # holds our return value
+
+    # This is the xml-rpc request
+    my $pingStr =
+        "<?xml version=\"1.0\"?>" .
+        "<methodCall>" .
+        "    <methodName>weblogUpdates.ping</methodName>" .
+        "    <params>" .
+        "        <param><value>$name</value></param>" .
+        "        <param><value>$url</value></param>" .
+        "    </params>" .
+            "</methodCall>";
+
+    # Connect to the weblogs server
+    my $remote = IO::Socket::INET->new(
+        Proto    => "tcp",
+        PeerAddr => "rpc.pingomatic.com",
+                                       PeerPort => "http(80)" );
+
+    if ( $remote )
+    {
+        $remote->autoflush(1); # No buffering
+
+        # Send the ping
+        print $remote "POST /RPC2 HTTP/1.0$CRLF";
+        print $remote "User-Agent: Greymatter weblogUpdatesPing tool$CRLF";
+        print $remote "Host: rpc.pingomatic.com$CRLF";
+        print $remote "Content-Type: text/xml$CRLF";
+        print $remote "Content-length: " . length($pingStr) . "$CRLF$CRLF";
+        print $remote $pingStr;
+
+        # Read the response
+        $sockResp = "";
+        while ( <$remote> ) {
+            $sockResp = $sockResp . $_;
+        }
+
+        close $remote; # Close the socket
+
+        # The response is in XML.  Retrieve the return code and message.
+        $retCode = $sockResp;
+        $retMsg  = $sockResp;
+
+        # Strip out the XML up to and after the flerror code.
+        $retCode =~ s/.*<boolean>//si;
+        $retCode =~ s/<\/boolean>.*//si;
+
+        # Strip out the XML up to and after the message.
+        $retMsg =~ s/.*<\/boolean>//si;
+        $retMsg =~ s/.*<value>//si;
+        $retMsg =~ s/<\/value>.*//si;
+
+        $ret = "($retCode) : $retMsg";
+    }
+    else
+    {
+        $ret = "(-1) : Cannot connect to http daemon on 'rpc.pingomatic.com'";
+    }
+
+    return $ret;
+}
+
+print "Content-Type: text/html\n\n";
+# Ping the server.
+print "\nPinging rpc.pingomatic.com for weblog \"$weblog_name\" at \"$weblog_url\"\n\n";
+$response = weblogUpdatesPing( $weblog_name, $weblog_url );
+print "$response\n\n";

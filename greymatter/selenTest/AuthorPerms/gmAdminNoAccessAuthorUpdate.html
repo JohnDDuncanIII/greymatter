@@ -1,0 +1,64 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>gmAdminNoAccessAuthorUpdate</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">gmAdminNoAccessAuthorUpdate</td></tr>
+</thead><tbody>
+<tr>
+	<td>assertTitle</td>
+	<td>Greymatter</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>authors</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>Greymatter</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//tr[contains(td,'NoAccess Test')]//a[contains(@href, '/gm-dev/cgi-bin/gm.cgi?section=authors&view=1&selectedauthor=NoAccess Test')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>Greymatter</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>view_admin_yes</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>update</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>Greymatter</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>NoAccess Test's info/access has been edited.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//tr[contains(td,'NoAccess Test')]/td[4]</td>
+	<td>Custom</td>
+</tr>
+
+</tbody></table>
+</body>
+</html>

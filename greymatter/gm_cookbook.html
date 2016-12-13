@@ -1,0 +1,343 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title>Greymatter 1.8.2 - Configuration Cookbook</title>
+
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta content="NOINDEX, NOFOLLOW, NOIMAGEINDEX, NOIMAGECLICK" name=ROBOTS>
+<meta content="Home of the Weblogging software, GreyMatter." name=DESCRIPTION>
+<meta content="Copyright (c)2000-2001 Noah Grey.  All rights reserved." name=COPYRIGHT>
+<meta content="Greysoft, GreyMatter, Noah Grey, perl, CGI, software, Weblogs, journals, Weblogging, journaling" name=KEYWORDS>
+
+<style type="text/css">
+<!--
+.entryheader {
+
+	BORDER-RIGHT: #000000 1px solid;
+	PADDING-RIGHT: 5px;
+	BORDER-TOP: #000000 1px solid;
+	PADDING-LEFT: 5px;
+	PADDING-BOTTOM: 5px;
+	BORDER-LEFT: #000000 1px solid;
+	PADDING-TOP: 5px; BORDER-BOTTOM: #000000 1px solid;
+	BACKGROUND-COLOR: #EAE8E8; border: #000000;
+	border-style: solid; border-top-width: 1px;
+	border-right-width: 1px;
+	border-bottom-width: 1px;
+	border-left-width: 1px;
+}
+
+.title {
+	FONT-SIZE: 150%;
+}
+
+
+BODY {
+ background-color: #FFFFFF;
+}
+
+
+.headers {  
+	border: #000000; 
+	border-style: solid; 
+	border-top-width: 1px; 
+	border-right-width: 1px; 
+	border-bottom-width: 1px; 
+	border-left-width: 1px;
+}
+
+.example {
+	margin:  5px;
+	padding: 5px;
+	border: 1px solid #222244;
+	background-color: #CCCCEE;
+}
+
+.detailed {
+	margin:  5px;
+	padding: 5px;
+	border: 1px solid #222244;
+	background-color: #FCFCFE;
+}
+
+p.note 
+	{font: 8pt Tahoma, MS Sans-Serif, Arial, Sans-Serif;
+	text-align: center; 
+}
+
+p.curly
+	 { font-family:  Curlz MT, Funstuff, Comic Sans MS, fantasy; 
+	text-align:center; 
+	font-size: 12pt;
+}
+
+p.author 
+	{font-family: Tahoma, MS sans-serif, Arial, sans-serif; 	
+	font-size: 10pt;
+	font-weight: bold;
+}
+
+.question
+	 { background-color: #EDEBEB;
+}
+
+.code
+	{ color: #1C581C;
+	border: 1px #808080 solid;
+}
+
+.grey
+	 { background-color: #DDDEFB;
+	border: 1px #808080 solid;
+}
+
+.break { page-break-after: always; 
+	text-align: right;
+	font-size: 8pt;
+}
+	
+abbr, acronym, .help {
+	background-color: #DBF3F3;
+	border: 1px #808080 solid;
+  	cursor: help;
+}
+
+}
+span.small 
+	{font-family: Tahoma, MS sans-serif, Arial, sans-serif; 	
+	font-size: 8pt;
+}
+-->
+</style>
+
+</head>
+	<body>
+
+<!-- Top Header -->
+<table cellspacing=0 cellpadding=5 width="100%" bgcolor=#C2C2CD border=0 class="headers">
+  <tbody> 
+  <tr>
+		<td align=left><font face="VERDANA, ARIAL, HELVETICA" size=4><b>GreyMatter: Logware</b></font></td>
+				</tr>
+			</tbody>
+		</table>
+<!-- End Top Header -->
+<!-- Sub Header with Linkage -->
+<table cellspacing=0 cellpadding=5 width="100%" bgcolor=#EAE8E8 border=0 class="headers">
+  <tbody> 
+  	<tr>
+			<td align=right>
+			<font face="VERDANA, ARIAL, HELVETICA" size=2>
+			<a class=hoverlink onMouseOver="window.status='News, updates and everything else.';return true" onMouseOut="window.status='';return true" href="http://greymatterforum.proboards82.com/">home</a>
+			</font>
+			</td>
+		</tr>
+	</tbody>
+</table>
+<!-- End Sub Header with Linkage -->
+
+<FONT FACE="VERDANA, ARIAL, HELVETICA" SIZE=2>
+
+<P ALIGN=CENTER CLASS="maintitle"><CENTER>
+<FONT SIZE=6><B>Greymatter</B></FONT><BR><FONT SIZE=4><B>Weblog/Journal Software &#183; Version 1.8.2 &#183; Configuration Cookbook</B></FONT><BR><B>Copyright &copy;2000-2007 The Greymatter Team &#183; All Rights Reserved</B>
+</CENTER></P>
+
+<p class=entryheader align=justify>
+		<font color=#000000><b>About the Cookbook</b></font>
+	</p>
+		<p align=justify>Note that these are really configuration recipes, code changes are considered
+'developer talk' and should be restricted to the forums.</p>
+
+<p class=entryheader align=justify>
+		<font color=#000000><b>Configuration Recipes</b></font>
+	</p>
+	
+
+<div class="detailed">
+<b>Problem:  I am worried about people browsing my entries/gm-token file.</b>
+<p><b>Solution:</b>  This can be prevented by telling your webserver not to show certain files.  Put the following in a file called .htaccess in your 'archives' directory:<br />
+<pre>
+	&lt;FilesMatch "\.cgi"&gt;
+	Order Deny,Allow
+	Deny from all
+	&lt;/FilesMatch&gt;
+</pre>
+This can also be put in your '&lt;Directory&gt; definition in your httpd.conf file.<br />
+Note: Apache does not obey .htaccess files by default (though most web hosts have them enabled), this <a href="http://httpd.apache.org/docs/2.0/howto/htaccess.html">document</a> tells how to enable .htaccess files and some of their options.
+</p>
+<p><b>Discussion:</b>  This prevents anyone from viewing/executing .cgi file in the specified location.  This <a href="http://support.microsoft.com/kb/324064">Microsoft Knowledge Base article</a> seems to support the idea that IIS will obey .htaccess files with some caveats.
+</p>
+</div>
+
+<br />
+
+<div class="detailed">
+<b>Problem:  I would like a commenter's name, email, and homepage to be 
+remembered after they comment and to automatically appear in the comment form 
+fields.</b>
+<p><b>Solution:</b>  GreyMatter comes with the javascript to do this, however, it 
+isn't "hooked up" so to speak.  A little template modifications and you are good 
+to go.</p>
+
+<p>First make sure that you have the cookie code variable ({{cookiescode}}) in your 
+Entry Page Template templates (which the standard templates that ship with GM do).</p>
+
+<p>Add these lines to your "{{entrycommentsform}} Posting Form" template:
+<pre>
+	&lt;SCRIPT TYPE="text/javascript" LANGUAGE="JavaScript"&gt;
+	&lt;!--//
+	document.newcomment.newcommentauthor.value = getCookie("gmcmtauth");
+	document.newcomment.newcommentemail.value = getCookie("gmcmtmail");
+	document.newcomment.newcommenthomepage.value = getCookie("gmcmthome");
+	document.newcomment.newcommentauthor.focus();
+	//--&gt;
+	&lt;/SCRIPT>
+	&lt;input name="bakecookie" type="checkbox" /&gt;Save Info?&lt;br /&gt;
+</pre></p>
+<p>This goes nicely just in front of the 'Reset' button.</p>
+
+<p>Lastly, modify your submit button to call the 'setGMcookies' javascript 
+function.  In your "{{entrycommentsform}} Posting Form" template change:
+<pre>	&lt;input type="submit" value="Submit" class="button" /&gt;</pre>
+to:
+<pre>	&lt;input type="submit" value="Submit" class="button" onClick="javascript:setGMcookies()" /&gt;
+</pre>
+</p>
+<p><b>Discussion:</b>  As features have been added, not all of them have been 
+documented, particularly with the powerful template system that GreyMatter has. 
+This recipe doesn't require any code modification, yet it is able to 
+significantly enhance the user experience.  If every template configuration were 
+absorbed into the code, GreyMatter would quickly become unusable.
+</p>
+</div>
+
+<br />	
+
+	
+<div class="detailed">
+<b>Problem:  I would like to show a little icon/avatar by the author.</b>
+<p><b>Solution:</b>  This can be done with simple template trick. You have to 
+have the avatar image named with the author name (caps have to match) and then 
+in your entry template:<br />
+<pre>
+	&lt;img src="{{authorname}}_avatar.png" /&gt;
+</pre>
+</p>
+<p><b>Discussion:</b>  While this could be a feature, its really the domain of 
+the templates to determine how the site looks.  This is a perfect example of the 
+power of GreyMatter, that the templates can be used to solve this problem.  
+Instead of creating a specialed Template Variable.
+</p>
+</div>
+
+<br />	
+	
+<div class="detailed">
+<b>Problem:  My comments page does not show a recently added 
+comment/karma/comment total on mainpage.</b>
+<p><b>Solution:</b>  Add these lines to your header template (or to whatever 
+template will print them on all pages (or just your comment page).  Place these 
+lines somewhere withen your &lt;head&gt;&lt;/head&gt; tags:<br />
+<pre>
+	&lt;meta http-equiv="expires" content="31 Dec 2000" /&gt;
+	&lt;meta http-equiv="CACHE-CONTROL" content="NO-CACHE" /&gt;
+	&lt;meta http-equiv="pragma" content="no-cache" /&gt; 
+</pre>
+</p>
+<p><b>Discussion:</b>  More than likely, your browser is cacheing your page on 
+you, although sometimes its a server doing the cacheing.  Page cacheing is when 
+you don't see the current version of the page because the computer trying to 
+save time.  The lines above make it clear that the page should not be cached.  
+You can also force your browser to show the most current page (usually) by 
+reloading the page will holding down the shift key.
+</p>
+</div>
+
+<br />
+
+<div class="detailed">
+<b>Problem:  I would like to get a better search engine rank.</b>
+<p><b>Solution:</b> Put the {{entrysubjectstripped}} (or just {{entrysubject}} if you don't have HTML in your subject lines) field in the &lt;title&gt; header 
+of the entry pages--that way each blog subject is listed on the page so the 
+search engines can see it. It works well for Google and the standard GreyMatter 
+template file come configured this way.
+</p>
+<p>
+However, you may wish to actually put "My Weblog: {{entrysubjectstripped}}" in the title 
+tag so that your site identity is not lost.  While it may seem obvious, its 
+always good to tell your user where what site they are on.
+</p>
+<p><b>Discussion:</b>  Although Google's page ranking algorithm is complex and
+works off of linking between pages, this is definitely a good way to give more 
+information to your users and any search engine.
+</p>
+</div>
+
+<br />
+
+<div class="detailed">
+<b>Problem:  I don't want people to comment on my archived entries.</b>
+<p><b>Solution:</b>  Two things.<br />
+1) Disable in configs and Rebuild site.<br />
+
+2) Alter Entry Archive templates so that {{entrycommentsform}} is not displayed.  
+Note that removing the template does not prevent someone from maliciously 
+submitting a comment (its tricky but possible). 
+</p>
+<p><b>Discussion:</b> GreyMatter will check the configuration file to see if
+comments should be allowed, even if the form isn't present on the html page.
+That means that a hacker cannot try and post comments if you have them
+turned off.  Note that if you turn off comments but do not rebuild your files
+you will still see the comment form displayed.
+</p>
+</div>
+
+<br />
+
+<div class="detailed">
+<b>Problem:  Why doesn't banning by ip seem to be very effective?</b>
+<p><b>Solution:</b> Try to see if you can find commonanlity in the various i.p.s and you may be able to ban a range of them.  For example if you noticed that you have already banned ips 10.0.0.12 and 10.0.0.19 you could enter into the Banlist
+10.0.0.1 and you would ban 10.0.0.10 - 19.  However, you may be banning legitimate viewers of your site.</p>
+<p>Additionally you may feel certain goegraphic regions do not need to see your 
+site, all arguments aside, if you lookup the i.p.s and see the 90% of your spammers are coming from say, Indonesia, you could ban the range of i.p.s that correspond to that group.  Try doing a google search for more information about 
+i.p. and global goegraphic location.
+</p>
+<p><b>Discussion:</b> We are at the mercy of the webserver to tell us the i.p. of the request (through the REMOTE_HOST
+environment variable.  However, the webserver can be 'fooled' and given a bad i.p. (google: ip spoofing) also
+those users that use dialup or non-premium dsl/cable usually do not have a static i.p. (companies love to 
+charge for this convienence).  This means that banning by ip is usually ineffective to prevent spammers, but
+can usually be usefull against nuisance users (most work places will be using static i.p.s) and if you notice a
+patter you could ban a range of i.p.s. 
+</p>
+<p>
+<b>Note</b> that banning by IP can block legitimate users from your site. 
+Spammers can 'hijack' i.p. addresses by using i.p.s that they don't own, and if
+you block that address, you may end up blocking someone who isn't really a
+spammer.
+</p>
+</div>
+
+<br />
+
+<div class="detailed">
+<b>Problem:  I would like use someone else's GreyMatter 'theme'.</b>
+<p><b>Solution:</b> The look and feel of a GreyMatter site is controlled by the template settings, stored in the gm-templates.cgi file.  If someone gives you their templates file, rename your own to save it, then upload the gm-templates.cgi file.
+</p>
+<p><b>Discussion:</b>  Though it would be easier to be able to switch between 
+themes, its not impossible to share them.  A future enhancemnet for GreyMatter is to support multiple themes that can be more easily shared, installed, and switched between.
+</p>
+</div>
+
+<br />
+
+<div class="detailed">
+<b>Problem:  I would like to use other emoticons on my site.</b>
+<p><b>Solution:</b> All the emoticons are stored in the emoticons directory.  A Google search for free emoticons will bring up quite a few sites.  Once you have found some you like, simply upload the new ones your server and change the 'Emoticons' path in your configurations.  <b>NOTE</b> that you will have to rename your new files to match the old ones, you might even have to resave the emoticons to a new file format.
+</p>
+<p><b>Discussion:</b>  Emoticons are somewhat theme related and it might be easier if they were more closely related.  However, it is not a simple task and thought is being given to this issue.
+</p>
+</div>
+
+
+</BODY>
+</HTML>

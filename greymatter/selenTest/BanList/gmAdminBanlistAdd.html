@@ -1,0 +1,2078 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>gmAdminBanlistAdd</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">gmAdminBanlistAdd</td></tr>
+</thead><tbody>
+<tr>
+	<td>assertTitle</td>
+	<td>Greymatter</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>banip</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>Greymatter</td>
+	<td></td>
+</tr>
+<!--Adding-->
+<tr>
+	<td>type</td>
+	<td>banip</td>
+	<td>1.0.0.1</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>banname</td>
+	<td>Test1</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>add</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>Greymatter</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>1.0.0.1 has been added to the ban list.</td>
+	<td></td>
+</tr>
+<!--Check Dupe-->
+<tr>
+	<td>type</td>
+	<td>banip</td>
+	<td>1.0.0.1</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>banname</td>
+	<td>Test1</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>add</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>That IP is already in the ban list.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>Greymatter</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>banip</td>
+	<td>1.0.0.2</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>banname</td>
+	<td>Test2</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>add</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>1.0.0.2 has been added to the ban list.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>banip</td>
+	<td>1.0.0.3</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>banname</td>
+	<td>Test3</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>add</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>1.0.0.3 has been added to the ban list.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>banip</td>
+	<td>1.0.0.4</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>banname</td>
+	<td>Test4</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>add</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>1.0.0.4 has been added to the ban list.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>banip</td>
+	<td>1.0.0.5</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>banname</td>
+	<td>Test5</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>add</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>1.0.0.5 has been added to the ban list.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>banip</td>
+	<td>1.0.0.6</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>banname</td>
+	<td>Test6</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>add</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>1.0.0.6 has been added to the ban list.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>banip</td>
+	<td>1.0.0.7</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>banname</td>
+	<td>Test7</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>add</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>1.0.0.7 has been added to the ban list.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>banip</td>
+	<td>1.0.0.8</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>banname</td>
+	<td>Test8</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>add</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>1.0.0.8 has been added to the ban list.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>banip</td>
+	<td>1.0.0.9</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>banname</td>
+	<td>Test9</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>add</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>1.0.0.9 has been added to the ban list.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>banip</td>
+	<td>1.0.0.10</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>banname</td>
+	<td>Test10</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>add</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>1.0.0.10 has been added to the ban list.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>banip</td>
+	<td>1.0.0.11</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>banname</td>
+	<td>Test11</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>add</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>1.0.0.11 has been added to the ban list.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>banip</td>
+	<td>1.0.0.12</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>banname</td>
+	<td>Test12</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>add</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>1.0.0.12 has been added to the ban list.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>banip</td>
+	<td>1.0.0.13</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>banname</td>
+	<td>Test13</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>add</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>1.0.0.13 has been added to the ban list.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>banip</td>
+	<td>1.0.0.14</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>banname</td>
+	<td>Test14</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>add</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>1.0.0.14 has been added to the ban list.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>banip</td>
+	<td>1.0.0.15</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>banname</td>
+	<td>Test15</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>add</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>1.0.0.15 has been added to the ban list.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>banip</td>
+	<td>1.0.0.16</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>banname</td>
+	<td>Test16</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>add</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>1.0.0.16 has been added to the ban list.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>banip</td>
+	<td>1.0.0.17</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>banname</td>
+	<td>Test17</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>add</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>1.0.0.17 has been added to the ban list.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>banip</td>
+	<td>1.0.0.18</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>banname</td>
+	<td>Test18</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>add</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>1.0.0.18 has been added to the ban list.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>banip</td>
+	<td>1.0.0.19</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>banname</td>
+	<td>Test19</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>add</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>1.0.0.19 has been added to the ban list.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>banip</td>
+	<td>1.0.0.20</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>banname</td>
+	<td>Test20</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>add</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>1.0.0.20 has been added to the ban list.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>banip</td>
+	<td>1.0.0.21</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>banname</td>
+	<td>Test21</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>add</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>1.0.0.21 has been added to the ban list.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>banip</td>
+	<td>1.0.0.22</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>banname</td>
+	<td>Test22</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>add</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>1.0.0.22 has been added to the ban list.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>banip</td>
+	<td>1.0.0.23</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>banname</td>
+	<td>Test23</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>add</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>1.0.0.23 has been added to the ban list.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>banip</td>
+	<td>1.0.0.24</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>banname</td>
+	<td>Test24</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>add</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>1.0.0.24 has been added to the ban list.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>banip</td>
+	<td>1.0.0.25</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>banname</td>
+	<td>Test25</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>add</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>1.0.0.25 has been added to the ban list.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>banip</td>
+	<td>1.0.0.26</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>banname</td>
+	<td>Test26</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>add</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>1.0.0.26 has been added to the ban list.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>banip</td>
+	<td>1.0.0.27</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>banname</td>
+	<td>Test27</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>add</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>1.0.0.27 has been added to the ban list.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>banip</td>
+	<td>1.0.0.28</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>banname</td>
+	<td>Test28</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>add</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>1.0.0.28 has been added to the ban list.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>banip</td>
+	<td>1.0.0.29</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>banname</td>
+	<td>Test29</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>add</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>1.0.0.29 has been added to the ban list.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>banip</td>
+	<td>1.0.0.30</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>banname</td>
+	<td>Test30</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>add</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>1.0.0.30 has been added to the ban list.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>banip</td>
+	<td>1.0.0.31</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>banname</td>
+	<td>Test31</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>add</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>1.0.0.31 has been added to the ban list.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>banip</td>
+	<td>1.0.0.32</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>banname</td>
+	<td>Test32</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>add</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>1.0.0.32 has been added to the ban list.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>banip</td>
+	<td>1.0.0.33</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>banname</td>
+	<td>Test33</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>add</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>1.0.0.33 has been added to the ban list.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>banip</td>
+	<td>1.0.0.34</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>banname</td>
+	<td>Test34</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>add</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>1.0.0.34 has been added to the ban list.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>banip</td>
+	<td>1.0.0.35</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>banname</td>
+	<td>Test35</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>add</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>1.0.0.35 has been added to the ban list.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>banip</td>
+	<td>1.0.0.36</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>banname</td>
+	<td>Test36</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>add</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>1.0.0.36 has been added to the ban list.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>banip</td>
+	<td>1.0.0.37</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>banname</td>
+	<td>Test37</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>add</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>1.0.0.37 has been added to the ban list.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>banip</td>
+	<td>1.0.0.38</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>banname</td>
+	<td>Test38</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>add</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>1.0.0.38 has been added to the ban list.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>banip</td>
+	<td>1.0.0.39</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>banname</td>
+	<td>Test39</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>add</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>1.0.0.39 has been added to the ban list.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>banip</td>
+	<td>1.0.0.40</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>banname</td>
+	<td>Test40</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>add</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>1.0.0.40 has been added to the ban list.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=All</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>Greymatter</td>
+	<td></td>
+</tr>
+<!--Verifying-->
+<tr>
+	<td>assertTextPresent</td>
+	<td>1.0.0.1</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//tr[contains(td,'1.0.0.1')]/td[2]</td>
+	<td>1.0.0.1</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//tr[contains(td,'1.0.0.1')]/td[3]</td>
+	<td>Test1</td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>1.0.0.2</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//tr[contains(td,'1.0.0.2')]/td[2]</td>
+	<td>1.0.0.2</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//tr[contains(td,'1.0.0.2')]/td[3]</td>
+	<td>Test2</td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>1.0.0.3</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//tr[contains(td,'1.0.0.3')]/td[2]</td>
+	<td>1.0.0.3</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//tr[contains(td,'1.0.0.3')]/td[3]</td>
+	<td>Test3</td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>1.0.0.4</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//tr[contains(td,'1.0.0.4')]/td[2]</td>
+	<td>1.0.0.4</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//tr[contains(td,'1.0.0.4')]/td[3]</td>
+	<td>Test4</td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>1.0.0.5</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//tr[contains(td,'1.0.0.5')]/td[2]</td>
+	<td>1.0.0.5</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//tr[contains(td,'1.0.0.5')]/td[3]</td>
+	<td>Test5</td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>1.0.0.6</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//tr[contains(td,'1.0.0.6')]/td[2]</td>
+	<td>1.0.0.6</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//tr[contains(td,'1.0.0.6')]/td[3]</td>
+	<td>Test6</td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>1.0.0.7</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//tr[contains(td,'1.0.0.7')]/td[2]</td>
+	<td>1.0.0.7</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//tr[contains(td,'1.0.0.7')]/td[3]</td>
+	<td>Test7</td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>1.0.0.8</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//tr[contains(td,'1.0.0.8')]/td[2]</td>
+	<td>1.0.0.8</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//tr[contains(td,'1.0.0.8')]/td[3]</td>
+	<td>Test8</td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>1.0.0.9</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//tr[contains(td,'1.0.0.9')]/td[2]</td>
+	<td>1.0.0.9</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//tr[contains(td,'1.0.0.9')]/td[3]</td>
+	<td>Test9</td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>1.0.0.10</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//tr[contains(td,'1.0.0.10')]/td[2]</td>
+	<td>1.0.0.10</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//tr[contains(td,'1.0.0.10')]/td[3]</td>
+	<td>Test10</td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>1.0.0.11</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//tr[contains(td,'1.0.0.11')]/td[2]</td>
+	<td>1.0.0.11</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//tr[contains(td,'1.0.0.11')]/td[3]</td>
+	<td>Test11</td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>1.0.0.12</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//tr[contains(td,'1.0.0.12')]/td[2]</td>
+	<td>1.0.0.12</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//tr[contains(td,'1.0.0.12')]/td[3]</td>
+	<td>Test12</td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>1.0.0.13</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//tr[contains(td,'1.0.0.13')]/td[2]</td>
+	<td>1.0.0.13</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//tr[contains(td,'1.0.0.13')]/td[3]</td>
+	<td>Test13</td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>1.0.0.14</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//tr[contains(td,'1.0.0.14')]/td[2]</td>
+	<td>1.0.0.14</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//tr[contains(td,'1.0.0.14')]/td[3]</td>
+	<td>Test14</td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>1.0.0.15</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//tr[contains(td,'1.0.0.15')]/td[2]</td>
+	<td>1.0.0.15</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//tr[contains(td,'1.0.0.15')]/td[3]</td>
+	<td>Test15</td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>1.0.0.16</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//tr[contains(td,'1.0.0.16')]/td[2]</td>
+	<td>1.0.0.16</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//tr[contains(td,'1.0.0.16')]/td[3]</td>
+	<td>Test16</td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>1.0.0.17</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//tr[contains(td,'1.0.0.17')]/td[2]</td>
+	<td>1.0.0.17</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//tr[contains(td,'1.0.0.17')]/td[3]</td>
+	<td>Test17</td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>1.0.0.18</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//tr[contains(td,'1.0.0.18')]/td[2]</td>
+	<td>1.0.0.18</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//tr[contains(td,'1.0.0.18')]/td[3]</td>
+	<td>Test18</td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>1.0.0.19</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//tr[contains(td,'1.0.0.19')]/td[2]</td>
+	<td>1.0.0.19</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//tr[contains(td,'1.0.0.19')]/td[3]</td>
+	<td>Test19</td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>1.0.0.20</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//tr[contains(td,'1.0.0.20')]/td[2]</td>
+	<td>1.0.0.20</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//tr[contains(td,'1.0.0.20')]/td[3]</td>
+	<td>Test20</td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>1.0.0.21</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//tr[contains(td,'1.0.0.21')]/td[2]</td>
+	<td>1.0.0.21</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//tr[contains(td,'1.0.0.21')]/td[3]</td>
+	<td>Test21</td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>1.0.0.22</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//tr[contains(td,'1.0.0.22')]/td[2]</td>
+	<td>1.0.0.22</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//tr[contains(td,'1.0.0.22')]/td[3]</td>
+	<td>Test22</td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>1.0.0.23</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//tr[contains(td,'1.0.0.23')]/td[2]</td>
+	<td>1.0.0.23</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//tr[contains(td,'1.0.0.23')]/td[3]</td>
+	<td>Test23</td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>1.0.0.24</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//tr[contains(td,'1.0.0.24')]/td[2]</td>
+	<td>1.0.0.24</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//tr[contains(td,'1.0.0.24')]/td[3]</td>
+	<td>Test24</td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>1.0.0.25</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//tr[contains(td,'1.0.0.25')]/td[2]</td>
+	<td>1.0.0.25</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//tr[contains(td,'1.0.0.25')]/td[3]</td>
+	<td>Test25</td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>1.0.0.26</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//tr[contains(td,'1.0.0.26')]/td[2]</td>
+	<td>1.0.0.26</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//tr[contains(td,'1.0.0.26')]/td[3]</td>
+	<td>Test26</td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>1.0.0.27</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//tr[contains(td,'1.0.0.27')]/td[2]</td>
+	<td>1.0.0.27</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//tr[contains(td,'1.0.0.27')]/td[3]</td>
+	<td>Test27</td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>1.0.0.28</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//tr[contains(td,'1.0.0.28')]/td[2]</td>
+	<td>1.0.0.28</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//tr[contains(td,'1.0.0.28')]/td[3]</td>
+	<td>Test28</td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>1.0.0.29</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//tr[contains(td,'1.0.0.29')]/td[2]</td>
+	<td>1.0.0.29</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//tr[contains(td,'1.0.0.29')]/td[3]</td>
+	<td>Test29</td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>1.0.0.30</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//tr[contains(td,'1.0.0.30')]/td[2]</td>
+	<td>1.0.0.30</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//tr[contains(td,'1.0.0.30')]/td[3]</td>
+	<td>Test30</td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>1.0.0.31</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//tr[contains(td,'1.0.0.31')]/td[2]</td>
+	<td>1.0.0.31</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//tr[contains(td,'1.0.0.31')]/td[3]</td>
+	<td>Test31</td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>1.0.0.32</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//tr[contains(td,'1.0.0.32')]/td[2]</td>
+	<td>1.0.0.32</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//tr[contains(td,'1.0.0.32')]/td[3]</td>
+	<td>Test32</td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>1.0.0.33</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//tr[contains(td,'1.0.0.33')]/td[2]</td>
+	<td>1.0.0.33</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//tr[contains(td,'1.0.0.33')]/td[3]</td>
+	<td>Test33</td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>1.0.0.34</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//tr[contains(td,'1.0.0.34')]/td[2]</td>
+	<td>1.0.0.34</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//tr[contains(td,'1.0.0.34')]/td[3]</td>
+	<td>Test34</td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>1.0.0.35</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//tr[contains(td,'1.0.0.35')]/td[2]</td>
+	<td>1.0.0.35</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//tr[contains(td,'1.0.0.35')]/td[3]</td>
+	<td>Test35</td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>1.0.0.36</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//tr[contains(td,'1.0.0.36')]/td[2]</td>
+	<td>1.0.0.36</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//tr[contains(td,'1.0.0.36')]/td[3]</td>
+	<td>Test36</td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>1.0.0.37</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//tr[contains(td,'1.0.0.37')]/td[2]</td>
+	<td>1.0.0.37</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//tr[contains(td,'1.0.0.37')]/td[3]</td>
+	<td>Test37</td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>1.0.0.38</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//tr[contains(td,'1.0.0.38')]/td[2]</td>
+	<td>1.0.0.38</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//tr[contains(td,'1.0.0.38')]/td[3]</td>
+	<td>Test38</td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>1.0.0.39</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//tr[contains(td,'1.0.0.39')]/td[2]</td>
+	<td>1.0.0.39</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//tr[contains(td,'1.0.0.39')]/td[3]</td>
+	<td>Test39</td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>1.0.0.40</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//tr[contains(td,'1.0.0.40')]/td[2]</td>
+	<td>1.0.0.40</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//tr[contains(td,'1.0.0.40')]/td[3]</td>
+	<td>Test40</td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>Greymatter</td>
+	<td></td>
+</tr>
+<!--Deleting-->
+<tr>
+	<td>clickAndWait</td>
+	<td>//tr[contains(td,'1.0.0.1')]//a[contains(@href, 'cgi-bin/gm.cgi?section=banip&delete=1&editedbanlist=1.0.0.1')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>1.0.0.1 has been deleted from the ban list.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//tr[contains(td,'1.0.0.10')]//a[contains(@href, 'cgi-bin/gm.cgi?section=banip&delete=1&editedbanlist=1.0.0.10')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>1.0.0.10 has been deleted from the ban list.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//tr[contains(td,'1.0.0.11')]//a[contains(@href, 'cgi-bin/gm.cgi?section=banip&delete=1&editedbanlist=1.0.0.11')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>1.0.0.11 has been deleted from the ban list.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//tr[contains(td,'1.0.0.12')]//a[contains(@href, 'cgi-bin/gm.cgi?section=banip&delete=1&editedbanlist=1.0.0.12')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>1.0.0.12 has been deleted from the ban list.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//tr[contains(td,'1.0.0.13')]//a[contains(@href, 'cgi-bin/gm.cgi?section=banip&delete=1&editedbanlist=1.0.0.13')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>1.0.0.13 has been deleted from the ban list.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//tr[contains(td,'1.0.0.14')]//a[contains(@href, 'cgi-bin/gm.cgi?section=banip&delete=1&editedbanlist=1.0.0.14')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>1.0.0.14 has been deleted from the ban list.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//tr[contains(td,'1.0.0.15')]//a[contains(@href, 'cgi-bin/gm.cgi?section=banip&delete=1&editedbanlist=1.0.0.15')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>1.0.0.15 has been deleted from the ban list.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//tr[contains(td,'1.0.0.16')]//a[contains(@href, 'cgi-bin/gm.cgi?section=banip&delete=1&editedbanlist=1.0.0.16')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>1.0.0.16 has been deleted from the ban list.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//tr[contains(td,'1.0.0.17')]//a[contains(@href, 'cgi-bin/gm.cgi?section=banip&delete=1&editedbanlist=1.0.0.17')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>1.0.0.17 has been deleted from the ban list.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//tr[contains(td,'1.0.0.18')]//a[contains(@href, 'cgi-bin/gm.cgi?section=banip&delete=1&editedbanlist=1.0.0.18')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>1.0.0.18 has been deleted from the ban list.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//tr[contains(td,'1.0.0.19')]//a[contains(@href, 'cgi-bin/gm.cgi?section=banip&delete=1&editedbanlist=1.0.0.19')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>1.0.0.19 has been deleted from the ban list.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//tr[contains(td,'1.0.0.2')]//a[contains(@href, 'cgi-bin/gm.cgi?section=banip&delete=1&editedbanlist=1.0.0.2')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>1.0.0.2 has been deleted from the ban list.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//tr[contains(td,'1.0.0.20')]//a[contains(@href, 'cgi-bin/gm.cgi?section=banip&delete=1&editedbanlist=1.0.0.20')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>1.0.0.20 has been deleted from the ban list.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//tr[contains(td,'1.0.0.21')]//a[contains(@href, 'cgi-bin/gm.cgi?section=banip&delete=1&editedbanlist=1.0.0.21')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>1.0.0.21 has been deleted from the ban list.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//tr[contains(td,'1.0.0.22')]//a[contains(@href, 'cgi-bin/gm.cgi?section=banip&delete=1&editedbanlist=1.0.0.22')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>1.0.0.22 has been deleted from the ban list.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//tr[contains(td,'1.0.0.23')]//a[contains(@href, 'cgi-bin/gm.cgi?section=banip&delete=1&editedbanlist=1.0.0.23')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>1.0.0.23 has been deleted from the ban list.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//tr[contains(td,'1.0.0.24')]//a[contains(@href, 'cgi-bin/gm.cgi?section=banip&delete=1&editedbanlist=1.0.0.24')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>1.0.0.24 has been deleted from the ban list.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//tr[contains(td,'1.0.0.25')]//a[contains(@href, 'cgi-bin/gm.cgi?section=banip&delete=1&editedbanlist=1.0.0.25')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>1.0.0.25 has been deleted from the ban list.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//tr[contains(td,'1.0.0.26')]//a[contains(@href, 'cgi-bin/gm.cgi?section=banip&delete=1&editedbanlist=1.0.0.26')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>1.0.0.26 has been deleted from the ban list.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//tr[contains(td,'1.0.0.27')]//a[contains(@href, 'cgi-bin/gm.cgi?section=banip&delete=1&editedbanlist=1.0.0.27')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>1.0.0.27 has been deleted from the ban list.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//tr[contains(td,'1.0.0.28')]//a[contains(@href, 'cgi-bin/gm.cgi?section=banip&delete=1&editedbanlist=1.0.0.28')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>1.0.0.28 has been deleted from the ban list.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//tr[contains(td,'1.0.0.29')]//a[contains(@href, 'cgi-bin/gm.cgi?section=banip&delete=1&editedbanlist=1.0.0.29')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>1.0.0.29 has been deleted from the ban list.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//tr[contains(td,'1.0.0.3')]//a[contains(@href, 'cgi-bin/gm.cgi?section=banip&delete=1&editedbanlist=1.0.0.3')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>1.0.0.3 has been deleted from the ban list.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//tr[contains(td,'1.0.0.30')]//a[contains(@href, 'cgi-bin/gm.cgi?section=banip&delete=1&editedbanlist=1.0.0.30')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>1.0.0.30 has been deleted from the ban list.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//tr[contains(td,'1.0.0.31')]//a[contains(@href, 'cgi-bin/gm.cgi?section=banip&delete=1&editedbanlist=1.0.0.31')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>1.0.0.31 has been deleted from the ban list.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//tr[contains(td,'1.0.0.32')]//a[contains(@href, 'cgi-bin/gm.cgi?section=banip&delete=1&editedbanlist=1.0.0.32')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>1.0.0.32 has been deleted from the ban list.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//tr[contains(td,'1.0.0.33')]//a[contains(@href, 'cgi-bin/gm.cgi?section=banip&delete=1&editedbanlist=1.0.0.33')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>1.0.0.33 has been deleted from the ban list.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//tr[contains(td,'1.0.0.34')]//a[contains(@href, 'cgi-bin/gm.cgi?section=banip&delete=1&editedbanlist=1.0.0.34')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>1.0.0.34 has been deleted from the ban list.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//tr[contains(td,'1.0.0.35')]//a[contains(@href, 'cgi-bin/gm.cgi?section=banip&delete=1&editedbanlist=1.0.0.35')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>1.0.0.35 has been deleted from the ban list.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//tr[contains(td,'1.0.0.36')]//a[contains(@href, 'cgi-bin/gm.cgi?section=banip&delete=1&editedbanlist=1.0.0.36')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>1.0.0.36 has been deleted from the ban list.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//tr[contains(td,'1.0.0.37')]//a[contains(@href, 'cgi-bin/gm.cgi?section=banip&delete=1&editedbanlist=1.0.0.37')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>1.0.0.37 has been deleted from the ban list.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//tr[contains(td,'1.0.0.38')]//a[contains(@href, 'cgi-bin/gm.cgi?section=banip&delete=1&editedbanlist=1.0.0.38')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>1.0.0.38 has been deleted from the ban list.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//tr[contains(td,'1.0.0.39')]//a[contains(@href, 'cgi-bin/gm.cgi?section=banip&delete=1&editedbanlist=1.0.0.39')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>1.0.0.39 has been deleted from the ban list.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//tr[contains(td,'1.0.0.4')]//a[contains(@href, 'cgi-bin/gm.cgi?section=banip&delete=1&editedbanlist=1.0.0.4')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>1.0.0.4 has been deleted from the ban list.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//tr[contains(td,'1.0.0.40')]//a[contains(@href, 'cgi-bin/gm.cgi?section=banip&delete=1&editedbanlist=1.0.0.40')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>1.0.0.40 has been deleted from the ban list.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//tr[contains(td,'1.0.0.5')]//a[contains(@href, 'cgi-bin/gm.cgi?section=banip&delete=1&editedbanlist=1.0.0.5')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>1.0.0.5 has been deleted from the ban list.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//tr[contains(td,'1.0.0.6')]//a[contains(@href, 'cgi-bin/gm.cgi?section=banip&delete=1&editedbanlist=1.0.0.6')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>1.0.0.6 has been deleted from the ban list.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//tr[contains(td,'1.0.0.7')]//a[contains(@href, 'cgi-bin/gm.cgi?section=banip&delete=1&editedbanlist=1.0.0.7')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>1.0.0.7 has been deleted from the ban list.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//tr[contains(td,'1.0.0.8')]//a[contains(@href, 'cgi-bin/gm.cgi?section=banip&delete=1&editedbanlist=1.0.0.8')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>1.0.0.8 has been deleted from the ban list.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//tr[contains(td,'1.0.0.9')]//a[contains(@href, 'cgi-bin/gm.cgi?section=banip&delete=1&editedbanlist=1.0.0.9')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>1.0.0.9 has been deleted from the ban list.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>Greymatter</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementNotPresent</td>
+	<td>//tr[contains(td,'1.0.0.1')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementNotPresent</td>
+	<td>//tr[contains(td,'1.0.0.2')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementNotPresent</td>
+	<td>//tr[contains(td,'1.0.0.3')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementNotPresent</td>
+	<td>//tr[contains(td,'1.0.0.4')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementNotPresent</td>
+	<td>//tr[contains(td,'1.0.0.5')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementNotPresent</td>
+	<td>//tr[contains(td,'1.0.0.6')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementNotPresent</td>
+	<td>//tr[contains(td,'1.0.0.7')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementNotPresent</td>
+	<td>//tr[contains(td,'1.0.0.8')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementNotPresent</td>
+	<td>//tr[contains(td,'1.0.0.10')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementNotPresent</td>
+	<td>//tr[contains(td,'1.0.0.11')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementNotPresent</td>
+	<td>//tr[contains(td,'1.0.0.12')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementNotPresent</td>
+	<td>//tr[contains(td,'1.0.0.13')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementNotPresent</td>
+	<td>//tr[contains(td,'1.0.0.14')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementNotPresent</td>
+	<td>//tr[contains(td,'1.0.0.15')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementNotPresent</td>
+	<td>//tr[contains(td,'1.0.0.16')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementNotPresent</td>
+	<td>//tr[contains(td,'1.0.0.17')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementNotPresent</td>
+	<td>//tr[contains(td,'1.0.0.18')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementNotPresent</td>
+	<td>//tr[contains(td,'1.0.0.19')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementNotPresent</td>
+	<td>//tr[contains(td,'1.0.0.20')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementNotPresent</td>
+	<td>//tr[contains(td,'1.0.0.21')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementNotPresent</td>
+	<td>//tr[contains(td,'1.0.0.22')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementNotPresent</td>
+	<td>//tr[contains(td,'1.0.0.23')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementNotPresent</td>
+	<td>//tr[contains(td,'1.0.0.24')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementNotPresent</td>
+	<td>//tr[contains(td,'1.0.0.25')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementNotPresent</td>
+	<td>//tr[contains(td,'1.0.0.26')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementNotPresent</td>
+	<td>//tr[contains(td,'1.0.0.27')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementNotPresent</td>
+	<td>//tr[contains(td,'1.0.0.28')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementNotPresent</td>
+	<td>//tr[contains(td,'1.0.0.29')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementNotPresent</td>
+	<td>//tr[contains(td,'1.0.0.30')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementNotPresent</td>
+	<td>//tr[contains(td,'1.0.0.31')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementNotPresent</td>
+	<td>//tr[contains(td,'1.0.0.32')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementNotPresent</td>
+	<td>//tr[contains(td,'1.0.0.33')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementNotPresent</td>
+	<td>//tr[contains(td,'1.0.0.34')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementNotPresent</td>
+	<td>//tr[contains(td,'1.0.0.35')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementNotPresent</td>
+	<td>//tr[contains(td,'1.0.0.36')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementNotPresent</td>
+	<td>//tr[contains(td,'1.0.0.37')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementNotPresent</td>
+	<td>//tr[contains(td,'1.0.0.38')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementNotPresent</td>
+	<td>//tr[contains(td,'1.0.0.39')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementNotPresent</td>
+	<td>//tr[contains(td,'1.0.0.40')]</td>
+	<td></td>
+</tr>
+
+</tbody></table>
+</body>
+</html>

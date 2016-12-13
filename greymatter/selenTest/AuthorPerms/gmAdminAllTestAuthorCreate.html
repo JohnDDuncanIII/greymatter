@@ -1,0 +1,179 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>gmAdminAllTestAuthorCreate</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">gmAdminAllTestAuthorCreate</td></tr>
+</thead><tbody>
+<tr>
+	<td>assertTitle</td>
+	<td>Greymatter</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>authors</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>Greymatter</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Alice</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTextNotPresent</td>
+	<td>allTest</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>newauthorname</td>
+	<td>allTest</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>newauthorpassword</td>
+	<td>allTest</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>newauthoremail</td>
+	<td>allTest@test.com</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>newauthorhomepage</td>
+	<td>http://test.com</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>all_access</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>add</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>Greymatter</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>allTest</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//tr[contains(td,'allTest')]/td[2]</td>
+	<td>allTest@test.com</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//tr[contains(td,'allTest')]/td[3]</td>
+	<td>http://test.com</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//tr[contains(td,'allTest')]/td[4]</td>
+	<td>All access</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//tr[contains(td,'allTest')]//a[contains(@href, '/gm-dev/cgi-bin/gm.cgi?section=authors&view=1&selectedauthor=allTest')]</td>
+	<td>Edit</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//tr[contains(td,'allTest')]//a[contains(@href, '/gm-dev/cgi-bin/gm.cgi?section=authors&view=1&selectedauthor=allTest')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>Greymatter</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>name</td>
+	<td>allTest</td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>email</td>
+	<td>allTest@test.com</td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>homepage</td>
+	<td>exact:http://test.com</td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>new_entries_yes</td>
+	<td>on</td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>edit_entries_yes</td>
+	<td>on</td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>configure_yes</td>
+	<td>on</td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>edit_templates_yes</td>
+	<td>on</td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>edit_author_yes</td>
+	<td>on</td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>rebuild_yes</td>
+	<td>on</td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>view_cplog_yes</td>
+	<td>on</td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>bookmarklets_yes</td>
+	<td>on</td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>upload_yes</td>
+	<td>on</td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>view_admin_yes</td>
+	<td>on</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>menu</td>
+	<td></td>
+</tr>
+
+</tbody></table>
+</body>
+</html>

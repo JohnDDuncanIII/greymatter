@@ -1,0 +1,174 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>gmAdminNoAccessAuthorCreate</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">gmAdminNoAccessAuthorCreate</td></tr>
+</thead><tbody>
+<tr>
+	<td>clickAndWait</td>
+	<td>authors</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>Greymatter</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Alice</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTextNotPresent</td>
+	<td>NoAccess Test</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>newauthorname</td>
+	<td>NoAccess Test</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>newauthorpassword</td>
+	<td>NoAccess Test</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>newauthoremail</td>
+	<td>noaccess@test.com</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>newauthorhomepage</td>
+	<td>http://noaccesstest.com</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>no_access</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>add</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>Greymatter</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTextPresent</td>
+	<td>NoAccess Test</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//tr[contains(td,'NoAccess Test')]/td[2]</td>
+	<td>noaccess@test.com</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//tr[contains(td,'NoAccess Test')]/td[3]</td>
+	<td>http://noaccesstest.com</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//tr[contains(td,'NoAccess Test')]/td[4]</td>
+	<td>No access</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//tr[contains(td,'NoAccess Test')]//a[contains(@href, '/gm-dev/cgi-bin/gm.cgi?section=authors&view=1&selectedauthor=NoAccess Test')]</td>
+	<td>Edit</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//tr[contains(td,'NoAccess Test')]//a[contains(@href, '/gm-dev/cgi-bin/gm.cgi?section=authors&view=1&selectedauthor=NoAccess Test')]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>Greymatter</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>name</td>
+	<td>NoAccess Test</td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>email</td>
+	<td>noaccess@test.com</td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>homepage</td>
+	<td>exact:http://noaccesstest.com</td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>new_entries_no</td>
+	<td>on</td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>edit_entries_no</td>
+	<td>on</td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>configure_no</td>
+	<td>on</td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>edit_templates_no</td>
+	<td>on</td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>edit_author_no</td>
+	<td>on</td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>rebuild_no</td>
+	<td>on</td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>view_cplog_no</td>
+	<td>on</td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>bookmarklets_no</td>
+	<td>on</td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>upload_no</td>
+	<td>on</td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>view_admin_no</td>
+	<td>on</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>menu</td>
+	<td></td>
+</tr>
+
+</tbody></table>
+</body>
+</html>

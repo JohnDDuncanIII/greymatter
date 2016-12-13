@@ -1,0 +1,288 @@
+Greymatter 1.8.2
+authors & changelog
+
+- Original Code by Noah Grey
+- Robert Mills (flippedCracker)
+- ? (linear)
+- ? (Silent Bob)
+- ? (Rae rae _AT_ tnir.org)
+- ? (domesticat gmstuff _AT_ domesticat.net)
+- ? (Coldstone greymatter _AT_ doubtfulguest.net)
+- Pete Finnigan (petefinnigan pete _AT_ petefinnigan.com)
+- Carlos Phelps (cphelps gm _AT_ phd-hosting.com)
+- ? (debbies ?) for the select/deselect post
+- ? (jesper ?) for bug finding
+- Geoff (stryker ?) for bug finding
+- Alison Chambers (? ?) for char encoding stuff
+- Mike Kaeding (? ?) for selenium help
+
+
+* TODO switch to taint mode
+
+=== 1.8.2 ===
+* Bug fix where number of entries edited by author wasn't being updated (post increment).
+* Bug fix where config screen wouldn't show changes:
+	http://greymatterforum.proboards82.com/index.cgi?board=gmbugreport&action=display&thread=1200952988
+* Updated to use CGI.pm for getting web parameters.
+* SECURITY: Deprecated gm-upload.cgi, file no longer required, best to be removed.
+* Wrote some automated test cases using http://selenium.openqa.org/
+* NEW FEATURE: added label tag to configuration screen for accessability
+* Bug fix where entry-only authors couldn't add a new entry:
+  http://greymatterforum.proboards82.com/v45index.cgi?action=display&board=gmbugreport&thread=385
+
+
+=== 1.8.1 ===
+* NEW FEATURE: random salt used when encoding author passwords.
+* NEW FEATURE: Bookmarklets available for everyone now, regardless of platform.
+* Refactored screens: Configuration, Templates, Rebuild
+* Bug fix of 1.7.4.1 which addressed issue where new italicizing logic interferred with URLS
+* BUG FIX: issue where a badly formatted banned ip would cause a regex parse error, use of quotemeta
+
+
+=== 1.7.4 ===
+* NEW FEATURE: more information given in comment email
+* NEW FEATURE: check that commenter came from a page on the Gm site
+* NEW FEATURE: force commenters to preview page, enhanced to put a secret value on the page
+* NEW FEATURE: throttle commments to slow down spammers
+* NEW FEATURE: 'all' option on paging, for those who don't want to go page by page
+* Fixed defect where comment email missing usefull information:
+  http://greymatterforum.proboards82.com/index.cgi?board=gmbugreport&action=display&thread=1183695439
+* Refactored screens: Entrylist, View Entry, Add Entry, Search and Replace, Preview Entry, Bookmarklets
+* Updated Edit Author screen so that option selections are preserved on an error
+* Updated gm.cgi to 'use strict', but not permanently since it stops the program from working with old part
+* Applied fix to trailing whitespace in templates issue, posted by Carlos P.
+* Applied fix for "Author Smartlink Target Template", discovered by stryker
+   http://greymatterforum.proboards82.com/index.cgi?action=display&board=gmbugreport&thread=1191509858
+
+
+=== 1.7.3 ===
+* WARNING:  Default wonderland password now crypted, GM 1.7.4 will not allow plaintext passwords 
+* Refactored gm.cgi to use new request routing logic (to prepare for admin overhaul)
+* NEW FEATURE: added 'pageing' to Control Panel Log.  Pages are 100 lines.
+* NEW FEATURE: added 'pageing' to Ban List.  Pages are 25 lines.
+* Fixed bug with poorly optimized sorting:
+	link
+* Refactored to use Gm_Security for url and form auths
+* Refactored out gm_formatentry to use Core methods (removing direct file access).
+* Refactored direct file access out of gm-karma.cgi
+* Refactored direct file acesss out of gm-comments.cgi
+* Search and Replace should now work for the Mood and Music fields
+* Fixed defect where 'index.' wasn't removed from home and archive links, broken in 1.6.1 - 1.7.2
+* Fixed issue where some screens had 'Content-type...' at top of.
+* Updated default templates to use cookie code, entry subjects as page titles, and smartemotions.
+* Refactored out direct emailing, into Core function
+* Removed 2000+ lines of deprecated code from gm-library.cgi
+* Discovered and documented tag {{entrysubjectstripped}}
+* Discovered and documented tag {{dayappend}}
+* Refactored screens to use CSS and Web functions: Cplog, Ban Ip, Login, front page, authors
+* Added localization logic functionality to enable translation, not fully propagated
+* Fixed defect where Preview Does Not Show Preview as Translated
+	http://greymatterforum.proboards82.com/index.cgi?board=gmbugreport&action=display&thread=1175056731
+* Fixed defect when authors Preview an Entry and then attempt to post it or re-edit it, GM will report an error
+	http://greymatterforum.proboards82.com/index.cgi?board=gmbugreport&action=display&thread=1175056250
+* Fixed defect where if could edit own entries, listed as 'no' instead of 'own' on edit authors page
+* Fixed defect where gm-comments.cgi doesn't check for entryid passed in from form
+* Fixed defect where entrymainbodyfirstwords and entrymorebodyfirstwords didn't work on search results or after commenting.
+  link
+* Fixed defect where Select All on edit entry, didn't select all if there was one item.
+  add issue to forums and link
+* Fixed defect where newlines break comments when previewing or doing commenter verification
+  http://greymatterforum.proboards82.com/index.cgi?board=gmbugreport&action=display&thread=1180022969
+* Fixed defect in gm_DeleteAllSelectedComments where comments where only reduced by 1 on multi-delete of comments   
+  link
+* Fixed defect in gm-comments.cgi where forceverify did not follow 'static' preference
+  http://greymatterforum.proboards82.com/index.cgi?board=gmbugreport&action=display&thread=1180923636
+
+
+=== 1.7.2 ===
+* Modified comments gm_phphackcheck to check search strings for hacks as well, particularly since they are logged.
+* Issue with check execute bit on windows with Active perl, rolling back feature
+* Fixed random phrase generator to create 3 minute window in which phrase is good for
+* Added back key shortcuts for GM:
+  http://greymatterforum.proboards82.com/index.cgi?board=gmbugreport&action=display&thread=1167948704
+* NEW FEATURE: Select all for deleting comments (thanks to debbie):
+  http://greymatterforum.proboards82.com/index.cgi?board=gmmoddev&action=display&thread=1168809763
+* Security enhancements to scan all form variables inputted.
+* Updated install, manual, and developer documents, fixing typos, adding clarifications.
+* Refactored gm_formatentry to Gm_Core
+* Refactored Gm_Storage methods to stop (die) on required params, instead of assuming defaults
+* Truncated search parameter to 35 characters to try and limit attacks
+* UPDATED FEATURE:  Protect author now has an exact and loose option:
+	http://greymatterforum.proboards82.com/index.cgi?board=gmbugreport&action=display&thread=1170709235&page=1#1171558856
+* ADDED FEATURE: If inline formatting on, will display help when entering an entry, editing an entry
+
+
+=== 1.7.1 ===
+* NEW FEATURE: Link Limit will block and/or ban commenters based on number of links in comment
+* NEW FEATURE: Force Preview will require that a commenter preview their post before submitting 
+* NEW FEATURE: Require commenter to type pass-phrase, either a phrase provided or random letters
+* Fixed defect where installations with more than 1 connected files would not rebuild/repair the connected files:
+  http://greymatterforum.proboards82.com/index.cgi?board=gmbugreport&action=display&thread=1163736661&page=1#1163736661  
+* Fixed defect where two templates were cleared out in 1.6.1 upgrade, but should only be cleared out for versions prior to 1.3.1.
+  http://greymatterforum.proboards82.com/index.cgi?board=gmbugreport&action=display&thread=1163569859&page=1#1163569859
+* Fixed defect where military hour not showed as 00 for 12 am:
+	http://greymatterforum.proboards82.com/index.cgi?board=gmbugreport&action=display&thread=1165810428&page=1#1165810428
+* Fixed defect where censored word list was no longer honored.  Due to 1.6.1 refactoring:
+	http://greymatterforum.proboards82.com/index.cgi?board=gmbugreport&action=display&thread=1165811797&page=1#1165811797
+* Fixed defect where multiple files where not being processed:
+	http://greymatterforum.proboards82.com/index.cgi?board=gmbugreport&action=display&thread=1163736661&page=1#1163736661
+* Fixed defect where 	{{commentauthorsmartlink}} was not being censored:
+	http://greymatterforum.proboards82.com/index.cgi?board=gmbugreport&action=display&thread=1164257159&page=1#1164257159
+* Fixed defect where preview/post wouldn't work unless "Protect Author Name" was enabled.
+	http://greymatterforum.proboards82.com/index.cgi?board=gmbugreport&action=display&thread=1165981473&page=1#1165981473
+* refactored gm_collatecomments into Gm_Core, in order to gain OO benefits.
+* refactored gm_getentryvariables into Gm_Core, in order to gain OO benefits.
+* Tighted up regex to look for hacks, specifically malformed iframe and script tags
+   URL
+* GM will search closed entries - THIS IS NO LONGER A DEFECT SINCE 1.3.1
+  http://greymatterforum.proboards82.com/index.cgi?action=display&board=gmbugreport&thread=1161577994
+
+  
+
+=== 1.6.1 ===
+* added author name protecion, commenter must enter name_pw in order to post with author name.
+* refactored config screen to use Gm_Web.pm functions, cut down on if statements
+* refactored to use Gm_Constants to avoid typos of bareword flags.
+* refactored to use Gm_Storage to retrieve templates (continue this trend to get to db)
+  - also refactored template file so that templates are stored as: template_name=templatevalue (removes order dependance)
+* refactored to use Gm_Storage to retrieve and set configs
+  - also refactored configs to use format: configname=configvalue (removes order dependance, cleaner)
+* refactored to use Gm_Storage to retrive and set ban lists
+* refactored to use Gm_Storage to retrive and save authors
+* refactored minor "utility" functions to Gm_Utils
+  - This includes &date which is now Gm_Utils::getStdDate
+* fixed issue with ArchiveGroupingFooter not being printed properly
+	http://greymatterforum.proboards82.com/index.cgi?board=gmbugreport&action=display&thread=1155058370&page=1#1155058370
+* removed quotes, they don't contribute anything to the task at hand.
+* added user templates for errors that are displayed to grey matter users vs gm admin messages
+  http://greymatterforum.proboards82.com/index.cgi?board=gmfeaturemodrequests&action=display&thread=1155527898&page=1#1155527898
+* added in Multiple delete on the entry edit page.
+
+
+=== 1.3.1 ===
+* added xhtml sanitation for & symbols.
+  http://www.greymatterforums.com/index.php?topic=9178.msg40972#msg40972
+* added {{entrymood}} and {{entrymusic}} to {{logentrylist}} and {{calendar}}
+  http://www.greymatterforums.com/index.php?topic=7555.0
+* fixed default first paths (removed cgi-bin from log and entries/archives paths).
+* added the google comment spam prevention to the comments censor code
+  and default {{commentauthoremail}} & {{commentauthorhomepage}} templates.
+  http://www.google.com/googleblog/2005/01/preventing-comment-spam.html
+* cplog sanitised (< converted to &lt; and > converted to &gt;)
+  http://www.greymatterforums.com/index.php?topic=9146.0
+* gm-comments.cgi and gm-karma.cgi use the cplog subroutine
+* <iframe check added in php hack detection script
+* Editing Author without editing password no longer wipes password
+  http://www.greymatterforums.com/index.php?topic=8526.0
+* Inputs into gm-comments.cgi and gm.cgi have < and > replaced
+* Ampersand in Subject now comes out as &
+  http://www.greymatterforums.com/index.php?topic=8861.0
+* $commentname="gm_password"; at the top of gm-library.cgi. It changes the name of your password cookie
+  http://www.greymatterforums.com/index.php?topic=9146.0
+* Check for overwriting when adding new entry
+* $commentname support added to deleting cookie through config
+* Changed some of the simple html tags to lowercase: <b> <font>
+* cplog sanatise re-written to only take out possible hack html
+* {{smartentrymusic}} and {{smartentrymood}} now work in {{sidebar}}
+  http://www.greymatterforums.com/index.php?topic=8707.0
+* changed main menu background color and used some css goodies
+* http://www.greymatterforums.com/index.php?topic=6336
+  casting a karma vote neutralized emoticons, entrymusic, and entrymood (Fixed 2/2 Silent Bob)
+* http://www.greymatterforums.com/index.php?topic=6750
+  calendar doesn't validate as xhtml when month ends on Saturday (Fixed 1/8 linear)
+* http://www.greymatterforums.com/index.php?topic=6535
+  {{authorsmartlink}} gets autolinked twice
+* (no bug report, several complaints)
+  autolinking in entries removed. Use the {{link}} varaibles provided instead. (Fixed 2/19 linear)
+* fixed $aftermath related karma bug (Fixed 2/11 linear)
+* http://www.greymatterforums.com/index.php?topic=7105
+  {{loglistmonthwordshort}} returned wrong value (Fixed 2/8 Ian)
+* http://www.greymatterforums.com/index.php?topic=7141 (Fixed 6/29 Linear/flipped cracker)
+  added new $dategrouping flag
+* removed easy formatting from entry subject (flipped cracker 6/29)
+* updated gm gui using css (flipped cracker 6/29)
+
+
+=== 1.3 ===
+1) security-related fixes
+* Rebuilding Files no longer exposes author username and password
+    + uses a token file written to disk which is cleaned up at the end of the rebuild
+    + passes a reference to that token instead
+    + this keeps author usernames/password out of server and proxy logs, and out
+    of browser history. 
+    + knowledge of the token will not grant access since it expires.
+* &gm_phphackcheck improved in several ways
+    + now catches all PHP alternative delimiter styles: <?php ?> <? ?> 
+    <% %> and <script language="php"> </script>
+    + catches other forms of comment XSS attacks as well
+    + now logs to control panel log--with a config setting to
+    disable this logging (gm-phphacklog.cgi file now obsolete)
+    + now emails the comment email recipient list with a hack attempt 
+    notice-- with a config setting to disable this behavior
+    + some variable renaming bugs were cleaned up from patch to 1.21d
+    + &gm_phphackcheck is now called much earlier in the script
+* tag removal from comments made significantly more robust
+    + now catches any tags containing spaces (and attributes) previously
+    + still can't really catch nested tags cleanly, however, 
+    <script></script> is now intercepted by &gm_phphacklog
+* &gm_searchresults now improved for XSS issues
+    + now converts < and > to entites before printing the search string
+    + search string is still passed to the regex unmodified
+* passwords are stored in an encrypted form in gm-authors.cgi
+    + for compatibility and upgrade purposes, plaintext passwords are still 
+    supported, which allows for a "password reset" by modifying gm-authors.cgi 
+* search function input is examined before passing to the search code
+    + solves issues with special characters causing the search function to crash       
+
+2) feature improvements
+* upgrade routine improved
+    + removed "cannot determine version setup" issues
+    + upgrade recognizes recent versions, including the versions with 
+    encrypted passwords
+* included emoticons (smilie hack)
+    + includes clickable smilies on "add an entry" page
+    + includes clickable smilies on comment page
+    + emoticons can be disabled on a per-entry basis
+* added emoticons path to configuration
+    + allows use of {{emoticonspath}} in templates
+* changed number of entries being rebuilt from 20 to 10
+    + reduces load while rebuilding
+* &gm_saveconfigurationdr added to have gm save the config when going to the D&R screen
+    + removes the step of having to save the config and then go back to run the D&R
+* added music input for entries
+    + allows use of {{entrymusic}} variable in entry related templates
+    + {{smartentrymusic}} template allows you to repurpose the field for 
+    something else, and that label that won't display if the music field 
+    is left blank on that entry
+* added mood input for entries
+    + allows use of {{entrymood}} variable in entry related templates
+    + {{smartentrymood}} template allows you to repurpose the field for 
+    something else, and that label that won't display if the music field 
+    is left blank on that entry
+* new {{smartentrymusic}} and {{smartentrymood}} templates
+    + allow you to define your own label for the entry music and mood fields
+    + will not display the label if the fields are blank for an entry
+* new CSS-based default template set
+    + radically improves the look of a fresh install
+    + easier to modify since the stylesheet rules are in the header template
+    + uses most of the new template variables and new templates      
+* new Date Grouping Footer template
+    + allows you to use the Date Grouping Header template to open a <div> or other
+    element, which you can close in the Date Grouping Footer template, allowing
+    significantly improved grouping of entries by date  
+    + the corresponding template also appears in archive pages as well
+* new miscellaneous templates: Smartlink Target Template and Comment Smartlink Target Template
+    + allow you to specify a target frame for the {{*smartlink}} variables, specifically
+    allows using target="_blank" to make commenters' homepage links target a new window
+
+3) bug fixes
+* changed ambiguous wording in gm menu
+* added 00000000.cgi bugfix (http://www.greymatterforums.com/index.php?topic=5053)
+* added fix for square brackets and various other metacharacters in subject lines.
+  (http://www.greymatterforums.com/index.php?topic=5368)
+* comment preview code edited to allow use of image buttons in {{entrycommentsform}}
+  template (http://www.greymatterforums.com/index.php?topic=4185)
+* allow non-integer server time offset value.
+* added the {{logentrylist commentsnumber}} fix (bugfix and performance)
+  (http://www.greymatterforums.com/index.php?topic=5797)  
+* fixed 1.21c bug that affected editing authors passwords

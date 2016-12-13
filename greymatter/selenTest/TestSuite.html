@@ -1,0 +1,92 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>GreyMatter Test Suite</title>
+</head>
+<body>
+<!--
+chrome://selenium-ide/content/selenium/TestRunner.html?baseURL=http://norbert.local/gm-dev/&test=file:///Library/WebServer/Documents/gm-dev/selenTest/TestSuite.html
+-->
+
+<table>
+<tr>
+<td>GreyMatter Test Suite: Test suite for the whole application</td>
+</tr>
+
+<!--
+	TESTING AUTHOR ALL PERMISSIONS
+-->
+<tr>
+<td><a target="testFrame" href="gmAdminAliceLogin.html" >Login With Alice</a></td>
+</tr>
+<tr>
+<td><a target="testFrame" href="AuthorPerms/gmAdminAllTestAuthorCreate.html" >Create User: allTest</a></td>
+</tr>
+<tr>
+<td><a target="testFrame" href="AuthorPerms/gmAdminAllTestLogin.html" >Login with: allTest</a></td>
+</tr>
+<tr>
+<td><a target="testFrame" href="AuthorPerms/gmAdminAllNav.html" >Test AllAccess Screens: allTest</a></td>
+</tr>
+<tr>
+<td><a target="testFrame" href="gmAdminAliceLogin.html" >Login With Alice</a></td>
+</tr>
+<tr>
+<td><a target="testFrame" href="AuthorPerms/gmAdminAllTestAuthorDelete.html" >Delete User: allTest</a></td>
+</tr>
+
+
+<!--
+	TESTING AUTHOR NO PERMISSIONS
+-->
+<tr>
+<td><a target="testFrame" href="gmAdminAliceLogin.html" >Login With Alice</a></td>
+</tr>
+<tr>
+<td><a target="testFrame" href="AuthorPerms/gmAdminNoAccessAuthorCreate.html" >Create User: NoAccess Test</a></td>
+</tr>
+<tr>
+<td><a target="testFrame" href="AuthorPerms/gmAdminNoAccessLogin.html" >Login with: NoAccess Test</a></td>
+</tr>
+<tr>
+<td><a target="testFrame" href="AuthorPerms/gmAdminNoAccessNoNav.html" >Verify Access Denied: NoAccess Test</a></td>
+</tr>
+<tr>
+<td><a target="testFrame" href="gmAdminAliceLogin.html" >Login With Alice</a></td>
+</tr>
+<tr>
+<td><a target="testFrame" href="AuthorPerms/gmAdminNoAccessAuthorUpdate.html" >Update User: NoAccess Test</a></td>
+</tr>
+<tr>
+<td><a target="testFrame" href="AuthorPerms/gmAdminNoAccessLogin.html" >Login with: NoAccess Test</a></td>
+</tr>
+<tr>
+<td><a target="testFrame" href="AuthorPerms/gmAdminNoAccessNav.html" >Test NoAccess Screens: NoAccess Test</a></td>
+</tr>
+<tr>
+<td><a target="testFrame" href="gmAdminAliceLogin.html" >Login With Alice</a></td>
+</tr>
+<tr>
+<td><a target="testFrame" href="AuthorPerms/gmAdminNoAccessAuthorDelete.html" >Delete User: NoAccess Test</a></td>
+</tr>
+
+
+<!--
+	TESTING BANLIST
+-->
+<tr>
+<td><a target="testFrame" href="gmAdminAliceLogin.html" >Login With Alice</a></td>
+</tr>
+<tr>
+<td><a target="testFrame" href="BanList/gmAdminBanlistAdd.html" >Test Banlist: Alice</a></td>
+</tr>
+
+
+
+
+
+
+
+</table>
+</body>
+</html>

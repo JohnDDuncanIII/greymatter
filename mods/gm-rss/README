@@ -1,0 +1,190 @@
+gm-rss.cgi 2.1.0 - README  29 Aug 2006
+-------------------------------------------------------------------
+gm-rss.cgi - Creates an RDF feed of Greymatter entries complying to RSS 1.0.
+Copyright (C) Electric Banana 2003
+
+This program is free software; you can redistribute it and/or modify it under
+the terms of the GNU General Public License as published by the Free Software
+Foundation; either version 2 of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY
+WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+PARTICULAR PURPOSE. See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along with this
+program; if not, write to the Free Software Foundation, Inc., 59 Temple Place,
+Suite 330, Boston, MA 02111-1307 USA
+
+Contact Bananabob - http://ebanana.orcon.net.nz/gm-rss.html
+
+Verison 2.1.0 support added for RSS 2,0 and Atom 0.3 by Pete Finnigan - http://web.petefinnigan.com/gm-rss.htm
+-------------------------------------------------------------------
+Notes on how it works.
+
+gm-rss works by reading your gm-entrylist.cgi and finding the latest open entries. This is restricted to 15. It then reads the from the path you have specified in your Greymatter configuration for Local Entries/Archives Path all of the html files for the 15 entries it found. The RSS feed is then built from these entries and stored in the same directory as your index.html/htm file.
+-------------------------------------------------------------------
+Requirements.
+
+gm-rss requires the following PERL modules
+XML::RSS
+XML::Parser
+XML::Simple
+XML::Atom::Simplefeed
+CGI
+CGI::Carp
+POSIX
+
+Here is an example of an email you can send to your hosting service to inquire if they are installed and ask them to install them.
+
+-------------------------------------------------------------------
+Hello
+
+I am installing a PERL script that requires the following modules:
+XML::RSS
+XML::Parser
+XML::Simple
+XML::Atom::Simplefeed
+CGI
+CGI::Carp
+
+Please could you tell me if they are installed, and if they are not, please install them for me.
+
+Thank you.
+-------------------------------------------------------------------
+
+Notes on upgrading from a previous release.
+
+If you are upgrading from any previous release you need to:
+
+1 upload gm-rss.cgi and chmod gm-rss.cgi to 755.
+ 
+-------------------------------------------------------------------
+Notes on installation. 
+
+1. Change the line #!/usr/bin/perl to where your version of Perl is kept.
+
+2. Note do not change anything below the line:
+  ALTER NOTHING BELOW THIS LINE. 
+
+3. Place gm-rss into the cgi library with your other Greymatter modules.
+
+4. chmod gm-rss to 755.
+
+5. There is no step five.
+
+6. Edit the gm-rssconfig.cfg file following the instructions provided in the file. 
+
+7. Upload gm-rssconfig.cfg to the directory where your main index file is kept.
+This is the directory you have entered in the Greymatter configuration for
+"Local Log Path".
+
+8. Change the name of the files example.rdf, example.rss and example.xml to the name you 
+have used in the gm-rssconfig.cfg file for "dest_name". But unlike in the gm-rssconfig.cfg
+the file extensions are needed. This is because the gm-rss generates the three files, they
+all have the same base name specified in gm-rssconfig.cfg but a different file is needed
+for each feed.
+
+9. Upload the renamed example.rdf file to the directory where your main index file
+is kept. This is the directory you have entered in the Greymatter configuration
+for "Local Log Path", and the same one you uploaded to in step 6.
+
+10. Change your Entry Page-Related Templates so that the following: 
+<span class="rss:item">
+is just before the first line of data you wish to appear in your RSS feed.
+This is usually the {{entrymainbody}} line.
+
+11. Change your Entry Page-Related Templates so that the following: 
+</span>
+is just after the last line of the data you wish to appear in your RSS feed.
+This is usually the {{entrymainbody}} line.
+
+eg.
+<h3>{{entrysubject}}</h3>
+<span class="rss:item">
+ <P>
+{{entrymainbody}}
+ </p>
+</span>
+It is highly recommended that you place the <span class="rss:item"> and </span> as
+shown above.  
+
+12. Include the following code on your main page so that people know you have an
+RSS feed.
+
+<a href="http://web.petefinnigan.com/weblog/entries/petefinnigan.rdf"><img src="http://web.petefinnigan.com/images/rss1.gif" alt="RSS 1.0 FEED" title="RSS 1.0 FEED" border="0" vspace="0" hspace="0" width="80" height="15"></a>
+<br><a href="http://web.petefinnigan.com/weblog/entries/petefinnigan.rss"><img src="http://web.petefinnigan.com/images/rss2.gif" alt="RSS 2.0 FEED" title="RSS 2.0 FEED" border="0" vspace="0" hspace="0" width="80" height="15"></a>
+<br><a href="http://web.petefinnigan.com/weblog/entries/petefinnigan.xml"><img src="http://web.petefinnigan.com/images/atom.gif" alt="Atom 0.3 FEED" title="Atom 0.3 FEED" border="0" vspace="0" hspace="0" width="80" height="15"></a>
+<br>Powered by <a href="http://web.petefinnigan.com/gm-rss.htm" target="_blank">gm-rss 2.0.1</a>
+
+web.petefinnigan.com should be changed to your website address
+petefinnigan.rdf / rss / xml should be changed to agree with the destination/outputfile (dest_name)
+file in gm-rssconfig.cfg.
+rss1.gif, rss2.gif and atom.gif must be placed in your images folder/directory
+and the web.petefinnigan.com/images/rss.gif / rdf.gif and atom.gif changed to reflect the location.
+
+13. Rebuild your files and you are ready to run. Each time you wish to update your
+feed just type the following into your web browser:
+
+http://www.example.com/cgi-bin/gm-rss.cgi
+
+changing example.com to your website and cgi-bin to the name of the library where gm-rss.cgi is kept.
+
+You would normally do this after you have added an entry. 
+-------------------------------------------------------------------
+Limiting The Number Of Words In Each Item In The Feed.
+
+Note that if you wish to only include a specific number of words
+in the RDF feed that gm-rss produces it can be done.
+
+Say that you only wanted the first 20 words of every item to be included in the gm-rss feed.
+
+You would do this by changing the Entry Page-Related Templates template to read something like this:
+
+<h3>{{entrysubject}}</h3>
+<span class="rss:item"  style="display:none;">
+<p>
+{{entrymainbodyfirstwords 20}}
+</p>
+</span>
+<P ALIGN=JUSTIFY>
+{{entrymainbody}}
+</P>
+
+This will display the whole entry on your item page, but only the first 20 words on the RDF feed. To change the number of words, change 20 to whatever you want.
+
+(With thanks to DaSaintFan and linear)
+-------------------------------------------------------------------
+Run gm-rss Automatically (With thanks to Kattie)
+
+To run gm-rss automatically you must make the following modifications to Greymatter.
+
+Backup up gm-library.cgi
+
+Put the statement "system './gm-rss.cgi';" at the end of each of the following subroutines in gm-library.cgi:
+
+NOTE: the line numbers given are for Greymatter 1.3 only. Do not place the change at these linenumbers in any other release of Greymatter.
+
+	gm_rebuildupdate (line number 10687)
+	gm_rebuildlastentrypageonly (line number 7800)
+	gm_rebuildarchivemasterindex (line number 7880)
+	gm_rebuildarchivelogindexes (line number 7946)
+	gm_saveentrychanges (line number 9047)
+	gm_generatemainindex (line number 2248)
+
+
+Once this modifications are made, gm-rss will rebuild the RSS feed every time Greymatter rebuilds the files.
+
+-------------------------------------------------------------------
+Run gm-rss Manually
+
+Each time you wish to update your
+feed just type the following into your web browser:
+
+http://www.example.com/cgi-bin/gm-rss.cgi
+
+changing example.com to your website and cgi-bin to the name of the library where gm-rss.cgi is kept.
+
+You would normally do this after you have added an entry.
+gm-rss will run without the full informational messages. Should you wish to get the full informational messages (verbose mode) you must invoke it thus:
+
+http://example.com/cgi-bin/gm-rss.cgi?-v

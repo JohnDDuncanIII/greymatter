@@ -1,0 +1,104 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>gmAdminAliceLogin</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">gmAdminAliceLogin</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>cgi-bin/gm.cgi</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>Greymatter</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>loginname</td>
+	<td>Alice</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>loginpw</td>
+	<td>wonderland</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>login</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Welcome, Alice.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>new</td>
+	<td>Add A New Entry</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>link=Visit Your Site</td>
+	<td>Visit Your Site</td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>configs</td>
+	<td>Configuration</td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>entries</td>
+	<td>Edit An Entry</td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>templates</td>
+	<td>Edit Templates</td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>authors</td>
+	<td>Edit Authors</td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>rebuild</td>
+	<td>Rebuild Files</td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>cplog</td>
+	<td>View Control Panel Log</td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>bookmarklet</td>
+	<td>Add Bookmarklets</td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>upload</td>
+	<td>Upload Files</td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>banip</td>
+	<td>Edit Banned IP List</td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>relogin</td>
+	<td>Re-Login</td>
+</tr>
+
+</tbody></table>
+</body>
+</html>

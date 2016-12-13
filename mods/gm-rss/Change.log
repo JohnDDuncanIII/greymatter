@@ -1,0 +1,68 @@
+Change Log
+
+version (2.0.0) 29/08/2006 - Pete Finnigan (http://web.petefinnigan.com/gm-rss.htm
+	fixed dates for RDF feed
+	added RSS2.0 feed generation
+	added Atom feed generation
+
+Version (1.0.3a) 04/06/06 (Change Your Image Version)
+No change to the code, just changed the RDF image to an RSS one. The history behind my reason for shipping the RDF image is well.... lets just say I was wrong and you should change your image to the new RSS one.
+
+Version (1.0.3) 22/10/04 (Labour Weekend Version)
+
+Fixed bug.
+	1. Would not run in Firefox 0.9. This may be true of some other browsers.
+
+Version (1.0.2) 15/6/04 (Happy Birthday David Version)
+
+Fixed two bugs.
+	1. Multiple Posted by lines.
+	2. Print of /body and /html on screen if run manually 
+
+Version (1.0.1) 27/4/04 (The quiet one)
+
+Now only produces messages, except for the final built OK message, when requested.
+
+Version (1.0.0) 30/1/04 (The first and last version)
+
+Changed the date to agree with ISO standards. Thus making the RSS feed valid.
+
+Version (0.6.0) 22/6/03 (The why didn't I think of it first version)
+
+On a request from a user I have included the ability to include the name of
+the poster of an item, the date posted, and the time.
+
+Version (0.5.1) 14/6/03 (The never release software on Friday 13th version)
+
+Fixed a bug that crept in with version 0.5.0. This was causing the links to 
+each entry to be built incorrectly eg:
+http://www.example.com/archives/00000007.html
+was being built as:
+http://www.example.com/archives00000007.html
+
+Version (0.5.0) 13/6/03
+
+Removed the XML directory. This was just not working out.
+You will need to check with your hosting service that the required modules are
+available. (See README)
+Fixed bug where the suffix for the entry files was fixed as .html
+The suffix is now obtained from the Greymatter configuration file. 
+
+Version (0.4.2) 8/6/03
+
+Ship all XML requirements in XML directory
+Include instructions on limiting the length of each item in the RSS feed.
+Amend instructions in the README
+
+Version (0.4.1) 23/5/03
+
+Rebuild of the zip as several files were missing
+Expanded instructions in the README
+
+
+Version (0.4.0) 19/5/03
+
+Fixed bug where multiple span tags not recognised.
+Code now removes extra span tags and div tags so they do not break the rss feed.
+Amended code to make more efficient
+Added more comments to ensure the code is understood
