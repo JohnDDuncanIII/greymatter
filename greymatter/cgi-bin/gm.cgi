@@ -40,8 +40,8 @@
 
 ## This is adding script directory to INC, investigate regex
 eval {
-	($0 =~ m,(.*)/[^/]+,) && unshift (@INC, "$1");
-	($0 =~ m,(.*)\\[^\\]+,) && unshift (@INC, "$1");
+    ($0 =~ m,(.*)/[^/]+,) && unshift (@INC, "$1");
+    ($0 =~ m,(.*)\\[^\\]+,) && unshift (@INC, "$1");
 };
 
 #use strict;
@@ -75,7 +75,7 @@ my $gmConfigs = Gm_Storage::getConfigs( errHandler=>\&Gm_Web::displayAdminErrorE
 # since Security may have its own banlist, while Gm has its own seperate banlist, which we would not
 # expect external Security to honor or update.
 Gm_Core::processBanCheck( ip=>$ENV{'REMOTE_ADDR'}, errHandler=>\&Gm_Web::displayAdminErrorExit, 
-	action=>Gm_Core::text( Gm_Constants::ACCESS_ADMIN ) );
+                         action=>Gm_Core::text( Gm_Constants::ACCESS_ADMIN ) );
 
 ## Generisize to an html safe method, should this be after validate?? or is it XSS protection, should be in 
 ## logic that actually logs username/pw
@@ -108,84 +108,84 @@ exit;
 # as 'edit', 'delete', etc.
 sub handleRequest {
 
-	## this is taken care of by the auth mechanism, but we are double checking anyway
-	## It is not Gm_Security's responsibility to tell user can't access, Security tells us, we tell user
-	if( $AUTHOR{'viewadmin'} ne Gm_Constants::Y ){
-		Gm_Core::writeToCplog( '<span class="error_msg">'.Gm_Core::text( 
-			Gm_Constants::LOGIN_NO_ACCESS, { AUTHOR=>$AUTHOR{'author'}}).'</span>' );
-		my $message = '<span class="error_msg">'.Gm_Core::text( Gm_Constants::LOGIN_ACCESS_DENY ).'</span><br />';
+    ## this is taken care of by the auth mechanism, but we are double checking anyway
+    ## It is not Gm_Security's responsibility to tell user can't access, Security tells us, we tell user
+    if( $AUTHOR{'viewadmin'} ne Gm_Constants::Y ){
+        Gm_Core::writeToCplog( '<span class="error_msg">'.Gm_Core::text( 
+                                   Gm_Constants::LOGIN_NO_ACCESS, { AUTHOR=>$AUTHOR{'author'}}).'</span>' );
+        my $message = '<span class="error_msg">'.Gm_Core::text( Gm_Constants::LOGIN_ACCESS_DENY ).'</span><br />';
 
-		Gm_Web::displayAdminErrorExit( $message );
-	}
-	unless( $IN{'section'} ){
-		$IN{'section'} = Gm_Constants::EMPTY;
-	}
+        Gm_Web::displayAdminErrorExit( $message );
+    }
+    unless( $IN{'section'} ){
+        $IN{'section'} = Gm_Constants::EMPTY;
+    }
 
-	if( $IN{'section'} eq 'cplog' || $IN{'cplog'} ){
-		## The Control Panel Log
-		$IN{'section'} = 'cplog';
-		## Once navigation is by links, not buttons, can get rid of the or clause
-		doCplog();
+    if( $IN{'section'} eq 'cplog' || $IN{'cplog'} ){
+        ## The Control Panel Log
+        $IN{'section'} = 'cplog';
+        ## Once navigation is by links, not buttons, can get rid of the or clause
+        doCplog();
 	
-	} elsif( $IN{'section'} eq 'banip' || $IN{'banip'} ){
-		## The Control Panel Log
-		$IN{'section'} = 'banip';
-		## Once navigation is by links, not buttons, can get rid of the or clause
-		doBanip();
+    } elsif( $IN{'section'} eq 'banip' || $IN{'banip'} ){
+        ## The Control Panel Log
+        $IN{'section'} = 'banip';
+        ## Once navigation is by links, not buttons, can get rid of the or clause
+        doBanip();
 	
-	} elsif( $IN{'section'} eq 'relogin' || $IN{'relogin'} ){
-		## Re Authing
-		$IN{'section'} = 'relogin';
-		## Once navigation is by links, not buttons, can get rid of the or clause
+    } elsif( $IN{'section'} eq 'relogin' || $IN{'relogin'} ){
+        ## Re Authing
+        $IN{'section'} = 'relogin';
+        ## Once navigation is by links, not buttons, can get rid of the or clause
 
-		%AUTHOR = %{ Gm_Security::auth( webparams=>\%IN, reauth=>1,
-			errHandler=>\&Gm_Web::displayAdminErrorExit ) };
+        %AUTHOR = %{ Gm_Security::auth( webparams=>\%IN, reauth=>1,
+                                       errHandler=>\&Gm_Web::displayAdminErrorExit ) };
 	
-	} elsif( $IN{'section'} eq 'login' || $IN{'login'} ){
-		## just logged in
-		$IN{'login'} = 'login';
-		doLogin();
-		
-	} elsif( $IN{'section'} eq 'authors' || $IN{'authors'} ){
-		## Editing Authors
-		$IN{'section'} = 'authors';
-		doAuthors();	
+    } elsif( $IN{'section'} eq 'login' || $IN{'login'} ){
+        ## just logged in
+        $IN{'login'} = 'login';
+        doLogin();
+        
+    } elsif( $IN{'section'} eq 'authors' || $IN{'authors'} ){
+        ## Editing Authors
+        $IN{'section'} = 'authors';
+        doAuthors();	
 
-	} elsif( $IN{'section'} eq 'entries' || $IN{'entries'} ){
-		## Editing Entries
-		$IN{'section'} = 'entries';
-		doEntries();	
+    } elsif( $IN{'section'} eq 'entries' || $IN{'entries'} ){
+        ## Editing Entries
+        $IN{'section'} = 'entries';
+        doEntries();	
 
-	} elsif( $IN{'section'} eq 'bookmarklet' || $IN{'bookmarklet'} ){
-		## Editing bookmarklets
-		$IN{'section'} = 'bookmarklet';
-		viewBookmarklet();	## Since just one thing, violating do pattern
+    } elsif( $IN{'section'} eq 'bookmarklet' || $IN{'bookmarklet'} ){
+        ## Editing bookmarklets
+        $IN{'section'} = 'bookmarklet';
+        viewBookmarklet();	## Since just one thing, violating do pattern
 
-	} elsif( $IN{'section'} eq 'configs' || $IN{'configs'} ){
-		## Editing Configs
-		$IN{'section'} = 'configs';
-		doConfigs();
+    } elsif( $IN{'section'} eq 'configs' || $IN{'configs'} ){
+        ## Editing Configs
+        $IN{'section'} = 'configs';
+        doConfigs();
 
-	} elsif( $IN{'section'} eq 'templates' || $IN{'templates'} ){
-		## Editing Configs
-		$IN{'section'} = 'templates';
-		doTemplates();
+    } elsif( $IN{'section'} eq 'templates' || $IN{'templates'} ){
+        ## Editing Configs
+        $IN{'section'} = 'templates';
+        doTemplates();
 
-	} elsif( $IN{'section'} eq 'rebuild' || $IN{'rebuild'} ){
-		## Editing Configs
-		$IN{'section'} = 'rebuild';
-		doRebuild();
+    } elsif( $IN{'section'} eq 'rebuild' || $IN{'rebuild'} ){
+        ## Editing Configs
+        $IN{'section'} = 'rebuild';
+        doRebuild();
 
-	} elsif( $IN{'section'} eq 'upload' || $IN{'upload'} ){
-		## Editing Configs
-		$IN{'section'} = 'upload';
-		doUpload();
+    } elsif( $IN{'section'} eq 'upload' || $IN{'upload'} ){
+        ## Editing Configs
+        $IN{'section'} = 'upload';
+        doUpload();
 
-	}
-	
+    }
+    
 
-	#frontPage(); # eventually we are going to default to the menu or login,
-	# but it would mess without fall through, where we do new stuff first and old if nothing else
+    #frontPage(); # eventually we are going to default to the menu or login,
+    # but it would mess without fall through, where we do new stuff first and old if nothing else
 }
 
 
@@ -193,294 +193,294 @@ sub handleRequest {
 # Will display the main page of Greymatter
 # (opt) ARG1: Message to display to user, could be error or confirmation of action
 sub frontPage {
-	my $message = shift( @_ ) || Gm_Constants::EMPTY;
-	
-## TODO: no font tags in main menu and strip table of formatting, layout
-## DONE AT TOP, REMOVE
-#	my $gmConfigs = Gm_Storage::getConfigs( errHandler=>\&Gm_Web::displayAdminErrorExit );
-	
-	my $page = '<span class="section_title">'.Gm_Core::text( Gm_Constants::FRONTPAGE_TITLE ).
-		"</span><br /><p>$message</p><p class=\"text_left\">\n";
-		
-	my $setnameandpwcookie = Gm_Constants::EMPTY;
-# 	if( ($IN{'authorname'} eq "Alice" ) && ($IN{'authorpassword'} eq "wonderland") ){
-	if( ($AUTHOR{'author'} eq 'Alice' ) && ($AUTHOR{'password'} eq 'woCCASD0Wk0IA') ){
-		$setnameandpwcookie = "<SCRIPT TYPE=\"text/javascript\" ".
-			"LANGUAGE=\"JavaScript\">\n<!--//\n".
-			"deleteCookie(\"gmcookiename\" );\n".
-			"deleteCookie(\"".Gm_Constants::GM_COOKIE_PW."\" );\n//-->\n</SCRIPT>";
-	} else {
-		## TODO: FIX THIS, AUTHOR CREDENTIALS ARE THE PROVIDENCE OF GM_SECURITY
-		# REMEMBER LOGIN SHOULD BE DONE BY GM_SECURITY
-		$setnameandpwcookie = "<SCRIPT TYPE=\"text/javascript\" ".
-			"LANGUAGE=\"JavaScript\">\n<!--//\nvar now = new Date();\n".
-			"fixDate(now);\nnow.setTime(now.getTime() + 365 * 24 * 60 * 60 * 1000);\n".
-			"setCookie(\"gmcookiename\", \"$IN{'loginname'}\", now);\n".
-			"setCookie(\"".Gm_Constants::GM_COOKIE_PW."\", \"$IN{'loginpw'}\", now);\n//-->\n</SCRIPT>";
-	}
-	
-	if( $gmConfigs->{'gmcookiesallowed'} eq Gm_Constants::NO || !$IN{'login'} ){
-		$setnameandpwcookie = Gm_Constants::EMPTY;
-	}
+    my $message = shift( @_ ) || Gm_Constants::EMPTY;
+    
+    ## TODO: no font tags in main menu and strip table of formatting, layout
+    ## DONE AT TOP, REMOVE
+    #	my $gmConfigs = Gm_Storage::getConfigs( errHandler=>\&Gm_Web::displayAdminErrorExit );
+    
+    my $page = '<span class="section_title">'.Gm_Core::text( Gm_Constants::FRONTPAGE_TITLE ).
+        "</span><br /><p>$message</p><p class=\"text_left\">\n";
+    
+    my $setnameandpwcookie = Gm_Constants::EMPTY;
+    # 	if( ($IN{'authorname'} eq "Alice" ) && ($IN{'authorpassword'} eq "wonderland") ){
+    if( ($AUTHOR{'author'} eq 'Alice' ) && ($AUTHOR{'password'} eq 'woCCASD0Wk0IA') ){
+        $setnameandpwcookie = "<SCRIPT TYPE=\"text/javascript\" ".
+            "LANGUAGE=\"JavaScript\">\n<!--//\n".
+            "deleteCookie(\"gmcookiename\" );\n".
+            "deleteCookie(\"".Gm_Constants::GM_COOKIE_PW."\" );\n//-->\n</SCRIPT>";
+    } else {
+        ## TODO: FIX THIS, AUTHOR CREDENTIALS ARE THE PROVIDENCE OF GM_SECURITY
+        # REMEMBER LOGIN SHOULD BE DONE BY GM_SECURITY
+        $setnameandpwcookie = "<SCRIPT TYPE=\"text/javascript\" ".
+            "LANGUAGE=\"JavaScript\">\n<!--//\nvar now = new Date();\n".
+            "fixDate(now);\nnow.setTime(now.getTime() + 365 * 24 * 60 * 60 * 1000);\n".
+            "setCookie(\"gmcookiename\", \"$IN{'loginname'}\", now);\n".
+            "setCookie(\"".Gm_Constants::GM_COOKIE_PW."\", \"$IN{'loginpw'}\", now);\n//-->\n</SCRIPT>";
+    }
+    
+    if( $gmConfigs->{'gmcookiesallowed'} eq Gm_Constants::NO || !$IN{'login'} ){
+        $setnameandpwcookie = Gm_Constants::EMPTY;
+    }
 
 
-	$page .= $setnameandpwcookie;
-		
-	my @actions = ();
-	my $item = Gm_Constants::EMPTY;
-	
-	## Alice should not have 'Post New' by default
-	if( $AUTHOR{'postnew'} eq Gm_Constants::Y ){	
-		$item = '<input type="hidden" name="section" value="entries">'.
-			'<input type=submit class="button" name="new" '.
-			'value="'.Gm_Core::text( Gm_Constants::FRONTPAGE_ADDNEW ).'" style="background: #D0FFD0;" '.
-			'><br />'.Gm_Core::text( Gm_Constants::FRONTPAGE_ADDNEW_DESC );
-		push( @actions, $item );
-	}
-	
-	#	my $visityoursitelink = Gm_Constants::EMPTY;	
-	# THIS SHOULD BE LINK THAT LOOKS LIKE BUTTON, SEE MULTIEDIT
-	## TODO this should be an action that can be pushed onto actions, 
-	# but because of form, no can do for now
-	unless( ! -e "$gmConfigs->{'gmlogpath'}/$gmConfigs->{'gmindexfilename'}"  ){
-#		&gm_readcounter;
-#		my $gmCounters = Gm_Storage::getCounters( errHandler=>\&Gm_Web::displayAdminErrorExit );
-		
-		if( Gm_Core::hasPosted() ){
-			my $indexfilenamesmartcheck = "/$gmConfigs->{'gmindexfilename'}";
-			my $indexfilenameprefix = substr($gmConfigs->{'gmindexfilename'}, 0, 6);
-			if( $indexfilenameprefix eq 'index.' ) { 
-				$indexfilenamesmartcheck = "/"; 
-			}
-				
-			$item = '<a href="'.$gmConfigs->{'gmlogwebpath'}.$indexfilenamesmartcheck.'" target="NEW" '.
-				'class="link_button" STYLE="background: #D0FFD0; padding: 3px 5em 3px 5em">'.
-				Gm_Core::text( Gm_Constants::FRONTPAGE_VISIT ).'</a>'.
-				'<br />'.Gm_Core::text( Gm_Constants::FRONTPAGE_VISIT_DESC );
-			push( @actions, $item );
-		}
-	}
+    $page .= $setnameandpwcookie;
+    
+    my @actions = ();
+    my $item = Gm_Constants::EMPTY;
+    
+    ## Alice should not have 'Post New' by default
+    if( $AUTHOR{'postnew'} eq Gm_Constants::Y ){	
+        $item = '<input type="hidden" name="section" value="entries">'.
+            '<input type=submit class="button" name="new" '.
+            'value="'.Gm_Core::text( Gm_Constants::FRONTPAGE_ADDNEW ).'" style="background: #D0FFD0;" '.
+            '><br />'.Gm_Core::text( Gm_Constants::FRONTPAGE_ADDNEW_DESC );
+        push( @actions, $item );
+    }
+    
+    #	my $visityoursitelink = Gm_Constants::EMPTY;	
+    # THIS SHOULD BE LINK THAT LOOKS LIKE BUTTON, SEE MULTIEDIT
+    ## TODO this should be an action that can be pushed onto actions, 
+    # but because of form, no can do for now
+    unless( ! -e "$gmConfigs->{'gmlogpath'}/$gmConfigs->{'gmindexfilename'}"  ){
+        #		&gm_readcounter;
+        #		my $gmCounters = Gm_Storage::getCounters( errHandler=>\&Gm_Web::displayAdminErrorExit );
+        
+        if( Gm_Core::hasPosted() ){
+            my $indexfilenamesmartcheck = "/$gmConfigs->{'gmindexfilename'}";
+            my $indexfilenameprefix = substr($gmConfigs->{'gmindexfilename'}, 0, 6);
+            if( $indexfilenameprefix eq 'index.' ) { 
+                $indexfilenamesmartcheck = "/"; 
+            }
+            
+            $item = '<a href="'.$gmConfigs->{'gmlogwebpath'}.$indexfilenamesmartcheck.'" target="NEW" '.
+                'class="link_button" STYLE="background: #D0FFD0; padding: 3px 5em 3px 5em">'.
+                Gm_Core::text( Gm_Constants::FRONTPAGE_VISIT ).'</a>'.
+                '<br />'.Gm_Core::text( Gm_Constants::FRONTPAGE_VISIT_DESC );
+            push( @actions, $item );
+        }
+    }
 
-	if( $AUTHOR{'editconfigs'} eq Gm_Constants::Y ){	
-		$item = '<input type=submit class="button" name="configs" '.
-			'value="'.Gm_Core::text( Gm_Constants::FRONTPAGE_CONFIG ).'"><br />'.
-			Gm_Core::text( Gm_Constants::FRONTPAGE_CONFIG_DESC );
-		push( @actions, $item );
-	}
+    if( $AUTHOR{'editconfigs'} eq Gm_Constants::Y ){	
+        $item = '<input type=submit class="button" name="configs" '.
+            'value="'.Gm_Core::text( Gm_Constants::FRONTPAGE_CONFIG ).'"><br />'.
+            Gm_Core::text( Gm_Constants::FRONTPAGE_CONFIG_DESC );
+        push( @actions, $item );
+    }
 
-	## Alice should not have 'Post New' by default
-	if( $AUTHOR{'editentries'} eq Gm_Constants::Y || $AUTHOR{'editentries'} eq Gm_Constants::O ){	
-		$item = '<input type=submit class="button" name="entries" '.
-			'value="'.Gm_Core::text( Gm_Constants::FRONTPAGE_EDIT ).'"><br />'.
-			Gm_Core::text( Gm_Constants::FRONTPAGE_EDIT_DESC );
-		push( @actions, $item );
-	}
-	
-	if( $AUTHOR{'edittemplates'} eq Gm_Constants::Y || $AUTHOR{'edittemplates'} eq Gm_Constants::O ){	
-		$item = '<input type=submit class="button" name="templates" '.
-			'value="'.Gm_Core::text( Gm_Constants::FRONTPAGE_TEMPL ).'"><br />'.
-			Gm_Core::text( Gm_Constants::FRONTPAGE_TEMPL_DESC );
-		push( @actions, $item );
-	}
+    ## Alice should not have 'Post New' by default
+    if( $AUTHOR{'editentries'} eq Gm_Constants::Y || $AUTHOR{'editentries'} eq Gm_Constants::O ){	
+        $item = '<input type=submit class="button" name="entries" '.
+            'value="'.Gm_Core::text( Gm_Constants::FRONTPAGE_EDIT ).'"><br />'.
+            Gm_Core::text( Gm_Constants::FRONTPAGE_EDIT_DESC );
+        push( @actions, $item );
+    }
+    
+    if( $AUTHOR{'edittemplates'} eq Gm_Constants::Y || $AUTHOR{'edittemplates'} eq Gm_Constants::O ){	
+        $item = '<input type=submit class="button" name="templates" '.
+            'value="'.Gm_Core::text( Gm_Constants::FRONTPAGE_TEMPL ).'"><br />'.
+            Gm_Core::text( Gm_Constants::FRONTPAGE_TEMPL_DESC );
+        push( @actions, $item );
+    }
 
-	if( $AUTHOR{'editauthors'} eq Gm_Constants::Y ){	
-		$item = '<input type=submit class="button" name="authors" '.
-			'value="'.Gm_Core::text( Gm_Constants::FRONTPAGE_AUTHORS ).'"><br />'.
-			Gm_Core::text( Gm_Constants::FRONTPAGE_AUTHORS_DESC );
-		push( @actions, $item );
-	}
-	
-	if( $AUTHOR{'rebuild'} eq Gm_Constants::Y ){	
-		$item = '<input type=submit class="button" name="rebuild" '.
-			'VALUE="'.Gm_Core::text( Gm_Constants::FRONTPAGE_REBUILD ).'"><br />'.
-			Gm_Core::text( Gm_Constants::FRONTPAGE_REBUILD_DESC );
-		push( @actions, $item );
-	}
+    if( $AUTHOR{'editauthors'} eq Gm_Constants::Y ){	
+        $item = '<input type=submit class="button" name="authors" '.
+            'value="'.Gm_Core::text( Gm_Constants::FRONTPAGE_AUTHORS ).'"><br />'.
+            Gm_Core::text( Gm_Constants::FRONTPAGE_AUTHORS_DESC );
+        push( @actions, $item );
+    }
+    
+    if( $AUTHOR{'rebuild'} eq Gm_Constants::Y ){	
+        $item = '<input type=submit class="button" name="rebuild" '.
+            'VALUE="'.Gm_Core::text( Gm_Constants::FRONTPAGE_REBUILD ).'"><br />'.
+            Gm_Core::text( Gm_Constants::FRONTPAGE_REBUILD_DESC );
+        push( @actions, $item );
+    }
 
-	if( $AUTHOR{'viewcplog'} eq Gm_Constants::Y ){	
-		$item = '<INPUT TYPE=SUBMIT CLASS="button" NAME="cplog" '.
-			'VALUE="'.Gm_Core::text( Gm_Constants::FRONTPAGE_CPLOG ).'"><br />'.
-			Gm_Core::text( Gm_Constants::FRONTPAGE_CPLOG_DESC );
-		push( @actions, $item );
-	}
+    if( $AUTHOR{'viewcplog'} eq Gm_Constants::Y ){	
+        $item = '<INPUT TYPE=SUBMIT CLASS="button" NAME="cplog" '.
+            'VALUE="'.Gm_Core::text( Gm_Constants::FRONTPAGE_CPLOG ).'"><br />'.
+            Gm_Core::text( Gm_Constants::FRONTPAGE_CPLOG_DESC );
+        push( @actions, $item );
+    }
 
-	## Alice should not have 'Post New' by default
-	if( $AUTHOR{'bookmarklets'} eq Gm_Constants::Y ){	
-		$item = '<INPUT TYPE=SUBMIT CLASS="button" NAME="bookmarklet" '.
-		'VALUE="'.Gm_Core::text( Gm_Constants::FRONTPAGE_BMLETS ).'"><BR>'.
-		Gm_Core::text( Gm_Constants::FRONTPAGE_BMLETS_DESC );
-		push( @actions, $item );
-	}
-	
-	if( $AUTHOR{'upload'} eq Gm_Constants::Y ){	
-		$item = '<INPUT TYPE=SUBMIT CLASS="button" NAME="upload" '.
-			'VALUE="'.Gm_Core::text( Gm_Constants::FRONTPAGE_UPLOAD ).'"><br />'.
-			Gm_Core::text( Gm_Constants::FRONTPAGE_UPLOAD_DESC );
-		push( @actions, $item );
-	}
-	
-	if( $AUTHOR{'editconfigs'} eq Gm_Constants::Y ){	
-		$item = '<INPUT TYPE=SUBMIT CLASS="button" NAME="banip" '.
-			'VALUE="'.Gm_Core::text( Gm_Constants::FRONTPAGE_BANNED ).'"><BR>'.
-			Gm_Core::text( Gm_Constants::FRONTPAGE_BANNED_DESC );
-		push( @actions, $item );
-	}
+    ## Alice should not have 'Post New' by default
+    if( $AUTHOR{'bookmarklets'} eq Gm_Constants::Y ){	
+        $item = '<INPUT TYPE=SUBMIT CLASS="button" NAME="bookmarklet" '.
+            'VALUE="'.Gm_Core::text( Gm_Constants::FRONTPAGE_BMLETS ).'"><BR>'.
+            Gm_Core::text( Gm_Constants::FRONTPAGE_BMLETS_DESC );
+        push( @actions, $item );
+    }
+    
+    if( $AUTHOR{'upload'} eq Gm_Constants::Y ){	
+        $item = '<INPUT TYPE=SUBMIT CLASS="button" NAME="upload" '.
+            'VALUE="'.Gm_Core::text( Gm_Constants::FRONTPAGE_UPLOAD ).'"><br />'.
+            Gm_Core::text( Gm_Constants::FRONTPAGE_UPLOAD_DESC );
+        push( @actions, $item );
+    }
+    
+    if( $AUTHOR{'editconfigs'} eq Gm_Constants::Y ){	
+        $item = '<INPUT TYPE=SUBMIT CLASS="button" NAME="banip" '.
+            'VALUE="'.Gm_Core::text( Gm_Constants::FRONTPAGE_BANNED ).'"><BR>'.
+            Gm_Core::text( Gm_Constants::FRONTPAGE_BANNED_DESC );
+        push( @actions, $item );
+    }
 
-	$item = '<INPUT TYPE=SUBMIT CLASS="button" NAME="relogin" '.
-		'VALUE="'.Gm_Core::text( Gm_Constants::FRONTPAGE_RELOGIN ).'"><BR>'.
-		Gm_Core::text( Gm_Constants::FRONTPAGE_RELOGIN_DESC ).'</FONT></FONT>';
-	push( @actions, $item );
+    $item = '<INPUT TYPE=SUBMIT CLASS="button" NAME="relogin" '.
+        'VALUE="'.Gm_Core::text( Gm_Constants::FRONTPAGE_RELOGIN ).'"><BR>'.
+        Gm_Core::text( Gm_Constants::FRONTPAGE_RELOGIN_DESC ).'</FONT></FONT>';
+    push( @actions, $item );
+    
+    $page .= '<table border="0" cellpadding="10" cellspacing="0" width="80%">';
+    while( @actions ){
+        my $actOne = shift( @actions );
+        my $actTwo = shift( @actions );
+        
+        $page .= '<tr><td style="font-size: smaller; margin: 5px;" valign="top" width="50%">'.
+            '<form action="gm.cgi" method=post>'.Gm_Security::getFormAuth( author=>\%AUTHOR ).
+            $actOne.'</form>'.
+            '</td>'."\n".'<td style="font-size: smaller; margin: 5px;" valign="top" width="50%">';
+        if( $actTwo ){
+            $page .= '<form action="gm.cgi" method=post>'.Gm_Security::getFormAuth( author=>\%AUTHOR ).
+                $actTwo.'</form>';
+        } else {
+            $page .= '&nbsp;';
+        }
+        $page .= "</td></tr>\n";
 	
-	$page .= '<table border="0" cellpadding="10" cellspacing="0" width="80%">';
-	while( @actions ){
-		my $actOne = shift( @actions );
-		my $actTwo = shift( @actions );
-		
-		$page .= '<tr><td style="font-size: smaller; margin: 5px;" valign="top" width="50%">'.
-			'<form action="gm.cgi" method=post>'.Gm_Security::getFormAuth( author=>\%AUTHOR ).
-			$actOne.'</form>'.
-			'</td>'."\n".'<td style="font-size: smaller; margin: 5px;" valign="top" width="50%">';
-		if( $actTwo ){
-			$page .= '<form action="gm.cgi" method=post>'.Gm_Security::getFormAuth( author=>\%AUTHOR ).
-				$actTwo.'</form>';
-		} else {
-			$page .= '&nbsp;';
-		}
-		$page .= "</td></tr>\n";
-	
-	}
-	$page .= '</FORM></table></p>';
+    }
+    $page .= '</FORM></table></p>';
 
-	Gm_Web::displayAdminPageExit( $page );
-	## NAVIGATION SHOULD BE DE-BUTTONED
-	exit(0); ## will never get here, in theory
+    Gm_Web::displayAdminPageExit( $page );
+    ## NAVIGATION SHOULD BE DE-BUTTONED
+    exit(0); ## will never get here, in theory
 }
 
 ## LOGIN SECTION #################################################
 ## Handle all requests regarding logging in
 sub doLogin {
 
-	# TODO: SHOULD WE BE CHECKING PERMS IF AUTHOR CAN EVEN ACCESS ADMIN SCREEN?
-	# ITS HANDLED IN MENU, BUT THAT SEEMS LAME?
+    # TODO: SHOULD WE BE CHECKING PERMS IF AUTHOR CAN EVEN ACCESS ADMIN SCREEN?
+    # ITS HANDLED IN MENU, BUT THAT SEEMS LAME?
 
-	Gm_Core::writeToCplog( '<span class="status_msg">'.
-		Gm_Core::text( Gm_Constants::LOGIN_LOG, { AUTHOR=>$AUTHOR{'author'} } ).'</span>' );
-	&gm_versioncheck;
+    Gm_Core::writeToCplog( '<span class="status_msg">'.
+                           Gm_Core::text( Gm_Constants::LOGIN_LOG, { AUTHOR=>$AUTHOR{'author'} } ).'</span>' );
+    &gm_versioncheck;
 
-## DONE AT TOP, REMOVE
-#	my $gmConfigs = Gm_Storage::getConfigs( errHandler=>\&Gm_Web::displayAdminErrorExit );
+    ## DONE AT TOP, REMOVE
+    #	my $gmConfigs = Gm_Storage::getConfigs( errHandler=>\&Gm_Web::displayAdminErrorExit );
 
-## Checking if a bunch of paths are empty and setting them up
-	if( ($gmConfigs->{'gmcgilocalpath'} eq Gm_Constants::EMPTY) || 
-		($gmConfigs->{'gmcgiwebpath'} eq Gm_Constants::EMPTY) || 
-		($gmConfigs->{'gmlogpath'} eq Gm_Constants::EMPTY) || 
-		($gmConfigs->{'gmentriespath'} eq Gm_Constants::EMPTY) || 
-		($gmConfigs->{'gmlogwebpath'} eq Gm_Constants::EMPTY) || 
-		($gmConfigs->{'gmentrieswebpath'} eq Gm_Constants::EMPTY) || 
-		$gmConfigs->{'gmemoticonspath'} eq Gm_Constants::EMPTY ){
+    ## Checking if a bunch of paths are empty and setting them up
+    if( ($gmConfigs->{'gmcgilocalpath'} eq Gm_Constants::EMPTY) || 
+        ($gmConfigs->{'gmcgiwebpath'} eq Gm_Constants::EMPTY) || 
+        ($gmConfigs->{'gmlogpath'} eq Gm_Constants::EMPTY) || 
+        ($gmConfigs->{'gmentriespath'} eq Gm_Constants::EMPTY) || 
+        ($gmConfigs->{'gmlogwebpath'} eq Gm_Constants::EMPTY) || 
+        ($gmConfigs->{'gmentrieswebpath'} eq Gm_Constants::EMPTY) || 
+        $gmConfigs->{'gmemoticonspath'} eq Gm_Constants::EMPTY ){
 
-		my $loglocalpath = '';
-		if( ($gmConfigs->{'gmcgilocalpath'} eq Gm_Constants::EMPTY) && 
-			($gmConfigs->{'gmlogpath'} ne Gm_Constants::EMPTY) ){ 
-			$gmConfigs->{'gmcgilocalpath'} = $gmConfigs->{'gmlogpath'}; 
-			$loglocalpath = $gmConfigs->{'gmcgilocalpath'};
-		}
-		if( ($gmConfigs->{'gmcgiwebpath'} eq Gm_Constants::EMPTY) && 
-			($gmConfigs->{'gmlogwebpath'} ne Gm_Constants::EMPTY) ){ 
-			$gmConfigs->{'gmcgiwebpath'} = $gmConfigs->{'gmlogwebpath'}; 
-		}
+        my $loglocalpath = '';
+        if( ($gmConfigs->{'gmcgilocalpath'} eq Gm_Constants::EMPTY) && 
+            ($gmConfigs->{'gmlogpath'} ne Gm_Constants::EMPTY) ){ 
+            $gmConfigs->{'gmcgilocalpath'} = $gmConfigs->{'gmlogpath'}; 
+            $loglocalpath = $gmConfigs->{'gmcgilocalpath'};
+        }
+        if( ($gmConfigs->{'gmcgiwebpath'} eq Gm_Constants::EMPTY) && 
+            ($gmConfigs->{'gmlogwebpath'} ne Gm_Constants::EMPTY) ){ 
+            $gmConfigs->{'gmcgiwebpath'} = $gmConfigs->{'gmlogwebpath'}; 
+        }
 
 
-		if( $gmConfigs->{'gmcgilocalpath'} eq Gm_Constants::EMPTY ){
-			if( $ENV{'SCRIPT_FILENAME'} ){ 
-				$gmConfigs->{'gmcgilocalpath'} = $ENV{'SCRIPT_FILENAME'}; 
-			} elsif( $ENV{'PATH_TRANSLATED'} ){
-				$gmConfigs->{'gmcgilocalpath'} = $ENV{'PATH_TRANSLATED'};
-				$gmConfigs->{'gmcgilocalpath'} =~ s/\\/\//g; 
-			}
-		
-			my @cgilocalpathtemp = split(/\//, $gmConfigs->{'gmcgilocalpath'});
-			pop(@cgilocalpathtemp);
-			$gmConfigs->{'gmcgilocalpath'} = join("\/", @cgilocalpathtemp);
+        if( $gmConfigs->{'gmcgilocalpath'} eq Gm_Constants::EMPTY ){
+            if( $ENV{'SCRIPT_FILENAME'} ){ 
+                $gmConfigs->{'gmcgilocalpath'} = $ENV{'SCRIPT_FILENAME'}; 
+            } elsif( $ENV{'PATH_TRANSLATED'} ){
+                $gmConfigs->{'gmcgilocalpath'} = $ENV{'PATH_TRANSLATED'};
+                $gmConfigs->{'gmcgilocalpath'} =~ s/\\/\//g; 
+            }
+            
+            my @cgilocalpathtemp = split(/\//, $gmConfigs->{'gmcgilocalpath'});
+            pop(@cgilocalpathtemp);
+            $gmConfigs->{'gmcgilocalpath'} = join("\/", @cgilocalpathtemp);
 
-			$loglocalpath = $gmConfigs->{'gmcgilocalpath'};
-			$loglocalpath =~ s/\/cgi-bin//g;
-		}
+            $loglocalpath = $gmConfigs->{'gmcgilocalpath'};
+            $loglocalpath =~ s/\/cgi-bin//g;
+        }
 
-		my @cgipath = split(/\//, $gmConfigs->{'gmcgilocalpath'});
-		my $cgiwebpathextension = pop(@cgipath);
+        my @cgipath = split(/\//, $gmConfigs->{'gmcgilocalpath'});
+        my $cgiwebpathextension = pop(@cgipath);
 
-		my @logpath = split(/\//, $loglocalpath);
-		my $logwebpathextension = pop(@logpath);
-		
-		my $logwebpathextensionnew = '/'.$logwebpathextension;
-		if( $logwebpathextension eq 'public_html' ){ 
-			$logwebpathextensionnew = Gm_Constants::EMPTY; 
-		}
+        my @logpath = split(/\//, $loglocalpath);
+        my $logwebpathextension = pop(@logpath);
+        
+        my $logwebpathextensionnew = '/'.$logwebpathextension;
+        if( $logwebpathextension eq 'public_html' ){ 
+            $logwebpathextensionnew = Gm_Constants::EMPTY; 
+        }
 	
-		if( $gmConfigs->{'gmlogpath'} eq Gm_Constants::EMPTY ){ 
-			$gmConfigs->{'gmlogpath'} = $loglocalpath; 
-		}
-		if( $gmConfigs->{'gmentriespath'} eq Gm_Constants::EMPTY ){ 
-			$gmConfigs->{'gmentriespath'} = ("$loglocalpath" . "/archives"); 
-		}
+        if( $gmConfigs->{'gmlogpath'} eq Gm_Constants::EMPTY ){ 
+            $gmConfigs->{'gmlogpath'} = $loglocalpath; 
+        }
+        if( $gmConfigs->{'gmentriespath'} eq Gm_Constants::EMPTY ){ 
+            $gmConfigs->{'gmentriespath'} = ("$loglocalpath" . "/archives"); 
+        }
 
-		my $basewebpath = '/';
-		my $basewebcgipath = '/cgi-bin/';
-		if( $ENV{'HTTP_HOST'} && $ENV{'SCRIPT_URL'} ){
-			$basewebpath = "http://$ENV{'HTTP_HOST'}$ENV{'SCRIPT_URL'}";
-			my @bwp = split( '\/', $basewebpath );
-			pop( @bwp ); # should be script
-			$basewebcgipath = join( '/', @bwp );
-			pop( @bwp ); # should be cgi-bin
-			$basewebpath = join( '/', @bwp );
-		} elsif( $ENV{'SCRIPT_URI'} ){
-			$basewebpath = $ENV{'SCRIPT_URI'};
-			my @bwp = split( '\/', $basewebpath );
-			pop( @bwp ) if( scalar( @bwp ) > 1 ); # should be script
-			$basewebcgipath = join( '/', @bwp );
-			pop( @bwp ) if( scalar( @bwp ) > 1 ); # should be cgi-bin
-			$basewebpath = join( '/', @bwp );
-		} elsif( $ENV{'HTTP_HOST'} ){
-			$basewebpath = "http://$ENV{'HTTP_HOST'}/$logwebpathextensionnew";
-			$basewebcgipath = "http://$ENV{'HTTP_HOST'}/$cgiwebpathextension";		
-		}
+        my $basewebpath = '/';
+        my $basewebcgipath = '/cgi-bin/';
+        if( $ENV{'HTTP_HOST'} && $ENV{'SCRIPT_URL'} ){
+            $basewebpath = "http://$ENV{'HTTP_HOST'}$ENV{'SCRIPT_URL'}";
+            my @bwp = split( '\/', $basewebpath );
+            pop( @bwp ); # should be script
+            $basewebcgipath = join( '/', @bwp );
+            pop( @bwp ); # should be cgi-bin
+            $basewebpath = join( '/', @bwp );
+        } elsif( $ENV{'SCRIPT_URI'} ){
+            $basewebpath = $ENV{'SCRIPT_URI'};
+            my @bwp = split( '\/', $basewebpath );
+            pop( @bwp ) if( scalar( @bwp ) > 1 ); # should be script
+            $basewebcgipath = join( '/', @bwp );
+            pop( @bwp ) if( scalar( @bwp ) > 1 ); # should be cgi-bin
+            $basewebpath = join( '/', @bwp );
+        } elsif( $ENV{'HTTP_HOST'} ){
+            $basewebpath = "http://$ENV{'HTTP_HOST'}/$logwebpathextensionnew";
+            $basewebcgipath = "http://$ENV{'HTTP_HOST'}/$cgiwebpathextension";		
+        }
 	
-		if( $gmConfigs->{'gmcgiwebpath'} eq Gm_Constants::EMPTY ){ 
-			$gmConfigs->{'gmcgiwebpath'} = $basewebcgipath; 
-		}		
-		
-		if( $gmConfigs->{'gmlogwebpath'} eq Gm_Constants::EMPTY ){ 
-			$gmConfigs->{'gmlogwebpath'} = $basewebpath; 
-		}
-		if( $gmConfigs->{'gmentrieswebpath'} eq Gm_Constants::EMPTY ){ 
-			$gmConfigs->{'gmentrieswebpath'} = "$basewebpath/archives"; 
-		}
+        if( $gmConfigs->{'gmcgiwebpath'} eq Gm_Constants::EMPTY ){ 
+            $gmConfigs->{'gmcgiwebpath'} = $basewebcgipath; 
+        }		
+        
+        if( $gmConfigs->{'gmlogwebpath'} eq Gm_Constants::EMPTY ){ 
+            $gmConfigs->{'gmlogwebpath'} = $basewebpath; 
+        }
+        if( $gmConfigs->{'gmentrieswebpath'} eq Gm_Constants::EMPTY ){ 
+            $gmConfigs->{'gmentrieswebpath'} = "$basewebpath/archives"; 
+        }
 
-		if( $gmConfigs->{'gmemoticonspath'} eq Gm_Constants::EMPTY ){ 
-			$gmConfigs->{'gmemoticonspath'} = "$basewebpath/emoticons"; 
-		}
-		
-#		&gm_writeconfig;
-		Gm_Storage::setConfigs( configs=>$gmConfigs, errHandler=>\&Gm_Web::displayAdminErrorExit );
-	}
-##  END of path changes
-	
-#	my $gmCounters = Gm_Storage::getCounters( errHandler=>\&Gm_Web::displayAdminErrorExit );
-	my $statusnote = '<span class="status_msg">'.
-		Gm_Core::text( Gm_Constants::LOGIN_WELCOME, { AUTHOR=>$AUTHOR{'author'} } ).'</span><p>';
+        if( $gmConfigs->{'gmemoticonspath'} eq Gm_Constants::EMPTY ){ 
+            $gmConfigs->{'gmemoticonspath'} = "$basewebpath/emoticons"; 
+        }
+        
+        #		&gm_writeconfig;
+        Gm_Storage::setConfigs( configs=>$gmConfigs, errHandler=>\&Gm_Web::displayAdminErrorExit );
+    }
+    ##  END of path changes
+    
+    #	my $gmCounters = Gm_Storage::getCounters( errHandler=>\&Gm_Web::displayAdminErrorExit );
+    my $statusnote = '<span class="status_msg">'.
+        Gm_Core::text( Gm_Constants::LOGIN_WELCOME, { AUTHOR=>$AUTHOR{'author'} } ).'</span><p>';
 
-	unless( Gm_Core::hasPosted() ){
-			my $cploglines = Gm_Storage::getCplog( errHandler=>\&Gm_Web::displayAdminErrorExit );
-			
-			my $cplogtext = join (' ', @$cploglines);
-			unless ($cplogtext =~ /successfully performed diagnostics/) {
-			$statusnote = '<span class="status_msg">'.Gm_Core::text( Gm_Constants::LOGIN_FIRST ).'</span><p>';
-		}
-	}
-	frontPage( $statusnote );
-	
-	exit(0);
+    unless( Gm_Core::hasPosted() ){
+        my $cploglines = Gm_Storage::getCplog( errHandler=>\&Gm_Web::displayAdminErrorExit );
+        
+        my $cplogtext = join (' ', @$cploglines);
+        unless ($cplogtext =~ /successfully performed diagnostics/) {
+            $statusnote = '<span class="status_msg">'.Gm_Core::text( Gm_Constants::LOGIN_FIRST ).'</span><p>';
+        }
+    }
+    frontPage( $statusnote );
+    
+    exit(0);
 }
 
 
@@ -489,27 +489,27 @@ sub doLogin {
 ## and verify that author can access this section
 sub doCplog {
 
-	## Checking authorization of author, since cplog has no granularity, can check here
-	### TODO: CALL AUTH WITH FLAG TO WORK ON CPLOG, OR CHECK AUTHOR PERMS
-	## TODO: Move this to auth, auth should return users perms, or it should take a flag to 
-	# indicate which perms to check with this being handed off to a generic permDenied func
-	if( $AUTHOR{'viewcplog'} ne Gm_Constants::Y ){
-		Gm_Core::writeToCplog( '<span class="error_msg">'.Gm_Core::text( 
-			Gm_Constants::CPLOG_NO_ACCESS, { AUTHOR=>$AUTHOR{'author'} }).'</span>' );
-		my $statusnote = '<span class="error_msg">'.Gm_Core::text( Gm_Constants::CPLOG_ACCESS_DENY ).
-			'</span><br />';
-		frontPage( $statusnote );
-	}
+    ## Checking authorization of author, since cplog has no granularity, can check here
+    ### TODO: CALL AUTH WITH FLAG TO WORK ON CPLOG, OR CHECK AUTHOR PERMS
+    ## TODO: Move this to auth, auth should return users perms, or it should take a flag to 
+    # indicate which perms to check with this being handed off to a generic permDenied func
+    if( $AUTHOR{'viewcplog'} ne Gm_Constants::Y ){
+        Gm_Core::writeToCplog( '<span class="error_msg">'.Gm_Core::text( 
+                                  Gm_Constants::CPLOG_NO_ACCESS, { AUTHOR=>$AUTHOR{'author'} }).'</span>' );
+        my $statusnote = '<span class="error_msg">'.Gm_Core::text( Gm_Constants::CPLOG_ACCESS_DENY ).
+            '</span><br />';
+        frontPage( $statusnote );
+    }
 
-	my $status = Gm_Constants::EMPTY;
-	
-	if( $IN{'reset'} ){
-		## clear - Should return message for frontpage, or to cplog?
-		$status = resetCpLog();
-		
-	}
+    my $status = Gm_Constants::EMPTY;
+    
+    if( $IN{'reset'} ){
+        ## clear - Should return message for frontpage, or to cplog?
+        $status = resetCpLog();
+        
+    }
 
-	viewCpLog( $status );
+    viewCpLog( $status );
 }
 
 
@@ -517,85 +517,85 @@ sub doCplog {
 # Will display the control panel log
 # (opt) ARG1: Message to display to user, could be error or confirmation of action
 sub viewCpLog {
-	my $message = shift( @_ ) || Gm_Constants::EMPTY;
-	
-	my $page = '<span class="section_title">'.Gm_Core::text( Gm_Constants::CPLOG_TITLE ).
-		"</span><br /><p>$message</p><p class=\"text_left\">\n";
-	
-	my $gmlogfile = Gm_Storage::getCplog( errHandler=>\&Gm_Web::displayAdminErrorExit );
-	
-	my $base = '?section=cplog&'.Gm_Security::getUrlAuth( author=>\%AUTHOR );
-	my ($page_nav, $short_logfile ) = Gm_Web::createPaging( data=>$gmlogfile,
-		baseurl=>$base , webparams=>\%IN );
-	
-	$page .= join( "<br />\n", @{$short_logfile} );
-	$page .= "<div class='pagenav'>$page_nav</div>\n";
-	
-## DONE AT TOP, REMOVE
-#	my $gmConfigs = Gm_Storage::getConfigs( errHandler=>\&Gm_Web::displayAdminErrorExit );	
-	my ($gmdate) = Gm_Utils::getStdDate( $gmConfigs->{'gmserveroffset'} );
-#	&gm_readcounter;  ## use storage call, which this does, but we should call right one...
-	my $gmCounters = Gm_Storage::getCounters( errHandler=>\&Gm_Web::displayAdminErrorExit );
-	
-	my $newalltimetotalkarmanumber = 0;
-	my $newalltimetotalkarmavotes = 0;
-	my $entriesonmainnumber = 0;
-	my $karmavotesonaverage = 0;
-	my $commentspostedonaverage = 0;	
-	## TODO: VALIDATE NUMBERS, DON'T WANT TO CAUSE ERRORS WITH BAD DATA
-	if( Gm_Core::hasPosted() ){
-		$newalltimetotalkarmanumber = $gmCounters->{'karmapos'} - $gmCounters->{'karmaneg'};
-		$newalltimetotalkarmavotes = $gmCounters->{'karmapos'} + $gmCounters->{'karmaneg'};
-		$entriesonmainnumber = $gmCounters->{'entrytotal'} - $gmCounters->{'archivetotal'};
-		$karmavotesonaverage = Gm_Utils::toFirstDec( ($newalltimetotalkarmavotes / $gmCounters->{'entrytotal'}));
-		$commentspostedonaverage = Gm_Utils::toFirstDec( ($gmCounters->{'commenttotal'} / $gmCounters->{'entrytotal'}));
-	}
+    my $message = shift( @_ ) || Gm_Constants::EMPTY;
+    
+    my $page = '<span class="section_title">'.Gm_Core::text( Gm_Constants::CPLOG_TITLE ).
+        "</span><br /><p>$message</p><p class=\"text_left\">\n";
+    
+    my $gmlogfile = Gm_Storage::getCplog( errHandler=>\&Gm_Web::displayAdminErrorExit );
+    
+    my $base = '?section=cplog&'.Gm_Security::getUrlAuth( author=>\%AUTHOR );
+    my ($page_nav, $short_logfile ) = Gm_Web::createPaging( data=>$gmlogfile,
+                                                           baseurl=>$base , webparams=>\%IN );
+    
+    $page .= join( "<br />\n", @{$short_logfile} );
+    $page .= "<div class='pagenav'>$page_nav</div>\n";
+    
+    ## DONE AT TOP, REMOVE
+    #	my $gmConfigs = Gm_Storage::getConfigs( errHandler=>\&Gm_Web::displayAdminErrorExit );	
+    my ($gmdate) = Gm_Utils::getStdDate( $gmConfigs->{'gmserveroffset'} );
+    #	&gm_readcounter;  ## use storage call, which this does, but we should call right one...
+    my $gmCounters = Gm_Storage::getCounters( errHandler=>\&Gm_Web::displayAdminErrorExit );
+    
+    my $newalltimetotalkarmanumber = 0;
+    my $newalltimetotalkarmavotes = 0;
+    my $entriesonmainnumber = 0;
+    my $karmavotesonaverage = 0;
+    my $commentspostedonaverage = 0;	
+    ## TODO: VALIDATE NUMBERS, DON'T WANT TO CAUSE ERRORS WITH BAD DATA
+    if( Gm_Core::hasPosted() ){
+        $newalltimetotalkarmanumber = $gmCounters->{'karmapos'} - $gmCounters->{'karmaneg'};
+        $newalltimetotalkarmavotes = $gmCounters->{'karmapos'} + $gmCounters->{'karmaneg'};
+        $entriesonmainnumber = $gmCounters->{'entrytotal'} - $gmCounters->{'archivetotal'};
+        $karmavotesonaverage = Gm_Utils::toFirstDec( ($newalltimetotalkarmavotes / $gmCounters->{'entrytotal'}));
+        $commentspostedonaverage = Gm_Utils::toFirstDec( ($gmCounters->{'commenttotal'} / $gmCounters->{'entrytotal'}));
+    }
 
-	my $totalclosedentries = $gmCounters->{'closedtotal'};
-	if( $gmCounters->{'closedtotal'} < 1 ){
-		$totalclosedentries = 0;
-	}
+    my $totalclosedentries = $gmCounters->{'closedtotal'};
+    if( $gmCounters->{'closedtotal'} < 1 ){
+        $totalclosedentries = 0;
+    }
 
-	$page .= '<br /><div class="info_box"><span class="info_title">'.
-		Gm_Core::text( Gm_Constants::CPLOG_INFO_TITLE, { DATE=>$gmdate } ).'</span>';
+    $page .= '<br /><div class="info_box"><span class="info_title">'.
+        Gm_Core::text( Gm_Constants::CPLOG_INFO_TITLE, { DATE=>$gmdate } ).'</span>';
 
-	$page .= '<p>'.Gm_Core::text( Gm_Constants::CPLOG_INFO1, { ENTRYNUMBER=>$gmCounters->{'entrytotal'},
-		ENTRYOPEN=>$gmCounters->{'opentotal'}, ENTRYCLOSED=>$totalclosedentries, 
-		ENTRYARCHIVE=>$gmCounters->{'archivetotal'}, ENTRYCURRENT=>$entriesonmainnumber } ).'<BR>';
+    $page .= '<p>'.Gm_Core::text( Gm_Constants::CPLOG_INFO1, { ENTRYNUMBER=>$gmCounters->{'entrytotal'},
+                                                             ENTRYOPEN=>$gmCounters->{'opentotal'}, ENTRYCLOSED=>$totalclosedentries, 
+                                                             ENTRYARCHIVE=>$gmCounters->{'archivetotal'}, ENTRYCURRENT=>$entriesonmainnumber } ).'<BR>';
 
-	$page .= Gm_Core::text( Gm_Constants::CPLOG_INFO2, { KARMAVOTES=>$newalltimetotalkarmavotes,
-		KARMAAVERAGE=>$karmavotesonaverage, KARMAPOS=>$gmCounters->{'karmapos'}, 
-		KARMANEG=>$gmCounters->{'karmaneg'}, KARMATOTAL=>$newalltimetotalkarmanumber } ).'<BR>';
+    $page .= Gm_Core::text( Gm_Constants::CPLOG_INFO2, { KARMAVOTES=>$newalltimetotalkarmavotes,
+                                                       KARMAAVERAGE=>$karmavotesonaverage, KARMAPOS=>$gmCounters->{'karmapos'}, 
+                                                       KARMANEG=>$gmCounters->{'karmaneg'}, KARMATOTAL=>$newalltimetotalkarmanumber } ).'<BR>';
 
-	$page .= Gm_Core::text( Gm_Constants::CPLOG_INFO3, { COMMENTTOTAL=>$gmCounters->{'commenttotal'},
-		COMMENTAVERAGE=>$commentspostedonaverage } ).'</p></div>';
-		
-	$page .= '<br /><form action="gm.cgi" method="post">'.
-		'<input type="hidden" name="section" value="'.$IN{'section'}.'">'.
-		Gm_Security::getFormAuth( author=>\%AUTHOR ).
-		'<input type="submit" class="button" name="reset" style="background: #FFD0D0" '.
-		'value="'.Gm_Core::text( Gm_Constants::CPLOG_RESET ).'"></form><p>';
-	$page .= '<form action="gm.cgi" method="post">'.Gm_Security::getFormAuth( author=>\%AUTHOR ).
-		'<input type=SUBMIT class="button" name="menu" value="'.
-		Gm_Core::text( Gm_Constants::RETURN_MAIN_MENU ).'" style="background: #C0C0C0"></form>';
-	Gm_Web::displayAdminPageExit( $page );
-	## NAVIGATION SHOULD BE DE-BUTTONED
-	exit(0);
+    $page .= Gm_Core::text( Gm_Constants::CPLOG_INFO3, { COMMENTTOTAL=>$gmCounters->{'commenttotal'},
+                                                       COMMENTAVERAGE=>$commentspostedonaverage } ).'</p></div>';
+    
+    $page .= '<br /><form action="gm.cgi" method="post">'.
+        '<input type="hidden" name="section" value="'.$IN{'section'}.'">'.
+        Gm_Security::getFormAuth( author=>\%AUTHOR ).
+        '<input type="submit" class="button" name="reset" style="background: #FFD0D0" '.
+        'value="'.Gm_Core::text( Gm_Constants::CPLOG_RESET ).'"></form><p>';
+    $page .= '<form action="gm.cgi" method="post">'.Gm_Security::getFormAuth( author=>\%AUTHOR ).
+        '<input type=SUBMIT class="button" name="menu" value="'.
+                                                                         Gm_Core::text( Gm_Constants::RETURN_MAIN_MENU ).'" style="background: #C0C0C0"></form>';
+    Gm_Web::displayAdminPageExit( $page );
+    ## NAVIGATION SHOULD BE DE-BUTTONED
+    exit(0);
 }
 
 ## Reset Cp Log
 # Will reset the control panel log
 # RETURNS: A message to display on the view page
 sub resetCpLog {
-	my $message = Gm_Constants::EMPTY;
-	
-	Gm_Storage::setCplog( log=>[], errHandler=>\&Gm_Web::displayAdminErrorExit );
-	
-	Gm_Core::writeToCplog( Gm_Core::text( Gm_Constants::CPLOG_CLEARED, { AUTHOR=>$AUTHOR{'author'} } ));
-	
-	$message = '<span class="status_msg">'.Gm_Core::text( Gm_Constants::CPLOG_CLEAR_CONFIRM ).'</span><p>';
-	
-	return( $message );
+    my $message = Gm_Constants::EMPTY;
+    
+    Gm_Storage::setCplog( log=>[], errHandler=>\&Gm_Web::displayAdminErrorExit );
+    
+    Gm_Core::writeToCplog( Gm_Core::text( Gm_Constants::CPLOG_CLEARED, { AUTHOR=>$AUTHOR{'author'} } ));
+    
+    $message = '<span class="status_msg">'.Gm_Core::text( Gm_Constants::CPLOG_CLEAR_CONFIRM ).'</span><p>';
+    
+    return( $message );
 }
 
 
@@ -604,29 +604,29 @@ sub resetCpLog {
 ## and verify that author can access this section
 sub doBanip {
 
-	## Access to Banip is global, no need for granularity
-	### TODO: CALL AUTH WITH FLAG TO WORK ON Banip, OR CHECK AUTHOR PERMS
-	## TODO: Move this to auth, auth should return users perms, or it should take a flag to 
-	# indicate which perms to check with this being handed off to a generic permDenied func
-	if( $AUTHOR{'editconfigs'} ne Gm_Constants::Y ){
-		Gm_Core::writeToCplog( '<span class="error_msg">'.Gm_Core::text( 
-			Gm_Constants::BANIP_NO_ACCESS, { AUTHOR=>$AUTHOR{'author'} }).'</span>' );
-		my $statusnote = '<span class="error_msg">'.Gm_Core::text( Gm_Constants::BANIP_ACCESS_DENY ).
-			'</span><br />';
-		frontPage( $statusnote );
-	}
-	
-	my $status = Gm_Constants::EMPTY;
-# TODO, SHOULD THESE BE USING CONSTANTS?
-	if( $IN{'delete'} ){
-		$status = deleteBannedIp();
-		
-	} elsif( $IN{'add'} ){
-		$status = addBannedIp();
-		
-	}
+    ## Access to Banip is global, no need for granularity
+    ### TODO: CALL AUTH WITH FLAG TO WORK ON Banip, OR CHECK AUTHOR PERMS
+    ## TODO: Move this to auth, auth should return users perms, or it should take a flag to 
+    # indicate which perms to check with this being handed off to a generic permDenied func
+    if( $AUTHOR{'editconfigs'} ne Gm_Constants::Y ){
+        Gm_Core::writeToCplog( '<span class="error_msg">'.Gm_Core::text( 
+                                   Gm_Constants::BANIP_NO_ACCESS, { AUTHOR=>$AUTHOR{'author'} }).'</span>' );
+        my $statusnote = '<span class="error_msg">'.Gm_Core::text( Gm_Constants::BANIP_ACCESS_DENY ).
+            '</span><br />';
+        frontPage( $statusnote );
+    }
+    
+    my $status = Gm_Constants::EMPTY;
+    # TODO, SHOULD THESE BE USING CONSTANTS?
+    if( $IN{'delete'} ){
+        $status = deleteBannedIp();
+        
+    } elsif( $IN{'add'} ){
+        $status = addBannedIp();
+        
+    }
 
-	viewBanList( $status );
+    viewBanList( $status );
 
 }
 
@@ -635,77 +635,77 @@ sub doBanip {
 # View the list of banned IP addresses
 # (opt) ARG1: Message to display to user, could be error or confirmation of action
 sub viewBanList {
-	my $message = shift( @_ ) || Gm_Constants::EMPTY;
+    my $message = shift( @_ ) || Gm_Constants::EMPTY;
+    
+    if( $message eq Gm_Constants::EMPTY ){ 
+        $message = '<div class="info_text">'.Gm_Core::text( Gm_Constants::BANIP_INFO ).'</div>'; 
+    }
+    
+    my $page = '<span class="section_title">'.Gm_Core::text( Gm_Constants::BANIP_TITLE ).
+        "</span><br /><p>$message</p><p class=\"text_left\">\n";	
+    $page .= '<FORM ACTION="gm.cgi" METHOD="post"> '.
+        Gm_Security::getFormAuth( author=>\%AUTHOR ).
+        '<table class="info_table"><tr><th>'.Gm_Core::text( Gm_Constants::BANIP_IP ).
+        '</th><th>'.Gm_Core::text( Gm_Constants::BANIP_HOST ).'</th><th>'.
+        Gm_Core::text( Gm_Constants::NAME ).'</th><th width="20%">'.
+        Gm_Core::text( Gm_Constants::ACTION ).'</td></tr>';
+
+    my $gmbanlist = Gm_Storage::getBanlist( errHandler=>\&Gm_Web::displayAdminErrorExit );
+
+    my @banlist_array = sort { $gmbanlist->{$a}{'ip'} cmp $gmbanlist->{$b}{'ip'} } keys(%$gmbanlist);
+
+    my $base = '?section='.$IN{'section'}.'&'.Gm_Security::getUrlAuth( author=>\%AUTHOR );
+    my ($page_nav, $short_banlist ) = Gm_Web::createPaging( data=>\@banlist_array,
+                                                            baseurl=>$base, webparams=>\%IN, pagesize=>(Gm_Constants::GM_PAGE_SIZE/5) );
+
+    my $rowcolor = Gm_Web::altRowColor();
+    foreach my $gmbanlistline ( @{$short_banlist} ) {
+        my ($gmbannedip, $gmbannediphost, $gmbannedperson) = 
+            ($gmbanlist->{$gmbanlistline}{'ip'}, $gmbanlist->{$gmbanlistline}{'host'}, 
+             $gmbanlist->{$gmbanlistline}{'label'} );
 	
-	if( $message eq Gm_Constants::EMPTY ){ 
-		$message = '<div class="info_text">'.Gm_Core::text( Gm_Constants::BANIP_INFO ).'</div>'; 
-	}
+        $gmbannedperson =~ s/</\&lt;/g;
+        $gmbannedperson =~ s/>/\&gt;/g;
+        $gmbannedperson =~ s/"/\&quot;/g;
 	
-	my $page = '<span class="section_title">'.Gm_Core::text( Gm_Constants::BANIP_TITLE ).
-		"</span><br /><p>$message</p><p class=\"text_left\">\n";	
-	$page .= '<FORM ACTION="gm.cgi" METHOD="post"> '.
-		Gm_Security::getFormAuth( author=>\%AUTHOR ).
-		'<table class="info_table"><tr><th>'.Gm_Core::text( Gm_Constants::BANIP_IP ).
-		'</th><th>'.Gm_Core::text( Gm_Constants::BANIP_HOST ).'</th><th>'.
-		Gm_Core::text( Gm_Constants::NAME ).'</th><th width="20%">'.
-		Gm_Core::text( Gm_Constants::ACTION ).'</td></tr>';
-
-	my $gmbanlist = Gm_Storage::getBanlist( errHandler=>\&Gm_Web::displayAdminErrorExit );
-
-	my @banlist_array = sort { $gmbanlist->{$a}{'ip'} cmp $gmbanlist->{$b}{'ip'} } keys(%$gmbanlist);
-
-	my $base = '?section='.$IN{'section'}.'&'.Gm_Security::getUrlAuth( author=>\%AUTHOR );
-	my ($page_nav, $short_banlist ) = Gm_Web::createPaging( data=>\@banlist_array,
-		baseurl=>$base, webparams=>\%IN, pagesize=>(Gm_Constants::GM_PAGE_SIZE/5) );
-
-	my $rowcolor = Gm_Web::altRowColor();
-	foreach my $gmbanlistline ( @{$short_banlist} ) {
-		my ($gmbannedip, $gmbannediphost, $gmbannedperson) = 
-			($gmbanlist->{$gmbanlistline}{'ip'}, $gmbanlist->{$gmbanlistline}{'host'}, 
-			 $gmbanlist->{$gmbanlistline}{'label'} );
-	
-		$gmbannedperson =~ s/</\&lt;/g;
-		$gmbannedperson =~ s/>/\&gt;/g;
-		$gmbannedperson =~ s/"/\&quot;/g;
-	
-		$page .= "<tr $rowcolor><td>$gmbannedip</td><td>$gmbannediphost</td><td>";
-		$rowcolor = Gm_Web::altRowColor( $rowcolor );
-		if ($gmbannedperson ne Gm_Constants::EMPTY) { 
-			$page .= " $gmbannedperson"; 
-		}
-		$page .= '&nbsp</td><td>'.
-		'<a href="'.$ENV{SCRIPT_NAME}.'?section='.$IN{'section'}.'&delete=1&'.
-		'editedbanlist='.$gmbannedip.
-		'&'.Gm_Security::getUrlAuth( author=>\%AUTHOR ).
-		'" class="link_button" STYLE="background: #FFD0D0">'.
-		Gm_Core::text( Gm_Constants::DELETE ).'</a>'.
-		'</td></tr>'."\n";
-	}
+        $page .= "<tr $rowcolor><td>$gmbannedip</td><td>$gmbannediphost</td><td>";
+        $rowcolor = Gm_Web::altRowColor( $rowcolor );
+        if ($gmbannedperson ne Gm_Constants::EMPTY) { 
+            $page .= " $gmbannedperson"; 
+        }
+        $page .= '&nbsp</td><td>'.
+            '<a href="'.$ENV{SCRIPT_NAME}.'?section='.$IN{'section'}.'&delete=1&'.
+            'editedbanlist='.$gmbannedip.
+            '&'.Gm_Security::getUrlAuth( author=>\%AUTHOR ).
+            '" class="link_button" STYLE="background: #FFD0D0">'.
+            Gm_Core::text( Gm_Constants::DELETE ).'</a>'.
+            '</td></tr>'."\n";
+    }
 
 
-	$page .= "</table><div class='pagenav'>$page_nav</div><br />\n";	
-	## TODO: THESE ELEMENTS SHOULD BE REVALIDATED BEFORE DOING ANYTHING WITH, LIKE IN ADDBANIP
-	$page .= '<div class="info_box"><span class="info_title">'.Gm_Core::text( Gm_Constants::BANIP_ADD_TITLE ).
-		'</span><br /><table width="80%" class="form_table">'.
-		'<tr><th><label for="banip">'.Gm_Core::text( Gm_Constants::BANIP_IP ).
-		':</label></th><td><input type="text" value="'.$IN{'editednewbannedip'}.'"'.
-		'class="inputfield" maxlength="15" name="editednewbannedip" size="15" id="banip"></td></tr>';
-	$page .= '<tr><th><label for="banname">'.Gm_Core::text( Gm_Constants::BANIP_ADD_NAME ).':</label></th><td>'.
-		'<input type=TEXT class="inputfield" maxlength="15" name="editednewbannedperson" '.
-		'size="15" id="banname" value="'.$IN{'editednewbannedperson'}.'"></td></tr>';
-	$page .= '<tr><th>&nbsp</th><td> <INPUT TYPE=HIDDEN NAME="section" VALUE="'.$IN{'section'}.'">'.
-		'<input type=SUBMIT class="button" name="add" '.
-		'STYLE="background: #D0FFD0" value="'.Gm_Core::text( Gm_Constants::ADD ).
-		'"></td></tr></table></div></form>';
-		
-	$page .= '<FORM ACTION="gm.cgi" METHOD=POST> '.Gm_Security::getFormAuth( author=>\%AUTHOR ).
-		'<p><INPUT TYPE=SUBMIT CLASS="button" NAME="menu" '.
-		'VALUE="'.Gm_Core::text( Gm_Constants::RETURN_MAIN_MENU ).
-		'" STYLE="background: #C0C0C0"></p></FORM><br />';
-	## NAVIGATION SHOULD BE DE-BUTTONED
-	
-	Gm_Web::displayAdminPageExit( $page );
-	exit(0);
+    $page .= "</table><div class='pagenav'>$page_nav</div><br />\n";	
+    ## TODO: THESE ELEMENTS SHOULD BE REVALIDATED BEFORE DOING ANYTHING WITH, LIKE IN ADDBANIP
+    $page .= '<div class="info_box"><span class="info_title">'.Gm_Core::text( Gm_Constants::BANIP_ADD_TITLE ).
+        '</span><br /><table width="80%" class="form_table">'.
+        '<tr><th><label for="banip">'.Gm_Core::text( Gm_Constants::BANIP_IP ).
+        ':</label></th><td><input type="text" value="'.$IN{'editednewbannedip'}.'"'.
+        'class="inputfield" maxlength="15" name="editednewbannedip" size="15" id="banip"></td></tr>';
+    $page .= '<tr><th><label for="banname">'.Gm_Core::text( Gm_Constants::BANIP_ADD_NAME ).':</label></th><td>'.
+        '<input type=TEXT class="inputfield" maxlength="15" name="editednewbannedperson" '.
+        'size="15" id="banname" value="'.$IN{'editednewbannedperson'}.'"></td></tr>';
+    $page .= '<tr><th>&nbsp</th><td> <INPUT TYPE=HIDDEN NAME="section" VALUE="'.$IN{'section'}.'">'.
+        '<input type=SUBMIT class="button" name="add" '.
+        'STYLE="background: #D0FFD0" value="'.Gm_Core::text( Gm_Constants::ADD ).
+            '"></td></tr></table></div></form>';
+    
+    $page .= '<FORM ACTION="gm.cgi" METHOD=POST> '.Gm_Security::getFormAuth( author=>\%AUTHOR ).
+        '<p><INPUT TYPE=SUBMIT CLASS="button" NAME="menu" '.
+        'VALUE="'.Gm_Core::text( Gm_Constants::RETURN_MAIN_MENU ).
+            '" STYLE="background: #C0C0C0"></p></FORM><br />';
+    ## NAVIGATION SHOULD BE DE-BUTTONED
+    
+    Gm_Web::displayAdminPageExit( $page );
+    exit(0);
 }
 
 
@@ -713,55 +713,55 @@ sub viewBanList {
 # adds a given ip to the banlist of ip's
 # RETURNS: A message to display on the view page
 sub addBannedIp {
-	my $message = Gm_Constants::EMPTY;
-	
-	$IN{'editednewbannedip'} =~ s/\n//g;
-	$IN{'editednewbannedip'} =~ s/\|//g;
-	$IN{'editednewbannedperson'} =~ s/\n//g;
-	$IN{'editednewbannedperson'} =~ s/\|//g;
-	
-	if ($IN{'editednewbannedip'} eq Gm_Constants::EMPTY) {
-		$message = '<span class="error_msg">'.Gm_Core::text( Gm_Constants::BANIP_ENTER_IP ).'</span>';
-		viewBanList( $message );
-	}
+    my $message = Gm_Constants::EMPTY;
+    
+    $IN{'editednewbannedip'} =~ s/\n//g;
+    $IN{'editednewbannedip'} =~ s/\|//g;
+    $IN{'editednewbannedperson'} =~ s/\n//g;
+    $IN{'editednewbannedperson'} =~ s/\|//g;
+    
+    if ($IN{'editednewbannedip'} eq Gm_Constants::EMPTY) {
+        $message = '<span class="error_msg">'.Gm_Core::text( Gm_Constants::BANIP_ENTER_IP ).'</span>';
+        viewBanList( $message );
+    }
 
-## DONE AT TOP, REMOVE
-#	my $gmConfigs = Gm_Storage::getConfigs( errHandler=>\&Gm_Web::displayAdminErrorExit );	
-	my $gmbanlist = Gm_Storage::getBanlist( errHandler=>\&Gm_Web::displayAdminErrorExit );
-	
-	foreach my $gmbanlistline ( keys(%$gmbanlist)) {
-		my ($checkthisip, $checkthisiphost, $checkthisperson) = 
-			($gmbanlist->{$gmbanlistline}{'ip'}, $gmbanlist->{$gmbanlistline}{'host'}, 
-			 $gmbanlist->{$gmbanlistline}{'label'} );
-			 
-		if ($checkthisip eq $IN{'editednewbannedip'}) {
-			$message = '<span class="error_msg">'.Gm_Core::text( Gm_Constants::BANIP_DUPE_IP ).'</span>';
-			viewBanList( $message );
-		}
-	}
-	
-	Gm_Storage::addBanlist( ip=>$IN{'editednewbannedip'}, host=>$IN{'editednewbannedip'}, 
-		label=>$IN{'editednewbannedperson'}, errHandler=>\&Gm_Web::displayAdminErrorExit );
-	
-	if( $gmConfigs->{'gmkeeplog'} eq Gm_Constants::YES ){
+    ## DONE AT TOP, REMOVE
+    #	my $gmConfigs = Gm_Storage::getConfigs( errHandler=>\&Gm_Web::displayAdminErrorExit );	
+    my $gmbanlist = Gm_Storage::getBanlist( errHandler=>\&Gm_Web::displayAdminErrorExit );
+    
+    foreach my $gmbanlistline ( keys(%$gmbanlist)) {
+        my ($checkthisip, $checkthisiphost, $checkthisperson) = 
+            ($gmbanlist->{$gmbanlistline}{'ip'}, $gmbanlist->{$gmbanlistline}{'host'}, 
+             $gmbanlist->{$gmbanlistline}{'label'} );
+        
+        if ($checkthisip eq $IN{'editednewbannedip'}) {
+            $message = '<span class="error_msg">'.Gm_Core::text( Gm_Constants::BANIP_DUPE_IP ).'</span>';
+            viewBanList( $message );
+        }
+    }
+    
+    Gm_Storage::addBanlist( ip=>$IN{'editednewbannedip'}, host=>$IN{'editednewbannedip'}, 
+                           label=>$IN{'editednewbannedperson'}, errHandler=>\&Gm_Web::displayAdminErrorExit );
+    
+    if( $gmConfigs->{'gmkeeplog'} eq Gm_Constants::YES ){
 
-		my $who_banned = '';
-		if( $IN{'editednewbannedperson'} ne Gm_Constants::EMPTY ){ 
-			$who_banned = ", \"$IN{'editednewbannedperson'}\""; 
-		}
-		my $cpMsg = Gm_Core::text( Gm_Constants::BANIP_ADDED, { AUTHOR=>$AUTHOR{'author'},
-			IP=>$IN{'editednewbannedip'}, NAME=>$who_banned } );
-		Gm_Core::writeToCplog( $cpMsg );
-	}
-	
-	$message = '<span class="status_msg">'.Gm_Core::text( Gm_Constants::BANIP_ADD_CONFIRM, 
-		{ IP=>$IN{'editednewbannedip'} } ).'</span><p>';
+        my $who_banned = '';
+        if( $IN{'editednewbannedperson'} ne Gm_Constants::EMPTY ){ 
+            $who_banned = ", \"$IN{'editednewbannedperson'}\""; 
+        }
+        my $cpMsg = Gm_Core::text( Gm_Constants::BANIP_ADDED, { AUTHOR=>$AUTHOR{'author'},
+                                                              IP=>$IN{'editednewbannedip'}, NAME=>$who_banned } );
+        Gm_Core::writeToCplog( $cpMsg );
+    }
+    
+    $message = '<span class="status_msg">'.Gm_Core::text( Gm_Constants::BANIP_ADD_CONFIRM, 
+                                                         { IP=>$IN{'editednewbannedip'} } ).'</span><p>';
 
-	## Don't need once Add is seperate screen
-	$IN{'editednewbannedip'} = Gm_Constants::EMPTY;
-	$IN{'editednewbannedperson'} = Gm_Constants::EMPTY;
+    ## Don't need once Add is seperate screen
+    $IN{'editednewbannedip'} = Gm_Constants::EMPTY;
+    $IN{'editednewbannedperson'} = Gm_Constants::EMPTY;
 
-	return( $message );
+    return( $message );
 }
 
 
@@ -769,33 +769,33 @@ sub addBannedIp {
 # Delete the given ip|host combination from the banlist
 # RETURNS: A message to display on the view page
 sub deleteBannedIp {
-	my $message = Gm_Constants::EMPTY;
-	
-	chomp($IN{'editedbanlist'});
-	
-	## Any other validation?
-	if ($IN{'editedbanlist'} eq Gm_Constants::EMPTY) {
-		$message = '<span class="error_msg">'.Gm_Core::text( Gm_Constants::BANIP_SELECT_IP ).'</span>';
-		viewBanList( $message );
-	}
+    my $message = Gm_Constants::EMPTY;
+    
+    chomp($IN{'editedbanlist'});
+    
+    ## Any other validation?
+    if ($IN{'editedbanlist'} eq Gm_Constants::EMPTY) {
+        $message = '<span class="error_msg">'.Gm_Core::text( Gm_Constants::BANIP_SELECT_IP ).'</span>';
+        viewBanList( $message );
+    }
 
-	my $banIp = $IN{'editedbanlist'};
-	
-	# Since ip is the primary key
-	my $deleted = Gm_Storage::deleteBanlist( ip=>$banIp, errHandler=>\&Gm_Web::displayAdminErrorExit );
-	my $banLabel = $deleted->{'label'} ? ", \"$deleted->{'label'}\"" : ''; 
-	
-	if ($gmConfigs->{'gmkeeplog'} eq Gm_Constants::YES) {
-		my $cpMsg = Gm_Core::text( Gm_Constants::BANIP_DELETED, { AUTHOR=>$AUTHOR{'author'},
-			IP=>$banIp, LABEL=>$banLabel } );
-		
-		Gm_Core::writeToCplog( $cpMsg );
-	}
-	
-	$message = '<span class="status_msg">'.Gm_Core::text( Gm_Constants::BANIP_DELETE_CONFIRM,
-		{ IP=>$banIp } ).'</span>';
+    my $banIp = $IN{'editedbanlist'};
+    
+    # Since ip is the primary key
+    my $deleted = Gm_Storage::deleteBanlist( ip=>$banIp, errHandler=>\&Gm_Web::displayAdminErrorExit );
+    my $banLabel = $deleted->{'label'} ? ", \"$deleted->{'label'}\"" : ''; 
+    
+    if ($gmConfigs->{'gmkeeplog'} eq Gm_Constants::YES) {
+        my $cpMsg = Gm_Core::text( Gm_Constants::BANIP_DELETED, { AUTHOR=>$AUTHOR{'author'},
+                                                                IP=>$banIp, LABEL=>$banLabel } );
+        
+        Gm_Core::writeToCplog( $cpMsg );
+    }
+    
+    $message = '<span class="status_msg">'.Gm_Core::text( Gm_Constants::BANIP_DELETE_CONFIRM,
+                                                         { IP=>$banIp } ).'</span>';
 
-	return( $message );
+    return( $message );
 }
 
 
@@ -806,36 +806,36 @@ sub deleteBannedIp {
 ## should be a check that the author can edit their own info.
 sub doAuthors {
 
-	## Access to auathors is global, no need for granularity
-	### TODO: CALL AUTH WITH FLAG TO WORK ON Banip, OR CHECK AUTHOR PERMS
-	## TODO: Move this to auth, auth should return users perms, or it should take a flag to 
-	# indicate which perms to check with this being handed off to a generic permDenied func
-	if( $AUTHOR{'editauthors'} ne Gm_Constants::Y ){
-		Gm_Core::writeToCplog( '<span class="error_msg">'.Gm_Core::text( 
-			Gm_Constants::AUTHORS_NO_ACCESS, { AUTHOR=>$AUTHOR{'author'} }).'</span>' );
-		my $statusnote = '<span class="error_msg">'.Gm_Core::text( Gm_Constants::AUTHORS_ACCESS_DENY ).
-			'</span><br />';
-		frontPage( $statusnote );
-	}
-	
-	my $status = Gm_Constants::EMPTY;
-# TODO, SHOULD THESE BE USING CONSTANTS?
-	if( $IN{'delete'} ){
-		$status = deleteAuthor();
-		
-	} elsif( $IN{'add'} ){
-		$status = addAuthor();
-		
-	} elsif( $IN{'view'} ){
-		$status = viewAuthor();
-		
-	} elsif( $IN{'update'} ){
-		## TODO:  ADD IS SAME AS UPDATE, EXCEPT FROM SCRATCH?
-		$status = updateAuthor();
-		
-	}
+    ## Access to auathors is global, no need for granularity
+    ### TODO: CALL AUTH WITH FLAG TO WORK ON Banip, OR CHECK AUTHOR PERMS
+    ## TODO: Move this to auth, auth should return users perms, or it should take a flag to 
+    # indicate which perms to check with this being handed off to a generic permDenied func
+    if( $AUTHOR{'editauthors'} ne Gm_Constants::Y ){
+        Gm_Core::writeToCplog( '<span class="error_msg">'.Gm_Core::text( 
+                                  Gm_Constants::AUTHORS_NO_ACCESS, { AUTHOR=>$AUTHOR{'author'} }).'</span>' );
+        my $statusnote = '<span class="error_msg">'.Gm_Core::text( Gm_Constants::AUTHORS_ACCESS_DENY ).
+            '</span><br />';
+        frontPage( $statusnote );
+    }
+    
+    my $status = Gm_Constants::EMPTY;
+    # TODO, SHOULD THESE BE USING CONSTANTS?
+    if( $IN{'delete'} ){
+        $status = deleteAuthor();
+        
+    } elsif( $IN{'add'} ){
+        $status = addAuthor();
+        
+    } elsif( $IN{'view'} ){
+        $status = viewAuthor();
+        
+    } elsif( $IN{'update'} ){
+        ## TODO:  ADD IS SAME AS UPDATE, EXCEPT FROM SCRATCH?
+        $status = updateAuthor();
+        
+    }
 
-	viewAuthorList( $status );
+    viewAuthorList( $status );
 
 }
 
@@ -844,153 +844,153 @@ sub doAuthors {
 # View the list authors registerd with Gm
 # (opt) ARG1: Message to display to user, could be error or confirmation of action
 sub viewAuthorList {
-	my $message = shift( @_ ) || Gm_Constants::EMPTY;
+    my $message = shift( @_ ) || Gm_Constants::EMPTY;
+    
+    if( $message eq Gm_Constants::EMPTY ){ 
+        $message = '<span class="info_text">'.Gm_Core::text( Gm_Constants::AUTHORS_INFO ).'</span>'; 
+    }
+
+    my $page = '<span class="section_title">'.Gm_Core::text( Gm_Constants::AUTHORS_TITLE ).
+        "</span><br /><p>$message</p>\n";	
+    $page .= '<FORM ACTION="gm.cgi" METHOD="post"> '.
+        Gm_Security::getFormAuth( author=>\%AUTHOR ).
+        '<table class="info_table"><tr><th>'.
+        Gm_Core::text( Gm_Constants::NAME ).'</th><th>'.
+        Gm_Core::text( Gm_Constants::AUTHORS_EMAIL ).'</th><th>'.
+        Gm_Core::text( Gm_Constants::AUTHORS_HOMEPAGE ).'</th><th>'.
+        Gm_Core::text( Gm_Constants::AUTHORS_PRIVS ).'</th><th width="30%">'.
+        Gm_Core::text( Gm_Constants::ACTION ).'</td></tr>';
+
+    my $gmauthors = Gm_Storage::getAuthors( errHandler=>\&Gm_Web::displayAdminErrorExit );
+
+    my @authors_array = sort { $gmauthors->{$a}{'author'} cmp $gmauthors->{$b}{'author'} } keys( %$gmauthors );
+    my $alicewarning = Gm_Constants::EMPTY;
+
+    my $base = '?section='.$IN{'section'}.'&'.Gm_Security::getUrlAuth( author=>\%AUTHOR );
+    my ($page_nav, $short_authorslist ) = Gm_Web::createPaging( data=>\@authors_array,
+                                                                baseurl=>$base, webparams=>\%IN, pagesize=>(Gm_Constants::GM_PAGE_SIZE/5) );
+
+    my $rowcolor = Gm_Web::altRowColor();
+    foreach my $authorListLine ( @{$short_authorslist} ) {
+        my ( $author, $password, $email, $homepage, $postnew, $editentries, $editconfigs, 
+             $edittemplates, $editauthors, $rebuild, $viewcplog, $bookmarklets, $upload, 
+             $viewadmin ) = ( $gmauthors->{$authorListLine}{'author'}, 
+                              $gmauthors->{$authorListLine}{'password'}, $gmauthors->{$authorListLine}{'email'},
+                              $gmauthors->{$authorListLine}{'homepage'}, $gmauthors->{$authorListLine}{'postnew'},
+                              $gmauthors->{$authorListLine}{'editentries'}, $gmauthors->{$authorListLine}{'editconfigs'}, 
+                              $gmauthors->{$authorListLine}{'edittemplates'}, $gmauthors->{$authorListLine}{'editauthors'}, 
+                              $gmauthors->{$authorListLine}{'rebuild'}, $gmauthors->{$authorListLine}{'viewcplog'}, 
+                              $gmauthors->{$authorListLine}{'bookmarklets'}, $gmauthors->{$authorListLine}{'upload'}, 
+                              $gmauthors->{$authorListLine}{'viewadmin'});
 	
-	if( $message eq Gm_Constants::EMPTY ){ 
-		$message = '<span class="info_text">'.Gm_Core::text( Gm_Constants::AUTHORS_INFO ).'</span>'; 
-	}
-
-	my $page = '<span class="section_title">'.Gm_Core::text( Gm_Constants::AUTHORS_TITLE ).
-		"</span><br /><p>$message</p>\n";	
-	$page .= '<FORM ACTION="gm.cgi" METHOD="post"> '.
-		Gm_Security::getFormAuth( author=>\%AUTHOR ).
-		'<table class="info_table"><tr><th>'.
-		Gm_Core::text( Gm_Constants::NAME ).'</th><th>'.
-		Gm_Core::text( Gm_Constants::AUTHORS_EMAIL ).'</th><th>'.
-		Gm_Core::text( Gm_Constants::AUTHORS_HOMEPAGE ).'</th><th>'.
-		Gm_Core::text( Gm_Constants::AUTHORS_PRIVS ).'</th><th width="30%">'.
-		Gm_Core::text( Gm_Constants::ACTION ).'</td></tr>';
-
-	my $gmauthors = Gm_Storage::getAuthors( errHandler=>\&Gm_Web::displayAdminErrorExit );
-
-	my @authors_array = sort { $gmauthors->{$a}{'author'} cmp $gmauthors->{$b}{'author'} } keys( %$gmauthors );
-	my $alicewarning = Gm_Constants::EMPTY;
-
-	my $base = '?section='.$IN{'section'}.'&'.Gm_Security::getUrlAuth( author=>\%AUTHOR );
-	my ($page_nav, $short_authorslist ) = Gm_Web::createPaging( data=>\@authors_array,
-		baseurl=>$base, webparams=>\%IN, pagesize=>(Gm_Constants::GM_PAGE_SIZE/5) );
-
-	my $rowcolor = Gm_Web::altRowColor();
-	foreach my $authorListLine ( @{$short_authorslist} ) {
-		my ( $author, $password, $email, $homepage, $postnew, $editentries, $editconfigs, 
-			$edittemplates, $editauthors, $rebuild, $viewcplog, $bookmarklets, $upload, 
-			$viewadmin ) = ( $gmauthors->{$authorListLine}{'author'}, 
-			$gmauthors->{$authorListLine}{'password'}, $gmauthors->{$authorListLine}{'email'},
-			$gmauthors->{$authorListLine}{'homepage'}, $gmauthors->{$authorListLine}{'postnew'},
-			$gmauthors->{$authorListLine}{'editentries'}, $gmauthors->{$authorListLine}{'editconfigs'}, 
-			$gmauthors->{$authorListLine}{'edittemplates'}, $gmauthors->{$authorListLine}{'editauthors'}, 
-			$gmauthors->{$authorListLine}{'rebuild'}, $gmauthors->{$authorListLine}{'viewcplog'}, 
-			$gmauthors->{$authorListLine}{'bookmarklets'}, $gmauthors->{$authorListLine}{'upload'}, 
-			$gmauthors->{$authorListLine}{'viewadmin'});
+        if ( $author eq 'Alice' && ($password eq 'wonderland' || $password eq 'woCCASD0Wk0IA') ){
+            $alicewarning = '<span class="error_msg">'.Gm_Core::text( Gm_Constants::AUTHORS_ALICE_ALERT ).
+                '</span><br />';
+        }
 	
-		if ( $author eq 'Alice' && ($password eq 'wonderland' || $password eq 'woCCASD0Wk0IA') ){
-			$alicewarning = '<span class="error_msg">'.Gm_Core::text( Gm_Constants::AUTHORS_ALICE_ALERT ).
-			'</span><br />';
-		}
-	
-		$author =~ s/</\&lt;/g;
-		$author =~ s/>/\&gt;/g;
-		$author =~ s/"/\&quot;/g;
-			
-		$page .= "<tr $rowcolor><td>$author</td><td>$email</td><td>$homepage</td>";
-		$rowcolor = Gm_Web::altRowColor( $rowcolor );
-		
-		## figuring privilages
-		my $privs = Gm_Core::text( Gm_Constants::AUTHORS_CUSTOM_ACCESS );
-		if( $postnew eq Gm_Constants::Y && $editentries eq Gm_Constants::Y && 
-			$editconfigs eq Gm_Constants::Y && $edittemplates eq Gm_Constants::Y && 
-			$editauthors eq Gm_Constants::Y && $rebuild eq Gm_Constants::Y && 
-			$viewcplog eq Gm_Constants::Y && $bookmarklets eq Gm_Constants::Y && 
-			$upload eq Gm_Constants::Y && $viewadmin eq Gm_Constants::Y ){
-			$privs = Gm_Core::text( Gm_Constants::AUTHORS_ALL_ACCESS );
-			
-		} elsif( $postnew eq Gm_Constants::Y && $editentries eq Gm_Constants::O && 
-			$editconfigs eq Gm_Constants::N && $edittemplates eq Gm_Constants::N && 
-			$editauthors eq Gm_Constants::N && $rebuild eq Gm_Constants::N && 
-			$viewcplog eq Gm_Constants::N && $bookmarklets eq Gm_Constants::Y && 
-			$upload eq Gm_Constants::N && $viewadmin eq Gm_Constants::Y ){
-			$privs = Gm_Core::text( Gm_Constants::AUTHORS_OWN_SHORT );
-			
-		} elsif( $postnew eq Gm_Constants::N && $editentries eq Gm_Constants::N && 
-			$editconfigs eq Gm_Constants::N && $edittemplates eq Gm_Constants::N && 
-			$editauthors eq Gm_Constants::N && $rebuild eq Gm_Constants::N && 
-			$viewcplog eq Gm_Constants::N && $bookmarklets eq Gm_Constants::N && 
-			$upload eq Gm_Constants::N && $viewadmin eq Gm_Constants::N ){
-			$privs = Gm_Core::text( Gm_Constants::AUTHORS_NO_ACCESS );
-			
-		}
-		$page .= "<td>$privs</td><td>\n";
-		
-		## Edit, Delete buttons
-		$page .= '<a href="'.$ENV{SCRIPT_NAME}.'?section='.$IN{'section'}.'&delete=1&'.
-		'selectedauthor='.$author.
-		'&'.Gm_Security::getUrlAuth( author=>\%AUTHOR ).
-		'" class="link_button" STYLE="background: #FFD0D0">'.
-		Gm_Core::text( Gm_Constants::DELETE ).'</a>';
-		
-		$page .= ' &#160; <a href="'.$ENV{SCRIPT_NAME}.'?section='.$IN{'section'}.'&view=1&'.
-		'selectedauthor='.$author.
-		'&'.Gm_Security::getUrlAuth( author=>\%AUTHOR ).
-		'" class="link_button" STYLE="background: #D0FFD0">'.
-		Gm_Core::text( Gm_Constants::EDIT ).'</a>';
-		
-		$page .= '</td></tr>'."\n";
-	}
+        $author =~ s/</\&lt;/g;
+        $author =~ s/>/\&gt;/g;
+        $author =~ s/"/\&quot;/g;
+        
+        $page .= "<tr $rowcolor><td>$author</td><td>$email</td><td>$homepage</td>";
+        $rowcolor = Gm_Web::altRowColor( $rowcolor );
+        
+        ## figuring privilages
+        my $privs = Gm_Core::text( Gm_Constants::AUTHORS_CUSTOM_ACCESS );
+        if( $postnew eq Gm_Constants::Y && $editentries eq Gm_Constants::Y && 
+            $editconfigs eq Gm_Constants::Y && $edittemplates eq Gm_Constants::Y && 
+            $editauthors eq Gm_Constants::Y && $rebuild eq Gm_Constants::Y && 
+            $viewcplog eq Gm_Constants::Y && $bookmarklets eq Gm_Constants::Y && 
+            $upload eq Gm_Constants::Y && $viewadmin eq Gm_Constants::Y ){
+            $privs = Gm_Core::text( Gm_Constants::AUTHORS_ALL_ACCESS );
+            
+        } elsif( $postnew eq Gm_Constants::Y && $editentries eq Gm_Constants::O && 
+                 $editconfigs eq Gm_Constants::N && $edittemplates eq Gm_Constants::N && 
+                 $editauthors eq Gm_Constants::N && $rebuild eq Gm_Constants::N && 
+                 $viewcplog eq Gm_Constants::N && $bookmarklets eq Gm_Constants::Y && 
+                 $upload eq Gm_Constants::N && $viewadmin eq Gm_Constants::Y ){
+            $privs = Gm_Core::text( Gm_Constants::AUTHORS_OWN_SHORT );
+            
+        } elsif( $postnew eq Gm_Constants::N && $editentries eq Gm_Constants::N && 
+                 $editconfigs eq Gm_Constants::N && $edittemplates eq Gm_Constants::N && 
+                 $editauthors eq Gm_Constants::N && $rebuild eq Gm_Constants::N && 
+                 $viewcplog eq Gm_Constants::N && $bookmarklets eq Gm_Constants::N && 
+                 $upload eq Gm_Constants::N && $viewadmin eq Gm_Constants::N ){
+            $privs = Gm_Core::text( Gm_Constants::AUTHORS_NO_ACCESS );
+            
+        }
+        $page .= "<td>$privs</td><td>\n";
+        
+        ## Edit, Delete buttons
+        $page .= '<a href="'.$ENV{SCRIPT_NAME}.'?section='.$IN{'section'}.'&delete=1&'.
+            'selectedauthor='.$author.
+            '&'.Gm_Security::getUrlAuth( author=>\%AUTHOR ).
+            '" class="link_button" STYLE="background: #FFD0D0">'.
+            Gm_Core::text( Gm_Constants::DELETE ).'</a>';
+        
+        $page .= ' &#160; <a href="'.$ENV{SCRIPT_NAME}.'?section='.$IN{'section'}.'&view=1&'.
+            'selectedauthor='.$author.
+            '&'.Gm_Security::getUrlAuth( author=>\%AUTHOR ).
+            '" class="link_button" STYLE="background: #D0FFD0">'.
+                              Gm_Core::text( Gm_Constants::EDIT ).'</a>';
+        
+        $page .= '</td></tr>'."\n";
+    }
 
 
-	$page .= "</table><div class='pagenav'>$page_nav</div><br />\n";	
-	$page .= "<p>$alicewarning</p>\n";
-	
-	## TODO: THESE ELEMENTS SHOULD BE REVALIDATED BEFORE DOING ANYTHING WITH
-	
-	$page .= '<div class="info_box"><span class="info_title">'.Gm_Core::text( Gm_Constants::AUTHORS_ADD_TITLE ).
-		'</span><p>'.Gm_Core::text( Gm_Constants::AUTHORS_ADD_INFO ).'</p>';
+    $page .= "</table><div class='pagenav'>$page_nav</div><br />\n";	
+    $page .= "<p>$alicewarning</p>\n";
+    
+    ## TODO: THESE ELEMENTS SHOULD BE REVALIDATED BEFORE DOING ANYTHING WITH
+    
+    $page .= '<div class="info_box"><span class="info_title">'.Gm_Core::text( Gm_Constants::AUTHORS_ADD_TITLE ).
+        '</span><p>'.Gm_Core::text( Gm_Constants::AUTHORS_ADD_INFO ).'</p>';
 
-	$page .= '<table width="80%" class="form_table">'.
-		'<tr><th><label for="name">'.Gm_Core::text( Gm_Constants::NAME ).':</label></th>'.
-		'<td><input type="text" class="inputfield" maxlength="25" name="newauthorname" size="15" '.
-		'id="name" value="'.$IN{'newauthorname'}.'"></td></tr>';
-	$page .= '<tr><th><label for="pw">'.Gm_Core::text( Gm_Constants::PW ).':</label></th>'.
-		'<td><input type="text" class="inputfield" maxlength="25" name="newauthorpassword" size="15" '.
-		'id="pw" value="'.$IN{'newauthorpassword'}.'"></td></tr>';
-	$page .= '<tr><th><label for="email">'.Gm_Core::text( Gm_Constants::AUTHORS_EMAIL ).':</label></th>'.
-		'<td><input type="text" class="inputfield" maxlength="30" name="newauthoremail" size="15" '.
-		'id="email" value="'.$IN{'newauthoremail'}.'"></td></tr>';
-	unless( $IN{'newauthorhomepage'} ){ ## setting default value
-		$IN{'newauthorhomepage'} = 'http://';
-	}
-	$page .= '<tr><th><label for="homepage">'.Gm_Core::text( Gm_Constants::AUTHORS_HOMEPAGE ).':</label></th>'.
-		'<td><input type="text" class="inputfield" maxlength="30" name="newauthorhomepage" size="15" '.
-		'id="homepage" value="'.$IN{'newauthorhomepage'}.'"></td></tr>';		
-	
-	unless( $IN{'newauthoraccess'} ){
-		$IN{'newauthoraccess'} = 'all';
-	}
-	$page .= '<tr><th>'.Gm_Core::text( Gm_Constants::AUTHORS_DEF_ACCESS ).':</th>'.
-		'<td>'.Gm_Web::createRadioButton( name=>'newauthoraccess', value=>'all', id=>'all_access',
-		checked=>$IN{'newauthoraccess'} ).
-		'<label for="all_access">'.Gm_Core::text( Gm_Constants::AUTHORS_ALL_ACCESS ).'</label>&#160; '.
-		Gm_Web::createRadioButton( name=>'newauthoraccess', value=>'none', id=>'no_access',
-		checked=>$IN{'newauthoraccess'} ).
-		'<label for="no_access">'.Gm_Core::text( Gm_Constants::AUTHORS_NO_ACCESS ).'</label><br /> '.
-		Gm_Web::createRadioButton( name=>'newauthoraccess', value=>'postedit', id=>'own_access',
-		checked=>$IN{'newauthoraccess'} ).
-		'<label for="own_access">'.Gm_Core::text( Gm_Constants::AUTHORS_OWN_ACCESS ).'</label>'.
-		'</td></tr>';		
-		
-	$page .= '<tr><th>&nbsp</th><td><INPUT TYPE=HIDDEN NAME="section" VALUE="'.$IN{'section'}.'">'.
-		'<input type=SUBMIT class="button" name="add" '.
-		'STYLE="background: #D0FFD0" value="'.Gm_Core::text( Gm_Constants::ADD ).
-		'"></td></tr></table></div></form>';
-		
-	$page .= '<FORM ACTION="gm.cgi" METHOD=POST> '.Gm_Security::getFormAuth( author=>\%AUTHOR ).
-		'<p><INPUT TYPE=SUBMIT CLASS="button" NAME="menu" '.
-		'VALUE="'.Gm_Core::text( Gm_Constants::RETURN_MAIN_MENU ).
-		'" STYLE="background: #C0C0C0"></p></FORM><br />';
-	## NAVIGATION SHOULD BE DE-BUTTONED
-	
-	Gm_Web::displayAdminPageExit( $page );
-	exit(0);
+    $page .= '<table width="80%" class="form_table">'.
+        '<tr><th><label for="name">'.Gm_Core::text( Gm_Constants::NAME ).':</label></th>'.
+        '<td><input type="text" class="inputfield" maxlength="25" name="newauthorname" size="15" '.
+        'id="name" value="'.$IN{'newauthorname'}.'"></td></tr>';
+    $page .= '<tr><th><label for="pw">'.Gm_Core::text( Gm_Constants::PW ).':</label></th>'.
+        '<td><input type="text" class="inputfield" maxlength="25" name="newauthorpassword" size="15" '.
+        'id="pw" value="'.$IN{'newauthorpassword'}.'"></td></tr>';
+    $page .= '<tr><th><label for="email">'.Gm_Core::text( Gm_Constants::AUTHORS_EMAIL ).':</label></th>'.
+        '<td><input type="text" class="inputfield" maxlength="30" name="newauthoremail" size="15" '.
+        'id="email" value="'.$IN{'newauthoremail'}.'"></td></tr>';
+    unless( $IN{'newauthorhomepage'} ){ ## setting default value
+        $IN{'newauthorhomepage'} = 'http://';
+    }
+    $page .= '<tr><th><label for="homepage">'.Gm_Core::text( Gm_Constants::AUTHORS_HOMEPAGE ).':</label></th>'.
+        '<td><input type="text" class="inputfield" maxlength="30" name="newauthorhomepage" size="15" '.
+        'id="homepage" value="'.$IN{'newauthorhomepage'}.'"></td></tr>';		
+    
+    unless( $IN{'newauthoraccess'} ){
+        $IN{'newauthoraccess'} = 'all';
+    }
+    $page .= '<tr><th>'.Gm_Core::text( Gm_Constants::AUTHORS_DEF_ACCESS ).':</th>'.
+        '<td>'.Gm_Web::createRadioButton( name=>'newauthoraccess', value=>'all', id=>'all_access',
+                                          checked=>$IN{'newauthoraccess'} ).
+        '<label for="all_access">'.Gm_Core::text( Gm_Constants::AUTHORS_ALL_ACCESS ).'</label>&#160; '.
+                                                                                                         Gm_Web::createRadioButton( name=>'newauthoraccess', value=>'none', id=>'no_access',
+                                                                                                                                    checked=>$IN{'newauthoraccess'} ).
+                                                                                                         '<label for="no_access">'.Gm_Core::text( Gm_Constants::AUTHORS_NO_ACCESS ).'</label><br /> '.
+                                                                                                         Gm_Web::createRadioButton( name=>'newauthoraccess', value=>'postedit', id=>'own_access',
+                                                                                                                                    checked=>$IN{'newauthoraccess'} ).
+                                                                                                         '<label for="own_access">'.Gm_Core::text( Gm_Constants::AUTHORS_OWN_ACCESS ).'</label>'.
+                                                                                                         '</td></tr>';		
+    
+    $page .= '<tr><th>&nbsp</th><td><INPUT TYPE=HIDDEN NAME="section" VALUE="'.$IN{'section'}.'">'.
+        '<input type=SUBMIT class="button" name="add" '.
+        'STYLE="background: #D0FFD0" value="'.Gm_Core::text( Gm_Constants::ADD ).
+            '"></td></tr></table></div></form>';
+    
+    $page .= '<FORM ACTION="gm.cgi" METHOD=POST> '.Gm_Security::getFormAuth( author=>\%AUTHOR ).
+        '<p><INPUT TYPE=SUBMIT CLASS="button" NAME="menu" '.
+        'VALUE="'.Gm_Core::text( Gm_Constants::RETURN_MAIN_MENU ).
+            '" STYLE="background: #C0C0C0"></p></FORM><br />';
+    ## NAVIGATION SHOULD BE DE-BUTTONED
+    
+    Gm_Web::displayAdminPageExit( $page );
+    exit(0);
 }
 
 
@@ -1001,134 +1001,134 @@ sub viewAuthorList {
 # called from so it can be reused with normal user self-registration?
 # ALSO:  can this and updateAuthor be abstracted to reduce duplicate error checking?
 sub addAuthor {
-	my $message = Gm_Constants::EMPTY;
+    my $message = Gm_Constants::EMPTY;
 
-	if( ($IN{'newauthorname'} eq Gm_Constants::EMPTY) || 
-		($IN{'newauthorpassword'} eq Gm_Constants::EMPTY) ){
-		$message = '<span class="error_msg">'.Gm_Core::text( Gm_Constants::AUTHORS_ENTER_NAME_PW ).'</span>';
+    if( ($IN{'newauthorname'} eq Gm_Constants::EMPTY) || 
+        ($IN{'newauthorpassword'} eq Gm_Constants::EMPTY) ){
+        $message = '<span class="error_msg">'.Gm_Core::text( Gm_Constants::AUTHORS_ENTER_NAME_PW ).'</span>';
 
-		## should this be return?  we are limiting its use to just on web, specically author page.  Make this function generic so users can register?
-		viewAuthorList( $message ); 
-	}
+        ## should this be return?  we are limiting its use to just on web, specically author page.  Make this function generic so users can register?
+        viewAuthorList( $message ); 
+    }
 
-	if( ($IN{'newauthorname'} =~ /^\s+/) || ($IN{'newauthorpassword'} =~ /^\s+/) || 
-		($IN{'newauthorname'} =~ /\s+$/) || ($IN{'newauthorpassword'} =~ /\s+$/) ) {
-		$message = '<span class="error_msg">'.Gm_Core::text( Gm_Constants::AUTHORS_NOWS_NAME_PW ).'</span>';
-		viewAuthorList( $message );
-	}
+    if( ($IN{'newauthorname'} =~ /^\s+/) || ($IN{'newauthorpassword'} =~ /^\s+/) || 
+        ($IN{'newauthorname'} =~ /\s+$/) || ($IN{'newauthorpassword'} =~ /\s+$/) ) {
+        $message = '<span class="error_msg">'.Gm_Core::text( Gm_Constants::AUTHORS_NOWS_NAME_PW ).'</span>';
+        viewAuthorList( $message );
+    }
 
-	## We are removing spaces temporily, so that we can use perl regex shorthand 
-	$IN{'newauthorname'} =~ s/ /THISISASPACE/g;
-	$IN{'newauthorpassword'} =~ s/ /THISISASPACE/g;
-	
-	if (($IN{'newauthorname'} =~ /\W/) || ($IN{'newauthorpassword'} =~ /\W/)) {
-		$message = '<span class="error_msg">'.Gm_Core::text( Gm_Constants::AUTHORS_BAD_NAME_PW ).'</span>';
-		viewAuthorList( $message );
-	}
-	## Now we are restoring to proper form
-	$IN{'newauthorname'} =~ s/THISISASPACE/ /g;
-	$IN{'newauthorpassword'} =~ s/THISISASPACE/ /g;
+    ## We are removing spaces temporily, so that we can use perl regex shorthand 
+    $IN{'newauthorname'} =~ s/ /THISISASPACE/g;
+    $IN{'newauthorpassword'} =~ s/ /THISISASPACE/g;
+    
+    if (($IN{'newauthorname'} =~ /\W/) || ($IN{'newauthorpassword'} =~ /\W/)) {
+        $message = '<span class="error_msg">'.Gm_Core::text( Gm_Constants::AUTHORS_BAD_NAME_PW ).'</span>';
+        viewAuthorList( $message );
+    }
+    ## Now we are restoring to proper form
+    $IN{'newauthorname'} =~ s/THISISASPACE/ /g;
+    $IN{'newauthorpassword'} =~ s/THISISASPACE/ /g;
 
-	$IN{'newauthoremail'} = Gm_Utils::trimFrontWs( $IN{'newauthoremail'} );
-	$IN{'newauthoremail'} = Gm_Utils::trimBackWs( $IN{'newauthoremail'} );
-	$IN{'newauthorhomepage'} = Gm_Utils::trimFrontWs( $IN{'newauthorhomepage'} );
-	$IN{'newauthorhomepage'} = Gm_Utils::trimBackWs( $IN{'newauthorhomepage'} );
+    $IN{'newauthoremail'} = Gm_Utils::trimFrontWs( $IN{'newauthoremail'} );
+    $IN{'newauthoremail'} = Gm_Utils::trimBackWs( $IN{'newauthoremail'} );
+    $IN{'newauthorhomepage'} = Gm_Utils::trimFrontWs( $IN{'newauthorhomepage'} );
+    $IN{'newauthorhomepage'} = Gm_Utils::trimBackWs( $IN{'newauthorhomepage'} );
 
-	my $gmauthors = Gm_Storage::getAuthors( errHandler=>\&Gm_Web::displayAdminErrorExit );
+    my $gmauthors = Gm_Storage::getAuthors( errHandler=>\&Gm_Web::displayAdminErrorExit );
 
-	## just checking if author name exisits, note this works because of keys we are using
-	# would have to change if we made keys a numeric id or something (but name better be unique)
-	if ( exists( $gmauthors->{$IN{'newauthorname'}}) ) {
-		my $cpMsg = Gm_Core::text( Gm_Constants::AUTHORS_DUPE_LOG, { AUTHOR=>$AUTHOR{'author'},
-			NAME=>$IN{'newauthorname'} } );
-		Gm_Core::writeToCplog( $cpMsg );
-		
-		$message = '<span class="error_msg">'.Gm_Core::text( Gm_Constants::AUTHORS_DUPE_NAME ).'</span>';
-		viewAuthorList( $message );
-	}
+    ## just checking if author name exisits, note this works because of keys we are using
+    # would have to change if we made keys a numeric id or something (but name better be unique)
+    if ( exists( $gmauthors->{$IN{'newauthorname'}}) ) {
+        my $cpMsg = Gm_Core::text( Gm_Constants::AUTHORS_DUPE_LOG, { AUTHOR=>$AUTHOR{'author'},
+                                                                   NAME=>$IN{'newauthorname'} } );
+        Gm_Core::writeToCplog( $cpMsg );
+        
+        $message = '<span class="error_msg">'.Gm_Core::text( Gm_Constants::AUTHORS_DUPE_NAME ).'</span>';
+        viewAuthorList( $message );
+    }
 
-	## old code failed to account for https urls
-	if( $IN{'newauthorhomepage'} !~ m/^http/i ){ 
-		# If it doesn't start with http, lets add it for them
-		$IN{'newauthorhomepage'} = "http://$IN{'newauthorhomepage'}"; 
-	}
+    ## old code failed to account for https urls
+    if( $IN{'newauthorhomepage'} !~ m/^http/i ){ 
+        # If it doesn't start with http, lets add it for them
+        $IN{'newauthorhomepage'} = "http://$IN{'newauthorhomepage'}"; 
+    }
 
-	## default was unchanged, so we just leave as blank
-	if( $IN{'newauthorhomepage'} eq 'http://' ){ 
-		$IN{'newauthorhomepage'} = Gm_Constants::EMPTY; 
-	}
+    ## default was unchanged, so we just leave as blank
+    if( $IN{'newauthorhomepage'} eq 'http://' ){ 
+        $IN{'newauthorhomepage'} = Gm_Constants::EMPTY; 
+    }
 
-	my ($skip, $wday, $mon, $mday, $JSYear, $hour, $min, $sec, $AMPM ) = 
-		Gm_Utils::getStdDate( $gmConfigs->{'gmserveroffset'} );
-	my $montwo = Gm_Utils::toTwoDigit( $mon );
-	my $mdaytwo = Gm_Utils::toTwoDigit( $mday );
-	# TODO STANDARDIZE HOW DATES ARE STORED (WITH LEADING 0 OR NOT)
+    my ($skip, $wday, $mon, $mday, $JSYear, $hour, $min, $sec, $AMPM ) = 
+        Gm_Utils::getStdDate( $gmConfigs->{'gmserveroffset'} );
+    my $montwo = Gm_Utils::toTwoDigit( $mon );
+    my $mdaytwo = Gm_Utils::toTwoDigit( $mday );
+    # TODO STANDARDIZE HOW DATES ARE STORED (WITH LEADING 0 OR NOT)
 
-	## This should be abstracted out to security, such as setAuthorCredentials
-	## Also, authors should have a field, credential id, that is a unique identifier
-	# that is determined by Gm_Security
-	$IN{'newauthorpassword'} = crypt($IN{'newauthorpassword'}, (localtime())[0] );
+    ## This should be abstracted out to security, such as setAuthorCredentials
+    ## Also, authors should have a field, credential id, that is a unique identifier
+    # that is determined by Gm_Security
+    $IN{'newauthorpassword'} = crypt($IN{'newauthorpassword'}, (localtime())[0] );
 
-	my %newAuthor = ();
-	$newAuthor{'author'} = $IN{'newauthorname'};
-	$newAuthor{'password'} = $IN{'newauthorpassword'};
-	$newAuthor{'email'} = $IN{'newauthoremail'};
-	$newAuthor{'homepage'} = $IN{'newauthorhomepage'};
-	$newAuthor{'created'} = "$montwo\/$mdaytwo\/$JSYear";
-	$newAuthor{'posttotal'} = '0';
+    my %newAuthor = ();
+    $newAuthor{'author'} = $IN{'newauthorname'};
+    $newAuthor{'password'} = $IN{'newauthorpassword'};
+    $newAuthor{'email'} = $IN{'newauthoremail'};
+    $newAuthor{'homepage'} = $IN{'newauthorhomepage'};
+    $newAuthor{'created'} = "$montwo\/$mdaytwo\/$JSYear";
+    $newAuthor{'posttotal'} = '0';
 
-	if ($IN{'newauthoraccess'} eq Gm_Constants::ALL) {
-		$newAuthor{'postnew'} = Gm_Constants::Y;
-		$newAuthor{'editentries'} = Gm_Constants::Y;
-		$newAuthor{'editconfigs'} = Gm_Constants::Y;
-		$newAuthor{'edittemplates'} = Gm_Constants::Y;
-		$newAuthor{'editauthors'} = Gm_Constants::Y;
-		$newAuthor{'rebuild'} = Gm_Constants::Y;
-		$newAuthor{'viewcplog'} = Gm_Constants::Y;
-		$newAuthor{'bookmarklets'} = Gm_Constants::Y;
-		$newAuthor{'upload'} = Gm_Constants::Y;
-		$newAuthor{'viewadmin'} = Gm_Constants::Y;
-	} elsif ($IN{'newauthoraccess'} eq 'postedit') {
-		# Some perms
-		$newAuthor{'postnew'} = Gm_Constants::Y;
-		$newAuthor{'editentries'} = Gm_Constants::O;
-		$newAuthor{'editconfigs'} = Gm_Constants::N;
-		$newAuthor{'edittemplates'} = Gm_Constants::N;
-		$newAuthor{'editauthors'} = Gm_Constants::N;
-		$newAuthor{'rebuild'} = Gm_Constants::N;
-		$newAuthor{'viewcplog'} = Gm_Constants::N;
-		$newAuthor{'bookmarklets'} = Gm_Constants::Y;
-		$newAuthor{'upload'} = Gm_Constants::N;
-		$newAuthor{'viewadmin'} = Gm_Constants::Y;
-	} else {
-		# No perms
-		$newAuthor{'postnew'} = Gm_Constants::N;
-		$newAuthor{'editentries'} = Gm_Constants::N;
-		$newAuthor{'editconfigs'} = Gm_Constants::N;
-		$newAuthor{'edittemplates'} = Gm_Constants::N;
-		$newAuthor{'editauthors'} = Gm_Constants::N;
-		$newAuthor{'rebuild'} = Gm_Constants::N;
-		$newAuthor{'viewcplog'} = Gm_Constants::N;
-		$newAuthor{'bookmarklets'} = Gm_Constants::N;
-		$newAuthor{'upload'} = Gm_Constants::N;
-		$newAuthor{'viewadmin'} = Gm_Constants::N;
-	}
+    if ($IN{'newauthoraccess'} eq Gm_Constants::ALL) {
+        $newAuthor{'postnew'} = Gm_Constants::Y;
+        $newAuthor{'editentries'} = Gm_Constants::Y;
+        $newAuthor{'editconfigs'} = Gm_Constants::Y;
+        $newAuthor{'edittemplates'} = Gm_Constants::Y;
+        $newAuthor{'editauthors'} = Gm_Constants::Y;
+        $newAuthor{'rebuild'} = Gm_Constants::Y;
+        $newAuthor{'viewcplog'} = Gm_Constants::Y;
+        $newAuthor{'bookmarklets'} = Gm_Constants::Y;
+        $newAuthor{'upload'} = Gm_Constants::Y;
+        $newAuthor{'viewadmin'} = Gm_Constants::Y;
+    } elsif ($IN{'newauthoraccess'} eq 'postedit') {
+        # Some perms
+        $newAuthor{'postnew'} = Gm_Constants::Y;
+        $newAuthor{'editentries'} = Gm_Constants::O;
+        $newAuthor{'editconfigs'} = Gm_Constants::N;
+        $newAuthor{'edittemplates'} = Gm_Constants::N;
+        $newAuthor{'editauthors'} = Gm_Constants::N;
+        $newAuthor{'rebuild'} = Gm_Constants::N;
+        $newAuthor{'viewcplog'} = Gm_Constants::N;
+        $newAuthor{'bookmarklets'} = Gm_Constants::Y;
+        $newAuthor{'upload'} = Gm_Constants::N;
+        $newAuthor{'viewadmin'} = Gm_Constants::Y;
+    } else {
+        # No perms
+        $newAuthor{'postnew'} = Gm_Constants::N;
+        $newAuthor{'editentries'} = Gm_Constants::N;
+        $newAuthor{'editconfigs'} = Gm_Constants::N;
+        $newAuthor{'edittemplates'} = Gm_Constants::N;
+        $newAuthor{'editauthors'} = Gm_Constants::N;
+        $newAuthor{'rebuild'} = Gm_Constants::N;
+        $newAuthor{'viewcplog'} = Gm_Constants::N;
+        $newAuthor{'bookmarklets'} = Gm_Constants::N;
+        $newAuthor{'upload'} = Gm_Constants::N;
+        $newAuthor{'viewadmin'} = Gm_Constants::N;
+    }
 
-	Gm_Storage::addAuthor( %newAuthor, errHandler=>\&Gm_Web::displayAdminErrorExit );
+    Gm_Storage::addAuthor( %newAuthor, errHandler=>\&Gm_Web::displayAdminErrorExit );
 
-	Gm_Core::writeToCplog( Gm_Core::text( Gm_Constants::AUTHORS_ADD_LOG, { AUTHOR=>$AUTHOR{'author'},
-		NAME=>$IN{'newauthorname'} } ) );
+    Gm_Core::writeToCplog( Gm_Core::text( Gm_Constants::AUTHORS_ADD_LOG, { AUTHOR=>$AUTHOR{'author'},
+                                                                           NAME=>$IN{'newauthorname'} } ) );
 
-	$message = '<span class="status_msg">'.Gm_Core::text( Gm_Constants::AUTHORS_ADD_CONFIRM, 
-	{ NAME=>$IN{'newauthorname'} } ).'</span><p>';
+    $message = '<span class="status_msg">'.Gm_Core::text( Gm_Constants::AUTHORS_ADD_CONFIRM, 
+                                                          { NAME=>$IN{'newauthorname'} } ).'</span><p>';
 
-	$IN{'newauthorname'} = Gm_Constants::EMPTY;
-	$IN{'newauthorpassword'} = Gm_Constants::EMPTY;
-	$IN{'newauthoremail'} = Gm_Constants::EMPTY;
-	$IN{'newauthorhomepage'} = Gm_Constants::EMPTY;
+    $IN{'newauthorname'} = Gm_Constants::EMPTY;
+    $IN{'newauthorpassword'} = Gm_Constants::EMPTY;
+    $IN{'newauthoremail'} = Gm_Constants::EMPTY;
+    $IN{'newauthorhomepage'} = Gm_Constants::EMPTY;
 
-	## we are just adding, no control flow
-	return( $message );
+    ## we are just adding, no control flow
+    return( $message );
 }
 
 
@@ -1136,33 +1136,33 @@ sub addAuthor {
 # Delete the given author from the list of authors
 # RETURNS: A message to display on the view page
 sub deleteAuthor {
-	my $message = Gm_Constants::EMPTY;
+    my $message = Gm_Constants::EMPTY;
 
-	my $gmauthors = Gm_Storage::getAuthors( errHandler=>\&Gm_Web::displayAdminErrorExit );
+    my $gmauthors = Gm_Storage::getAuthors( errHandler=>\&Gm_Web::displayAdminErrorExit );
 
-	if( !defined( $IN{'selectedauthor'} ) || !exists( $gmauthors->{$IN{'selectedauthor'}}) ){
-		$message = '<span class="error_msg">'.Gm_Core::text( Gm_Constants::AUTHORS_SELECT_NAME ).'</span>';
-		viewAuthorList( $message );
-	}
+    if( !defined( $IN{'selectedauthor'} ) || !exists( $gmauthors->{$IN{'selectedauthor'}}) ){
+        $message = '<span class="error_msg">'.Gm_Core::text( Gm_Constants::AUTHORS_SELECT_NAME ).'</span>';
+        viewAuthorList( $message );
+    }
 
-	if( scalar( keys(%$gmauthors)) == 1 ){
-		$message = '<span class="error_msg">'.Gm_Core::text( Gm_Constants::AUTHORS_NO_DELETE ).'</span>';
-		viewAuthorList( $message );
-	}
+    if( scalar( keys(%$gmauthors)) == 1 ){
+        $message = '<span class="error_msg">'.Gm_Core::text( Gm_Constants::AUTHORS_NO_DELETE ).'</span>';
+        viewAuthorList( $message );
+    }
 
-	Gm_Storage::deleteAuthor( author=>$IN{'selectedauthor'}, errHandler=>\&Gm_Web::displayAdminErrorExit );
+    Gm_Storage::deleteAuthor( author=>$IN{'selectedauthor'}, errHandler=>\&Gm_Web::displayAdminErrorExit );
 
-	Gm_Core::writeToCplog( Gm_Core::text( Gm_Constants::AUTHORS_DELETE_LOG, { AUTHOR=>$AUTHOR{'author'},
-		NAME=>$IN{'selectedauthor'} } ) );
+    Gm_Core::writeToCplog( Gm_Core::text( Gm_Constants::AUTHORS_DELETE_LOG, { AUTHOR=>$AUTHOR{'author'},
+                                                                           NAME=>$IN{'selectedauthor'} } ) );
 
-	if( $IN{'selectedauthor'} eq $AUTHOR{'author'} ){
-		%AUTHOR = %{ Gm_Security::auth( webparams=>\%IN, reauth=>1,
-			errHandler=>\&Gm_Web::displayAdminErrorExit ) };
-	} else {
-		$message = '<span class="status_msg">'.Gm_Core::text( Gm_Constants::AUTHORS_DELETE_CONFIRM, 
-			{ NAME=>$IN{'selectedauthor'} }  ).'</span>';
-		viewAuthorList( $message );
-	}
+    if( $IN{'selectedauthor'} eq $AUTHOR{'author'} ){
+        %AUTHOR = %{ Gm_Security::auth( webparams=>\%IN, reauth=>1,
+                                       errHandler=>\&Gm_Web::displayAdminErrorExit ) };
+    } else {
+        $message = '<span class="status_msg">'.Gm_Core::text( Gm_Constants::AUTHORS_DELETE_CONFIRM, 
+                                                             { NAME=>$IN{'selectedauthor'} }  ).'</span>';
+        viewAuthorList( $message );
+    }
 
 }
 
@@ -1171,199 +1171,199 @@ sub deleteAuthor {
 # Edit a particular author
 # (opt) ARG1: Message to display to user, could be error or confirmation of action
 sub viewAuthor {
-	my $message = shift( @_ ) || Gm_Constants::EMPTY;
+    my $message = shift( @_ ) || Gm_Constants::EMPTY;
 
-	my $gmauthors = Gm_Storage::getAuthors( errHandler=>\&Gm_Web::displayAdminErrorExit );
+    my $gmauthors = Gm_Storage::getAuthors( errHandler=>\&Gm_Web::displayAdminErrorExit );
 
-	if ( !defined( $IN{'selectedauthor'} ) || !exists( $gmauthors->{$IN{'selectedauthor'}}) ) {
-		$message = '<span class="error_msg">'.Gm_Core::text( Gm_Constants::AUTHORS_SELECT_NAME ).'</span>';
-		viewAuthorList( $message );
-	}
+    if ( !defined( $IN{'selectedauthor'} ) || !exists( $gmauthors->{$IN{'selectedauthor'}}) ) {
+        $message = '<span class="error_msg">'.Gm_Core::text( Gm_Constants::AUTHORS_SELECT_NAME ).'</span>';
+        viewAuthorList( $message );
+    }
 
-	my $selectedauthor = $gmauthors->{$IN{'selectedauthor'}};
+    my $selectedauthor = $gmauthors->{$IN{'selectedauthor'}};
 
-	if( $selectedauthor->{'homepage'} eq Gm_Constants::EMPTY ){ 
-		$selectedauthor->{'homepage'} = "http://"; 
-	}
+    if( $selectedauthor->{'homepage'} eq Gm_Constants::EMPTY ){ 
+        $selectedauthor->{'homepage'} = "http://"; 
+    }
 
-	if( $message eq Gm_Constants::EMPTY ){ 
-		$message = '<span class="info_text">'.Gm_Core::text( Gm_Constants::AUTHORS_STATS, 
-			{ CREATED=>$selectedauthor->{'created'}, ENTRIES=>$selectedauthor->{'posttotal'} } ).'</span>'; 
-	} 
-	
-	my $page = '<span class="section_title">'.Gm_Core::text( Gm_Constants::AUTHORS_EDIT_TITLE, 
-			{ AUTHOR=>$selectedauthor->{'author'} } )."</span><br /><p>$message</p>\n";	
-			
-	$page .= '<form action="gm.cgi" method="post"> '.
-		Gm_Security::getFormAuth( author=>\%AUTHOR ).
-		'<input type="hidden" name="selectedauthor" value="'.$selectedauthor->{'author'}."\">\n";
-		
-# 		'<input type="hidden" name="authororiginalpassword" value="'.$selectedauthor->{'password'}."\">\n".
-# 		'<input type="hidden" name="authororiginaldate" value="'.$selectedauthor->{'created'}."\">\n".
-# 		'<input type="hidden" name="authororiginalentries" value="'.$selectedauthor->{'posttotal'}."\">\n".
-# 		'<input type="hidden" name="editedauthornumber" value="'.$selectedauthor->{'author'}."\">\n";
+    if( $message eq Gm_Constants::EMPTY ){ 
+        $message = '<span class="info_text">'.Gm_Core::text( Gm_Constants::AUTHORS_STATS, 
+                                                            { CREATED=>$selectedauthor->{'created'}, ENTRIES=>$selectedauthor->{'posttotal'} } ).'</span>'; 
+    } 
+    
+    my $page = '<span class="section_title">'.Gm_Core::text( Gm_Constants::AUTHORS_EDIT_TITLE, 
+                                                            { AUTHOR=>$selectedauthor->{'author'} } )."</span><br /><p>$message</p>\n";	
+    
+    $page .= '<form action="gm.cgi" method="post"> '.
+        Gm_Security::getFormAuth( author=>\%AUTHOR ).
+        '<input type="hidden" name="selectedauthor" value="'.$selectedauthor->{'author'}."\">\n";
+    
+    # 		'<input type="hidden" name="authororiginalpassword" value="'.$selectedauthor->{'password'}."\">\n".
+    # 		'<input type="hidden" name="authororiginaldate" value="'.$selectedauthor->{'created'}."\">\n".
+    # 		'<input type="hidden" name="authororiginalentries" value="'.$selectedauthor->{'posttotal'}."\">\n".
+    # 		'<input type="hidden" name="editedauthornumber" value="'.$selectedauthor->{'author'}."\">\n";
 
-	my $authorName =  defined( $IN{'editedname'} ) ? 
-		$IN{'editedname'} : $selectedauthor->{'author'};
-	my $authorPassword =  defined( $IN{'editedpassword'} ) ? 
-		$IN{'editedpassword'} : $selectedauthor->{'password'};
-	my $authorEmail =  defined( $IN{'editedemail'} ) ? 
-		$IN{'editedemail'} : $selectedauthor->{'email'};
-	my $authorHomepage =  defined( $IN{'editedhomepage'} ) ? 
-		$IN{'editedhomepage'} : $selectedauthor->{'homepage'};
+    my $authorName =  defined( $IN{'editedname'} ) ? 
+        $IN{'editedname'} : $selectedauthor->{'author'};
+    my $authorPassword =  defined( $IN{'editedpassword'} ) ? 
+        $IN{'editedpassword'} : $selectedauthor->{'password'};
+    my $authorEmail =  defined( $IN{'editedemail'} ) ? 
+        $IN{'editedemail'} : $selectedauthor->{'email'};
+    my $authorHomepage =  defined( $IN{'editedhomepage'} ) ? 
+        $IN{'editedhomepage'} : $selectedauthor->{'homepage'};
 
-	$page .= '<table width="80%" class="form_table">'.
-		'<tr><th><label for="name">'.Gm_Core::text( Gm_Constants::NAME ).':</label></th>'.
-		'<td><input type="text" class="inputfield" maxlength="25" name="editedname" size="15" '.
-		'id="name" value="'.$authorName.'"></td></tr>';
-	$page .= '<tr><th><label for="pw">'.Gm_Core::text( Gm_Constants::PW ).':</label></th>'.
-		'<td><input type="password" class="inputfield" maxlength="25" name="editedpassword" size="15" '.
-		'id="pw" value="'.$authorPassword.'"></td></tr>';
-	$page .= '<tr><th><label for="email">'.Gm_Core::text( Gm_Constants::AUTHORS_EMAIL ).':</label></th>'.
-		'<td><input type="text" class="inputfield" maxlength="30" name="editedemail" size="15" '.
-		'id="email" value="'.$authorEmail.'"></td></tr>';
-	unless( $authorHomepage ){ ## setting default value
-		$authorHomepage = 'http://';
-	}
-	$page .= '<tr><th><label for="homepage">'.Gm_Core::text( Gm_Constants::AUTHORS_HOMEPAGE ).':</label></th>'.
-		'<td><input type="text" class="inputfield" maxlength="30" name="editedhomepage" size="15" '.
-		'id="homepage" value="'.$authorHomepage.'"></td></tr>';		
+    $page .= '<table width="80%" class="form_table">'.
+        '<tr><th><label for="name">'.Gm_Core::text( Gm_Constants::NAME ).':</label></th>'.
+        '<td><input type="text" class="inputfield" maxlength="25" name="editedname" size="15" '.
+        'id="name" value="'.$authorName.'"></td></tr>';
+    $page .= '<tr><th><label for="pw">'.Gm_Core::text( Gm_Constants::PW ).':</label></th>'.
+        '<td><input type="password" class="inputfield" maxlength="25" name="editedpassword" size="15" '.
+        'id="pw" value="'.$authorPassword.'"></td></tr>';
+    $page .= '<tr><th><label for="email">'.Gm_Core::text( Gm_Constants::AUTHORS_EMAIL ).':</label></th>'.
+        '<td><input type="text" class="inputfield" maxlength="30" name="editedemail" size="15" '.
+        'id="email" value="'.$authorEmail.'"></td></tr>';
+    unless( $authorHomepage ){ ## setting default value
+        $authorHomepage = 'http://';
+    }
+    $page .= '<tr><th><label for="homepage">'.Gm_Core::text( Gm_Constants::AUTHORS_HOMEPAGE ).':</label></th>'.
+        '<td><input type="text" class="inputfield" maxlength="30" name="editedhomepage" size="15" '.
+        'id="homepage" value="'.$authorHomepage.'"></td></tr>';		
 
-	my $authorPostnew =  defined( $IN{'editedentryaccess'} ) ? 
-		$IN{'editedentryaccess'} : $selectedauthor->{'postnew'};
-	my $authorEditEntry =  defined( $IN{'editedentryeditaccess'} ) ? 
-		$IN{'editedentryeditaccess'} : $selectedauthor->{'editentries'};
-	my $authorConfigure =  defined( $IN{'editedconfigureaccess'} ) ? 
-		$IN{'editedconfigureaccess'} : $selectedauthor->{'editconfigs'};
-	my $authorTemplates =  defined( $IN{'editedtemplateaccess'} ) ? 
-		$IN{'editedtemplateaccess'} : $selectedauthor->{'edittemplates'};
-	my $authorAuthors =  defined( $IN{'editedauthoraccess'} ) ? 
-		$IN{'editedauthoraccess'} : $selectedauthor->{'editauthors'};
-	my $authorRebuild =  defined( $IN{'editedrebuildaccess'} ) ? 
-		$IN{'editedrebuildaccess'} : $selectedauthor->{'rebuild'};
-	my $authorCplog =  defined( $IN{'editedcplogaccess'} ) ? 
-		$IN{'editedcplogaccess'} : $selectedauthor->{'viewcplog'};
-	my $authorBookmark =  defined( $IN{'editedbookmarkletaccess'} ) ? 
-		$IN{'editedbookmarkletaccess'} : $selectedauthor->{'bookmarklets'};
-	my $authorUpload =  defined( $IN{'editeduploadaccess'} ) ? 
-		$IN{'editeduploadaccess'} : $selectedauthor->{'upload'};
-	my $authorLogin =  defined( $IN{'editedloginaccess'} ) ? 
-		$IN{'editedloginaccess'} : $selectedauthor->{'viewadmin'};
+    my $authorPostnew =  defined( $IN{'editedentryaccess'} ) ? 
+        $IN{'editedentryaccess'} : $selectedauthor->{'postnew'};
+    my $authorEditEntry =  defined( $IN{'editedentryeditaccess'} ) ? 
+        $IN{'editedentryeditaccess'} : $selectedauthor->{'editentries'};
+    my $authorConfigure =  defined( $IN{'editedconfigureaccess'} ) ? 
+        $IN{'editedconfigureaccess'} : $selectedauthor->{'editconfigs'};
+    my $authorTemplates =  defined( $IN{'editedtemplateaccess'} ) ? 
+        $IN{'editedtemplateaccess'} : $selectedauthor->{'edittemplates'};
+    my $authorAuthors =  defined( $IN{'editedauthoraccess'} ) ? 
+        $IN{'editedauthoraccess'} : $selectedauthor->{'editauthors'};
+    my $authorRebuild =  defined( $IN{'editedrebuildaccess'} ) ? 
+        $IN{'editedrebuildaccess'} : $selectedauthor->{'rebuild'};
+    my $authorCplog =  defined( $IN{'editedcplogaccess'} ) ? 
+        $IN{'editedcplogaccess'} : $selectedauthor->{'viewcplog'};
+    my $authorBookmark =  defined( $IN{'editedbookmarkletaccess'} ) ? 
+        $IN{'editedbookmarkletaccess'} : $selectedauthor->{'bookmarklets'};
+    my $authorUpload =  defined( $IN{'editeduploadaccess'} ) ? 
+        $IN{'editeduploadaccess'} : $selectedauthor->{'upload'};
+    my $authorLogin =  defined( $IN{'editedloginaccess'} ) ? 
+        $IN{'editedloginaccess'} : $selectedauthor->{'viewadmin'};
 
 
-	$page .= '<tr class="form_long"><th>'.Gm_Core::text( Gm_Constants::AUTHORS_CAN_POST ).'</th>'.
-		'<td>'.Gm_Web::createRadioButton( name=>'editedentryaccess', value=>'Y', id=>'new_entries_yes',
-		checked=>$authorPostnew ).
-		'<label for="new_entries_yes">'.Gm_Core::text( Gm_Constants::YES ).'</label>&#160; '.
-		Gm_Web::createRadioButton( name=>'editedentryaccess', value=>'N', id=>'new_entries_no',
-		checked=>$authorPostnew ).
-		'<label for="new_entries_no">'.Gm_Core::text( Gm_Constants::NO ).'</label>'.
-		'</td></tr>';	
+    $page .= '<tr class="form_long"><th>'.Gm_Core::text( Gm_Constants::AUTHORS_CAN_POST ).'</th>'.
+        '<td>'.Gm_Web::createRadioButton( name=>'editedentryaccess', value=>'Y', id=>'new_entries_yes',
+                                         checked=>$authorPostnew ).
+        '<label for="new_entries_yes">'.Gm_Core::text( Gm_Constants::YES ).'</label>&#160; '.
+                                                                                             Gm_Web::createRadioButton( name=>'editedentryaccess', value=>'N', id=>'new_entries_no',
+                                                                                                                       checked=>$authorPostnew ).
+                                                                                             '<label for="new_entries_no">'.Gm_Core::text( Gm_Constants::NO ).'</label>'.
+                                                                                             '</td></tr>';	
 
-	$page .= '<tr class="form_long"><th>'.Gm_Core::text( Gm_Constants::AUTHORS_CAN_EDIT ).'</th>'.
-		'<td>'.Gm_Web::createRadioButton( name=>'editedentryeditaccess', value=>'Y', id=>'edit_entries_yes',
-		checked=>$authorEditEntry ).
-		'<label for="edit_entries_yes">'.Gm_Core::text( Gm_Constants::YES ).'</label>&#160; '.
-		Gm_Web::createRadioButton( name=>'editedentryeditaccess', value=>'N', id=>'edit_entries_no',
-		checked=>$authorEditEntry ).
-		'<label for="edit_entries_no">'.Gm_Core::text( Gm_Constants::NO ).'</label><br /> '.
-		Gm_Web::createRadioButton( name=>'editedentryeditaccess', value=>Gm_Constants::O, id=>'edit_entries_own',
-		checked=>$authorEditEntry ).
-		'<label for="edit_entries_own">'.Gm_Core::text( Gm_Constants::AUTHORS_ONLY_OWN ).'</label>'.
-		'</td></tr>';	
+    $page .= '<tr class="form_long"><th>'.Gm_Core::text( Gm_Constants::AUTHORS_CAN_EDIT ).'</th>'.
+        '<td>'.Gm_Web::createRadioButton( name=>'editedentryeditaccess', value=>'Y', id=>'edit_entries_yes',
+                                         checked=>$authorEditEntry ).
+        '<label for="edit_entries_yes">'.Gm_Core::text( Gm_Constants::YES ).'</label>&#160; '.
+                                                                                              Gm_Web::createRadioButton( name=>'editedentryeditaccess', value=>'N', id=>'edit_entries_no',
+                                                                                                                        checked=>$authorEditEntry ).
+                                                                                              '<label for="edit_entries_no">'.Gm_Core::text( Gm_Constants::NO ).'</label><br /> '.
+                                                                                              Gm_Web::createRadioButton( name=>'editedentryeditaccess', value=>Gm_Constants::O, id=>'edit_entries_own',
+                                                                                                                        checked=>$authorEditEntry ).
+                                                                                              '<label for="edit_entries_own">'.Gm_Core::text( Gm_Constants::AUTHORS_ONLY_OWN ).'</label>'.
+                                                                                              '</td></tr>';	
 
-	$page .= '<tr class="form_long"><th>'.Gm_Core::text( Gm_Constants::AUTHORS_CAN_CONFIG ).'</th>'.
-		'<td>'.Gm_Web::createRadioButton( name=>'editedconfigureaccess', value=>'Y', id=>'configure_yes',
-		checked=>$authorConfigure ).
-		'<label for="configure_yes">'.Gm_Core::text( Gm_Constants::YES ).'</label>&#160; '.
-		Gm_Web::createRadioButton( name=>'editedconfigureaccess', value=>'N', id=>'configure_no',
-		checked=>$authorConfigure ).
-		'<label for="configure_no">'.Gm_Core::text( Gm_Constants::NO ).'</label>'.
-		'</td></tr>';	
+    $page .= '<tr class="form_long"><th>'.Gm_Core::text( Gm_Constants::AUTHORS_CAN_CONFIG ).'</th>'.
+        '<td>'.Gm_Web::createRadioButton( name=>'editedconfigureaccess', value=>'Y', id=>'configure_yes',
+                                          checked=>$authorConfigure ).
+        '<label for="configure_yes">'.Gm_Core::text( Gm_Constants::YES ).'</label>&#160; '.
+                                                                                             Gm_Web::createRadioButton( name=>'editedconfigureaccess', value=>'N', id=>'configure_no',
+                                                                                                                        checked=>$authorConfigure ).
+                                                                                             '<label for="configure_no">'.Gm_Core::text( Gm_Constants::NO ).'</label>'.
+                                                                                             '</td></tr>';	
 
-	$page .= '<tr class="form_long"><th>'.Gm_Core::text( Gm_Constants::AUTHORS_CAN_TEMPLATES ).'</th>'.
-		'<td>'.Gm_Web::createRadioButton( name=>'editedtemplateaccess', value=>'Y', id=>'edit_templates_yes',
-		checked=>$authorTemplates ).
-		'<label for="edit_templates_yes">'.Gm_Core::text( Gm_Constants::YES ).'</label>&#160; '.
-		Gm_Web::createRadioButton( name=>'editedtemplateaccess', value=>'N', id=>'edit_templates_no',
-		checked=>$authorTemplates ).
-		'<label for="edit_templates_no">'.Gm_Core::text( Gm_Constants::NO ).'</label><br /> '.
-		Gm_Web::createRadioButton( name=>'editedtemplateaccess', value=>Gm_Constants::O, id=>'edit_templates_own',
-		checked=>$authorTemplates ).
-		'<label for="edit_templates_own">'.Gm_Core::text( Gm_Constants::AUTHORS_ONLY_HEAD ).'</label>'.
-		'</td></tr>';	
+    $page .= '<tr class="form_long"><th>'.Gm_Core::text( Gm_Constants::AUTHORS_CAN_TEMPLATES ).'</th>'.
+        '<td>'.Gm_Web::createRadioButton( name=>'editedtemplateaccess', value=>'Y', id=>'edit_templates_yes',
+                                         checked=>$authorTemplates ).
+        '<label for="edit_templates_yes">'.Gm_Core::text( Gm_Constants::YES ).'</label>&#160; '.
+                                                                                                Gm_Web::createRadioButton( name=>'editedtemplateaccess', value=>'N', id=>'edit_templates_no',
+                                                                                                                          checked=>$authorTemplates ).
+                                                                                                '<label for="edit_templates_no">'.Gm_Core::text( Gm_Constants::NO ).'</label><br /> '.
+                                                                                                Gm_Web::createRadioButton( name=>'editedtemplateaccess', value=>Gm_Constants::O, id=>'edit_templates_own',
+                                                                                                                          checked=>$authorTemplates ).
+                                                                                                '<label for="edit_templates_own">'.Gm_Core::text( Gm_Constants::AUTHORS_ONLY_HEAD ).'</label>'.
+                                                                                                '</td></tr>';	
 
-	$page .= '<tr class="form_long"><th>'.Gm_Core::text( Gm_Constants::AUTHORS_CAN_AUTHORS ).'</th>'.
-		'<td>'.Gm_Web::createRadioButton( name=>'editedauthoraccess', value=>'Y', id=>'edit_author_yes',
-		checked=>$authorAuthors ).
-		'<label for="edit_author_yes">'.Gm_Core::text( Gm_Constants::YES ).'</label>&#160; '.
-		Gm_Web::createRadioButton( name=>'editedauthoraccess', value=>'N', id=>'edit_author_no',
-		checked=>$authorAuthors ).
-		'<label for="edit_author_no">'.Gm_Core::text( Gm_Constants::NO ).'</label>'.
-		'</td></tr>';	
+    $page .= '<tr class="form_long"><th>'.Gm_Core::text( Gm_Constants::AUTHORS_CAN_AUTHORS ).'</th>'.
+        '<td>'.Gm_Web::createRadioButton( name=>'editedauthoraccess', value=>'Y', id=>'edit_author_yes',
+                                         checked=>$authorAuthors ).
+        '<label for="edit_author_yes">'.Gm_Core::text( Gm_Constants::YES ).'</label>&#160; '.
+                                                                                             Gm_Web::createRadioButton( name=>'editedauthoraccess', value=>'N', id=>'edit_author_no',
+                                                                                                                       checked=>$authorAuthors ).
+                                                                                             '<label for="edit_author_no">'.Gm_Core::text( Gm_Constants::NO ).'</label>'.
+                                                                                             '</td></tr>';	
 
-	$page .= '<tr class="form_long"><th>'.Gm_Core::text( Gm_Constants::AUTHORS_CAN_REBUILD ).'</th>'.
-		'<td>'.Gm_Web::createRadioButton( name=>'editedrebuildaccess', value=>'Y', id=>'rebuild_yes',
-		checked=>$authorRebuild ).
-		'<label for="rebuild_yes">'.Gm_Core::text( Gm_Constants::YES ).'</label>&#160; '.
-		Gm_Web::createRadioButton( name=>'editedrebuildaccess', value=>'N', id=>'rebuild_no',
-		checked=>$authorRebuild ).
-		'<label for="rebuild_no">'.Gm_Core::text( Gm_Constants::NO ).'</label>'.
-		'</td></tr>';	
+    $page .= '<tr class="form_long"><th>'.Gm_Core::text( Gm_Constants::AUTHORS_CAN_REBUILD ).'</th>'.
+        '<td>'.Gm_Web::createRadioButton( name=>'editedrebuildaccess', value=>'Y', id=>'rebuild_yes',
+                                         checked=>$authorRebuild ).
+        '<label for="rebuild_yes">'.Gm_Core::text( Gm_Constants::YES ).'</label>&#160; '.
+                                                                                         Gm_Web::createRadioButton( name=>'editedrebuildaccess', value=>'N', id=>'rebuild_no',
+                                                                                                                   checked=>$authorRebuild ).
+                                                                                         '<label for="rebuild_no">'.Gm_Core::text( Gm_Constants::NO ).'</label>'.
+                                                                                         '</td></tr>';	
 
-	$page .= '<tr class="form_long"><th>'.Gm_Core::text( Gm_Constants::AUTHORS_CAN_CPLOG ).'</th>'.
-		'<td>'.Gm_Web::createRadioButton( name=>'editedcplogaccess', value=>'Y', id=>'view_cplog_yes',
-		checked=>$authorCplog ).
-		'<label for="view_cplog_yes">'.Gm_Core::text( Gm_Constants::YES ).'</label>&#160; '.
-		Gm_Web::createRadioButton( name=>'editedcplogaccess', value=>'N', id=>'view_cplog_no',
-		checked=>$authorCplog ).
-		'<label for="view_cplog_no">'.Gm_Core::text( Gm_Constants::NO ).'</label>'.
-		'</td></tr>';
+    $page .= '<tr class="form_long"><th>'.Gm_Core::text( Gm_Constants::AUTHORS_CAN_CPLOG ).'</th>'.
+        '<td>'.Gm_Web::createRadioButton( name=>'editedcplogaccess', value=>'Y', id=>'view_cplog_yes',
+                                         checked=>$authorCplog ).
+        '<label for="view_cplog_yes">'.Gm_Core::text( Gm_Constants::YES ).'</label>&#160; '.
+                                                                                              Gm_Web::createRadioButton( name=>'editedcplogaccess', value=>'N', id=>'view_cplog_no',
+                                                                                                                         checked=>$authorCplog ).
+                                                                                              '<label for="view_cplog_no">'.Gm_Core::text( Gm_Constants::NO ).'</label>'.
+                                                                                              '</td></tr>';
 
-	## TODO: THIS SHOULD BE SAME AS POST ENTRIES, JUST DIFFERENT METHOD, WHY TWO PERMS
-	$page .= '<tr class="form_long"><th>'.Gm_Core::text( Gm_Constants::AUTHORS_CAN_BM ).'</th>'.
-		'<td>'.Gm_Web::createRadioButton( name=>'editedbookmarkletaccess', value=>'Y', id=>'bookmarklets_yes',
-		checked=>$authorBookmark ).
-		'<label for="bookmarklets_yes">'.Gm_Core::text( Gm_Constants::YES ).'</label>&#160; '.
-		Gm_Web::createRadioButton( name=>'editedbookmarkletaccess', value=>'N', id=>'bookmarklets_no',
-		checked=>$authorBookmark ).
-		'<label for="bookmarklets_no">'.Gm_Core::text( Gm_Constants::NO ).'</label>'.
-		'</td></tr>';
+    ## TODO: THIS SHOULD BE SAME AS POST ENTRIES, JUST DIFFERENT METHOD, WHY TWO PERMS
+    $page .= '<tr class="form_long"><th>'.Gm_Core::text( Gm_Constants::AUTHORS_CAN_BM ).'</th>'.
+        '<td>'.Gm_Web::createRadioButton( name=>'editedbookmarkletaccess', value=>'Y', id=>'bookmarklets_yes',
+                                          checked=>$authorBookmark ).
+        '<label for="bookmarklets_yes">'.Gm_Core::text( Gm_Constants::YES ).'</label>&#160; '.
+                                                                                              Gm_Web::createRadioButton( name=>'editedbookmarkletaccess', value=>'N', id=>'bookmarklets_no',
+                                                                                                                        checked=>$authorBookmark ).
+                                                                                              '<label for="bookmarklets_no">'.Gm_Core::text( Gm_Constants::NO ).'</label>'.
+                                                                                              '</td></tr>';
 
-	$page .= '<tr class="form_long"><th>'.Gm_Core::text( Gm_Constants::AUTHORS_CAN_UPLOAD ).'</th>'.
-		'<td>'.Gm_Web::createRadioButton( name=>'editeduploadaccess', value=>'Y', id=>'upload_yes',
-		checked=>$authorUpload ).
-		'<label for="upload_yes">'.Gm_Core::text( Gm_Constants::YES ).'</label>&#160; '.
-		Gm_Web::createRadioButton( name=>'editeduploadaccess', value=>'N', id=>'upload_no',
-		checked=>$authorUpload ).
-		'<label for="upload_no">'.Gm_Core::text( Gm_Constants::NO ).'</label>'.
-		'</td></tr>';
+    $page .= '<tr class="form_long"><th>'.Gm_Core::text( Gm_Constants::AUTHORS_CAN_UPLOAD ).'</th>'.
+        '<td>'.Gm_Web::createRadioButton( name=>'editeduploadaccess', value=>'Y', id=>'upload_yes',
+                                         checked=>$authorUpload ).
+        '<label for="upload_yes">'.Gm_Core::text( Gm_Constants::YES ).'</label>&#160; '.
+                                                                                        Gm_Web::createRadioButton( name=>'editeduploadaccess', value=>'N', id=>'upload_no',
+                                                                                                                  checked=>$authorUpload ).
+                                                                                        '<label for="upload_no">'.Gm_Core::text( Gm_Constants::NO ).'</label>'.
+                                                                                        '</td></tr>';
 
-	$page .= '<tr><th>'.Gm_Core::text( Gm_Constants::AUTHORS_CAN_LOGIN ).'</th>'.
-		'<td>'.Gm_Web::createRadioButton( name=>'editedloginaccess', value=>'Y', id=>'view_admin_yes',
-		checked=>$authorLogin ).
-		'<label for="view_admin_yes">'.Gm_Core::text( Gm_Constants::YES ).'</label>&#160; '.
-		Gm_Web::createRadioButton( name=>'editedloginaccess', value=>'N', id=>'view_admin_no',
-		checked=>$authorLogin ).
-		'<label for="view_admin_no">'.Gm_Core::text( Gm_Constants::NO ).'</label>'.
-		'</td></tr>';
+    $page .= '<tr><th>'.Gm_Core::text( Gm_Constants::AUTHORS_CAN_LOGIN ).'</th>'.
+        '<td>'.Gm_Web::createRadioButton( name=>'editedloginaccess', value=>'Y', id=>'view_admin_yes',
+                                         checked=>$authorLogin ).
+        '<label for="view_admin_yes">'.Gm_Core::text( Gm_Constants::YES ).'</label>&#160; '.
+                                                                                            Gm_Web::createRadioButton( name=>'editedloginaccess', value=>'N', id=>'view_admin_no',
+                                                                                                                      checked=>$authorLogin ).
+                                                                                            '<label for="view_admin_no">'.Gm_Core::text( Gm_Constants::NO ).'</label>'.
+                                                                                            '</td></tr>';
 
-	$page .= '<tr><th>&nbsp</th><td><INPUT TYPE=HIDDEN NAME="section" VALUE="'.$IN{'section'}.'">'.
-		'<input type="submit" class="button" name="update" '.
-		'style="background: #D0FFD0" value="'.Gm_Core::text( Gm_Constants::AUTHORS_SAVE_CHANGES ).
-		'"></td></tr></table><br /></form>';
-		
-	$page .= '<FORM ACTION="gm.cgi" METHOD=POST> '.Gm_Security::getFormAuth( author=>\%AUTHOR ).
-		'<p><input type="submit" class="button" name="authors" '.
-		'value="Return To Author Panel"></p>';
-		
-	$page .= '<p><INPUT TYPE=SUBMIT CLASS="button" NAME="menu" '.
-		'value="'.Gm_Core::text( Gm_Constants::RETURN_MAIN_MENU ).
-		'" style="background: #C0C0C0"></p></FORM><br />';
-	## NAVIGATION SHOULD BE DE-BUTTONED
-	
-	Gm_Web::displayAdminPageExit( $page );
-	exit(0);
+    $page .= '<tr><th>&nbsp</th><td><INPUT TYPE=HIDDEN NAME="section" VALUE="'.$IN{'section'}.'">'.
+        '<input type="submit" class="button" name="update" '.
+        'style="background: #D0FFD0" value="'.Gm_Core::text( Gm_Constants::AUTHORS_SAVE_CHANGES ).
+        '"></td></tr></table><br /></form>';
+    
+    $page .= '<FORM ACTION="gm.cgi" METHOD=POST> '.Gm_Security::getFormAuth( author=>\%AUTHOR ).
+        '<p><input type="submit" class="button" name="authors" '.
+        'value="Return To Author Panel"></p>';
+    
+    $page .= '<p><INPUT TYPE=SUBMIT CLASS="button" NAME="menu" '.
+        'value="'.Gm_Core::text( Gm_Constants::RETURN_MAIN_MENU ).
+        '" style="background: #C0C0C0"></p></FORM><br />';
+    ## NAVIGATION SHOULD BE DE-BUTTONED
+    
+    Gm_Web::displayAdminPageExit( $page );
+    exit(0);
 
 }
 
@@ -1375,137 +1375,137 @@ sub viewAuthor {
 # called from so it can be reused with normal user self-registration?
 # ALSO:  can this and addAuthor be abstracted to reduce duplicate error checking?
 sub updateAuthor {
-	my $message = Gm_Constants::EMPTY;
+    my $message = Gm_Constants::EMPTY;
 
-	$IN{'editedname'} =~ s/\|//g;
-	$IN{'editedpassword'} =~ s/\|//g;
-	$IN{'editedemail'} =~ s/\|//g;
-	$IN{'editedhomepage'} =~ s/\|//g;
+    $IN{'editedname'} =~ s/\|//g;
+    $IN{'editedpassword'} =~ s/\|//g;
+    $IN{'editedemail'} =~ s/\|//g;
+    $IN{'editedhomepage'} =~ s/\|//g;
 
-	$IN{'editedname'} = Gm_Utils::trimFrontWs( $IN{'editedname'} );
-	$IN{'editedname'} = Gm_Utils::trimBackWs( $IN{'editedname'} );
-	$IN{'editedpassword'} = Gm_Utils::trimFrontWs( $IN{'editedpassword'} );
-	$IN{'editedpassword'} = Gm_Utils::trimBackWs( $IN{'editedpassword'} );
+    $IN{'editedname'} = Gm_Utils::trimFrontWs( $IN{'editedname'} );
+    $IN{'editedname'} = Gm_Utils::trimBackWs( $IN{'editedname'} );
+    $IN{'editedpassword'} = Gm_Utils::trimFrontWs( $IN{'editedpassword'} );
+    $IN{'editedpassword'} = Gm_Utils::trimBackWs( $IN{'editedpassword'} );
 
-## TODO: NAME AND PASSWORD REQUIREMENTS SHOULD BE SAME AS WHEN ADDING, ALSO, LET SOME NON-ALPHANUMS FOR PW
+    ## TODO: NAME AND PASSWORD REQUIREMENTS SHOULD BE SAME AS WHEN ADDING, ALSO, LET SOME NON-ALPHANUMS FOR PW
 
-	if (($IN{'editedname'} eq Gm_Constants::EMPTY) || ($IN{'editedpassword'} eq Gm_Constants::EMPTY)) {
+    if (($IN{'editedname'} eq Gm_Constants::EMPTY) || ($IN{'editedpassword'} eq Gm_Constants::EMPTY)) {
 
-		## TODO: we should be returning this in a hash { error=>@arry of errors, msg=>@array of messages)
-		# then can decide if get errors back, whether to goto list or single view
-		$message = '<span class="error_msg">'.Gm_Core::text( Gm_Constants::AUTHORS_ENTER_NAME_PW ).'</span>';
-		viewAuthor( $message );
-	}
+        ## TODO: we should be returning this in a hash { error=>@arry of errors, msg=>@array of messages)
+        # then can decide if get errors back, whether to goto list or single view
+        $message = '<span class="error_msg">'.Gm_Core::text( Gm_Constants::AUTHORS_ENTER_NAME_PW ).'</span>';
+        viewAuthor( $message );
+    }
 
-	my $gmauthors = Gm_Storage::getAuthors( errHandler=>\&Gm_Web::displayAdminErrorExit );
+    my $gmauthors = Gm_Storage::getAuthors( errHandler=>\&Gm_Web::displayAdminErrorExit );
 
-	if( ($IN{'selectedauthor'} ne $IN{'editedname'}) && 
-			( exists( $gmauthors->{$IN{'editedname'}} )) ){ 
+    if( ($IN{'selectedauthor'} ne $IN{'editedname'}) && 
+        ( exists( $gmauthors->{$IN{'editedname'}} )) ){ 
 
-		my $cpMsg = Gm_Core::text( Gm_Constants::AUTHORS_OVERWRITE_LOG, { AUTHOR=>$AUTHOR{'author'}, 
-			NEWNAME=>$IN{'editedname'}, NAME=>$IN{'selectedauthor'} } );
-		Gm_Core::writeToCplog( $cpMsg );
-		$message = '<span class="error_msg">'.Gm_Core::text( Gm_Constants::AUTHORS_OVERWRITE_NAME ).'</span>';
-		viewAuthor( $message );
-	}
+        my $cpMsg = Gm_Core::text( Gm_Constants::AUTHORS_OVERWRITE_LOG, { AUTHOR=>$AUTHOR{'author'}, 
+                                                                        NEWNAME=>$IN{'editedname'}, NAME=>$IN{'selectedauthor'} } );
+        Gm_Core::writeToCplog( $cpMsg );
+        $message = '<span class="error_msg">'.Gm_Core::text( Gm_Constants::AUTHORS_OVERWRITE_NAME ).'</span>';
+        viewAuthor( $message );
+    }
 
 
-	if( ($IN{'editedname'} ne $IN{'selectedauthor'}) ){
-		Gm_Core::writeToCplog( Gm_Core::text( Gm_Constants::AUTHORS_NEWNAME_LOG, { AUTHOR=>$AUTHOR{'author'}, 
-			NEWNAME=>$IN{'editedname'}, NAME=>$IN{'selectedauthor'} } ) );
-	}
+    if( ($IN{'editedname'} ne $IN{'selectedauthor'}) ){
+        Gm_Core::writeToCplog( Gm_Core::text( Gm_Constants::AUTHORS_NEWNAME_LOG, { AUTHOR=>$AUTHOR{'author'}, 
+                                                                                NEWNAME=>$IN{'editedname'}, NAME=>$IN{'selectedauthor'} } ) );
+    }
 
-	if( $IN{'editedhomepage'} !~ m/^http/i ){ 
-		# If it doesn't start with http, lets add it for them
-		$IN{'editedhomepage'} = "http://$IN{'editedhomepage'}"; 
-	}
-	if( $IN{'editedhomepage'} eq 'http://' ){ 
-		$IN{'editedhomepage'} = Gm_Constants::EMPTY; 
-	}
+    if( $IN{'editedhomepage'} !~ m/^http/i ){ 
+        # If it doesn't start with http, lets add it for them
+        $IN{'editedhomepage'} = "http://$IN{'editedhomepage'}"; 
+    }
+    if( $IN{'editedhomepage'} eq 'http://' ){ 
+        $IN{'editedhomepage'} = Gm_Constants::EMPTY; 
+    }
 
-	my $selectedauthor = $gmauthors->{$IN{'selectedauthor'}};
-	my %updatedInfo = ();
+    my $selectedauthor = $gmauthors->{$IN{'selectedauthor'}};
+    my %updatedInfo = ();
 
-	if( $IN{'editedname'} ne $selectedauthor->{'author'}){
-		$updatedInfo{'author'} = $IN{'editedname'};
-	}
+    if( $IN{'editedname'} ne $selectedauthor->{'author'}){
+        $updatedInfo{'author'} = $IN{'editedname'};
+    }
 
-	if( $IN{'editedpassword'} ne $selectedauthor->{'password'}){
-		## TODO: THIS SHOULD BE A SECURITY FUNCTION.  
-		$updatedInfo{'password'} = crypt($IN{'editedpassword'}, (localtime())[0] );
-	}
-	
-	if( $IN{'editedemail'} ne $selectedauthor->{'email'}){
-		$updatedInfo{'email'} = $IN{'editedemail'};
-	}
-	
-	if( $IN{'editedhomepage'} ne $selectedauthor->{'homepage'}){
-		$updatedInfo{'homepage'} = $IN{'editedhomepage'};
-	}
-	
-	if( $IN{'editedentryaccess'} ne $selectedauthor->{'postnew'}){
-		$updatedInfo{'postnew'} = $IN{'editedentryaccess'};
-	}
-	
-	if( $IN{'editedentryeditaccess'} ne $selectedauthor->{'editentries'}){
-		$updatedInfo{'editentries'} = $IN{'editedentryeditaccess'};
-	}
-	
-	if( $IN{'editedconfigureaccess'} ne $selectedauthor->{'editconfigs'}){
-		$updatedInfo{'editconfigs'} = $IN{'editedconfigureaccess'};
-	}
-	
-	if( $IN{'editedtemplateaccess'} ne $selectedauthor->{'edittemplates'}){
-		$updatedInfo{'edittemplates'} = $IN{'editedtemplateaccess'};
-	}
-	
-	if( $IN{'editedauthoraccess'} ne $selectedauthor->{'editauthors'}){
-		$updatedInfo{'editauthors'} = $IN{'editedauthoraccess'};
-	}
-	
-	if( $IN{'editedrebuildaccess'} ne $selectedauthor->{'rebuild'}){
-		$updatedInfo{'rebuild'} = $IN{'editedrebuildaccess'};
-	}
-	
-	if( $IN{'editedcplogaccess'} ne $selectedauthor->{'viewcplog'}){
-		$updatedInfo{'viewcplog'} = $IN{'editedcplogaccess'};
-	}
-	
-	if( $IN{'editedbookmarkletaccess'} ne $selectedauthor->{'bookmarklets'}){
-		$updatedInfo{'bookmarklets'} = $IN{'editedbookmarkletaccess'};
-	}
-	
-	if( $IN{'editeduploadaccess'} ne $selectedauthor->{'upload'}){
-		$updatedInfo{'upload'} = $IN{'editeduploadaccess'};
-	}
-	
-	if( $IN{'editedloginaccess'} ne $selectedauthor->{'viewadmin'}){
-		$updatedInfo{'viewadmin'} = $IN{'editedloginaccess'};
-	}
+    if( $IN{'editedpassword'} ne $selectedauthor->{'password'}){
+        ## TODO: THIS SHOULD BE A SECURITY FUNCTION.  
+        $updatedInfo{'password'} = crypt($IN{'editedpassword'}, (localtime())[0] );
+    }
+    
+    if( $IN{'editedemail'} ne $selectedauthor->{'email'}){
+        $updatedInfo{'email'} = $IN{'editedemail'};
+    }
+    
+    if( $IN{'editedhomepage'} ne $selectedauthor->{'homepage'}){
+        $updatedInfo{'homepage'} = $IN{'editedhomepage'};
+    }
+    
+    if( $IN{'editedentryaccess'} ne $selectedauthor->{'postnew'}){
+        $updatedInfo{'postnew'} = $IN{'editedentryaccess'};
+    }
+    
+    if( $IN{'editedentryeditaccess'} ne $selectedauthor->{'editentries'}){
+        $updatedInfo{'editentries'} = $IN{'editedentryeditaccess'};
+    }
+    
+    if( $IN{'editedconfigureaccess'} ne $selectedauthor->{'editconfigs'}){
+        $updatedInfo{'editconfigs'} = $IN{'editedconfigureaccess'};
+    }
+    
+    if( $IN{'editedtemplateaccess'} ne $selectedauthor->{'edittemplates'}){
+        $updatedInfo{'edittemplates'} = $IN{'editedtemplateaccess'};
+    }
+    
+    if( $IN{'editedauthoraccess'} ne $selectedauthor->{'editauthors'}){
+        $updatedInfo{'editauthors'} = $IN{'editedauthoraccess'};
+    }
+    
+    if( $IN{'editedrebuildaccess'} ne $selectedauthor->{'rebuild'}){
+        $updatedInfo{'rebuild'} = $IN{'editedrebuildaccess'};
+    }
+    
+    if( $IN{'editedcplogaccess'} ne $selectedauthor->{'viewcplog'}){
+        $updatedInfo{'viewcplog'} = $IN{'editedcplogaccess'};
+    }
+    
+    if( $IN{'editedbookmarkletaccess'} ne $selectedauthor->{'bookmarklets'}){
+        $updatedInfo{'bookmarklets'} = $IN{'editedbookmarkletaccess'};
+    }
+    
+    if( $IN{'editeduploadaccess'} ne $selectedauthor->{'upload'}){
+        $updatedInfo{'upload'} = $IN{'editeduploadaccess'};
+    }
+    
+    if( $IN{'editedloginaccess'} ne $selectedauthor->{'viewadmin'}){
+        $updatedInfo{'viewadmin'} = $IN{'editedloginaccess'};
+    }
 
-	if( scalar( keys( %updatedInfo )) < 1 ){
-		# hmm, no updates submitted
-		$message = '<span class="status_msg">'.Gm_Core::text( Gm_Constants::AUTHORS_NO_CHANGES, 
-			{ NAME=>$selectedauthor->{'author'} } ).'</span><p>';
-	} else {
-		Gm_Storage::updateAuthor( key=>$selectedauthor->{'author'}, %updatedInfo, 
-			errHandler=>\&Gm_Web::displayAdminErrorExit );
-		
-		if ($IN{'selectedauthor'} eq $AUTHOR{'author'}) {
-			$AUTHOR{'author'} = $IN{'editedname'};
-			$AUTHOR{'password'} = $IN{'editedpassword'};
-		}
-		
+    if( scalar( keys( %updatedInfo )) < 1 ){
+        # hmm, no updates submitted
+        $message = '<span class="status_msg">'.Gm_Core::text( Gm_Constants::AUTHORS_NO_CHANGES, 
+                                                             { NAME=>$selectedauthor->{'author'} } ).'</span><p>';
+    } else {
+        Gm_Storage::updateAuthor( key=>$selectedauthor->{'author'}, %updatedInfo, 
+                                 errHandler=>\&Gm_Web::displayAdminErrorExit );
+        
+        if ($IN{'selectedauthor'} eq $AUTHOR{'author'}) {
+            $AUTHOR{'author'} = $IN{'editedname'};
+            $AUTHOR{'password'} = $IN{'editedpassword'};
+        }
+        
 
-		Gm_Core::writeToCplog( Gm_Core::text( Gm_Constants::AUTHORS_EDIT_LOG, 
-			{ AUTHOR=>$AUTHOR{'author'}, NAME=>$IN{'editedname'} } )  );
+        Gm_Core::writeToCplog( Gm_Core::text( Gm_Constants::AUTHORS_EDIT_LOG, 
+                                            { AUTHOR=>$AUTHOR{'author'}, NAME=>$IN{'editedname'} } )  );
 
-		$message = '<span class="status_msg">'.Gm_Core::text( Gm_Constants::AUTHORS_EDIT_CONFIRM, 
-			{ NAME=>$IN{'editedname'} } ).'</span><p>';
-	}
+        $message = '<span class="status_msg">'.Gm_Core::text( Gm_Constants::AUTHORS_EDIT_CONFIRM, 
+                                                             { NAME=>$IN{'editedname'} } ).'</span><p>';
+    }
 
-	## we are just adding, no control flow
-	return( $message );
+    ## we are just adding, no control flow
+    return( $message );
 }
 
 ## Manage Entries SECTION #################################################
@@ -1513,62 +1513,62 @@ sub updateAuthor {
 ## and verify that author can access this section
 sub doEntries {
 
-	## Access to entries is global, no need for granularity
-	### TODO: MAKE THIS TEXT STRING TAKE A 'SECTION' VAR, SO CAN REUSE FOR OTHER SECTIONS...
-	### TODO: CALL AUTH WITH FLAG TO WORK ON Banip, OR CHECK AUTHOR PERMS
-	## TODO: Move this to auth, auth should return users perms, or it should take a flag to 
-	# indicate which perms to check with this being handed off to a generic permDenied func
-	if( $AUTHOR{'editentries'} ne Gm_Constants::Y && $AUTHOR{'editentries'} ne Gm_Constants::O &&
-		$AUTHOR{'postnew'} ne Gm_Constants::Y ){
-		Gm_Core::writeToCplog( '<span class="error_msg">'.Gm_Core::text( 
-			Gm_Constants::ENTRIES_NO_ACCESS, { AUTHOR=>$AUTHOR{'author'}}).'</span>' );
-		my $statusnote = '<span class="error_msg">'.Gm_Core::text( Gm_Constants::ENTRIES_ACCESS_DENY ).
-			'</span><br />';
-		frontPage( $statusnote );
-	}
+    ## Access to entries is global, no need for granularity
+    ### TODO: MAKE THIS TEXT STRING TAKE A 'SECTION' VAR, SO CAN REUSE FOR OTHER SECTIONS...
+    ### TODO: CALL AUTH WITH FLAG TO WORK ON Banip, OR CHECK AUTHOR PERMS
+    ## TODO: Move this to auth, auth should return users perms, or it should take a flag to 
+    # indicate which perms to check with this being handed off to a generic permDenied func
+    if( $AUTHOR{'editentries'} ne Gm_Constants::Y && $AUTHOR{'editentries'} ne Gm_Constants::O &&
+        $AUTHOR{'postnew'} ne Gm_Constants::Y ){
+        Gm_Core::writeToCplog( '<span class="error_msg">'.Gm_Core::text( 
+                                  Gm_Constants::ENTRIES_NO_ACCESS, { AUTHOR=>$AUTHOR{'author'}}).'</span>' );
+        my $statusnote = '<span class="error_msg">'.Gm_Core::text( Gm_Constants::ENTRIES_ACCESS_DENY ).
+            '</span><br />';
+        frontPage( $statusnote );
+    }
 
-## move other perm stuff here?
-	
-	my $status = Gm_Constants::EMPTY;
-# TODO, SHOULD THESE BE USING CONSTANTS?
-## Maybe should check if entry id, then call entry specific stuff then pass message to 
-# viewEntry
-	if( $IN{'view'} ){
-		$status = editEntry();  ## this handles update, but not add
-		
-	} elsif( $IN{'preview'} ){
-		$status = viewPreview();
-		
-	} elsif( $IN{'new'} ){
-		$status = newEntry(); ## integrate into edit TODO
-		
-	} elsif( $IN{'update'} ){
-		$status = updateEntry();  ## this handles save new as well
-		
-	} elsif( $IN{'openclose'} ){
-		$status = changeEntryStatus();
-		
-	} elsif( $IN{'search'} ){
-		$status = searchEntryList();
-		
-	} elsif( $IN{'viewsearchreplace'} ){
-		$status = viewSearchAndReplace();
-		
-	} elsif( $IN{'searchreplace'} ){
-		$status = entrySearchAndReplace();
-		
-	} elsif( $IN{'deletecomments'} ){
-		$status = deleteEntryComments();
-		
-	} elsif( $IN{'updatecomment'} ){
-		$status = updateEntryComment();
-		
-	} elsif( $IN{'viewcomment'} ){
-		$status = viewEntryComment();
-		
-	}
+    ## move other perm stuff here?
+    
+    my $status = Gm_Constants::EMPTY;
+    # TODO, SHOULD THESE BE USING CONSTANTS?
+    ## Maybe should check if entry id, then call entry specific stuff then pass message to 
+    # viewEntry
+    if( $IN{'view'} ){
+        $status = editEntry();  ## this handles update, but not add
+        
+    } elsif( $IN{'preview'} ){
+        $status = viewPreview();
+        
+    } elsif( $IN{'new'} ){
+        $status = newEntry(); ## integrate into edit TODO
+        
+    } elsif( $IN{'update'} ){
+        $status = updateEntry();  ## this handles save new as well
+        
+    } elsif( $IN{'openclose'} ){
+        $status = changeEntryStatus();
+        
+    } elsif( $IN{'search'} ){
+        $status = searchEntryList();
+        
+    } elsif( $IN{'viewsearchreplace'} ){
+        $status = viewSearchAndReplace();
+        
+    } elsif( $IN{'searchreplace'} ){
+        $status = entrySearchAndReplace();
+        
+    } elsif( $IN{'deletecomments'} ){
+        $status = deleteEntryComments();
+        
+    } elsif( $IN{'updatecomment'} ){
+        $status = updateEntryComment();
+        
+    } elsif( $IN{'viewcomment'} ){
+        $status = viewEntryComment();
+        
+    }
 
-	filterEntryList( $status );
+    filterEntryList( $status );
 }
 
 
@@ -1576,134 +1576,134 @@ sub doEntries {
 # A method that filters the entry list for user permissions and sorting
 # (opt) ARG1: Message to display to user, could be error or confirmation of action
 sub filterEntryList {
-	my $message = shift( @_ ) || Gm_Constants::EMPTY;	
+    my $message = shift( @_ ) || Gm_Constants::EMPTY;	
 
-	if( $IN{'entryselectionview'} eq Gm_Constants::EMPTY ){ 
-		$IN{'entryselectionview'} = $gmConfigs->{'gmdefaultentrylistview'}; 
-	}
+    if( $IN{'entryselectionview'} eq Gm_Constants::EMPTY ){ 
+        $IN{'entryselectionview'} = $gmConfigs->{'gmdefaultentrylistview'}; 
+    }
 
-#		&gm_readcounter;
-	my $gmCounters = Gm_Storage::getCounters( errHandler=>\&Gm_Web::displayAdminErrorExit );
+    #		&gm_readcounter;
+    my $gmCounters = Gm_Storage::getCounters( errHandler=>\&Gm_Web::displayAdminErrorExit );
 
-	my $entriesList = Gm_Storage::getEntrylist( errHandler=>\&Gm_Web::displayAdminErrorExit );
+    my $entriesList = Gm_Storage::getEntrylist( errHandler=>\&Gm_Web::displayAdminErrorExit );
 
-	my @sortedKeys = keys( %$entriesList );
-	## default to date sort
-	unless( defined( $IN{'sortby'} ) ){
-		$IN{'sortby'} = 'date';
-	}
-	@sortedKeys = sort {
-			lc($entriesList->{$a}{$IN{'sortby'}}) cmp lc($entriesList->{$b}{$IN{'sortby'}}) || $b <=> $a;
-		} @sortedKeys;
+    my @sortedKeys = keys( %$entriesList );
+    ## default to date sort
+    unless( defined( $IN{'sortby'} ) ){
+        $IN{'sortby'} = 'date';
+    }
+    @sortedKeys = sort {
+        lc($entriesList->{$a}{$IN{'sortby'}}) cmp lc($entriesList->{$b}{$IN{'sortby'}}) || $b <=> $a;
+    } @sortedKeys;
 
-	my @filteredEntries = ();
-	foreach my $elkey ( @sortedKeys ){
-		my $addEntry = Gm_Constants::EMPTY;
-		my $entry = $entriesList->{$elkey};
+    my @filteredEntries = ();
+    foreach my $elkey ( @sortedKeys ){
+        my $addEntry = Gm_Constants::EMPTY;
+        my $entry = $entriesList->{$elkey};
 	
-		if( $IN{'entryselectionview'} eq Gm_Constants::MAIN ){
-			## Main view, which is the open entries
-			if( $entry->{'id'} > $gmCounters->{'archivetotal'} || $entry->{'id'} eq $gmCounters->{'stayattopentry'} ){
-				$addEntry = Gm_Constants::Y;
-			}
-		} elsif( $IN{'entryselectionview'} eq Gm_Constants::MORE ){
-			## all the extended entries
-			if(	$entry->{'extended'} eq Gm_Constants::Y ){
-				$addEntry = Gm_Constants::Y;
-			}
-		} elsif( $IN{'entryselectionview'} eq 'onlyyou' ){
-			## all the extended entries
-			if(	$AUTHOR{'author'} eq $entry->{'author'} ){
-				$addEntry = Gm_Constants::Y;
-			}
-		} elsif( $IN{'entryselectionview'} eq Gm_Constants::OPEN ){
-			## all the open entries
-			if(	$entry->{'status'} eq Gm_Constants::O ){
-				$addEntry = Gm_Constants::Y;
-			}
-		} elsif( $IN{'entryselectionview'} eq Gm_Constants::CLOSED ){
-			## all the closed entries
-			if(	$entry->{'status'} eq 'C' ){
-				$addEntry = Gm_Constants::Y;
-			}
-		} elsif( $IN{'entryselectionview'} eq Gm_Constants::ALL ){
-			## all the entries
-			$addEntry = Gm_Constants::Y;
-		}
+        if( $IN{'entryselectionview'} eq Gm_Constants::MAIN ){
+            ## Main view, which is the open entries
+            if( $entry->{'id'} > $gmCounters->{'archivetotal'} || $entry->{'id'} eq $gmCounters->{'stayattopentry'} ){
+                $addEntry = Gm_Constants::Y;
+            }
+        } elsif( $IN{'entryselectionview'} eq Gm_Constants::MORE ){
+            ## all the extended entries
+            if(	$entry->{'extended'} eq Gm_Constants::Y ){
+                $addEntry = Gm_Constants::Y;
+            }
+        } elsif( $IN{'entryselectionview'} eq 'onlyyou' ){
+            ## all the extended entries
+            if(	$AUTHOR{'author'} eq $entry->{'author'} ){
+                $addEntry = Gm_Constants::Y;
+            }
+        } elsif( $IN{'entryselectionview'} eq Gm_Constants::OPEN ){
+            ## all the open entries
+            if(	$entry->{'status'} eq Gm_Constants::O ){
+                $addEntry = Gm_Constants::Y;
+            }
+        } elsif( $IN{'entryselectionview'} eq Gm_Constants::CLOSED ){
+            ## all the closed entries
+            if(	$entry->{'status'} eq 'C' ){
+                $addEntry = Gm_Constants::Y;
+            }
+        } elsif( $IN{'entryselectionview'} eq Gm_Constants::ALL ){
+            ## all the entries
+            $addEntry = Gm_Constants::Y;
+        }
 
-		## so do we add?
-		if( $addEntry ){
-			## First check if view is constrained by only seeing own entries
-			if( ($AUTHOR{'editentries'} eq Gm_Constants::O && $AUTHOR{'author'} eq $entry->{'author'}) ||
-				$AUTHOR{'editentries'} eq Gm_Constants::Y ){
-				push( @filteredEntries, $entry );
-			}
-		}
+        ## so do we add?
+        if( $addEntry ){
+            ## First check if view is constrained by only seeing own entries
+            if( ($AUTHOR{'editentries'} eq Gm_Constants::O && $AUTHOR{'author'} eq $entry->{'author'}) ||
+                $AUTHOR{'editentries'} eq Gm_Constants::Y ){
+                push( @filteredEntries, $entry );
+            }
+        }
 	
-	}  ## END foreach elkey
+    }  ## END foreach elkey
 
-	viewEntries( \@filteredEntries, $message );
+    viewEntries( \@filteredEntries, $message );
 }
 
 ## Filter Entry List
 # A method that filters the entry list for user permissions and sorting
 # (opt) ARG1: Message to display to user, could be error or confirmation of action
 sub searchEntryList {
-	my $message = Gm_Constants::EMPTY;	
+    my $message = Gm_Constants::EMPTY;	
 
-	my $baseUrl = 'search=1&entrysearch='.$IN{'entrysearch'};
+    my $baseUrl = 'search=1&entrysearch='.$IN{'entrysearch'};
 
-	if( $IN{'entrysearch'} ne Gm_Constants::EMPTY ){
-		$message = '<p><span class="status_msg">All entries containing "'.
-			$IN{'entrysearch'}.'"</span></p>';
-		## Crude way to show search results
-		$IN{'entryselectionview'} = 'searchresults';
-		$IN{'entrysearch'} = Gm_Utils::toStoreSafe($IN{'entrysearch'});
-	} else {
-		$message = '<p><span class="error_msg">Please enter a search term.</span></p>';
-		viewEntries( [], $message );
-	}
+    if( $IN{'entrysearch'} ne Gm_Constants::EMPTY ){
+        $message = '<p><span class="status_msg">All entries containing "'.
+        $IN{'entrysearch'}.'"</span></p>';
+        ## Crude way to show search results
+        $IN{'entryselectionview'} = 'searchresults';
+        $IN{'entrysearch'} = Gm_Utils::toStoreSafe($IN{'entrysearch'});
+    } else {
+        $message = '<p><span class="error_msg">Please enter a search term.</span></p>';
+        viewEntries( [], $message );
+    }
+    
+    my $entriesList = Gm_Storage::getEntrylist( errHandler=>\&Gm_Web::displayAdminErrorExit );
+
+    my @sortedKeys = keys( %$entriesList );
+    ## default to date sort
+    unless( defined( $IN{'sortby'} ) ){
+        $IN{'sortby'} = 'date';
+    }
+    @sortedKeys = sort {
+        lc($entriesList->{$a}{$IN{'sortby'}}) cmp lc($entriesList->{$b}{$IN{'sortby'}}) || $b <=> $a;
+    } @sortedKeys;
+
+    my @filteredEntries = ();
+    foreach my $elkey ( @sortedKeys ){
+        my $addEntry = Gm_Constants::EMPTY;
+        my $entry = $entriesList->{$elkey};
 	
-	my $entriesList = Gm_Storage::getEntrylist( errHandler=>\&Gm_Web::displayAdminErrorExit );
+        my $entryVars = Gm_Core::getEntryVariables( entryid=>$entry->{'id'}, 
+                                                    errHandler=>\&Gm_Web::displayAdminErrorExit );
+        if( ($entryVars->{'thisentryauthor'} =~ m/$IN{'entrysearch'}/i) || 
+            ($entryVars->{'thisentrysubject'} =~ m/$IN{'entrysearch'}/i) || 
+            ($entryVars->{'thisentrymusic'} =~ m/$IN{'entrysearch'}/i) || 
+            ($entryVars->{'thisentrymood'} =~ m/$IN{'entrysearch'}/i) || 
+            ($entryVars->{'thisentrymainbody'} =~ m/$IN{'entrysearch'}/i) || 
+            ($entryVars->{'thisentrymorebody'} =~ m/$IN{'entrysearch'}/i) || 
+            ($entryVars->{'thisentrycomments'} =~ m/$IN{'entrysearch'}/i)) {
+            $addEntry = Gm_Constants::Y;
+        }
 
-	my @sortedKeys = keys( %$entriesList );
-	## default to date sort
-	unless( defined( $IN{'sortby'} ) ){
-		$IN{'sortby'} = 'date';
-	}
-	@sortedKeys = sort {
-			lc($entriesList->{$a}{$IN{'sortby'}}) cmp lc($entriesList->{$b}{$IN{'sortby'}}) || $b <=> $a;
-		} @sortedKeys;
-
-	my @filteredEntries = ();
-	foreach my $elkey ( @sortedKeys ){
-		my $addEntry = Gm_Constants::EMPTY;
-		my $entry = $entriesList->{$elkey};
+        ## so do we add?
+        if( $addEntry ){
+            ## First check if view is constrained by only seeing own entries
+            if( ($AUTHOR{'editentries'} eq Gm_Constants::O && $AUTHOR{'author'} eq $entry->{'author'}) ||
+                $AUTHOR{'editentries'} eq Gm_Constants::Y ){
+                push( @filteredEntries, $entry );
+            }
+        }
 	
-		my $entryVars = Gm_Core::getEntryVariables( entryid=>$entry->{'id'}, 
-			errHandler=>\&Gm_Web::displayAdminErrorExit );
-		if( ($entryVars->{'thisentryauthor'} =~ m/$IN{'entrysearch'}/i) || 
-		($entryVars->{'thisentrysubject'} =~ m/$IN{'entrysearch'}/i) || 
-		($entryVars->{'thisentrymusic'} =~ m/$IN{'entrysearch'}/i) || 
-		($entryVars->{'thisentrymood'} =~ m/$IN{'entrysearch'}/i) || 
-		($entryVars->{'thisentrymainbody'} =~ m/$IN{'entrysearch'}/i) || 
-		($entryVars->{'thisentrymorebody'} =~ m/$IN{'entrysearch'}/i) || 
-		($entryVars->{'thisentrycomments'} =~ m/$IN{'entrysearch'}/i)) {
-			$addEntry = Gm_Constants::Y;
-		}
+    }  ## END foreach elkey
 
-		## so do we add?
-		if( $addEntry ){
-			## First check if view is constrained by only seeing own entries
-			if( ($AUTHOR{'editentries'} eq Gm_Constants::O && $AUTHOR{'author'} eq $entry->{'author'}) ||
-				$AUTHOR{'editentries'} eq Gm_Constants::Y ){
-				push( @filteredEntries, $entry );
-			}
-		}
-	
-	}  ## END foreach elkey
-
-	viewEntries( \@filteredEntries, $message, $baseUrl );
+    viewEntries( \@filteredEntries, $message, $baseUrl );
 }
 
 
@@ -1714,178 +1714,178 @@ sub searchEntryList {
 # ARG3: url params, to attach to the base url, in the format of 'key=value&key2=value2'
 # (opt) ARG2: Message to display to user, could be error or confirmation of action
 sub viewEntries {
-	my $filteredEntries = shift( @_ ) || [];
-	my $message = shift( @_ ) || Gm_Constants::EMPTY;
-	my $addUrl = shift( @_ ) || 'sortby='.$IN{'sortby'}.'&entryselectionview='.$IN{'entryselectionview'};
+    my $filteredEntries = shift( @_ ) || [];
+    my $message = shift( @_ ) || Gm_Constants::EMPTY;
+    my $addUrl = shift( @_ ) || 'sortby='.$IN{'sortby'}.'&entryselectionview='.$IN{'entryselectionview'};
 
-	my $gmCounters = Gm_Storage::getCounters( errHandler=>\&Gm_Web::displayAdminErrorExit );
+    my $gmCounters = Gm_Storage::getCounters( errHandler=>\&Gm_Web::displayAdminErrorExit );
 
-	unless( Gm_Core::hasPosted() ){
-		$message = '<span class="error_msg">There are no entries yet!</span><br />';
+    unless( Gm_Core::hasPosted() ){
+        $message = '<span class="error_msg">There are no entries yet!</span><br />';
 
-		frontPage( $message );
-	}
+        frontPage( $message );
+    }
 
 
-	if( $message eq Gm_Constants::EMPTY ){
-		$message = '<span class="info_text">Select an entry to edit '.
-			'or review.  "Closed" entries are considered deleted and are no longer visible '.
-			'on your site, but can be reopened at any time.</span>';
-	}
+    if( $message eq Gm_Constants::EMPTY ){
+        $message = '<span class="info_text">Select an entry to edit '.
+            'or review.  "Closed" entries are considered deleted and are no longer visible '.
+            'on your site, but can be reopened at any time.</span>';
+    }
 
-	## special message if can only view own
-	if( $AUTHOR{'editentries'} eq Gm_Constants::O ){
-		$message .= '<br /><span class="status_msg">You only have access to edit your own entries.</span>';
-	}
+    ## special message if can only view own
+    if( $AUTHOR{'editentries'} eq Gm_Constants::O ){
+        $message .= '<br /><span class="status_msg">You only have access to edit your own entries.</span>';
+    }
 
-	my $gmentrylist = Gm_Storage::getEntrylist( errHandler=>\&Gm_Web::displayAdminErrorExit );
+    my $gmentrylist = Gm_Storage::getEntrylist( errHandler=>\&Gm_Web::displayAdminErrorExit );
 
-	my @gmsortkeys = keys( %$gmentrylist );
-	## default to date sort
-	unless( defined( $IN{'sortby'} ) ){
-		$IN{'sortby'} = 'date';
-	}
-	@gmsortkeys = sort {
-			lc($gmentrylist->{$a}{$IN{'sortby'}}) cmp lc($gmentrylist->{$b}{$IN{'sortby'}}) || $b <=> $a;
-		} @gmsortkeys;
+    my @gmsortkeys = keys( %$gmentrylist );
+    ## default to date sort
+    unless( defined( $IN{'sortby'} ) ){
+        $IN{'sortby'} = 'date';
+    }
+    @gmsortkeys = sort {
+        lc($gmentrylist->{$a}{$IN{'sortby'}}) cmp lc($gmentrylist->{$b}{$IN{'sortby'}}) || $b <=> $a;
+    } @gmsortkeys;
 
-	my $page = '<span class="section_title">Entry Selection</span><br /><p>'.$message."</p><br />\n";	
-	$page .= "\n\n".'<form action="gm.cgi" METHOD="post"> '.Gm_Security::getFormAuth( author=>\%AUTHOR ).
-		'<input type="hidden" name="section" value="'.$IN{'section'}.'">';
-		
-		
-	$page .= '<P><label for="sortby"><b>Sort by:</b></label> ';
+    my $page = '<span class="section_title">Entry Selection</span><br /><p>'.$message."</p><br />\n";	
+    $page .= "\n\n".'<form action="gm.cgi" METHOD="post"> '.Gm_Security::getFormAuth( author=>\%AUTHOR ).
+        '<input type="hidden" name="section" value="'.$IN{'section'}.'">';
+    
+    
+    $page .= '<P><label for="sortby"><b>Sort by:</b></label> ';
 
-	unless( $IN{'sortby'} ){
-		$IN{'sortby'} = 'date';
-	}
-	$page .= Gm_Web::createRadioButton( name=>'sortby', value=>'date',
-		checked=>$IN{'sortby'} ).' Date &#160;';
-	$page .= Gm_Web::createRadioButton( name=>'sortby', value=>'subject',
-		checked=>$IN{'sortby'} ).' Subject &#160;';
-	$page .= Gm_Web::createRadioButton( name=>'sortby', value=>'author',
-		checked=>$IN{'sortby'} ).' Author';
-		
-	$page .= ' <label for="entryselectionview"><b>List:</b></label> <SELECT NAME="entryselectionview" '.
-		"CLASS=\"selectlist\">\n";
-	if( $IN{'entryselectionview'} eq 'searchresults' ){
-		$page .= "<OPTION VALUE=\"$gmConfigs->{'gmdefaultentrylistview'}\" SELECTED> \(Search results\)\n";
-	}
+    unless( $IN{'sortby'} ){
+        $IN{'sortby'} = 'date';
+    }
+    $page .= Gm_Web::createRadioButton( name=>'sortby', value=>'date',
+                                        checked=>$IN{'sortby'} ).' Date &#160;';
+    $page .= Gm_Web::createRadioButton( name=>'sortby', value=>'subject',
+                                        checked=>$IN{'sortby'} ).' Subject &#160;';
+    $page .= Gm_Web::createRadioButton( name=>'sortby', value=>'author',
+                                        checked=>$IN{'sortby'} ).' Author';
+    
+    $page .= ' <label for="entryselectionview"><b>List:</b></label> <SELECT NAME="entryselectionview" '.
+        "CLASS=\"selectlist\">\n";
+    if( $IN{'entryselectionview'} eq 'searchresults' ){
+        $page .= "<OPTION VALUE=\"$gmConfigs->{'gmdefaultentrylistview'}\" SELECTED> \(Search results\)\n";
+    }
 
-	$page .=  Gm_Web::createOption( value=>Gm_Constants::MAIN, label=>"Current entries ($gmConfigs->{'gmindexdays'} day(s))",
-		checked=>$IN{'entryselectionview'} );
-	$page .= Gm_Web::createOption( value=>'onlyyou', label=>'All entries by you',
-		checked=>$IN{'entryselectionview'} );
-	$page .= Gm_Web::createOption( value=>Gm_Constants::MORE, label=>'All extended entries',
-		checked=>$IN{'entryselectionview'} );
-	$page .= Gm_Web::createOption( value=>Gm_Constants::OPEN, label=>'All open entries',
-		checked=>$IN{'entryselectionview'} );
-	$page .= Gm_Web::createOption( value=>Gm_Constants::CLOSED, label=>'All closed entries',
-		checked=>$IN{'entryselectionview'} );
-	$page .= Gm_Web::createOption( value=>Gm_Constants::ALL, label=>'All entries',
-		checked=>$IN{'entryselectionview'} );
+    $page .=  Gm_Web::createOption( value=>Gm_Constants::MAIN, label=>"Current entries ($gmConfigs->{'gmindexdays'} day(s))",
+                                    checked=>$IN{'entryselectionview'} );
+    $page .= Gm_Web::createOption( value=>'onlyyou', label=>'All entries by you',
+                                   checked=>$IN{'entryselectionview'} );
+    $page .= Gm_Web::createOption( value=>Gm_Constants::MORE, label=>'All extended entries',
+                                   checked=>$IN{'entryselectionview'} );
+    $page .= Gm_Web::createOption( value=>Gm_Constants::OPEN, label=>'All open entries',
+                                   checked=>$IN{'entryselectionview'} );
+    $page .= Gm_Web::createOption( value=>Gm_Constants::CLOSED, label=>'All closed entries',
+                                   checked=>$IN{'entryselectionview'} );
+    $page .= Gm_Web::createOption( value=>Gm_Constants::ALL, label=>'All entries',
+                                   checked=>$IN{'entryselectionview'} );
 
-	$page .= '</SELECT> &#160; <INPUT TYPE=SUBMIT CLASS="button" NAME="filterentries" VALUE="Change View" '.
-		'STYLE="width: 100; height: 22"></p></form>'."\n";
-		
-		
-	$page .= '<table class="info_table"><tr><th>#</th><th>Status</th><th>Date'.
-		'</th><th>Subject</th><th>Author</th><th>Action</th></tr>';
+    $page .= '</SELECT> &#160; <INPUT TYPE=SUBMIT CLASS="button" NAME="filterentries" VALUE="Change View" '.
+                                   'STYLE="width: 100; height: 22"></p></form>'."\n";
+    
+    
+    $page .= '<table class="info_table"><tr><th>#</th><th>Status</th><th>Date'.
+        '</th><th>Subject</th><th>Author</th><th>Action</th></tr>';
 
-	my $base = '?section='.$IN{'section'}.'&'.Gm_Security::getUrlAuth( author=>\%AUTHOR ).
-		'&'.$addUrl;
-	my $page_nav = '';
-	($page_nav, $filteredEntries ) = Gm_Web::createPaging( data=>$filteredEntries,
-		baseurl=>$base, webparams=>\%IN, pagesize=>(Gm_Constants::GM_PAGE_SIZE/5) );
+    my $base = '?section='.$IN{'section'}.'&'.Gm_Security::getUrlAuth( author=>\%AUTHOR ).
+        '&'.$addUrl;
+    my $page_nav = '';
+    ($page_nav, $filteredEntries ) = Gm_Web::createPaging( data=>$filteredEntries,
+                                                          baseurl=>$base, webparams=>\%IN, pagesize=>(Gm_Constants::GM_PAGE_SIZE/5) );
+    
+    ## TODO: CONVERT TO NOTICE ARRAY, JUST PUSH MESSAGES
+    my %statusKey = ();
+    
+    my $rowcolor = Gm_Web::altRowColor();
+    foreach my $entry ( @$filteredEntries ){	
+        my @status = ();
+        if( $entry->{'status'} eq 'C' ){
+            push( @status, 'C' );
+            $statusKey{'C'} = 'Closed entry.';
+        } else {
+            push( @status, Gm_Constants::O );
+            $statusKey{'O'} = 'Open entry.';
+        }
+
+        if( $entry->{'extended'} eq Gm_Constants::Y ){
+            push( @status, 'E' );
+            $statusKey{'E'} = 'Extended entry (contains "more" text).';
+        }
+        
+        if( $entry->{'id'} eq $gmCounters->{'stayattopentry'} ){
+            push( @status, 'S' );
+            $statusKey{'S'} = 'Entry currently marked to stay at the top of the main index.';
+        }
+        
 	
-	## TODO: CONVERT TO NOTICE ARRAY, JUST PUSH MESSAGES
-	my %statusKey = ();
-	
-	my $rowcolor = Gm_Web::altRowColor();
-	foreach my $entry ( @$filteredEntries ){	
-		my @status = ();
-		if( $entry->{'status'} eq 'C' ){
-			push( @status, 'C' );
-			$statusKey{'C'} = 'Closed entry.';
-		} else {
-			push( @status, Gm_Constants::O );
-			$statusKey{'O'} = 'Open entry.';
-		}
+        if( $entry->{'subject'} eq Gm_Constants::EMPTY ){ 
+            $entry->{'subject'} = '(no subject)'; 
+        }
 
-		if( $entry->{'extended'} eq Gm_Constants::Y ){
-			push( @status, 'E' );
-			$statusKey{'E'} = 'Extended entry (contains "more" text).';
-		}
-		
-		if( $entry->{'id'} eq $gmCounters->{'stayattopentry'} ){
-			push( @status, 'S' );
-			$statusKey{'S'} = 'Entry currently marked to stay at the top of the main index.';
-		}
-		
-	
-		if( $entry->{'subject'} eq Gm_Constants::EMPTY ){ 
-			$entry->{'subject'} = '(no subject)'; 
-		}
+        #  $entry->{'createt'}
+        $page .= "<tr $rowcolor><td>$entry->{'id'}</td><td>".join( ', ', @status )." </td><td>".
+            "$entry->{'created'}</td><td style=\"text-align:left; padding-left: .75em;\"> ".
+            "$entry->{'subject'}</td><td>$entry->{'author'}</td><td>";
+        $rowcolor = Gm_Web::altRowColor( $rowcolor );
+        
+        ## Edit, Delete buttons
+        my $buttonText = 'Close';
+        if( $entry->{'status'} eq 'C' ){
+            $buttonText = 'Open'
+        }
+        $page .= '<a href="'.$ENV{SCRIPT_NAME}.'?section='.$IN{'section'}.'&openclose=1'.
+                                                                                          '&entryid='.$entry->{'id'}.'&'.Gm_Security::getUrlAuth( author=>\%AUTHOR ).
+                                                                                          '&entryselectionview='.$IN{'entryselectionview'}.
+                                                                                          '" class="link_button" STYLE="background: #FFD0D0">'.$buttonText.'</a>';
+        
+        $page .= ' &#160; <a href="'.$ENV{SCRIPT_NAME}.'?section='.$IN{'section'}.'&view=1'.
+                                                                                          '&entryid='.$entry->{'id'}.'&'.Gm_Security::getUrlAuth( author=>\%AUTHOR ).
+                                                                                          '&entryselectionview='.$IN{'entryselectionview'}.
+                                                                                          '" class="link_button" STYLE="background: #D0FFD0">'.
+                              Gm_Core::text( Gm_Constants::EDIT ).'</a>';
+        
+        $page .= "</td></tr>";
 
-		#  $entry->{'createt'}
-		$page .= "<tr $rowcolor><td>$entry->{'id'}</td><td>".join( ', ', @status )." </td><td>".
-			"$entry->{'created'}</td><td style=\"text-align:left; padding-left: .75em;\"> ".
-			"$entry->{'subject'}</td><td>$entry->{'author'}</td><td>";
-		$rowcolor = Gm_Web::altRowColor( $rowcolor );
-		
-		## Edit, Delete buttons
-		my $buttonText = 'Close';
-		if( $entry->{'status'} eq 'C' ){
-			$buttonText = 'Open'
-		}
-		$page .= '<a href="'.$ENV{SCRIPT_NAME}.'?section='.$IN{'section'}.'&openclose=1'.
-			'&entryid='.$entry->{'id'}.'&'.Gm_Security::getUrlAuth( author=>\%AUTHOR ).
-			'&entryselectionview='.$IN{'entryselectionview'}.
-			'" class="link_button" STYLE="background: #FFD0D0">'.$buttonText.'</a>';
-		
-		$page .= ' &#160; <a href="'.$ENV{SCRIPT_NAME}.'?section='.$IN{'section'}.'&view=1'.
-			'&entryid='.$entry->{'id'}.'&'.Gm_Security::getUrlAuth( author=>\%AUTHOR ).
-			'&entryselectionview='.$IN{'entryselectionview'}.
-			'" class="link_button" STYLE="background: #D0FFD0">'.
-			Gm_Core::text( Gm_Constants::EDIT ).'</a>';
-		
-		$page .= "</td></tr>";
+    }
 
-	}
+    $page .= "</table><div class='pagenav'>$page_nav</div>\n<br />\n\n";
 
-	$page .= "</table><div class='pagenav'>$page_nav</div>\n<br />\n\n";
+    ## Search page
+    $page .= "\n\n".'<p><form action="gm.cgi" METHOD="post"> '.Gm_Security::getFormAuth( author=>\%AUTHOR ).
+        '<input type="hidden" name="section" value="'.$IN{'section'}.'"><table class="form_table" width="60%">'.
+        '<tr><td>'.
+        "\n<INPUT TYPE=TEXT NAME=\"entrysearch\" value=\"$IN{'entrysearch'}\" CLASS=\"inputfield\" SIZE=25 >\n".
+        "</td><td><input type=submit class=\"button\" name=\"search\" value=\"Search\" ".
+        "STYLE=\"width: 70; height: 22\"></td></tr></table>".
+        '</form></p>'."\n";
+    
+    ## Footnotes
+    $page .= '<p><span class="info_text">'.join( '<br />', 
+                                                 map  { "$_ = $statusKey{$_}" } sort( keys( %statusKey ))  ).'</span></p>';
+    
+    ## Search and replace
+    $page .= "\n\n".'<p><form action="gm.cgi" METHOD="post"> '.Gm_Security::getFormAuth( author=>\%AUTHOR ).
+        '<input type="hidden" name="section" value="'.$IN{'section'}.'">'.
+        '<INPUT TYPE=SUBMIT CLASS="button" NAME="viewsearchreplace" STYLE="background: #D0FFD0; '.
+                                                                                                    'width: 485;" VALUE="Search And Replace Across All Entries"></form></p>'."\n";
+    ## de-button	
+    $page .= "\n\n".'<p><form action="gm.cgi" METHOD="post"> '.Gm_Security::getFormAuth( author=>\%AUTHOR ).
+        '<input type="hidden" name="section" value="'.$IN{'section'}.'">'.
+        '<input type=submit class="button" name="new" style="background: #D0FFD0;" '.
+        'value="'.Gm_Core::text( Gm_Constants::FRONTPAGE_ADDNEW ).'"></form></p>'."\n";
+    $page .= "\n\n".'<P><FORM ACTION="gm.cgi" METHOD="post"> '.Gm_Security::getFormAuth( author=>\%AUTHOR ).
+        '<INPUT TYPE=SUBMIT CLASS="button" NAME="menu" VALUE="'.Gm_Core::text( Gm_Constants::RETURN_MAIN_MENU ).
+                                                                                     '" STYLE="background: #C0C0C0"></form></p>';
 
-	## Search page
-	$page .= "\n\n".'<p><form action="gm.cgi" METHOD="post"> '.Gm_Security::getFormAuth( author=>\%AUTHOR ).
-		'<input type="hidden" name="section" value="'.$IN{'section'}.'"><table class="form_table" width="60%">'.
-		'<tr><td>'.
-		"\n<INPUT TYPE=TEXT NAME=\"entrysearch\" value=\"$IN{'entrysearch'}\" CLASS=\"inputfield\" SIZE=25 >\n".
-		"</td><td><input type=submit class=\"button\" name=\"search\" value=\"Search\" ".
-		"STYLE=\"width: 70; height: 22\"></td></tr></table>".
-		'</form></p>'."\n";
-	
-	## Footnotes
-	$page .= '<p><span class="info_text">'.join( '<br />', 
-		map  { "$_ = $statusKey{$_}" } sort( keys( %statusKey ))  ).'</span></p>';
-		
-	## Search and replace
-	$page .= "\n\n".'<p><form action="gm.cgi" METHOD="post"> '.Gm_Security::getFormAuth( author=>\%AUTHOR ).
-		'<input type="hidden" name="section" value="'.$IN{'section'}.'">'.
-		'<INPUT TYPE=SUBMIT CLASS="button" NAME="viewsearchreplace" STYLE="background: #D0FFD0; '.
-		'width: 485;" VALUE="Search And Replace Across All Entries"></form></p>'."\n";
-	## de-button	
-	$page .= "\n\n".'<p><form action="gm.cgi" METHOD="post"> '.Gm_Security::getFormAuth( author=>\%AUTHOR ).
-		'<input type="hidden" name="section" value="'.$IN{'section'}.'">'.
-		'<input type=submit class="button" name="new" style="background: #D0FFD0;" '.
-		'value="'.Gm_Core::text( Gm_Constants::FRONTPAGE_ADDNEW ).'"></form></p>'."\n";
-	$page .= "\n\n".'<P><FORM ACTION="gm.cgi" METHOD="post"> '.Gm_Security::getFormAuth( author=>\%AUTHOR ).
-		'<INPUT TYPE=SUBMIT CLASS="button" NAME="menu" VALUE="'.Gm_Core::text( Gm_Constants::RETURN_MAIN_MENU ).
-		'" STYLE="background: #C0C0C0"></form></p>';
+    #	$statusnote = Gm_Constants::EMPTY;
 
-#	$statusnote = Gm_Constants::EMPTY;
-
-	Gm_Web::displayAdminPageExit( $page );
-	exit(0);
+    Gm_Web::displayAdminPageExit( $page );
+    exit(0);
 }
 
 
@@ -1893,323 +1893,323 @@ sub viewEntries {
 # A method to open and close an entry
 # RETURNS: A message to display on the view page
 sub changeEntryStatus {
-	my $message = Gm_Constants::EMPTY;
+    my $message = Gm_Constants::EMPTY;
 
-	if ($IN{'entryid'} eq Gm_Constants::EMPTY) {
-		$message = '<span class="error_msg">You must select an entry to open or close.</span>';
-#		&gm_editentryselection;
-		return( $message ); ## should default to filterEntries
-	}
-	
-#	&gm_readconfig;
-#	&gm_readtemplates;  ## why?
-#		&gm_readcounter;
-	my $gmCounters = Gm_Storage::getCounters( errHandler=>\&Gm_Web::displayAdminErrorExit );
+    if ($IN{'entryid'} eq Gm_Constants::EMPTY) {
+        $message = '<span class="error_msg">You must select an entry to open or close.</span>';
+        #		&gm_editentryselection;
+        return( $message ); ## should default to filterEntries
+    }
+    
+    #	&gm_readconfig;
+    #	&gm_readtemplates;  ## why?
+    #		&gm_readcounter;
+    my $gmCounters = Gm_Storage::getCounters( errHandler=>\&Gm_Web::displayAdminErrorExit );
 
-	my $thisentrynumberpadded = Gm_Utils::toEntryPadded( $IN{'entryid'} );
+    my $thisentrynumberpadded = Gm_Utils::toEntryPadded( $IN{'entryid'} );
 
-	my $gmEntry = Gm_Storage::getEntry( id=>$IN{'entryid'},
-		errHandler=>\&Gm_Web::displayAdminErrorExit );
+    my $gmEntry = Gm_Storage::getEntry( id=>$IN{'entryid'},
+                                       errHandler=>\&Gm_Web::displayAdminErrorExit );
 
-	## TODO: refactor out usage of variables, make work directly off of entry
-	my $thisentrynumber = $gmEntry->{'entryinfo'}{'id'};
-	my $thisentryauthor = $gmEntry->{'entryinfo'}{'author'};
-	my $thisentrysubject = $gmEntry->{'entryinfo'}{'subject'};
-	my $thisentryopenstatus = $gmEntry->{'entryinfo'}{'status'};
-
-
-	if( ($AUTHOR{'author'} ne $thisentryauthor) && ($AUTHOR{'editentries'} eq Gm_Constants::O) ){
-		Gm_Core::writeToCplog( "$AUTHOR{'author'} attempted to change the open/closed status ".
-			"on entry #$thisentrynumber (by $thisentryauthor) without authorization" );
-		$message = '<span class="error_msg">You don\'t have access to open/close entries '.
-			'you didn\'t create.</span>';
-#		&gm_editentryselection;
-		return( $message ); ## should default to filterEntries
-	}
-
-	if( $thisentryopenstatus eq Gm_Constants::OPEN ){
-		$gmCounters->{'opentotal'}--;
-		$gmCounters->{'closedtotal'}++;
-		$thisentryopenstatus = Gm_Constants::CLOSED;
-	} else {
-		$gmCounters->{'opentotal'}++;
-		$gmCounters->{'closedtotal'}--;
-		$thisentryopenstatus = Gm_Constants::OPEN;
-	}
-
-#	&gm_writecounter;
-	Gm_Storage::setCounters( list=>$gmCounters, errHandler=>\&Gm_Web::displayAdminErrorExit );
-
-	$gmEntry->{'entryinfo'}{'status'} = $thisentryopenstatus;
-	Gm_Storage::setEntry( entry=>$gmEntry, errHandler=>\&Gm_Web::displayAdminErrorExit );
-	
-	## Updating entry list with new status, but all we know is that we are flipping it
-	# so we have to get old one then update with new value
-	my $gmentrylist = Gm_Storage::getEntrylist( errHandler=>\&Gm_Web::displayAdminErrorExit );
-	my %updatedInfo = ();
-	
-	if( $gmentrylist->{$thisentrynumber}{'status'} eq Gm_Constants::O ){
-		$updatedInfo{'status'} = 'C';
-	} else {
-		$updatedInfo{'status'} = 'O';
-	}
-	
-	Gm_Storage::updateEntrylist( key=>$thisentrynumber, %updatedInfo, 
-		errHandler=>\&Gm_Web::displayAdminErrorExit );
+    ## TODO: refactor out usage of variables, make work directly off of entry
+    my $thisentrynumber = $gmEntry->{'entryinfo'}{'id'};
+    my $thisentryauthor = $gmEntry->{'entryinfo'}{'author'};
+    my $thisentrysubject = $gmEntry->{'entryinfo'}{'subject'};
+    my $thisentryopenstatus = $gmEntry->{'entryinfo'}{'status'};
 
 
-	my $openCloseStatus = 'closed';
-	if( $thisentryopenstatus eq Gm_Constants::OPEN ){
-		$openCloseStatus = 'reopened';
-	}
-	Gm_Core::writeToCplog( "$AUTHOR{'author'} $openCloseStatus an entry (#$thisentrynumber: $thisentrysubject)" );
-	$message = "<span class=\"status_msg\">Entry #$thisentrynumber ($thisentrysubject) has been ".
-		"$openCloseStatus.<BR>Be sure to rebuild your files for the changes to be visible on your site.</span>";
+    if( ($AUTHOR{'author'} ne $thisentryauthor) && ($AUTHOR{'editentries'} eq Gm_Constants::O) ){
+        Gm_Core::writeToCplog( "$AUTHOR{'author'} attempted to change the open/closed status ".
+                              "on entry #$thisentrynumber (by $thisentryauthor) without authorization" );
+        $message = '<span class="error_msg">You don\'t have access to open/close entries '.
+            'you didn\'t create.</span>';
+        #		&gm_editentryselection;
+        return( $message ); ## should default to filterEntries
+    }
 
-#&gm_editentryselection;
+    if( $thisentryopenstatus eq Gm_Constants::OPEN ){
+        $gmCounters->{'opentotal'}--;
+        $gmCounters->{'closedtotal'}++;
+        $thisentryopenstatus = Gm_Constants::CLOSED;
+    } else {
+        $gmCounters->{'opentotal'}++;
+        $gmCounters->{'closedtotal'}--;
+        $thisentryopenstatus = Gm_Constants::OPEN;
+    }
 
- return( $message );
+    #	&gm_writecounter;
+    Gm_Storage::setCounters( list=>$gmCounters, errHandler=>\&Gm_Web::displayAdminErrorExit );
+
+    $gmEntry->{'entryinfo'}{'status'} = $thisentryopenstatus;
+    Gm_Storage::setEntry( entry=>$gmEntry, errHandler=>\&Gm_Web::displayAdminErrorExit );
+    
+    ## Updating entry list with new status, but all we know is that we are flipping it
+    # so we have to get old one then update with new value
+    my $gmentrylist = Gm_Storage::getEntrylist( errHandler=>\&Gm_Web::displayAdminErrorExit );
+    my %updatedInfo = ();
+    
+    if( $gmentrylist->{$thisentrynumber}{'status'} eq Gm_Constants::O ){
+        $updatedInfo{'status'} = 'C';
+    } else {
+        $updatedInfo{'status'} = 'O';
+    }
+    
+    Gm_Storage::updateEntrylist( key=>$thisentrynumber, %updatedInfo, 
+                                 errHandler=>\&Gm_Web::displayAdminErrorExit );
+
+
+    my $openCloseStatus = 'closed';
+    if( $thisentryopenstatus eq Gm_Constants::OPEN ){
+        $openCloseStatus = 'reopened';
+    }
+    Gm_Core::writeToCplog( "$AUTHOR{'author'} $openCloseStatus an entry (#$thisentrynumber: $thisentrysubject)" );
+    $message = "<span class=\"status_msg\">Entry #$thisentrynumber ($thisentrysubject) has been ".
+        "$openCloseStatus.<BR>Be sure to rebuild your files for the changes to be visible on your site.</span>";
+
+    #&gm_editentryselection;
+
+    return( $message );
 }
 
 ## View Search And Replace
 # View the form that searches and replaces across entries
 # (opt) ARG1: Message to display to user, could be error or confirmation of action
 sub viewSearchAndReplace {
-	my $message = shift( @_ ) || Gm_Constants::EMPTY;
+    my $message = shift( @_ ) || Gm_Constants::EMPTY;
 
-	if( $AUTHOR{'editentries'} eq Gm_Constants::O ){
-		$message = '<span class="error_msg">You must have access to edit all entries to do this.</span>';
-		return( $message ); ## should default to filterEntries
-	}
+    if( $AUTHOR{'editentries'} eq Gm_Constants::O ){
+        $message = '<span class="error_msg">You must have access to edit all entries to do this.</span>';
+        return( $message ); ## should default to filterEntries
+    }
 
-	if( $message eq Gm_Constants::EMPTY ){
-		$message = '<p><span class="info_text">Enter whatever exact text or other information you wish to search '.
-			'across entries for in the<BR>first box, and whatever you wish to replace it with '.
-			'in the second box (leave the Replace<BR>box blank to delete all instances of your '.
-			'search term).  Keep in mind that a search-and-replace<BR>will make permanent changes '.
-			'to the contents of ALL entries that contain your search term.</span></p>';
-	}
+    if( $message eq Gm_Constants::EMPTY ){
+        $message = '<p><span class="info_text">Enter whatever exact text or other information you wish to search '.
+            'across entries for in the<BR>first box, and whatever you wish to replace it with '.
+            'in the second box (leave the Replace<BR>box blank to delete all instances of your '.
+                                'search term).  Keep in mind that a search-and-replace<BR>will make permanent changes '.
+            'to the contents of ALL entries that contain your search term.</span></p>';
+    }
 
-	my $page = '<span class="section_title">Search And Replace</span><br /><p>'."$message</p>\n";	
+    my $page = '<span class="section_title">Search And Replace</span><br /><p>'."$message</p>\n";	
 
-	$page .= '<CENTER><FORM ACTION="gm.cgi" METHOD=POST>'.
-		Gm_Security::getFormAuth( author=>\%AUTHOR ).
-		'<input type="hidden" name="section" value="'.$IN{'section'}.'">';
+    $page .= '<CENTER><FORM ACTION="gm.cgi" METHOD=POST>'.
+        Gm_Security::getFormAuth( author=>\%AUTHOR ).
+        '<input type="hidden" name="section" value="'.$IN{'section'}.'">';
 
-	$page .= '<table width="80%" class="form_table"><tr><th width="30%"><label for="search">Search For:</label>'.
-		'</th><td><input type="text" class="inputfield" name="srsearchterm" id="search" value="'.
-		$IN{'srsearchterm'}.'"></td></tr>';
-	$page .= '<tr><th><label for="replace">Replace With:</label></th><td>'.
-		'<input type="text" class="inputfield" name="srreplaceterm" id="replace" value="'.$IN{'srreplaceterm'}.'">'.
-		'</td></tr>';
+    $page .= '<table width="80%" class="form_table"><tr><th width="30%"><label for="search">Search For:</label>'.
+        '</th><td><input type="text" class="inputfield" name="srsearchterm" id="search" value="'.
+                                                                                     $IN{'srsearchterm'}.'"></td></tr>';
+    $page .= '<tr><th><label for="replace">Replace With:</label></th><td>'.
+        '<input type="text" class="inputfield" name="srreplaceterm" id="replace" value="'.$IN{'srreplaceterm'}.'">'.
+        '</td></tr>';
 
-	$page .= '<tr><th>&nbsp</th><td><input type="checkbox" id="ignorecase" name="srcaseinsensitive" value="yes"';
-	if( $IN{'srcaseinsensitive'} ){
-		$page .= ' CHECKED';
-	}
-	$page .= '><label for="ignorecase">Make "Search For" term case-insensitive?</label></td></tr>';
+    $page .= '<tr><th>&nbsp</th><td><input type="checkbox" id="ignorecase" name="srcaseinsensitive" value="yes"';
+    if( $IN{'srcaseinsensitive'} ){
+        $page .= ' CHECKED';
+    }
+    $page .= '><label for="ignorecase">Make "Search For" term case-insensitive?</label></td></tr>';
 
-	$page .= '<tr><th>&nbsp</th><td><INPUT TYPE=SUBMIT CLASS="button" NAME="searchreplace" '.
-		'STYLE="background: #D0FFD0;" VALUE="Perform Search And Replace"></td></tr></table><br />'.
-#		'<INPUT TYPE=SUBMIT CLASS="button" NAME="thomas" VALUE="Return To Entry Selection"> '.
-		'<INPUT TYPE=SUBMIT CLASS="button" NAME="entries" VALUE="Return To Entry Selection"> '.
-		'<INPUT TYPE=SUBMIT CLASS="button" NAME="thomas" VALUE="Return To Main Menu" '.
-		'STYLE="background: #C0C0C0"></FORM><P>';
+    $page .= '<tr><th>&nbsp</th><td><INPUT TYPE=SUBMIT CLASS="button" NAME="searchreplace" '.
+        'STYLE="background: #D0FFD0;" VALUE="Perform Search And Replace"></td></tr></table><br />'.
+        #		'<INPUT TYPE=SUBMIT CLASS="button" NAME="thomas" VALUE="Return To Entry Selection"> '.
+        '<INPUT TYPE=SUBMIT CLASS="button" NAME="entries" VALUE="Return To Entry Selection"> '.
+        '<INPUT TYPE=SUBMIT CLASS="button" NAME="thomas" VALUE="Return To Main Menu" '.
+        'STYLE="background: #C0C0C0"></FORM><P>';
 
-	Gm_Web::displayAdminPageExit( $page );
-	exit(0);
+    Gm_Web::displayAdminPageExit( $page );
+    exit(0);
 }
 
 ## Entry Search and Replace
 # Searches through all the entries doing the given replace
 ## TODO: THIS SHOULD DO A REBUILD ONCE ITS DONE, HAVE TO MANUALLY REBUILD
 sub entrySearchAndReplace {
-	my $message = Gm_Constants::EMPTY;
+    my $message = Gm_Constants::EMPTY;
 
-	if( $AUTHOR{'editentries'} eq Gm_Constants::O ){
-		$message = '<span class="error_msg">You must have access to edit all entries to do this.</span>';
-		return( $message ); ## should default to filterEntries
-	}
+    if( $AUTHOR{'editentries'} eq Gm_Constants::O ){
+        $message = '<span class="error_msg">You must have access to edit all entries to do this.</span>';
+        return( $message ); ## should default to filterEntries
+    }
+    
+    ## Validating fields
+    my @validation = ();
+    if( $IN{'srsearchterm'} eq Gm_Constants::EMPTY ){
+        push( @validation, 'You must enter a search term.' );
+        
+    }
+    if( $IN{'srreplaceterm'} eq Gm_Constants::EMPTY ){
+        push( @validation, 'You must enter a replacement.' );
+        
+    }
+    if( @validation ){
+        viewSearchAndReplace( '<span class="error_msg">'.join( '<br />', @validation ).'<span>' );
+    }
+
+    my $gmCounters = Gm_Storage::getCounters( errHandler=>\&Gm_Web::displayAdminErrorExit );
+
+    my $currententrycounter = $gmCounters->{'entrytotal'};	
+    my $entriesaffected = 0;
+    my $rebuildentrylist = Gm_Constants::NO;
+
+    my @affectedEntries = ();
+
+    ## TODO: DO WE NEED A GENERIC ENTRY LOOPING MECHANISM, THAT WE COULD GIVE A DECORATOR TO?
+    ## Also, should be starting at 1
+    do {
+
+        my $currententrycounterpadded = Gm_Utils::toEntryPadded( $currententrycounter );
+        my $resaveentry = Gm_Constants::NO;
 	
-	## Validating fields
-	my @validation = ();
-	if( $IN{'srsearchterm'} eq Gm_Constants::EMPTY ){
-		push( @validation, 'You must enter a search term.' );
-		
-	}
-	if( $IN{'srreplaceterm'} eq Gm_Constants::EMPTY ){
-		push( @validation, 'You must enter a replacement.' );
-		
-	}
-	if( @validation ){
-		viewSearchAndReplace( '<span class="error_msg">'.join( '<br />', @validation ).'<span>' );
-	}
-
-	my $gmCounters = Gm_Storage::getCounters( errHandler=>\&Gm_Web::displayAdminErrorExit );
-
-	my $currententrycounter = $gmCounters->{'entrytotal'};	
-	my $entriesaffected = 0;
-	my $rebuildentrylist = Gm_Constants::NO;
-
-	my @affectedEntries = ();
-
-## TODO: DO WE NEED A GENERIC ENTRY LOOPING MECHANISM, THAT WE COULD GIVE A DECORATOR TO?
-## Also, should be starting at 1
-	do {
-
-		my $currententrycounterpadded = Gm_Utils::toEntryPadded( $currententrycounter );
-		my $resaveentry = Gm_Constants::NO;
+        ## getting the entry
+        my $gmEntry = Gm_Storage::getEntry( id=>$currententrycounter,
+                                            errHandler=>\&Gm_Web::displayAdminErrorExit );
+        
+        ## TODO: refactor out usage of variables, make work directly off of entry
+        my $thisentrynumber = $gmEntry->{'entryinfo'}{'id'};
+        my $thisentryauthor = $gmEntry->{'entryinfo'}{'author'};
+        my $thisentrysubject = $gmEntry->{'entryinfo'}{'subject'};
+        my $thisentryweekdaynumber = $gmEntry->{'entryinfo'}{'weekday'};
+        my $thisentrymonth = $gmEntry->{'entryinfo'}{'month'};
+        my $thisentryday = $gmEntry->{'entryinfo'}{'day'};
+        my $thisentryyearyear = $gmEntry->{'entryinfo'}{'year'};
+        my $thisentryhour = $gmEntry->{'entryinfo'}{'hour'};
+        my $thisentryminute = $gmEntry->{'entryinfo'}{'minute'};
+        my $thisentrysecond = $gmEntry->{'entryinfo'}{'second'};
+        my $thisentryampm = $gmEntry->{'entryinfo'}{'ampm'};
+        my $thisentrypositivekarma = $gmEntry->{'entryinfo'}{'karmapos'};
+        my $thisentrynegativekarma = $gmEntry->{'entryinfo'}{'karmaneg'};
+        my $thisentrycommentsnumber = $gmEntry->{'entryinfo'}{'commenttotal'};
+        my $thisentryallowkarma = $gmEntry->{'entryinfo'}{'karma'};
+        my $thisentryallowcomments = $gmEntry->{'entryinfo'}{'comments'};
+        my $thisentryopenstatus = $gmEntry->{'entryinfo'}{'status'};
+        my $thisentrymusic = $gmEntry->{'entryinfo'}{'music'};
+        my $thisentrymood = $gmEntry->{'entryinfo'}{'mood'};
+        my $thisentryemoticonsallowed = $gmEntry->{'entryinfo'}{'emoticons'};
 	
-		## getting the entry
-		my $gmEntry = Gm_Storage::getEntry( id=>$currententrycounter,
-			errHandler=>\&Gm_Web::displayAdminErrorExit );
-		
-		## TODO: refactor out usage of variables, make work directly off of entry
-		my $thisentrynumber = $gmEntry->{'entryinfo'}{'id'};
-		my $thisentryauthor = $gmEntry->{'entryinfo'}{'author'};
-		my $thisentrysubject = $gmEntry->{'entryinfo'}{'subject'};
-		my $thisentryweekdaynumber = $gmEntry->{'entryinfo'}{'weekday'};
-		my $thisentrymonth = $gmEntry->{'entryinfo'}{'month'};
-		my $thisentryday = $gmEntry->{'entryinfo'}{'day'};
-		my $thisentryyearyear = $gmEntry->{'entryinfo'}{'year'};
-		my $thisentryhour = $gmEntry->{'entryinfo'}{'hour'};
-		my $thisentryminute = $gmEntry->{'entryinfo'}{'minute'};
-		my $thisentrysecond = $gmEntry->{'entryinfo'}{'second'};
-		my $thisentryampm = $gmEntry->{'entryinfo'}{'ampm'};
-		my $thisentrypositivekarma = $gmEntry->{'entryinfo'}{'karmapos'};
-		my $thisentrynegativekarma = $gmEntry->{'entryinfo'}{'karmaneg'};
-		my $thisentrycommentsnumber = $gmEntry->{'entryinfo'}{'commenttotal'};
-		my $thisentryallowkarma = $gmEntry->{'entryinfo'}{'karma'};
-		my $thisentryallowcomments = $gmEntry->{'entryinfo'}{'comments'};
-		my $thisentryopenstatus = $gmEntry->{'entryinfo'}{'status'};
-		my $thisentrymusic = $gmEntry->{'entryinfo'}{'music'};
-		my $thisentrymood = $gmEntry->{'entryinfo'}{'mood'};
-		my $thisentryemoticonsallowed = $gmEntry->{'entryinfo'}{'emoticons'};
-	
-## TODO: WORK ON AUTHOR INFO AS WELL	
-		if( $IN{'srcaseinsensitive'} eq Gm_Constants::YES ){
-			if( $thisentrysubject =~ m/$IN{'srsearchterm'}/i ||
-				$thisentrymusic =~ m/$IN{'srsearchterm'}/i ||
-				$thisentrymood =~ m/$IN{'srsearchterm'}/i ){
-				
-				$thisentrysubject =~ s/$IN{'srsearchterm'}/$IN{'srreplaceterm'}/ig;
-				$thisentrymusic =~ s/$IN{'srsearchterm'}/$IN{'srreplaceterm'}/ig;
-				$thisentrymood =~ s/$IN{'srsearchterm'}/$IN{'srreplaceterm'}/ig;
-				$gmEntry->{'entryinfo'}{'subject'} = $thisentrysubject;
-				$gmEntry->{'entryinfo'}{'music'} = $thisentrymusic;
-				$gmEntry->{'entryinfo'}{'mood'} = $thisentrymood;
-				$resaveentry = Gm_Constants::YES;
-				$rebuildentrylist = Gm_Constants::YES;
-			}
-		} else {
-			if( $thisentrysubject =~ m/$IN{'srsearchterm'}/ ||
-				$thisentrymusic =~ m/$IN{'srsearchterm'}/ ||
-				$thisentrymood =~ m/$IN{'srsearchterm'}/ ){
-				
-				$thisentrysubject =~ s/$IN{'srsearchterm'}/$IN{'srreplaceterm'}/g;
-				$thisentrymusic =~ s/$IN{'srsearchterm'}/$IN{'srreplaceterm'}/g;
-				$thisentrymood =~ s/$IN{'srsearchterm'}/$IN{'srreplaceterm'}/g;
-				$gmEntry->{'entryinfo'}{'subject'} = $thisentrysubject;
-				$gmEntry->{'entryinfo'}{'music'} = $thisentrymusic;
-				$gmEntry->{'entryinfo'}{'mood'} = $thisentrymood;		
-				$resaveentry = Gm_Constants::YES;
-				$rebuildentrylist = Gm_Constants::YES;
-			}
-		}
+        ## TODO: WORK ON AUTHOR INFO AS WELL	
+        if( $IN{'srcaseinsensitive'} eq Gm_Constants::YES ){
+            if( $thisentrysubject =~ m/$IN{'srsearchterm'}/i ||
+                $thisentrymusic =~ m/$IN{'srsearchterm'}/i ||
+                $thisentrymood =~ m/$IN{'srsearchterm'}/i ){
+                
+                $thisentrysubject =~ s/$IN{'srsearchterm'}/$IN{'srreplaceterm'}/ig;
+                $thisentrymusic =~ s/$IN{'srsearchterm'}/$IN{'srreplaceterm'}/ig;
+                $thisentrymood =~ s/$IN{'srsearchterm'}/$IN{'srreplaceterm'}/ig;
+                $gmEntry->{'entryinfo'}{'subject'} = $thisentrysubject;
+                $gmEntry->{'entryinfo'}{'music'} = $thisentrymusic;
+                $gmEntry->{'entryinfo'}{'mood'} = $thisentrymood;
+                $resaveentry = Gm_Constants::YES;
+                $rebuildentrylist = Gm_Constants::YES;
+            }
+        } else {
+            if( $thisentrysubject =~ m/$IN{'srsearchterm'}/ ||
+                $thisentrymusic =~ m/$IN{'srsearchterm'}/ ||
+                $thisentrymood =~ m/$IN{'srsearchterm'}/ ){
+                
+                $thisentrysubject =~ s/$IN{'srsearchterm'}/$IN{'srreplaceterm'}/g;
+                $thisentrymusic =~ s/$IN{'srsearchterm'}/$IN{'srreplaceterm'}/g;
+                $thisentrymood =~ s/$IN{'srsearchterm'}/$IN{'srreplaceterm'}/g;
+                $gmEntry->{'entryinfo'}{'subject'} = $thisentrysubject;
+                $gmEntry->{'entryinfo'}{'music'} = $thisentrymusic;
+                $gmEntry->{'entryinfo'}{'mood'} = $thisentrymood;		
+                $resaveentry = Gm_Constants::YES;
+                $rebuildentrylist = Gm_Constants::YES;
+            }
+        }
 
-		## do main and extended text
-		if( $IN{'srcaseinsensitive'} eq Gm_Constants::YES ){
-			if( $gmEntry->{'maintext'} =~ m/$IN{'srsearchterm'}/i ||
-				$gmEntry->{'extendedtext'} =~ m/$IN{'srsearchterm'}/i ){
-				$gmEntry->{'maintext'} =~ s/$IN{'srsearchterm'}/$IN{'srreplaceterm'}/ig;
-				$gmEntry->{'extendedtext'} =~ s/$IN{'srsearchterm'}/$IN{'srreplaceterm'}/ig;			
-				$resaveentry = Gm_Constants::YES;
-			}		
-		} else {
-			if( $gmEntry->{'maintext'} =~ m/$IN{'srsearchterm'}/ ||
-				$gmEntry->{'extendedtext'} =~ m/$IN{'srsearchterm'}/ ){
-				$gmEntry->{'maintext'} =~ s/$IN{'srsearchterm'}/$IN{'srreplaceterm'}/g;
-				$gmEntry->{'extendedtext'} =~ s/$IN{'srsearchterm'}/$IN{'srreplaceterm'}/g;			
-				$resaveentry = Gm_Constants::YES;
-			}
-		}
-		
-		## looping through comments
-		for( my $i = 0; $i < scalar( @{$gmEntry->{'comments'}} ); $i++ ){
-			if( $IN{'srcaseinsensitive'} eq Gm_Constants::YES ){
-				if( $gmEntry->{'comments'}[$i]{'name'} =~ m/$IN{'srsearchterm'}/i ||
-					$gmEntry->{'comments'}[$i]{'email'} =~ m/$IN{'srsearchterm'}/i ||
-					$gmEntry->{'comments'}[$i]{'homepage'} =~ m/$IN{'srsearchterm'}/i ||
-					$gmEntry->{'comments'}[$i]{'comment'} =~ m/$IN{'srsearchterm'}/i ){
-					
-					$gmEntry->{'comments'}[$i]{'name'} =~ s/$IN{'srsearchterm'}/$IN{'srreplaceterm'}/gi;
-					$gmEntry->{'comments'}[$i]{'email'} =~ s/$IN{'srsearchterm'}/$IN{'srreplaceterm'}/gi;
-					$gmEntry->{'comments'}[$i]{'homepage'} =~ s/$IN{'srsearchterm'}/$IN{'srreplaceterm'}/gi;
-					$gmEntry->{'comments'}[$i]{'comment'} =~ s/$IN{'srsearchterm'}/$IN{'srreplaceterm'}/gi;
-					
-					$resaveentry = Gm_Constants::YES;
-				}
-			} else {
-				if( $gmEntry->{'comments'}[$i]{'name'} =~ m/$IN{'srsearchterm'}/ ||
-					$gmEntry->{'comments'}[$i]{'email'} =~ m/$IN{'srsearchterm'}/ ||
-					$gmEntry->{'comments'}[$i]{'homepage'} =~ m/$IN{'srsearchterm'}/ ||
-					$gmEntry->{'comments'}[$i]{'comment'} =~ m/$IN{'srsearchterm'}/ ){
-					
-					$gmEntry->{'comments'}[$i]{'name'} =~ s/$IN{'srsearchterm'}/$IN{'srreplaceterm'}/g;
-					$gmEntry->{'comments'}[$i]{'email'} =~ s/$IN{'srsearchterm'}/$IN{'srreplaceterm'}/g;
-					$gmEntry->{'comments'}[$i]{'homepage'} =~ s/$IN{'srsearchterm'}/$IN{'srreplaceterm'}/g;
-					$gmEntry->{'comments'}[$i]{'comment'} =~ s/$IN{'srsearchterm'}/$IN{'srreplaceterm'}/g;
-					
-					$resaveentry = Gm_Constants::YES;
-				}
-			}
-		}
+        ## do main and extended text
+        if( $IN{'srcaseinsensitive'} eq Gm_Constants::YES ){
+            if( $gmEntry->{'maintext'} =~ m/$IN{'srsearchterm'}/i ||
+                $gmEntry->{'extendedtext'} =~ m/$IN{'srsearchterm'}/i ){
+                $gmEntry->{'maintext'} =~ s/$IN{'srsearchterm'}/$IN{'srreplaceterm'}/ig;
+                $gmEntry->{'extendedtext'} =~ s/$IN{'srsearchterm'}/$IN{'srreplaceterm'}/ig;			
+                $resaveentry = Gm_Constants::YES;
+            }		
+        } else {
+            if( $gmEntry->{'maintext'} =~ m/$IN{'srsearchterm'}/ ||
+                $gmEntry->{'extendedtext'} =~ m/$IN{'srsearchterm'}/ ){
+                $gmEntry->{'maintext'} =~ s/$IN{'srsearchterm'}/$IN{'srreplaceterm'}/g;
+                $gmEntry->{'extendedtext'} =~ s/$IN{'srsearchterm'}/$IN{'srreplaceterm'}/g;			
+                $resaveentry = Gm_Constants::YES;
+            }
+        }
+        
+        ## looping through comments
+        for( my $i = 0; $i < scalar( @{$gmEntry->{'comments'}} ); $i++ ){
+            if( $IN{'srcaseinsensitive'} eq Gm_Constants::YES ){
+                if( $gmEntry->{'comments'}[$i]{'name'} =~ m/$IN{'srsearchterm'}/i ||
+                    $gmEntry->{'comments'}[$i]{'email'} =~ m/$IN{'srsearchterm'}/i ||
+                    $gmEntry->{'comments'}[$i]{'homepage'} =~ m/$IN{'srsearchterm'}/i ||
+                    $gmEntry->{'comments'}[$i]{'comment'} =~ m/$IN{'srsearchterm'}/i ){
+                    
+                    $gmEntry->{'comments'}[$i]{'name'} =~ s/$IN{'srsearchterm'}/$IN{'srreplaceterm'}/gi;
+                    $gmEntry->{'comments'}[$i]{'email'} =~ s/$IN{'srsearchterm'}/$IN{'srreplaceterm'}/gi;
+                    $gmEntry->{'comments'}[$i]{'homepage'} =~ s/$IN{'srsearchterm'}/$IN{'srreplaceterm'}/gi;
+                    $gmEntry->{'comments'}[$i]{'comment'} =~ s/$IN{'srsearchterm'}/$IN{'srreplaceterm'}/gi;
+                    
+                    $resaveentry = Gm_Constants::YES;
+                }
+            } else {
+                if( $gmEntry->{'comments'}[$i]{'name'} =~ m/$IN{'srsearchterm'}/ ||
+                    $gmEntry->{'comments'}[$i]{'email'} =~ m/$IN{'srsearchterm'}/ ||
+                    $gmEntry->{'comments'}[$i]{'homepage'} =~ m/$IN{'srsearchterm'}/ ||
+                    $gmEntry->{'comments'}[$i]{'comment'} =~ m/$IN{'srsearchterm'}/ ){
+                    
+                    $gmEntry->{'comments'}[$i]{'name'} =~ s/$IN{'srsearchterm'}/$IN{'srreplaceterm'}/g;
+                    $gmEntry->{'comments'}[$i]{'email'} =~ s/$IN{'srsearchterm'}/$IN{'srreplaceterm'}/g;
+                    $gmEntry->{'comments'}[$i]{'homepage'} =~ s/$IN{'srsearchterm'}/$IN{'srreplaceterm'}/g;
+                    $gmEntry->{'comments'}[$i]{'comment'} =~ s/$IN{'srsearchterm'}/$IN{'srreplaceterm'}/g;
+                    
+                    $resaveentry = Gm_Constants::YES;
+                }
+            }
+        }
 	
-		if( $resaveentry eq Gm_Constants::YES ){
-			Gm_Storage::setEntry( entry=>$gmEntry, errHandler=>\&Gm_Web::displayAdminErrorExit );
-			$entriesaffected++;
+        if( $resaveentry eq Gm_Constants::YES ){
+            Gm_Storage::setEntry( entry=>$gmEntry, errHandler=>\&Gm_Web::displayAdminErrorExit );
+            $entriesaffected++;
 
-			$gmEntry->{'entryinfo'}{'created'} = Gm_Utils::toTwoDigit( $gmEntry->{'entryinfo'}{'month'} ).
-				'/'.Gm_Utils::toTwoDigit( $gmEntry->{'entryinfo'}{'day'} ).'/'.
-				$gmEntry->{'entryinfo'}{'year'};
-			if( $gmEntry->{'entryinfo'}{'status'} eq Gm_Constants::OPEN ){
-				$gmEntry->{'entryinfo'}{'status'} = Gm_Constants::O;
-			} else {
-				$gmEntry->{'entryinfo'}{'status'} = 'C';
-			}
-			if( $gmEntry->{'extendedtext'} ){
-				$gmEntry->{'entryinfo'}{'extended'} = Gm_Constants::Y;
-			} else {
-				$gmEntry->{'entryinfo'}{'extended'} = Gm_Constants::N;
-			}
-			push( @affectedEntries, $gmEntry->{'entryinfo'} );
-		}
+            $gmEntry->{'entryinfo'}{'created'} = Gm_Utils::toTwoDigit( $gmEntry->{'entryinfo'}{'month'} ).
+                '/'.Gm_Utils::toTwoDigit( $gmEntry->{'entryinfo'}{'day'} ).'/'.
+                $gmEntry->{'entryinfo'}{'year'};
+            if( $gmEntry->{'entryinfo'}{'status'} eq Gm_Constants::OPEN ){
+                $gmEntry->{'entryinfo'}{'status'} = Gm_Constants::O;
+            } else {
+                $gmEntry->{'entryinfo'}{'status'} = 'C';
+            }
+            if( $gmEntry->{'extendedtext'} ){
+                $gmEntry->{'entryinfo'}{'extended'} = Gm_Constants::Y;
+            } else {
+                $gmEntry->{'entryinfo'}{'extended'} = Gm_Constants::N;
+            }
+            push( @affectedEntries, $gmEntry->{'entryinfo'} );
+        }
 	
-		$currententrycounter--;
-	} until $currententrycounter < 1;
+        $currententrycounter--;
+    } until $currententrycounter < 1;
 
-	## TODO: THIS CODE DUPLICATES IN GM_DIAGNOSTICSPERFORM
-	## SHOULD BE GENERIC REBUILD ENTRYLIST - CORE
-	if( $rebuildentrylist eq Gm_Constants::YES ){
-		Gm_Core::reconstructEntrylist( errHandler=>\&Gm_Web::displayAdminErrorExit );
-	}
+    ## TODO: THIS CODE DUPLICATES IN GM_DIAGNOSTICSPERFORM
+    ## SHOULD BE GENERIC REBUILD ENTRYLIST - CORE
+    if( $rebuildentrylist eq Gm_Constants::YES ){
+        Gm_Core::reconstructEntrylist( errHandler=>\&Gm_Web::displayAdminErrorExit );
+    }
 
-	if( scalar( @affectedEntries ) < 1 ){
-		Gm_Core::writeToCplog("$AUTHOR{'author'} searched all entries for \"$IN{'srsearchterm'}\" and ".
-			"replaced it with \"$IN{'srreplaceterm'}\" (no entries affected)");
-		$message = '<span class="error_msg">The search term was not found.</span>';
-		$IN{'entryselectionview'} = 'searchresults';
-	} else {
-		Gm_Core::writeToCplog("$AUTHOR{'author'} searched all entries for \"$IN{'srsearchterm'}\" ".
-			"and replaced it with \"$IN{'srreplaceterm'}\" ($entriesaffected entries affected)" );
-		$message = '<span class="status_msg">The search-and-replace was completed successfully '.
-			'('.scalar( @affectedEntries ).' entries affected).  All affected entries are listed below.</span>';
-		$IN{'entryselectionview'} = 'searchresults';
-	}
-	
-	## adding base url to show all entries changed, becaue pagin won't work!
-	$IN{'page'} = 'all';
-	viewEntries( \@affectedEntries, $message );
+    if( scalar( @affectedEntries ) < 1 ){
+        Gm_Core::writeToCplog("$AUTHOR{'author'} searched all entries for \"$IN{'srsearchterm'}\" and ".
+                              "replaced it with \"$IN{'srreplaceterm'}\" (no entries affected)");
+        $message = '<span class="error_msg">The search term was not found.</span>';
+        $IN{'entryselectionview'} = 'searchresults';
+    } else {
+        Gm_Core::writeToCplog("$AUTHOR{'author'} searched all entries for \"$IN{'srsearchterm'}\" ".
+                             "and replaced it with \"$IN{'srreplaceterm'}\" ($entriesaffected entries affected)" );
+        $message = '<span class="status_msg">The search-and-replace was completed successfully '.
+            '('.scalar( @affectedEntries ).' entries affected).  All affected entries are listed below.</span>';
+        $IN{'entryselectionview'} = 'searchresults';
+    }
+    
+    ## adding base url to show all entries changed, becaue pagin won't work!
+    $IN{'page'} = 'all';
+    viewEntries( \@affectedEntries, $message );
 }
 
 
@@ -2217,42 +2217,42 @@ sub entrySearchAndReplace {
 # Start a new entry
 # (opt) ARG1: Message to display to user, could be error or confirmation of action
 sub newEntry {
-	my $message = shift( @_ ) || Gm_Constants::EMPTY;
+    my $message = shift( @_ ) || Gm_Constants::EMPTY;
 
-	## Sigh, so very stupid.  It appears that the only reason we check if an entry has been posted is
-	## because GM is assuming that if an entry has been posted, that Diag & Repair has been run.
-	unless( Gm_Core::hasPosted() ){
-		unless( Gm_Core::hasDiagRun() ){
-			frontPage( '<span class="error_msg">Please run "Diagnostics & Repair" '.
-				'in the Configuration screen before posting your first entry.</span>' );
-		}
-	}
+    ## Sigh, so very stupid.  It appears that the only reason we check if an entry has been posted is
+    ## because GM is assuming that if an entry has been posted, that Diag & Repair has been run.
+    unless( Gm_Core::hasPosted() ){
+        unless( Gm_Core::hasDiagRun() ){
+            frontPage( '<span class="error_msg">Please run "Diagnostics & Repair" '.
+                       'in the Configuration screen before posting your first entry.</span>' );
+        }
+    }
 
-	if ($message eq Gm_Constants::EMPTY) {
-		$message = '<span class="section_title">Add A New Entry</span><br /><p><span class="info_text">'.
-			'This is the form by which you add new entries to your weblog/journal.  You can make this '.
-			'either a standard or extended entry; standard entries contain only main text (the first '.
-			'box), while extended entries also have "more" text (the second box).  Standard & extended '.
-			'entries can be handled and formatted in distinct ways via your templates.</span></p>'."\n";
-	}
+    if ($message eq Gm_Constants::EMPTY) {
+        $message = '<span class="section_title">Add A New Entry</span><br /><p><span class="info_text">'.
+            'This is the form by which you add new entries to your weblog/journal.  You can make this '.
+            'either a standard or extended entry; standard entries contain only main text (the first '.
+                                                                                           'box), while extended entries also have "more" text (the second box).  Standard & extended '.
+                                                      'entries can be handled and formatted in distinct ways via your templates.</span></p>'."\n";
+    }
 
-	my %newEntry = ();
-	$newEntry{'entryinfo'}{'id'} = 'new';
-	$newEntry{'entryinfo'}{'karma'} = $gmConfigs->{'gmallowkarmadefault'};
-	$newEntry{'entryinfo'}{'comments'} = $gmConfigs->{'gmallowcommentsdefault'};
-	$newEntry{'entryinfo'}{'status'} = Gm_Constants::OPEN;
-	$newEntry{'entryinfo'}{'emoticons'} = Gm_Constants::YES;
-	
-	if( $IN{'gmbm'} ){
-		my $popupincludetext = "<a href=\"$IN{'loglink'}\">$IN{'loglinktitle'}</a>";
-		if( $IN{'logtext'} ne Gm_Constants::EMPTY ){ 
-			$popupincludetext .= "\n\n$IN{'logtext'}"; 
-		}
-		$newEntry{'maintext'} = $popupincludetext;
-	}
+    my %newEntry = ();
+    $newEntry{'entryinfo'}{'id'} = 'new';
+    $newEntry{'entryinfo'}{'karma'} = $gmConfigs->{'gmallowkarmadefault'};
+    $newEntry{'entryinfo'}{'comments'} = $gmConfigs->{'gmallowcommentsdefault'};
+    $newEntry{'entryinfo'}{'status'} = Gm_Constants::OPEN;
+    $newEntry{'entryinfo'}{'emoticons'} = Gm_Constants::YES;
+    
+    if( $IN{'gmbm'} ){
+        my $popupincludetext = "<a href=\"$IN{'loglink'}\">$IN{'loglinktitle'}</a>";
+        if( $IN{'logtext'} ne Gm_Constants::EMPTY ){ 
+            $popupincludetext .= "\n\n$IN{'logtext'}"; 
+        }
+        $newEntry{'maintext'} = $popupincludetext;
+    }
 
-	## calling view entry with empty entry, message of explanation, 1 for new entry
-	viewEntry( \%newEntry, $message, 1  );	
+    ## calling view entry with empty entry, message of explanation, 1 for new entry
+    viewEntry( \%newEntry, $message, 1  );	
 }
 
 
@@ -2260,62 +2260,62 @@ sub newEntry {
 # Edit an existing entry
 # (opt) ARG1: Message to display to user, could be error or confirmation of action
 sub editEntry {
-	my $message = shift( @_ ) || Gm_Constants::EMPTY;
+    my $message = shift( @_ ) || Gm_Constants::EMPTY;
 
-	if ($IN{'entryid'} eq Gm_Constants::EMPTY) {
-		$message = '<span class="error_msg">You must select an entry to edit.</span>';
-		return( $message ); ## should default to filterEntries
-		
-	} elsif( $IN{'entryid'} eq 'new' ){
-		newEntry();
-		
-	}
+    if ($IN{'entryid'} eq Gm_Constants::EMPTY) {
+        $message = '<span class="error_msg">You must select an entry to edit.</span>';
+        return( $message ); ## should default to filterEntries
+        
+    } elsif( $IN{'entryid'} eq 'new' ){
+        newEntry();
+        
+    }
 
-#&gm_readconfig;  # already done globally, but might be still used
-#&gm_readtemplates;  ## used?
-#&gm_readcounter;  ## used?
+    #&gm_readconfig;  # already done globally, but might be still used
+    #&gm_readtemplates;  ## used?
+    #&gm_readcounter;  ## used?
 
-	my $thisentrynumberpadded = Gm_Utils::toEntryPadded( $IN{'entryid'} );
+    my $thisentrynumberpadded = Gm_Utils::toEntryPadded( $IN{'entryid'} );
 
-	my $gmEntry = Gm_Storage::getEntry( id=>$IN{'entryid'}, 
-		errHandler=>\&Gm_Web::displayAdminErrorExit );
-	
-	my $thisentrynumber = $gmEntry->{'entryinfo'}{'id'};
-	my $thisentryauthor = $gmEntry->{'entryinfo'}{'author'};
- 	my $thisentryampm = $gmEntry->{'entryinfo'}{'ampm'};
-	my $thisentrymonth = $gmEntry->{'entryinfo'}{'month'};
-	my $thisentryday = $gmEntry->{'entryinfo'}{'day'};
-	my $thisentryyearyear = $gmEntry->{'entryinfo'}{'year'};
-	my $thisentryhour = $gmEntry->{'entryinfo'}{'hour'};
-	my $thisentryminute = $gmEntry->{'entryinfo'}{'minute'};
-	my $thisentrysecond = $gmEntry->{'entryinfo'}{'second'};
+    my $gmEntry = Gm_Storage::getEntry( id=>$IN{'entryid'}, 
+                                        errHandler=>\&Gm_Web::displayAdminErrorExit );
+    
+    my $thisentrynumber = $gmEntry->{'entryinfo'}{'id'};
+    my $thisentryauthor = $gmEntry->{'entryinfo'}{'author'};
+    my $thisentryampm = $gmEntry->{'entryinfo'}{'ampm'};
+    my $thisentrymonth = $gmEntry->{'entryinfo'}{'month'};
+    my $thisentryday = $gmEntry->{'entryinfo'}{'day'};
+    my $thisentryyearyear = $gmEntry->{'entryinfo'}{'year'};
+    my $thisentryhour = $gmEntry->{'entryinfo'}{'hour'};
+    my $thisentryminute = $gmEntry->{'entryinfo'}{'minute'};
+    my $thisentrysecond = $gmEntry->{'entryinfo'}{'second'};
 
-	if( $AUTHOR{'author'} ne $thisentryauthor && 
-		$AUTHOR{'editentries'} eq Gm_Constants::O ){
+    if( $AUTHOR{'author'} ne $thisentryauthor && 
+        $AUTHOR{'editentries'} eq Gm_Constants::O ){
 	#	gm_writetocplog("$IN{'authorname'} attempted to edit entry #$IN{'entryselectionlist'} (by $thisentryauthor) without authorization");
-		Gm_Core::writeToCplog("$AUTHOR{'author'} attempted to edit entry #$IN{'entryid'} ".
-			"(by $thisentryauthor) without authorization");
-		$message = '<span class="error_msg">You don\'t have access to edit entries you '.
-			'didn\'t create.</span>';
+        Gm_Core::writeToCplog("$AUTHOR{'author'} attempted to edit entry #$IN{'entryid'} ".
+                              "(by $thisentryauthor) without authorization");
+        $message = '<span class="error_msg">You don\'t have access to edit entries you '.
+            'didn\'t create.</span>';
 
-		return( $message ); ## should default to filterEntries
-	}
+        return( $message ); ## should default to filterEntries
+    }
 
-	my $thisentrymonthmonth = Gm_Utils::toTwoDigit( $thisentrymonth );
-	my $thisentrydayday = Gm_Utils::toTwoDigit( $thisentryday );
-	my $thisentryhourhour = Gm_Utils::toTwoDigit( $thisentryhour );
-	my $thisentryminuteminute = Gm_Utils::toTwoDigit( $thisentryminute );
-	my $thisentrysecondsecond = Gm_Utils::toTwoDigit( $thisentrysecond );
+    my $thisentrymonthmonth = Gm_Utils::toTwoDigit( $thisentrymonth );
+    my $thisentrydayday = Gm_Utils::toTwoDigit( $thisentryday );
+    my $thisentryhourhour = Gm_Utils::toTwoDigit( $thisentryhour );
+    my $thisentryminuteminute = Gm_Utils::toTwoDigit( $thisentryminute );
+    my $thisentrysecondsecond = Gm_Utils::toTwoDigit( $thisentrysecond );
 
 
-	if( $message eq Gm_Constants::EMPTY ){ 
-		$message = '<span class="section_title">Editing Entry #'.$thisentrynumber.
-			': Posted by '.$thisentryauthor.' on '.$thisentrymonthmonth.'/'.$thisentrydayday.
-			'/'.$thisentryyearyear.' '.$thisentryhourhour.':'.$thisentryminuteminute.':'.
-			$thisentrysecondsecond.' '.$thisentryampm.'</span>'; 
-	}
+    if( $message eq Gm_Constants::EMPTY ){ 
+        $message = '<span class="section_title">Editing Entry #'.$thisentrynumber.
+            ': Posted by '.$thisentryauthor.' on '.$thisentrymonthmonth.'/'.$thisentrydayday.
+            '/'.$thisentryyearyear.' '.$thisentryhourhour.':'.$thisentryminuteminute.':'.
+            $thisentrysecondsecond.' '.$thisentryampm.'</span>'; 
+    }
 
-	viewEntry( $gmEntry, $message );
+    viewEntry( $gmEntry, $message );
 }
 
 
@@ -2325,689 +2325,689 @@ sub editEntry {
 # (opt) ARG2: Message to display to user, could be error or confirmation of action
 # (opt) ARG3: Is this a new entry? True for yes, False for no
 sub viewEntry {
-	my $gmEntry = shift( @_ ) || {};
-	my $message = shift( @_ ) || Gm_Constants::EMPTY;
-	my $newEntry = shift( @_ ) || Gm_Constants::FALSE;
+    my $gmEntry = shift( @_ ) || {};
+    my $message = shift( @_ ) || Gm_Constants::EMPTY;
+    my $newEntry = shift( @_ ) || Gm_Constants::FALSE;
 
-	my $gmCounters = Gm_Storage::getCounters( errHandler=>\&Gm_Web::displayAdminErrorExit );
+    my $gmCounters = Gm_Storage::getCounters( errHandler=>\&Gm_Web::displayAdminErrorExit );
 
-# &gm_readconfig;  # already done globally, but might be still used
-# &gm_readtemplates;  ## used?
-# &gm_readcounter;  ## used?
+    # &gm_readconfig;  # already done globally, but might be still used
+    # &gm_readtemplates;  ## used?
+    # &gm_readcounter;  ## used?
 
-#$thisentrynumberpadded = Gm_Utils::toEntryPadded( $IN{'entryselectionlist'} );
-#	$thisentrynumberpadded = Gm_Utils::toEntryPadded( $IN{'entryid'} );
+    #$thisentrynumberpadded = Gm_Utils::toEntryPadded( $IN{'entryselectionlist'} );
+    #	$thisentrynumberpadded = Gm_Utils::toEntryPadded( $IN{'entryid'} );
 
-#my $gmEntry = Gm_Storage::getEntry( id=>$IN{'entryselectionlist'}, 
-#	my $gmEntry = Gm_Storage::getEntry( id=>$IN{'entryid'}, 
-#		errHandler=>\&Gm_Web::displayAdminErrorExit );
-	
-	my $thisentrynumber = $gmEntry->{'entryinfo'}{'id'};
-	my $thisentryauthor = $gmEntry->{'entryinfo'}{'author'};
-	my $thisentrysubject = defined( $IN{'revisedentrysubject'} ) ? 
-		$IN{'revisedentrysubject'} : $gmEntry->{'entryinfo'}{'subject'};
-	my $thisentrymusic = defined( $IN{'revisedentrymusic'} ) ? 
-		$IN{'revisedentrymusic'} : $gmEntry->{'entryinfo'}{'music'};
-	my $thisentrymood = defined( $IN{'revisedentrymood'} ) ? 
-		$IN{'revisedentrymood'} : $gmEntry->{'entryinfo'}{'mood'};
-	my $thisentryweekdaynumber = $gmEntry->{'entryinfo'}{'weekday'};
-	my $thisentrymonth = $gmEntry->{'entryinfo'}{'month'};
-	my $thisentryday = $gmEntry->{'entryinfo'}{'day'};
-	my $thisentryyearyear = $gmEntry->{'entryinfo'}{'year'};
-	my $thisentryhour = $gmEntry->{'entryinfo'}{'hour'};
-	my $thisentryminute = $gmEntry->{'entryinfo'}{'minute'};
-	my $thisentrysecond = $gmEntry->{'entryinfo'}{'second'};
-	my $thisentryampm = $gmEntry->{'entryinfo'}{'ampm'};
-	my $thisentrypositivekarma = $gmEntry->{'entryinfo'}{'karmapos'};
-	my $thisentrynegativekarma = $gmEntry->{'entryinfo'}{'karmaneg'};
-	my $thisentrycommentsnumber = $gmEntry->{'entryinfo'}{'commenttotal'};
-	my $thisentryallowkarma = defined( $IN{'revisedentryallowkarma'} ) ? 
-		$IN{'revisedentryallowkarma'} : $gmEntry->{'entryinfo'}{'karma'};
-	my $thisentryallowcomments = defined( $IN{'revisedentryallowcomments'} ) ? 
-		$IN{'revisedentryallowcomments'} : $gmEntry->{'entryinfo'}{'comments'};
-	my $thisentryopenstatus = defined( $IN{'revisedentryopenstatus'} ) ? 
-		$IN{'revisedentryopenstatus'} : $gmEntry->{'entryinfo'}{'status'};
-	my $thisentryemoticonsallowed = defined( $IN{'revisedentryemoticonsallowed'} ) ? 
-		$IN{'revisedentryemoticonsallowed'} : $gmEntry->{'entryinfo'}{'emoticons'};
+    #my $gmEntry = Gm_Storage::getEntry( id=>$IN{'entryselectionlist'}, 
+    #	my $gmEntry = Gm_Storage::getEntry( id=>$IN{'entryid'}, 
+    #		errHandler=>\&Gm_Web::displayAdminErrorExit );
+    
+    my $thisentrynumber = $gmEntry->{'entryinfo'}{'id'};
+    my $thisentryauthor = $gmEntry->{'entryinfo'}{'author'};
+    my $thisentrysubject = defined( $IN{'revisedentrysubject'} ) ? 
+        $IN{'revisedentrysubject'} : $gmEntry->{'entryinfo'}{'subject'};
+    my $thisentrymusic = defined( $IN{'revisedentrymusic'} ) ? 
+        $IN{'revisedentrymusic'} : $gmEntry->{'entryinfo'}{'music'};
+    my $thisentrymood = defined( $IN{'revisedentrymood'} ) ? 
+        $IN{'revisedentrymood'} : $gmEntry->{'entryinfo'}{'mood'};
+    my $thisentryweekdaynumber = $gmEntry->{'entryinfo'}{'weekday'};
+    my $thisentrymonth = $gmEntry->{'entryinfo'}{'month'};
+    my $thisentryday = $gmEntry->{'entryinfo'}{'day'};
+    my $thisentryyearyear = $gmEntry->{'entryinfo'}{'year'};
+    my $thisentryhour = $gmEntry->{'entryinfo'}{'hour'};
+    my $thisentryminute = $gmEntry->{'entryinfo'}{'minute'};
+    my $thisentrysecond = $gmEntry->{'entryinfo'}{'second'};
+    my $thisentryampm = $gmEntry->{'entryinfo'}{'ampm'};
+    my $thisentrypositivekarma = $gmEntry->{'entryinfo'}{'karmapos'};
+    my $thisentrynegativekarma = $gmEntry->{'entryinfo'}{'karmaneg'};
+    my $thisentrycommentsnumber = $gmEntry->{'entryinfo'}{'commenttotal'};
+    my $thisentryallowkarma = defined( $IN{'revisedentryallowkarma'} ) ? 
+        $IN{'revisedentryallowkarma'} : $gmEntry->{'entryinfo'}{'karma'};
+    my $thisentryallowcomments = defined( $IN{'revisedentryallowcomments'} ) ? 
+        $IN{'revisedentryallowcomments'} : $gmEntry->{'entryinfo'}{'comments'};
+    my $thisentryopenstatus = defined( $IN{'revisedentryopenstatus'} ) ? 
+        $IN{'revisedentryopenstatus'} : $gmEntry->{'entryinfo'}{'status'};
+    my $thisentryemoticonsallowed = defined( $IN{'revisedentryemoticonsallowed'} ) ? 
+        $IN{'revisedentryemoticonsallowed'} : $gmEntry->{'entryinfo'}{'emoticons'};
 
-#	if( ($IN{'authorname'} ne $thisentryauthor) && ($gmentryeditaccess eq 'mineonly') ){
-	## Checking if author can edit entry.  Note that if existing author is blank, probably a new entry
-	## Better way to check for new entry though?  and keep this function generic?
-	if( $AUTHOR{'author'} ne $thisentryauthor && $AUTHOR{'editentries'} eq Gm_Constants::O &&
-		$thisentryauthor ne Gm_Constants::EMPTY ){
+    #	if( ($IN{'authorname'} ne $thisentryauthor) && ($gmentryeditaccess eq 'mineonly') ){
+    ## Checking if author can edit entry.  Note that if existing author is blank, probably a new entry
+    ## Better way to check for new entry though?  and keep this function generic?
+    if( $AUTHOR{'author'} ne $thisentryauthor && $AUTHOR{'editentries'} eq Gm_Constants::O &&
+        $thisentryauthor ne Gm_Constants::EMPTY ){
 	#	gm_writetocplog("$IN{'authorname'} attempted to edit entry #$IN{'entryselectionlist'} (by $thisentryauthor) without authorization");
-		Gm_Core::writeToCplog("$AUTHOR{'author'} attempted to edit entry #$IN{'entryid'} ".
-			"(by $thisentryauthor) without authorization");
-		$message = '<span class="error_msg">You don\'t have access to edit entries you '.
-			'didn\'t create.</span>';
+        Gm_Core::writeToCplog("$AUTHOR{'author'} attempted to edit entry #$IN{'entryid'} ".
+                              "(by $thisentryauthor) without authorization");
+        $message = '<span class="error_msg">You don\'t have access to edit entries you '.
+            'didn\'t create.</span>';
 
-		return( $message ); ## should default to filterEntries
-	}
+        return( $message ); ## should default to filterEntries
+    }
 
-# 	my $thisentrymonthmonth = Gm_Utils::toTwoDigit( $thisentrymonth );
-# 	my $thisentrydayday = Gm_Utils::toTwoDigit( $thisentryday );
-# 	my $thisentryhourhour = Gm_Utils::toTwoDigit( $thisentryhour );
-# 	my $thisentryminuteminute = Gm_Utils::toTwoDigit( $thisentryminute );
-# 	my $thisentrysecondsecond = Gm_Utils::toTwoDigit( $thisentrysecond );
+    # 	my $thisentrymonthmonth = Gm_Utils::toTwoDigit( $thisentrymonth );
+    # 	my $thisentrydayday = Gm_Utils::toTwoDigit( $thisentryday );
+    # 	my $thisentryhourhour = Gm_Utils::toTwoDigit( $thisentryhour );
+    # 	my $thisentryminuteminute = Gm_Utils::toTwoDigit( $thisentryminute );
+    # 	my $thisentrysecondsecond = Gm_Utils::toTwoDigit( $thisentrysecond );
 
-	my $thisentrymainbody = defined( $IN{'revisedentrymaintext'} ) ? 
-		$IN{'revisedentrymaintext'} : $gmEntry->{'maintext'};
-	my $thisentrymorebody = defined( $IN{'revisedentrymoretext'} ) ? 
-		$IN{'revisedentrymoretext'} : $gmEntry->{'extendedtext'};
+    my $thisentrymainbody = defined( $IN{'revisedentrymaintext'} ) ? 
+        $IN{'revisedentrymaintext'} : $gmEntry->{'maintext'};
+    my $thisentrymorebody = defined( $IN{'revisedentrymoretext'} ) ? 
+        $IN{'revisedentrymoretext'} : $gmEntry->{'extendedtext'};
 
-	$thisentrymainbody = Gm_Utils::toWebSafe($thisentrymainbody);
-	$thisentrymorebody = Gm_Utils::toWebSafe($thisentrymorebody);
-	$thisentrysubject = Gm_Utils::toWebSafe($thisentrysubject);
-	$thisentrymusic = Gm_Utils::toWebSafe($thisentrymusic);
-	$thisentrymood = Gm_Utils::toWebSafe($thisentrymood);
+    $thisentrymainbody = Gm_Utils::toWebSafe($thisentrymainbody);
+    $thisentrymorebody = Gm_Utils::toWebSafe($thisentrymorebody);
+    $thisentrysubject = Gm_Utils::toWebSafe($thisentrysubject);
+    $thisentrymusic = Gm_Utils::toWebSafe($thisentrymusic);
+    $thisentrymood = Gm_Utils::toWebSafe($thisentrymood);
 
 
-	# emoticons code display added
-	my ( $emoticonsmaincode, $emoticonsmorecode ) = _emoticonsCode();
+    # emoticons code display added
+    my ( $emoticonsmaincode, $emoticonsmorecode ) = _emoticonsCode();
 
-	my $page = "<p>$message</p>\n";	
+    my $page = "<p>$message</p>\n";	
 
-	$page .= '<script language="JavaScript">
-function commentEmoticonMain(code){
-	var cache = document.editentry.revisedentrymaintext.value;
+    $page .= '<script language="JavaScript">
+        function commentEmoticonMain(code){
+    var cache = document.editentry.revisedentrymaintext.value;
 
-	document.editentry.revisedentrymaintext.value = cache + " " + code;
-	document.editentry.revisedentrymaintext.focus();
-}
+    document.editentry.revisedentrymaintext.value = cache + " " + code;
+    document.editentry.revisedentrymaintext.focus();
+    }
 
-function commentEmoticonMore(code){
-	var cache = document.editentry.revisedentrymoretext.value;
+    function commentEmoticonMore(code){
+    var cache = document.editentry.revisedentrymoretext.value;
 
-	document.editentry.revisedentrymoretext.value = cache + " " + code;
-	document.editentry.revisedentrymoretext.focus();
-}
+    document.editentry.revisedentrymoretext.value = cache + " " + code;
+    document.editentry.revisedentrymoretext.focus();
+    }
 
-/* Rewritten to work on cases when just a single object, 
-  ARG1: name of ckeckboxes to deselect/select
-  ARG2: element whose checkboxing we are to mimic
-*/
-function checkAll(checkname, exby) {
+    /* Rewritten to work on cases when just a single object, 
+      ARG1: name of ckeckboxes to deselect/select
+      ARG2: element whose checkboxing we are to mimic
+        */
+        function checkAll(checkname, exby) {
 
     var objs = document.getElementsByName( checkname );
     for (i = 0; i < objs.length; i++){
-        objs[i].checked = exby.checked? true:false;
+    objs[i].checked = exby.checked? true:false;
+    }
+    }';
+
+    $page .= '
+        /* Sets the size of the cooki object 
+      ARG1: id of textarea to set size of
+      ARG2: size to save
+        */
+        function setSizeCookie( elemName, size ){	
+    var now = new Date();
+    fixDate(now);
+    now.setTime(now.getTime() + 365 * 24 * 60 * 60 * 1000);
+    setCookie( "gmpref_"+elemName, size, now);
+    }
+
+    /* Sets the element to hide and the span to control it 
+      ARG1: id of span to hide
+      ARG2: id of span to modify
+        */
+        function setHideCookie( elemName, controllerName ){	
+    var cookieString = getCookie( "gmpref_hidden");
+    var foo = cookieString.indexOf( elemName+"|");
+    if( cookieString.indexOf( elemName+"|") < 0 ){
+    // time to add to end
+        var cookieVals = cookieString.split(",");
+    cookieVals.push( elemName+"|"+controllerName );
+    cookieString = cookieVals.join(",");
+    
+    // setting cookie
+        var now = new Date();
+    fixDate(now);
+    now.setTime(now.getTime() + 365 * 24 * 60 * 60 * 1000);
+    setCookie( "gmpref_hidden", cookieString, now);
+    }
+    }
+
+    /* Sets the element to show and the span to control it, actually removes from hide cookie 
+      ARG1: id of span to hide
+      ARG2: id of span to modify
+        */
+        function setShowCookie( elemName, controllerName ){	
+    var cookieString = getCookie( "gmpref_hidden");
+    if( cookieString.indexOf( elemName+"|") >= 0 ){
+    // time to add to end
+        var newPairs = new Array();
+    var cookieStrings = cookieString.split(",");
+    for( var i=0;i< cookieStrings.length;i++ ){
+    var cookiePairs = cookieStrings[i].split("|");
+    var a = cookiePairs[0];
+    var b = cookiePairs[0].length;
+    if( cookiePairs[0].length > 1 && cookiePairs[0] != elemName ){
+    newPairs[ cookieStrings[i] ] = "1";
+    }
+    }
+    for( var j in newPairs ){
+    newPairs.push( j );
+    }
+    cookieString = newPairs.join(",");
+    
+    // setting cookie
+        var now = new Date();
+    fixDate(now);
+    now.setTime(now.getTime() + 365 * 24 * 60 * 60 * 1000);
+    setCookie( "gmpref_hidden", cookieString, now);
+    }
+}
+
+    /* Will change the size of the given element 
+  ARG1: name of element to resize
+  ARG2: "l" for larger, else will shrink to minimuim of 4 rows
+    */
+    function sizer( toSize, action ){
+    if( document.getElementById && document.getElementById(toSize) != null ){
+    var subject = document.getElementById( toSize );
+    
+    if( action.toLowerCase() != "l" ){
+    if( subject.rows > 4 ){
+    subject.rows -= 4;
+    }
+    } else {
+    // default is to grow
+        subject.rows += 4;
+    }';
+
+    if( $gmConfigs->{'gmcookiesallowed'} eq Gm_Constants::YES ){		
+        $page .= "\n setSizeCookie( toSize, subject.rows );\n";
+    }
+    
+    $page .= '	}
+}
+
+    // Set the size absolutely, used by initing
+    function setSize( toSize, theSize ){
+    if( document.getElementById && document.getElementById(toSize) != null ){
+    var subject = document.getElementById( toSize );
+    
+    if( theSize > 3 ){
+    subject.rows = theSize;
+    }
+    }
+}
+
+
+    /* Will change the size of the given element 
+  ARG1: id of span to hide
+  ARG2: id of span that is the controller, the hide/show link
+    */
+    function hider( toFlip, toLink ){
+    if( document.getElementById && document.getElementById(toFlip) != null ){
+    var subject = document.getElementById( toFlip );
+    var controller = document.getElementById( toLink ); 
+    if( subject.className != "hidden" ){
+    _hideShow( "hidden", "Show", subject, controller );';
+
+    if( $gmConfigs->{'gmcookiesallowed'} eq Gm_Constants::YES ){		
+        $page .= "\n setHideCookie( toFlip, toLink );\n";
+    }
+    
+    $page .= '
+    } else {
+    _hideShow( "", "Hide", subject, controller );';
+    ## always leave this call, but comment out guts of setShowCookie
+    if( $gmConfigs->{'gmcookiesallowed'} eq Gm_Constants::YES ){		
+        $page .= "\n setShowCookie( toFlip, toLink );\n";
+    }
+    
+    $page .= '
+    }
+    }
+    
+    function _hideShow( className, theText, sub, con ){
+    sub.className=className;
+    var link = document.createElement("a");
+    link.href = \'javascript:hider(\\\'\'+ toFlip +\'\\\', \\\'\'+ toLink +\'\\\');\';
+    link.appendChild( document.createTextNode( theText ));
+    
+    while( con.hasChildNodes() ){
+    con.removeChild( con.firstChild );
+    }
+    con.appendChild( link );
     }
 }';
 
-	$page .= '
-/* Sets the size of the cooki object 
-  ARG1: id of textarea to set size of
-  ARG2: size to save
-*/
-function setSizeCookie( elemName, size ){	
-	var now = new Date();
-  fixDate(now);
-  now.setTime(now.getTime() + 365 * 24 * 60 * 60 * 1000);
-  setCookie( "gmpref_"+elemName, size, now);
-}
 
-/* Sets the element to hide and the span to control it 
-  ARG1: id of span to hide
-  ARG2: id of span to modify
-*/
-function setHideCookie( elemName, controllerName ){	
-	var cookieString = getCookie( "gmpref_hidden");
-	var foo = cookieString.indexOf( elemName+"|");
-	if( cookieString.indexOf( elemName+"|") < 0 ){
-		// time to add to end
-		var cookieVals = cookieString.split(",");
-		cookieVals.push( elemName+"|"+controllerName );
-		cookieString = cookieVals.join(",");
-		
-		// setting cookie
-		var now = new Date();
-		fixDate(now);
-		now.setTime(now.getTime() + 365 * 24 * 60 * 60 * 1000);
-		setCookie( "gmpref_hidden", cookieString, now);
-	}
-}
+    $page .= '
+        var supportAE = (document.attachEvent)? true : false;
 
-/* Sets the element to show and the span to control it, actually removes from hide cookie 
-  ARG1: id of span to hide
-  ARG2: id of span to modify
-*/
-function setShowCookie( elemName, controllerName ){	
-	var cookieString = getCookie( "gmpref_hidden");
-	if( cookieString.indexOf( elemName+"|") >= 0 ){
-		// time to add to end
-		var newPairs = new Array();
-		var cookieStrings = cookieString.split(",");
-		for( var i=0;i< cookieStrings.length;i++ ){
-			var cookiePairs = cookieStrings[i].split("|");
-			var a = cookiePairs[0];
-			var b = cookiePairs[0].length;
-			if( cookiePairs[0].length > 1 && cookiePairs[0] != elemName ){
-				newPairs[ cookieStrings[i] ] = "1";
-			}
-		}
-		for( var j in newPairs ){
-			newPairs.push( j );
-		}
-		cookieString = newPairs.join(",");
-		
-		// setting cookie
-		var now = new Date();
-		fixDate(now);
-		now.setTime(now.getTime() + 365 * 24 * 60 * 60 * 1000);
-		setCookie( "gmpref_hidden", cookieString, now);
-	}
-}
+    function add( tagopen, tagend, tarea ){	
+    var tArea = document.getElementById( tarea );
+    var sct = tArea.scrollTop;
+    var topen = (tagopen)? tagopen : "";
+    var end = (tagend)? tagend : "";
+    var sl;
+    
+    if(supportAE){		
+    tArea.focus();
+    var curSelect = document.selection.createRange();
+    curSelect.text = topen + curSelect.text + end;
+    
+    } else if(!supportAE && typeof tArea.selectionStart != "undefined"){		
+    var selStart = tArea.value.substr(0, tArea.selectionStart);
+    var selEnd = tArea.value.substr(tArea.selectionEnd, tArea.value.length);
+    var curSelection = tArea.value.replace(selStart, "").replace(selEnd, "");
 
-/* Will change the size of the given element 
-  ARG1: name of element to resize
-  ARG2: "l" for larger, else will shrink to minimuim of 4 rows
-*/
-function sizer( toSize, action ){
-	if( document.getElementById && document.getElementById(toSize) != null ){
-		var subject = document.getElementById( toSize );
-			
-		if( action.toLowerCase() != "l" ){
-			if( subject.rows > 4 ){
-				subject.rows -= 4;
-			}
-		} else {
-			// default is to grow
-			subject.rows += 4;
-		}';
+    sl = selStart + topen + curSelection + end;
+    tArea.value = sl + selEnd;
+    
+    tArea.setSelectionRange(sl.length, sl.length);
+    tArea.focus();
+    tArea.scrollTop = sct;
+    } else {		
+    tArea.value += topen + end; 
+    }
+    }
 
-	if( $gmConfigs->{'gmcookiesallowed'} eq Gm_Constants::YES ){		
-			$page .= "\n setSizeCookie( toSize, subject.rows );\n";
-	}
-	
-	$page .= '	}
-}
+    // Link requires add to work
+        function link( tarea ){
+    gminsertlink = prompt( "What do you want to link to?", "http://" );
+    if( gminsertlink == null ) return;
+    
+    add( \'<a href="\' + gminsertlink + \'">\', \'</a>\', tarea );
+    }
 
-// Set the size absolutely, used by initing
-function setSize( toSize, theSize ){
-	if( document.getElementById && document.getElementById(toSize) != null ){
-		var subject = document.getElementById( toSize );
-			
-		if( theSize > 3 ){
-			subject.rows = theSize;
-		}
-	}
-}
+    ';
 
-
-/* Will change the size of the given element 
-  ARG1: id of span to hide
-  ARG2: id of span that is the controller, the hide/show link
-*/
-function hider( toFlip, toLink ){
-	if( document.getElementById && document.getElementById(toFlip) != null ){
-		var subject = document.getElementById( toFlip );
-		var controller = document.getElementById( toLink ); 
-		if( subject.className != "hidden" ){
-			_hideShow( "hidden", "Show", subject, controller );';
-
-	if( $gmConfigs->{'gmcookiesallowed'} eq Gm_Constants::YES ){		
-			$page .= "\n setHideCookie( toFlip, toLink );\n";
-	}
-	
-	$page .= '
-		} else {
-			_hideShow( "", "Hide", subject, controller );';
-	## always leave this call, but comment out guts of setShowCookie
-	if( $gmConfigs->{'gmcookiesallowed'} eq Gm_Constants::YES ){		
-			$page .= "\n setShowCookie( toFlip, toLink );\n";
-	}
-	
-	$page .= '
-		}
-	}
-	
-	function _hideShow( className, theText, sub, con ){
-		sub.className=className;
-		var link = document.createElement("a");
-		link.href = \'javascript:hider(\\\'\'+ toFlip +\'\\\', \\\'\'+ toLink +\'\\\');\';
-		link.appendChild( document.createTextNode( theText ));
-		
-		while( con.hasChildNodes() ){
-			con.removeChild( con.firstChild );
-		}
-		con.appendChild( link );
-	}
-}';
-
-
-	$page .= '
-var supportAE = (document.attachEvent)? true : false;
-
-function add( tagopen, tagend, tarea ){	
-	var tArea = document.getElementById( tarea );
-	var sct = tArea.scrollTop;
-	var topen = (tagopen)? tagopen : "";
-	var end = (tagend)? tagend : "";
-	var sl;
-		
-	if(supportAE){		
-		tArea.focus();
-		var curSelect = document.selection.createRange();
-		curSelect.text = topen + curSelect.text + end;
-	
-		} else if(!supportAE && typeof tArea.selectionStart != "undefined"){		
-			var selStart = tArea.value.substr(0, tArea.selectionStart);
-			var selEnd = tArea.value.substr(tArea.selectionEnd, tArea.value.length);
-			var curSelection = tArea.value.replace(selStart, "").replace(selEnd, "");
-
-			sl = selStart + topen + curSelection + end;
-			tArea.value = sl + selEnd;
-	
-			tArea.setSelectionRange(sl.length, sl.length);
-			tArea.focus();
-			tArea.scrollTop = sct;
-	} else {		
-		tArea.value += topen + end; 
-	}
-}
-
-// Link requires add to work
-function link( tarea ){
-	gminsertlink = prompt( "What do you want to link to?", "http://" );
-	if( gminsertlink == null ) return;
-	
-	add( \'<a href="\' + gminsertlink + \'">\', \'</a>\', tarea );
-}
-
-';
-
-	
-	if( $gmConfigs->{'gmcookiesallowed'} eq Gm_Constants::YES ){
-		$page .= '
-function init(){
+    
+    if( $gmConfigs->{'gmcookiesallowed'} eq Gm_Constants::YES ){
+        $page .= '
+            function init(){
 	// can we make t his generic, so that we do not hardcode main_text, more_text?
-	// also, rename to get preference, getPreferences because we could be doing ajack 
-	// stuff to store it on the server, so then we would need just setPreference
-  var size = getCookie( "gmpref_main_text");
+            // also, rename to get preference, getPreferences because we could be doing ajack 
+            // stuff to store it on the server, so then we would need just setPreference
+            var size = getCookie( "gmpref_main_text");
 	if( size > 3){
   	setSize( "main_text", size );
-  }
-  size = getCookie( "gmpref_more_text");
-  if( size > 3){
-	  setSize( "more_text", size );
+        }
+        size = getCookie( "gmpref_more_text");
+        if( size > 3){
+        setSize( "more_text", size );
 	}
 	var hid = getCookie( "gmpref_hidden");
 	var cookieStrings = hid.split(",");
 	for( var i=0;i< cookieStrings.length;i++ ){
-		var cookieParts = cookieStrings[i].split("|");
-		// should be calling a function to hide, not the toggle function
-		hider( cookieParts[0], cookieParts[1] );
+        var cookieParts = cookieStrings[i].split("|");
+        // should be calling a function to hide, not the toggle function
+            hider( cookieParts[0], cookieParts[1] );
 	}
-}
+        }
 
-window.onload = init;
-';
-	}	
-	
-	$page .= '</script>';
+        window.onload = init;
+        ';
+    }	
+    
+    $page .= '</script>';
 
-	$page .= '<FORM ACTION="gm.cgi" method="post" name="editentry">'.
-		Gm_Security::getFormAuth( author=>\%AUTHOR ).
-		'<input type="hidden" name="section" value="'.$IN{'section'}.'">'.
-		'<input type=hidden name="entryid" value="'.$thisentrynumber.'">'.
-		'<input type=hidden name="entryselectionview" value="'.$IN{'entryselectionview'}.'">'; 
+    $page .= '<FORM ACTION="gm.cgi" method="post" name="editentry">'.
+        Gm_Security::getFormAuth( author=>\%AUTHOR ).
+        '<input type="hidden" name="section" value="'.$IN{'section'}.'">'.
+        '<input type=hidden name="entryid" value="'.$thisentrynumber.'">'.
+        '<input type=hidden name="entryselectionview" value="'.$IN{'entryselectionview'}.'">'; 
 
-	$page .= "\n".'<table width="95%" class="form_table"><tr>'.
-		'<th width="20%"><label for="subject">Subject:</label></th>'.
-		'<td><input type=text name="revisedentrysubject" '.
-		'value="'.$thisentrysubject.'" class="inputfield" id="subject"></td></tr>';
+    $page .= "\n".'<table width="95%" class="form_table"><tr>'.
+        '<th width="20%"><label for="subject">Subject:</label></th>'.
+        '<td><input type=text name="revisedentrysubject" '.
+        'value="'.$thisentrysubject.'" class="inputfield" id="subject"></td></tr>';
+    
+    $page .= "\n".'<tr><th>'.
+        '<label for="music">Music:</label></th><td></font><input type=text '.
+        'name="revisedentrymusic" value="'.$thisentrymusic.
+                                                         '" class="inputfield" id="music"></td></tr>'."\n";
+    
+    $page .= "\n".'<tr><th>'.
+        '<label for="mood">Mood:</label></th><td><input type=text '.
+        'name="revisedentrymood" value="'.$thisentrymood.
+                                                         '" class="inputfield" id="mood"></td></tr>'."\n";
+
+    $page .= "\n".'<tr class="section_head"><th><label for="main_text">Main Entry Text'.
+        '</label></th><td>&nbsp;</td></tr>'.
+                                    '<tr><td colspan="2"><table class="form_table" width="100%"><tr><th width="12%">'.
+                                    $emoticonsmaincode;
+    if( $gmConfigs->{'gminlineformatting'} eq Gm_Constants::ENTRIES || 
+        $gmConfigs->{'gminlineformatting'} eq Gm_Constants::BOTH ){
+        ## TODO: GENERISIZE THIS TO A CALL, GET EDITING MENU, SO THAT ITS EASILY OVERRIDDEN
+        $page .= '<input type="button" onClick="javascript:add(\'**\',\'**\', \'main_text\' );" '.
+            ' value="Bold" style="font-size: small;" />';
+        $page .= '<input type="button" onClick="javascript:add(\'//\',\'//\', \'main_text\' );" '.
+            ' value="Ital" style="font-size: small; font-style: italic;" />';
+        $page .= '<input type="button" onClick="javascript:add(\'__\',\'__\', \'main_text\' );" '.
+            ' value="Under" style="font-size: small; text-decoration: underline;" />';
+    }			
+    
+    $page .= '<input type="button" onClick="javascript:link( \'main_text\' );" '.
+        ' value="Link" style="font-size: small;" />';
+
+    $page .= ' </th><td><textarea name="revisedentrymaintext" id="main_text"'.
+        'cols="60" rows="8" class="inputfield">'.$thisentrymainbody.'</textarea><br />';
+    
+    ## TODO: THIS SHOULD BE A JAVASCRIPT PRINT STATEMENT, SO THAT if js no enabled, no problem
+    $page .= _sizerCodeEntry('main_text').'</td></tr></table></td></tr>';
+
+
+    $page .= "\n".'<tr class="section_head"><th><label for="more_text">Extended Text</label></th><td>'.
+        _hiderCodeEntry('moreHidden', 'moreHider').
+        '</td></tr><tr><td colspan="2">'.
+        '<span id="moreHidden"><table class="form_table" width="100%">'.
+        '<tr><th width="12%">'.$emoticonsmorecode;
+    if( $gmConfigs->{'gminlineformatting'} eq Gm_Constants::ENTRIES || 
+        $gmConfigs->{'gminlineformatting'} eq Gm_Constants::BOTH ){
+        ## TODO: GENERISIZE THIS TO A CALL, GET EDITING MENU, SO THAT ITS EASILY OVERRIDDEN
+        $page .= '<input type="button" onClick="javascript:add(\'**\',\'**\', \'more_text\' );" '.
+            ' value="Bold" style="font-size: small;" />';
+        $page .= '<input type="button" onClick="javascript:add(\'//\',\'//\', \'more_text\' );" '.
+            ' value="Ital" style="font-size: small; font-style: italic;" />';
+        $page .= '<input type="button" onClick="javascript:add(\'__\',\'__\', \'more_text\' );" '.
+            ' value="Under" style="font-size: small; text-decoration: underline;" />';
+    }	
+
+    $page .= '<input type="button" onClick="javascript:link( \'more_text\' );" '.
+        ' value="Link" style="font-size: small;" />';
+
+    $page .= '</th><td><textarea id="more_text"'.
+        'name="revisedentrymoretext" cols="60" rows="8" class="inputfield">'.
+        $thisentrymorebody.'</textarea>'.
+        _sizerCodeEntry('more_text').'</td></tr></table></span>'.
+        '</td></tr>';
+
+    ## TODO: make this helper subroutine
+    ## Comment Stuff
+    unless( $newEntry ){
+        $page .= "\n".'<tr class="section_head"><th>Comments</th><td>'.
+            _hiderCodeEntry('commentHidden', 'commentHider').'</td></tr>';
+        $page .= '<tr><td colspan="2"><span id="commentHidden">';
+        if( $thisentrycommentsnumber > 0 ){
+            $page .= '<table style="font-size:small; width: 92%;"><tr>';
+            $page .= '<th style="text-align: center; background: #B0B0D0;">#</th>'.
+                '<th style="text-align: center; background: #B0B0D0; background: #B0B0D0;">'.
+                '<input type="checkbox" name="all" id="check_uncheck_all" '.
+                'onClick="checkAll(\'multideletecommentselection\',this)"></th>'.
+                '<th style="text-align: center; background: #B0B0D0;">Comment</th>'.
+                '<th style="text-align: center; background: #B0B0D0;" width="24%">Action</th></tr>';
+            
+            my $rowcolor = Gm_Web::altRowColor();
+            
+            # 	do {
+            my $thiscommentnumber = 0;
+            foreach my $entryComment ( @{$gmEntry->{'comments'}} ){
+                
+                # 		if ($alternatecommentrow eq $alternatecommentrowone) {
+                # 			$alternatecommentrow = $alternatecommentrowtwo;
+                # 		} else {
+                # 			$alternatecommentrow = $alternatecommentrowone;
+                # 		}
+                $rowcolor = Gm_Web::altRowColor( $rowcolor );
 		
-	$page .= "\n".'<tr><th>'.
-		'<label for="music">Music:</label></th><td></font><input type=text '.
-		'name="revisedentrymusic" value="'.$thisentrymusic.
-		'" class="inputfield" id="music"></td></tr>'."\n";
-		
-	$page .= "\n".'<tr><th>'.
-		'<label for="mood">Mood:</label></th><td><input type=text '.
-		'name="revisedentrymood" value="'.$thisentrymood.
-		'" class="inputfield" id="mood"></td></tr>'."\n";
-
-	$page .= "\n".'<tr class="section_head"><th><label for="main_text">Main Entry Text'.
-		'</label></th><td>&nbsp;</td></tr>'.
-		'<tr><td colspan="2"><table class="form_table" width="100%"><tr><th width="12%">'.
-		$emoticonsmaincode;
-	if( $gmConfigs->{'gminlineformatting'} eq Gm_Constants::ENTRIES || 
-		$gmConfigs->{'gminlineformatting'} eq Gm_Constants::BOTH ){
-		## TODO: GENERISIZE THIS TO A CALL, GET EDITING MENU, SO THAT ITS EASILY OVERRIDDEN
-		$page .= '<input type="button" onClick="javascript:add(\'**\',\'**\', \'main_text\' );" '.
-			' value="Bold" style="font-size: small;" />';
-		$page .= '<input type="button" onClick="javascript:add(\'//\',\'//\', \'main_text\' );" '.
-			' value="Ital" style="font-size: small; font-style: italic;" />';
-		$page .= '<input type="button" onClick="javascript:add(\'__\',\'__\', \'main_text\' );" '.
-			' value="Under" style="font-size: small; text-decoration: underline;" />';
-	}			
-			
-	$page .= '<input type="button" onClick="javascript:link( \'main_text\' );" '.
-		' value="Link" style="font-size: small;" />';
-
-	$page .= ' </th><td><textarea name="revisedentrymaintext" id="main_text"'.
-		'cols="60" rows="8" class="inputfield">'.$thisentrymainbody.'</textarea><br />';
-	
-	## TODO: THIS SHOULD BE A JAVASCRIPT PRINT STATEMENT, SO THAT if js no enabled, no problem
-	$page .= _sizerCodeEntry('main_text').'</td></tr></table></td></tr>';
-
-
-	$page .= "\n".'<tr class="section_head"><th><label for="more_text">Extended Text</label></th><td>'.
-		_hiderCodeEntry('moreHidden', 'moreHider').
-		'</td></tr><tr><td colspan="2">'.
-		'<span id="moreHidden"><table class="form_table" width="100%">'.
-		'<tr><th width="12%">'.$emoticonsmorecode;
-	if( $gmConfigs->{'gminlineformatting'} eq Gm_Constants::ENTRIES || 
-		$gmConfigs->{'gminlineformatting'} eq Gm_Constants::BOTH ){
-		## TODO: GENERISIZE THIS TO A CALL, GET EDITING MENU, SO THAT ITS EASILY OVERRIDDEN
-		$page .= '<input type="button" onClick="javascript:add(\'**\',\'**\', \'more_text\' );" '.
-			' value="Bold" style="font-size: small;" />';
-		$page .= '<input type="button" onClick="javascript:add(\'//\',\'//\', \'more_text\' );" '.
-			' value="Ital" style="font-size: small; font-style: italic;" />';
-		$page .= '<input type="button" onClick="javascript:add(\'__\',\'__\', \'more_text\' );" '.
-			' value="Under" style="font-size: small; text-decoration: underline;" />';
-	}	
-
-	$page .= '<input type="button" onClick="javascript:link( \'more_text\' );" '.
-		' value="Link" style="font-size: small;" />';
-
-	$page .= '</th><td><textarea id="more_text"'.
-		'name="revisedentrymoretext" cols="60" rows="8" class="inputfield">'.
-		$thisentrymorebody.'</textarea>'.
-		_sizerCodeEntry('more_text').'</td></tr></table></span>'.
-		'</td></tr>';
-
-	## TODO: make this helper subroutine
-	## Comment Stuff
-	unless( $newEntry ){
-		$page .= "\n".'<tr class="section_head"><th>Comments</th><td>'.
-			_hiderCodeEntry('commentHidden', 'commentHider').'</td></tr>';
-		$page .= '<tr><td colspan="2"><span id="commentHidden">';
-		if( $thisentrycommentsnumber > 0 ){
-			$page .= '<table style="font-size:small; width: 92%;"><tr>';
-			$page .= '<th style="text-align: center; background: #B0B0D0;">#</th>'.
-				'<th style="text-align: center; background: #B0B0D0; background: #B0B0D0;">'.
-				'<input type="checkbox" name="all" id="check_uncheck_all" '.
-				'onClick="checkAll(\'multideletecommentselection\',this)"></th>'.
-				'<th style="text-align: center; background: #B0B0D0;">Comment</th>'.
-				'<th style="text-align: center; background: #B0B0D0;" width="24%">Action</th></tr>';
-			
-			my $rowcolor = Gm_Web::altRowColor();
-			
-		# 	do {
-		my $thiscommentnumber = 0;
-		foreach my $entryComment ( @{$gmEntry->{'comments'}} ){
-			
-	# 		if ($alternatecommentrow eq $alternatecommentrowone) {
-	# 			$alternatecommentrow = $alternatecommentrowtwo;
-	# 		} else {
-	# 			$alternatecommentrow = $alternatecommentrowone;
-	# 		}
-			$rowcolor = Gm_Web::altRowColor( $rowcolor );
-		
-			$thiscommentnumber++;	
+                $thiscommentnumber++;	
 		# 	$thiscommentnumber = $commentcounter - 3;
 		# 	($thiscommentauthor, $thiscommentauthorip, $thiscommentauthoremailabsolute, $thiscommentauthorhomepageabsolute, $thiscommentweekdaynumber, $thiscommentmonth, $thiscommentday, $thiscommentyearyear, $thiscommenthour, $thiscommentminute, $thiscommentsecond, $thiscommentampm, $thiscommenttext) = split (/\|/, $entrylines[$commentcounter]);
-			my $thiscommentauthor = $entryComment->{'name'};
-			my $thiscommentauthorip = $entryComment->{'ip'};
-			my $thiscommentauthoremailabsolute = $entryComment->{'email'};
-			my $thiscommentauthorhomepageabsolute = $entryComment->{'homepage'};
-			my $thiscommentweekdaynumber = $entryComment->{'weekday'};
-			my $thiscommentmonth = $entryComment->{'month'};
-			my $thiscommentday = $entryComment->{'day'};
-			my $thiscommentyearyear = $entryComment->{'year'};
-			my $thiscommenthour = $entryComment->{'hour'};
-			my $thiscommentminute = $entryComment->{'minute'};
-			my $thiscommentsecond = $entryComment->{'second'};
-			my $thiscommentampm = $entryComment->{'ampm'};
-			my $thiscommenttext = $entryComment->{'comment'};
-			
-			my $thiscommentmonthmonth = Gm_Utils::toTwoDigit( $thiscommentmonth );
-			my $thiscommentdayday = Gm_Utils::toTwoDigit( $thiscommentday );
-			my $thiscommenthourhour = Gm_Utils::toTwoDigit( $thiscommenthour );
-			my $thiscommentminuteminute = Gm_Utils::toTwoDigit( $thiscommentminute );
-			my $thiscommentsecondsecond = Gm_Utils::toTwoDigit( $thiscommentsecond );
-			
-			## IS THIS WEBSAVING?  TODO: CAN USE WEB FUNCTION HERE?
-			$thiscommenttext =~ s/</\&lt;/g;
-			$thiscommenttext =~ s/>/\&gt;/g;
-			$thiscommenttext =~ s/\|\*\|/\n/g;
-			$thiscommenttext =~ s/\n/<BR>/g;
-			$thiscommenttext =~ s/<BR><BR>/<P>/g;
-			# $thiscommenttext =~ s/  / &#160;/g;
-			
-			my $rowStyle = $rowcolor;
-			$rowStyle =~ s/;"/;text\-align\: center;"/; ## lame I know, alternate row color shouldn't put in style 
-			$page .= "\n".'<tr><td '.$rowStyle.'>'.
-				$thiscommentnumber.'</td><td '.$rowStyle.'">'.
-				'<INPUT TYPE="checkbox" NAME="multideletecommentselection" VALUE="'.$thiscommentnumber.'"></TD>';
-	
-			$page .= '<td '.$rowcolor.'">';
-	# 		$page .= '<TD '.$rowcolor.'">'.
-	# 			$gmfonttag.' Posted by '.$thiscommentauthor.' ('.
-	# 			$thiscommentauthorip.') @ '.$thiscommentmonthmonth.'/'.$thiscommentdayday.'/'.
-	# 			$thiscommentyearyear.' '.$thiscommenthourhour.':'.$thiscommentminuteminute.
-	# 			':'.$thiscommentsecondsecond.' '.$thiscommentampm.'</b><br />'.$thiscommenttext.' ';		
-			$page .= '<table style="font-size:small; width: 100%">'.
-				'<tr class="form_long"><th width="20%">Author:</th><td>'.$thiscommentauthor.' ('.
-				$thiscommentauthorip.')</td></tr>'.
-				'<tr class="form_long"><th>Date:</th><td>'.$thiscommentmonthmonth.'/'.$thiscommentdayday.'/'.
-				$thiscommentyearyear.' '.$thiscommenthourhour.':'.$thiscommentminuteminute.
-				':'.$thiscommentsecondsecond.' '.$thiscommentampm.'</td></tr>';
-			
-			if( $thiscommentauthoremailabsolute ne Gm_Constants::EMPTY ){
-				$page .= "\n"."<tr class=\"form_long\"><th>E-Mail:</th><td>".
-				"<a href=\"mailto:$thiscommentauthoremailabsolute\">".
-				"$thiscommentauthoremailabsolute</a></td></tr>";
-			}
-			if( $thiscommentauthorhomepageabsolute ne Gm_Constants::EMPTY ){
-				$page .= "\n"."<tr class=\"form_long\"><th>Homepage:</th><td>".
-				"<a href=\"$thiscommentauthorhomepageabsolute\">".
-				"$thiscommentauthorhomepageabsolute</a></td></tr>";
-			}
-	
-			$page .= "\n".'<tr><th>Comment: </th><td>'.$thiscommenttext.'</td></tr></table>';
-	
-			$page .= '</td>';
-	
-			$page .= '<TD VALIGN=TOP ALIGN=CENTER '.$rowcolor.'">';
-	
-			## The delete link 
-	# 		$page .= '<a href="'.$ENV{SCRIPT_NAME}.'?thomas=Delete+Selected+Comment&'.
-	# 			'revisedentrycommentselection='.$thiscommentnumber.'&revisedentryauthor='.$thisentryauthor.
-	# 			'&revisedentrynumber='.$thisentrynumber.'&'.Gm_Security::getUrlAuth( author=>\%AUTHOR ).
-	# 			'&entryselectionview='.$IN{entryselectionview}.'&revisedentrysubject='.$thisentrysubject.
-	# 			'" class="link_button" STYLE="background: #FFD0D0">Delete</a> &#160; ';
-			$page .= '<a href="'.$ENV{SCRIPT_NAME}.'?section='.$IN{'section'}.'&deletecomments=1'.
-				'&multideletecommentselection='.$thiscommentnumber.
-				'&entryid='.$thisentrynumber.'&'.Gm_Security::getUrlAuth( author=>\%AUTHOR ).
-				'&entryselectionview='.$IN{entryselectionview}.
-				'" class="link_button" STYLE="background: #FFD0D0">Delete</a> &#160; ';
-				
-			## The edit link - this should just be passing the entry id, not all the entry info ...
-	# 		$page .= ' <a href="'.$ENV{SCRIPT_NAME}.'?thomas=Edit+Selected+Comment&'.
-	# 			'revisedentrycommentselection='.$thiscommentnumber.'&revisedentryauthor='.$thisentryauthor.
-	# 			'&revisedentrynumber='.$thisentrynumber.'&revisedentrysubject='.$thisentrysubject.'&'.
-	# 			Gm_Security::getUrlAuth( author=>\%AUTHOR ).'&entryselectionview='.$IN{entryselectionview}.
-	# 			'" class="link_button"> Edit</a>'.
-	# 			'</td></tr>';
-			$page .= ' <a href="'.$ENV{SCRIPT_NAME}.'?section='.$IN{'section'}.'&viewcomment=1'.
-				'&revisedentrycommentselection='.$thiscommentnumber.'&revisedentryauthor='.$thisentryauthor.
-				'&entryid='.$thisentrynumber.'&'.Gm_Security::getUrlAuth( author=>\%AUTHOR ).
-				'&entryselectionview='.$IN{entryselectionview}.
-				'" class="link_button"> Edit</a>'.
-				'</td></tr>';
-			
+                my $thiscommentauthor = $entryComment->{'name'};
+                my $thiscommentauthorip = $entryComment->{'ip'};
+                my $thiscommentauthoremailabsolute = $entryComment->{'email'};
+                my $thiscommentauthorhomepageabsolute = $entryComment->{'homepage'};
+                my $thiscommentweekdaynumber = $entryComment->{'weekday'};
+                my $thiscommentmonth = $entryComment->{'month'};
+                my $thiscommentday = $entryComment->{'day'};
+                my $thiscommentyearyear = $entryComment->{'year'};
+                my $thiscommenthour = $entryComment->{'hour'};
+                my $thiscommentminute = $entryComment->{'minute'};
+                my $thiscommentsecond = $entryComment->{'second'};
+                my $thiscommentampm = $entryComment->{'ampm'};
+                my $thiscommenttext = $entryComment->{'comment'};
+                
+                my $thiscommentmonthmonth = Gm_Utils::toTwoDigit( $thiscommentmonth );
+                my $thiscommentdayday = Gm_Utils::toTwoDigit( $thiscommentday );
+                my $thiscommenthourhour = Gm_Utils::toTwoDigit( $thiscommenthour );
+                my $thiscommentminuteminute = Gm_Utils::toTwoDigit( $thiscommentminute );
+                my $thiscommentsecondsecond = Gm_Utils::toTwoDigit( $thiscommentsecond );
+                
+                ## IS THIS WEBSAVING?  TODO: CAN USE WEB FUNCTION HERE?
+                $thiscommenttext =~ s/</\&lt;/g;
+                $thiscommenttext =~ s/>/\&gt;/g;
+                $thiscommenttext =~ s/\|\*\|/\n/g;
+                $thiscommenttext =~ s/\n/<BR>/g;
+                $thiscommenttext =~ s/<BR><BR>/<P>/g;
+                # $thiscommenttext =~ s/  / &#160;/g;
+                
+                my $rowStyle = $rowcolor;
+                $rowStyle =~ s/;"/;text\-align\: center;"/; ## lame I know, alternate row color shouldn't put in style 
+                $page .= "\n".'<tr><td '.$rowStyle.'>'.
+                    $thiscommentnumber.'</td><td '.$rowStyle.'">'.
+                                                            '<INPUT TYPE="checkbox" NAME="multideletecommentselection" VALUE="'.$thiscommentnumber.'"></TD>';
+                
+                $page .= '<td '.$rowcolor.'">';
+                # 		$page .= '<TD '.$rowcolor.'">'.
+                # 			$gmfonttag.' Posted by '.$thiscommentauthor.' ('.
+                # 			$thiscommentauthorip.') @ '.$thiscommentmonthmonth.'/'.$thiscommentdayday.'/'.
+                # 			$thiscommentyearyear.' '.$thiscommenthourhour.':'.$thiscommentminuteminute.
+                # 			':'.$thiscommentsecondsecond.' '.$thiscommentampm.'</b><br />'.$thiscommenttext.' ';		
+                $page .= '<table style="font-size:small; width: 100%">'.
+                    '<tr class="form_long"><th width="20%">Author:</th><td>'.$thiscommentauthor.' ('.
+                                                                                                   $thiscommentauthorip.')</td></tr>'.
+                    '<tr class="form_long"><th>Date:</th><td>'.$thiscommentmonthmonth.'/'.$thiscommentdayday.'/'.
+                    $thiscommentyearyear.' '.$thiscommenthourhour.':'.$thiscommentminuteminute.
+                    ':'.$thiscommentsecondsecond.' '.$thiscommentampm.'</td></tr>';
+                
+                if( $thiscommentauthoremailabsolute ne Gm_Constants::EMPTY ){
+                    $page .= "\n"."<tr class=\"form_long\"><th>E-Mail:</th><td>".
+                        "<a href=\"mailto:$thiscommentauthoremailabsolute\">".
+                        "$thiscommentauthoremailabsolute</a></td></tr>";
+                }
+                if( $thiscommentauthorhomepageabsolute ne Gm_Constants::EMPTY ){
+                    $page .= "\n"."<tr class=\"form_long\"><th>Homepage:</th><td>".
+                        "<a href=\"$thiscommentauthorhomepageabsolute\">".
+                        "$thiscommentauthorhomepageabsolute</a></td></tr>";
+                }
+                
+                $page .= "\n".'<tr><th>Comment: </th><td>'.$thiscommenttext.'</td></tr></table>';
+                
+                $page .= '</td>';
+                
+                $page .= '<TD VALIGN=TOP ALIGN=CENTER '.$rowcolor.'">';
+                
+                ## The delete link 
+                # 		$page .= '<a href="'.$ENV{SCRIPT_NAME}.'?thomas=Delete+Selected+Comment&'.
+                # 			'revisedentrycommentselection='.$thiscommentnumber.'&revisedentryauthor='.$thisentryauthor.
+                # 			'&revisedentrynumber='.$thisentrynumber.'&'.Gm_Security::getUrlAuth( author=>\%AUTHOR ).
+                # 			'&entryselectionview='.$IN{entryselectionview}.'&revisedentrysubject='.$thisentrysubject.
+                # 			'" class="link_button" STYLE="background: #FFD0D0">Delete</a> &#160; ';
+                $page .= '<a href="'.$ENV{SCRIPT_NAME}.'?section='.$IN{'section'}.'&deletecomments=1'.
+                    '&multideletecommentselection='.$thiscommentnumber.
+                    '&entryid='.$thisentrynumber.'&'.Gm_Security::getUrlAuth( author=>\%AUTHOR ).
+                    '&entryselectionview='.$IN{entryselectionview}.
+                    '" class="link_button" STYLE="background: #FFD0D0">Delete</a> &#160; ';
+                
+                ## The edit link - this should just be passing the entry id, not all the entry info ...
+                # 		$page .= ' <a href="'.$ENV{SCRIPT_NAME}.'?thomas=Edit+Selected+Comment&'.
+                # 			'revisedentrycommentselection='.$thiscommentnumber.'&revisedentryauthor='.$thisentryauthor.
+                # 			'&revisedentrynumber='.$thisentrynumber.'&revisedentrysubject='.$thisentrysubject.'&'.
+                # 			Gm_Security::getUrlAuth( author=>\%AUTHOR ).'&entryselectionview='.$IN{entryselectionview}.
+                # 			'" class="link_button"> Edit</a>'.
+                # 			'</td></tr>';
+                $page .= ' <a href="'.$ENV{SCRIPT_NAME}.'?section='.$IN{'section'}.'&viewcomment=1'.
+                    '&revisedentrycommentselection='.$thiscommentnumber.'&revisedentryauthor='.$thisentryauthor.
+                    '&entryid='.$thisentrynumber.'&'.Gm_Security::getUrlAuth( author=>\%AUTHOR ).
+                    '&entryselectionview='.$IN{entryselectionview}.
+                    '" class="link_button"> Edit</a>'.
+                    '</td></tr>';
+                
 		# 	$commentcounter++;
-			
-		}
-		# 	} until $commentcounter > $commentcountermax;
-			
+                
+            }
+            # 	} until $commentcounter > $commentcountermax;
+            
+            
+            $page .= '<td>&nbsp;</td><td colspan="4"><input type="checkbox" name="all" id="check_uncheck_all" '.
+                                    'onClick="checkAll(\'multideletecommentselection\',this)">'.
+                                    '<label for="check_uncheck_all">Check/Uncheck All</label>  '.
+                                    '&nbsp;&nbsp;&nbsp;';
+            $page .= '<input type="submit" class="button" name="deletecomments" style="background: '.
+                    '#FFD0D0" value="Delete All Selected Comments"></td>';
+            $page .= '</tr></table><br />';
+        } else {
+            $page .= 'The entry has no comments.';
+        }
+        $page .= '</span></td></tr>';
 	
-			$page .= '<td>&nbsp;</td><td colspan="4"><input type="checkbox" name="all" id="check_uncheck_all" '.
-				'onClick="checkAll(\'multideletecommentselection\',this)">'.
-				'<label for="check_uncheck_all">Check/Uncheck All</label>  '.
-				'&nbsp;&nbsp;&nbsp;';
-			$page .= '<input type="submit" class="button" name="deletecomments" style="background: '.
-				'#FFD0D0" value="Delete All Selected Comments"></td>';
-			$page .= '</tr></table><br />';
-		} else {
-			$page .= 'The entry has no comments.';
-		}
-		$page .= '</span></td></tr>';
-	
-	} ## END of Comment stuff
+    } ## END of Comment stuff
 
-	## Karma Stuff
-	unless( $newEntry ){
-		$page .= "\n".'<tr class="section_head"><th>Karma</th><td>'.
-			_hiderCodeEntry('karmaHidden', 'karmaHider').'</td></tr>'.
-			'<tr><td colspan="2"><span id="karmaHidden">';
-		
-		my @karmaPos = ();
-		my @karmaNeg = ();
+    ## Karma Stuff
+    unless( $newEntry ){
+        $page .= "\n".'<tr class="section_head"><th>Karma</th><td>'.
+            _hiderCodeEntry('karmaHidden', 'karmaHider').'</td></tr>'.
+            '<tr><td colspan="2"><span id="karmaHidden">';
+        
+        my @karmaPos = ();
+        my @karmaNeg = ();
 	
-		foreach my $entryVote ( keys( %{$gmEntry->{'karmavotes'}} ) ){ 
-			if( $gmEntry->{'karmavotes'}{$entryVote} eq 'P' ){ 		
-				push( @karmaPos, $entryVote ); 
-			} elsif( $gmEntry->{'karmavotes'}{$entryVote} eq Gm_Constants::N ){ 		
-				push( @karmaNeg, $entryVote ); 
-			}
-		}
+        foreach my $entryVote ( keys( %{$gmEntry->{'karmavotes'}} ) ){ 
+            if( $gmEntry->{'karmavotes'}{$entryVote} eq 'P' ){ 		
+                push( @karmaPos, $entryVote ); 
+            } elsif( $gmEntry->{'karmavotes'}{$entryVote} eq Gm_Constants::N ){ 		
+                push( @karmaNeg, $entryVote ); 
+            }
+        }
 	
-		$page .= "\n".'<table  style="font-size:small; width: 92%;"><tr class="form_long">'.
-			'<th width="20%" nowrap>'.scalar(@karmaPos).' Positive karma '.
-			'votes from (IPs): </th><td>'.join( ', ', @karmaPos).'</td></tr>';
-		$page .= '<tr><th width="20%" nowrap>'.scalar(@karmaNeg).' Negative karma '.
-			'votes from (IPs): </th><td>'.join( ', ', @karmaNeg).'</td></tr></table>';
+        $page .= "\n".'<table  style="font-size:small; width: 92%;"><tr class="form_long">'.
+            '<th width="20%" nowrap>'.scalar(@karmaPos).' Positive karma '.
+            'votes from (IPs): </th><td>'.join( ', ', @karmaPos).'</td></tr>';
+        $page .= '<tr><th width="20%" nowrap>'.scalar(@karmaNeg).' Negative karma '.
+            'votes from (IPs): </th><td>'.join( ', ', @karmaNeg).'</td></tr></table>';
 	
-		$page .= "</span></td></tr>\n";
-	} ## END of Karma stuff
+        $page .= "</span></td></tr>\n";
+    } ## END of Karma stuff
 
-	## The Options	
-	$page .= "\n".'<tr class="section_head"><th>Options</th><td>'.
-		_hiderCodeEntry('optionsHidden', 'optionsHider').
-		'</td></tr><tr><td colspan="2"><span id="optionsHidden">';
-	$page .= '<table  style="font-size:small; width: 92%;">';
-	
-	
-	if( $gmConfigs->{'gmallowkarmaorcomments'} eq Gm_Constants::KARMA ||
-		$gmConfigs->{'gmallowkarmaorcomments'} eq Gm_Constants::BOTH ){
-		$page .= "\n".'<tr class="form_long"><th>Allow karma voting on this entry:</th><td>';
-		$page .= Gm_Web::createRadioButton( name=>'revisedentryallowkarma', value=>Gm_Constants::YES,
-			checked=>$thisentryallowkarma, id=>'allow_karma_yes' ).'<label for="allow_karma_yes"> Yes </label>';
-		$page .= Gm_Web::createRadioButton( name=>'revisedentryallowkarma', value=>Gm_Constants::NO,
-			checked=>$thisentryallowkarma, id=>'allow_karma_no' ).
-			'<label for="allow_karma_no"> No </label></td></tr>';
-	} else {
-		## TODO: GET RID OF THIS, WE WILL CHECK THE PERMS WHEN SAVING, NOT A HIDDEN FORM FIELD (UNTRUSTED)
-		$page .= '<input type=hidden name="revisedentryallowkarma" value="no">'; ## BAD
-	}
+    ## The Options	
+    $page .= "\n".'<tr class="section_head"><th>Options</th><td>'.
+        _hiderCodeEntry('optionsHidden', 'optionsHider').
+        '</td></tr><tr><td colspan="2"><span id="optionsHidden">';
+    $page .= '<table  style="font-size:small; width: 92%;">';
+    
+    
+    if( $gmConfigs->{'gmallowkarmaorcomments'} eq Gm_Constants::KARMA ||
+        $gmConfigs->{'gmallowkarmaorcomments'} eq Gm_Constants::BOTH ){
+        $page .= "\n".'<tr class="form_long"><th>Allow karma voting on this entry:</th><td>';
+        $page .= Gm_Web::createRadioButton( name=>'revisedentryallowkarma', value=>Gm_Constants::YES,
+                                           checked=>$thisentryallowkarma, id=>'allow_karma_yes' ).'<label for="allow_karma_yes"> Yes </label>';
+        $page .= Gm_Web::createRadioButton( name=>'revisedentryallowkarma', value=>Gm_Constants::NO,
+                                           checked=>$thisentryallowkarma, id=>'allow_karma_no' ).
+            '<label for="allow_karma_no"> No </label></td></tr>';
+    } else {
+        ## TODO: GET RID OF THIS, WE WILL CHECK THE PERMS WHEN SAVING, NOT A HIDDEN FORM FIELD (UNTRUSTED)
+        $page .= '<input type=hidden name="revisedentryallowkarma" value="no">'; ## BAD
+    }
 
-	if( $gmConfigs->{'gmallowkarmaorcomments'} eq Gm_Constants::COMMENTS || 
-		$gmConfigs->{'gmallowkarmaorcomments'} eq Gm_Constants::BOTH ){
-		$page .= "\n".'<tr class="form_long"><th>Allow comments to be posted to this entry:</th><td>';
-		$page .= Gm_Web::createRadioButton( name=>'revisedentryallowcomments', value=>Gm_Constants::YES,
-			checked=>$thisentryallowcomments, id=>'allow_comments_yes' ).
-			'<label for="allow_comments_yes"> Yes </label>';
-		$page .= Gm_Web::createRadioButton( name=>'revisedentryallowcomments', value=>Gm_Constants::NO,
-			checked=>$thisentryallowcomments , id=>'allow_comments_no' ).
-			'<label for="allow_comments_no"> No </label></td></tr>';
-	} else {
-		## TODO: GET RID OF THIS, WE WILL CHECK THE PERMS WHEN SAVING, NOT A HIDDEN FORM FIELD (UNTRUSTED)
-		$page .= '<input type=hidden name="revisedentryallowkarma" value="no">';
-	}
+    if( $gmConfigs->{'gmallowkarmaorcomments'} eq Gm_Constants::COMMENTS || 
+        $gmConfigs->{'gmallowkarmaorcomments'} eq Gm_Constants::BOTH ){
+        $page .= "\n".'<tr class="form_long"><th>Allow comments to be posted to this entry:</th><td>';
+        $page .= Gm_Web::createRadioButton( name=>'revisedentryallowcomments', value=>Gm_Constants::YES,
+                                           checked=>$thisentryallowcomments, id=>'allow_comments_yes' ).
+            '<label for="allow_comments_yes"> Yes </label>';
+        $page .= Gm_Web::createRadioButton( name=>'revisedentryallowcomments', value=>Gm_Constants::NO,
+                                           checked=>$thisentryallowcomments , id=>'allow_comments_no' ).
+            '<label for="allow_comments_no"> No </label></td></tr>';
+    } else {
+        ## TODO: GET RID OF THIS, WE WILL CHECK THE PERMS WHEN SAVING, NOT A HIDDEN FORM FIELD (UNTRUSTED)
+        $page .= '<input type=hidden name="revisedentryallowkarma" value="no">';
+    }
 
-	if( $gmConfigs->{'gmemoticonsallowed'} eq Gm_Constants::ENTRIES || 
-		$gmConfigs->{'gmemoticonsallowed'} eq Gm_Constants::BOTH ){
-		$page .= "\n".'<tr class="form_long"><th>Allow emoticons to be used in this entry:</th><td>';
-		$page .= Gm_Web::createRadioButton( name=>'revisedentryemoticonsallowed', value=>Gm_Constants::YES,
-			checked=>$thisentryemoticonsallowed, id=>'allow_emoticons_yes' ).
-			'<label for="allow_emoticons_yes"> Yes </label>';
-		$page .= Gm_Web::createRadioButton( name=>'revisedentryemoticonsallowed', value=>Gm_Constants::NO,
-			checked=>$thisentryemoticonsallowed, id=>'allow_emoticons_no' ).
-			'<label for="allow_emoticons_no"> No </label></td></tr>';
-	} else {
-		## TODO: GET RID OF THIS, WE WILL CHECK THE PERMS WHEN SAVING, NOT A HIDDEN FORM FIELD (UNTRUSTED)
-		$page .= '<INPUT TYPE=HIDDEN NAME="revisedentryemoticonsallowed" VALUE="no">';
-	}
+    if( $gmConfigs->{'gmemoticonsallowed'} eq Gm_Constants::ENTRIES || 
+        $gmConfigs->{'gmemoticonsallowed'} eq Gm_Constants::BOTH ){
+        $page .= "\n".'<tr class="form_long"><th>Allow emoticons to be used in this entry:</th><td>';
+        $page .= Gm_Web::createRadioButton( name=>'revisedentryemoticonsallowed', value=>Gm_Constants::YES,
+                                           checked=>$thisentryemoticonsallowed, id=>'allow_emoticons_yes' ).
+            '<label for="allow_emoticons_yes"> Yes </label>';
+        $page .= Gm_Web::createRadioButton( name=>'revisedentryemoticonsallowed', value=>Gm_Constants::NO,
+                                           checked=>$thisentryemoticonsallowed, id=>'allow_emoticons_no' ).
+            '<label for="allow_emoticons_no"> No </label></td></tr>';
+    } else {
+        ## TODO: GET RID OF THIS, WE WILL CHECK THE PERMS WHEN SAVING, NOT A HIDDEN FORM FIELD (UNTRUSTED)
+        $page .= '<INPUT TYPE=HIDDEN NAME="revisedentryemoticonsallowed" VALUE="no">';
+    }
 
-	## Stay at Top
-	my $keep_top = Gm_Constants::NO;
-	if( (defined( $IN{'revisedentrystayattop'} ) && $IN{'revisedentrystayattop'} eq Gm_Constants::YES) || 
-		(!defined( $IN{'revisedentrystayattop'} ) && $gmCounters->{'stayattopentry'} eq $thisentrynumber) ){
-		$keep_top = Gm_Constants::YES;
-	}
-	## setting controlling width here since it will be on every page
-	$page .= "\n".'<tr class="form_long"><th width="40%">Keep this entry at the top '.
-		'of the main page:</th><td>';
-	$page .= Gm_Web::createRadioButton( name=>'revisedentrystayattop', value=>Gm_Constants::YES,
-		checked=>$keep_top, id=>'keep_top_yes' ).
-		'<label for="keep_top_yes"> Yes </label>';
-	$page .= Gm_Web::createRadioButton( name=>'revisedentrystayattop', value=>Gm_Constants::NO,
-		checked=>$keep_top, id=>'keep_top_no' ).
-		'<label for="keep_top_no"> No </label></td></tr>';
+    ## Stay at Top
+    my $keep_top = Gm_Constants::NO;
+    if( (defined( $IN{'revisedentrystayattop'} ) && $IN{'revisedentrystayattop'} eq Gm_Constants::YES) || 
+        (!defined( $IN{'revisedentrystayattop'} ) && $gmCounters->{'stayattopentry'} eq $thisentrynumber) ){
+        $keep_top = Gm_Constants::YES;
+    }
+    ## setting controlling width here since it will be on every page
+    $page .= "\n".'<tr class="form_long"><th width="40%">Keep this entry at the top '.
+        'of the main page:</th><td>';
+    $page .= Gm_Web::createRadioButton( name=>'revisedentrystayattop', value=>Gm_Constants::YES,
+                                       checked=>$keep_top, id=>'keep_top_yes' ).
+        '<label for="keep_top_yes"> Yes </label>';
+    $page .= Gm_Web::createRadioButton( name=>'revisedentrystayattop', value=>Gm_Constants::NO,
+                                       checked=>$keep_top, id=>'keep_top_no' ).
+        '<label for="keep_top_no"> No </label></td></tr>';
 
-	## We could hide this, but why shouldn't people be able to create new closed entries?
-	## TODO: UPDATE FOR 'DRAFT' STATUS
-	$page .= "\n".'<tr><th>This entry is:</th><td>';
-	$page .= Gm_Web::createRadioButton( name=>'revisedentryopenstatus', value=>Gm_Constants::OPEN,
-		checked=>$thisentryopenstatus, id=>'set_entry_open' ).
-			'<label for="set_entry_open"> Open </label>';
-	$page .= Gm_Web::createRadioButton( name=>'revisedentryopenstatus', value=>Gm_Constants::CLOSED,
-		checked=>$thisentryopenstatus, id=>'set_entry_closed' ).
-			'<label for="set_entry_closed"> Closed </label></td></tr></table>';
-	$page .= '</span></td></tr>';
+    ## We could hide this, but why shouldn't people be able to create new closed entries?
+    ## TODO: UPDATE FOR 'DRAFT' STATUS
+    $page .= "\n".'<tr><th>This entry is:</th><td>';
+    $page .= Gm_Web::createRadioButton( name=>'revisedentryopenstatus', value=>Gm_Constants::OPEN,
+                                       checked=>$thisentryopenstatus, id=>'set_entry_open' ).
+        '<label for="set_entry_open"> Open </label>';
+    $page .= Gm_Web::createRadioButton( name=>'revisedentryopenstatus', value=>Gm_Constants::CLOSED,
+                                        checked=>$thisentryopenstatus, id=>'set_entry_closed' ).
+        '<label for="set_entry_closed"> Closed </label></td></tr></table>';
+    $page .= '</span></td></tr>';
 
-	## just move auto rebuild stuff here...
-	my $autorebuildcheckbox = Gm_Constants::EMPTY;
-	my @isRebuildChecked = ();
-	if( $newEntry ){
-		$autorebuildcheckbox = '<input type=hidden name="autorebuild" value="indexandentry">';	
-	} else {
+    ## just move auto rebuild stuff here...
+    my $autorebuildcheckbox = Gm_Constants::EMPTY;
+    my @isRebuildChecked = ();
+    if( $newEntry ){
+        $autorebuildcheckbox = '<input type=hidden name="autorebuild" value="indexandentry">';	
+    } else {
 
-		if( $AUTHOR{'rebuild'} eq Gm_Constants::Y ){
-			$autorebuildcheckbox = '<p>';
-	
-			if( $gmConfigs->{'gmautomaticrebuilddefault'} eq Gm_Constants::YES && !$IN{'autorebuild_org'} ){
-				push( @isRebuildChecked, 'indexandentry' );
-			}
-			if( $IN{'autorebuild'} ){
-				push( @isRebuildChecked, $IN{'autorebuild'} );
-			}
-			$autorebuildcheckbox .= Gm_Web::createCheckbox( name=>'autorebuild', 
-				value=>'indexandentry', id=>'auto_rebuild', checked=>\@isRebuildChecked );
-			$autorebuildcheckbox .= '<input type=hidden name="autorebuild_org" value="1">';
-			$autorebuildcheckbox .= ' <label for="auto_rebuild">Automatically rebuild '.
-				'main index and this entry\'s page after saving</label><br />'.
-				'<span class="info_text">After clicking Save, expect '. 
-				'a wait of up to several minutes if leaving this box checked.  DO NOT '. 
-				'interrupt Greymatter while it\'s rebuilding!</span></p>';
-		}
-	}
-	
-	$page .= "\n".'<tr><th>&nbsp;</th><td>'.
-		"<p>$autorebuildcheckbox </p></td></tr>";
-	$page .= "\n".'<tr><td></td>&nbsp;<td><input type=reset class="cancel_button button_hov" '.
-		'value="Undo Changes" name="entries"> '.
-		'<input type=submit class="other_button button_hov" name="preview" value="Preview Before Posting"> '.
-		'<input type=submit class="accept_button button_hov" name="update" '.
-		' value="Post Entry"> </td></tr></table><p>';
-		
-	unless( $IN{'gmbm'}	){
-		$page .= '<input type=submit class="button" name="entries" value="View Another Entry">';
-	}
-	$page .= '<p></form>';
-	
-	unless( $IN{'gmbm'}	){
-		$page .= "\n\n".'<p><form action="gm.cgi" method="post"> '.Gm_Security::getFormAuth( author=>\%AUTHOR ).
-			'<input type=submit class="button" name="menu" VALUE="'.Gm_Core::text( Gm_Constants::RETURN_MAIN_MENU ).
-			'" STYLE="background: #C0C0C0"></form></p>';
-	}
+        if( $AUTHOR{'rebuild'} eq Gm_Constants::Y ){
+            $autorebuildcheckbox = '<p>';
+            
+            if( $gmConfigs->{'gmautomaticrebuilddefault'} eq Gm_Constants::YES && !$IN{'autorebuild_org'} ){
+                push( @isRebuildChecked, 'indexandentry' );
+            }
+            if( $IN{'autorebuild'} ){
+                push( @isRebuildChecked, $IN{'autorebuild'} );
+            }
+            $autorebuildcheckbox .= Gm_Web::createCheckbox( name=>'autorebuild', 
+                                                            value=>'indexandentry', id=>'auto_rebuild', checked=>\@isRebuildChecked );
+            $autorebuildcheckbox .= '<input type=hidden name="autorebuild_org" value="1">';
+            $autorebuildcheckbox .= ' <label for="auto_rebuild">Automatically rebuild '.
+                'main index and this entry\'s page after saving</label><br />'.
+                '<span class="info_text">After clicking Save, expect '. 
+                'a wait of up to several minutes if leaving this box checked.  DO NOT '. 
+                'interrupt Greymatter while it\'s rebuilding!</span></p>';
+        }
+    }
+    
+    $page .= "\n".'<tr><th>&nbsp;</th><td>'.
+                                     "<p>$autorebuildcheckbox </p></td></tr>";
+    $page .= "\n".'<tr><td></td>&nbsp;<td><input type=reset class="cancel_button button_hov" '.
+                                          'value="Undo Changes" name="entries"> '.
+                                          '<input type=submit class="other_button button_hov" name="preview" value="Preview Before Posting"> '.
+                                          '<input type=submit class="accept_button button_hov" name="update" '.
+                                          ' value="Post Entry"> </td></tr></table><p>';
+    
+    unless( $IN{'gmbm'}	){
+        $page .= '<input type=submit class="button" name="entries" value="View Another Entry">';
+    }
+    $page .= '<p></form>';
+    
+    unless( $IN{'gmbm'}	){
+        $page .= "\n\n".'<p><form action="gm.cgi" method="post"> '.Gm_Security::getFormAuth( author=>\%AUTHOR ).
+            '<input type=submit class="button" name="menu" VALUE="'.Gm_Core::text( Gm_Constants::RETURN_MAIN_MENU ).
+                                                             '" STYLE="background: #C0C0C0"></form></p>';
+    }
 
-	Gm_Web::displayAdminPageExit( $page );
-	## NAVIGATION SHOULD BE DE-BUTTONED
-	exit(0); ## will never get here, in theory
+    Gm_Web::displayAdminPageExit( $page );
+    ## NAVIGATION SHOULD BE DE-BUTTONED
+    exit(0); ## will never get here, in theory
 }
 
 
@@ -3015,118 +3015,118 @@ window.onload = init;
 ## View Preview
 # Previe a particular entry, whether new or existing
 sub viewPreview {
-	my $message = shift( @_ ) || Gm_Constants::EMPTY;
+    my $message = shift( @_ ) || Gm_Constants::EMPTY;
 
-	my $gmCounters = Gm_Storage::getCounters( errHandler=>\&Gm_Web::displayAdminErrorExit );
+    my $gmCounters = Gm_Storage::getCounters( errHandler=>\&Gm_Web::displayAdminErrorExit );
 
-#&gm_validate;
+    #&gm_validate;
 
-# if ($gmentryaccess ne Gm_Constants::YES) {
-# 	gm_writetocplog("$IN{'authorname'} attempted to add an entry without authorization");
-# 	$statusnote = qq(<b><font color="#FF0000">You don't have access to add entries.</FONT></b><P>);
-# 	&gm_frontpage;
-# }
+    # if ($gmentryaccess ne Gm_Constants::YES) {
+    # 	gm_writetocplog("$IN{'authorname'} attempted to add an entry without authorization");
+    # 	$statusnote = qq(<b><font color="#FF0000">You don't have access to add entries.</FONT></b><P>);
+    # 	&gm_frontpage;
+    # }
 
-	my $newentrysubject = Gm_Utils::toStoreSafe( $IN{'revisedentrysubject'} );
-	my $newentrymaintext = Gm_Utils::toStoreSafe( $IN{'revisedentrymaintext'} );
-	my $newentrymoretext = Gm_Utils::toStoreSafe( $IN{'revisedentrymoretext'} );
-	my $newentrymusic = Gm_Utils::toStoreSafe( $IN{'revisedentrymusic'} );
-	my $newentrymood = Gm_Utils::toStoreSafe( $IN{'revisedentrymood'} );
+    my $newentrysubject = Gm_Utils::toStoreSafe( $IN{'revisedentrysubject'} );
+    my $newentrymaintext = Gm_Utils::toStoreSafe( $IN{'revisedentrymaintext'} );
+    my $newentrymoretext = Gm_Utils::toStoreSafe( $IN{'revisedentrymoretext'} );
+    my $newentrymusic = Gm_Utils::toStoreSafe( $IN{'revisedentrymusic'} );
+    my $newentrymood = Gm_Utils::toStoreSafe( $IN{'revisedentrymood'} );
 
-	my $newentrysubjectdeloused = Gm_Utils::toWebSafe( $newentrysubject );
-	my $newentrymaintextdeloused = Gm_Utils::toWebSafe( $newentrymaintext );
-	my $newentrymoretextdeloused = Gm_Utils::toWebSafe( $newentrymoretext );
-	my $newentrymusicdeloused = Gm_Utils::toWebSafe( $newentrymusic );
-	my $newentrymooddeloused = Gm_Utils::toWebSafe( $newentrymood );
+    my $newentrysubjectdeloused = Gm_Utils::toWebSafe( $newentrysubject );
+    my $newentrymaintextdeloused = Gm_Utils::toWebSafe( $newentrymaintext );
+    my $newentrymoretextdeloused = Gm_Utils::toWebSafe( $newentrymoretext );
+    my $newentrymusicdeloused = Gm_Utils::toWebSafe( $newentrymusic );
+    my $newentrymooddeloused = Gm_Utils::toWebSafe( $newentrymood );
 
-	$newentrysubjectdeloused =~ s/\n/\|\*\|/g;
-	$newentrymaintextdeloused =~ s/\n/\|\*\|/g;
-	$newentrymoretextdeloused =~ s/\n/\|\*\|/g;
-	$newentrymusicdeloused =~ s/\n/\|\*\|/g;
-	$newentrymooddeloused =~ s/\n/\|\*\|/g;
-	
-	$newentrymaintext =~ s/\|\*\|/<BR>/g;
-	$newentrymoretext =~ s/\|\*\|/<BR>/g;
-	$newentrymaintext =~ s/\n/<BR>/g;
-	$newentrymoretext =~ s/\n/<BR>/g;
-	$newentrymaintext =~ s/<BR><BR>/<\/P><P ALIGN=JUSTIFY>/g;
-	$newentrymoretext =~ s/<BR><BR>/<\/P><P ALIGN=JUSTIFY>/g;
+    $newentrysubjectdeloused =~ s/\n/\|\*\|/g;
+    $newentrymaintextdeloused =~ s/\n/\|\*\|/g;
+    $newentrymoretextdeloused =~ s/\n/\|\*\|/g;
+    $newentrymusicdeloused =~ s/\n/\|\*\|/g;
+    $newentrymooddeloused =~ s/\n/\|\*\|/g;
+    
+    $newentrymaintext =~ s/\|\*\|/<BR>/g;
+    $newentrymoretext =~ s/\|\*\|/<BR>/g;
+    $newentrymaintext =~ s/\n/<BR>/g;
+    $newentrymoretext =~ s/\n/<BR>/g;
+    $newentrymaintext =~ s/<BR><BR>/<\/P><P ALIGN=JUSTIFY>/g;
+    $newentrymoretext =~ s/<BR><BR>/<\/P><P ALIGN=JUSTIFY>/g;
 
-#	&gm_readcounter; ## refactor out
+    #	&gm_readcounter; ## refactor out
 
-	my $entryVars = ();
-	my $entryreturn = Gm_Constants::EMPTY;
+    my $entryVars = ();
+    my $entryreturn = Gm_Constants::EMPTY;
 
-	## TODO:  PREVIEW IS ONLY PSUEDO WORKING, IT WILL USE THE TEXT AND MORE TEXT, BUT IT WON'T DO
-	# PROPER REPLACEMENT ON GM TAGS SUCH AS {{MINUTE}} BECAUSE ITS USING THE PREVIOUS ENTRY AS
-	# A TEMPLATE, THIS NEEDS TO BE REWORKED SO THAT MORE DATA CAN BE PASSED IN, OR THAT 
-	# ENTRY VARIABLES CAN BE SIGNIFIED TO ASSUME NOW FOR TIMES.  NOTE THIS IS A VERY LARGE ISSUE
-	# FOR EXAMPLE, {{PREVIOUS}} TAG WILL POINT TO THE 2ND TO LAST ENTRY, NOT LAST ENTRY
-	unless( $gmCounters->{'entrytotal'} < 1 ){
-		$entryVars = Gm_Core::getEntryVariables( entryid=>$gmCounters->{'entrytotal'}, previewMain=>$newentrymaintext,
-			 previewMore=>$newentrymoretext, errHandler=>\&Gm_Web::displayAdminErrorExit );
-			
-		$entryreturn = Gm_Core::translateEntryTemplates( entryVars=>$entryVars,
-			template=>$entryVars->{'thisentrymainbody'}, errHandler=>\&Gm_Web::displayAdminErrorExit);
-			
-		$newentrymaintext = $entryreturn;
-		unless( $newentrymoretext eq Gm_Constants::EMPTY ){
-			$entryreturn = Gm_Core::translateEntryTemplates( entryVars=>$entryVars,
-				template=>$entryVars->{'thisentrymorebody'}, errHandler=>\&Gm_Web::displayAdminErrorExit);
-				
-			$newentrymoretext = $entryreturn;
-		}
-	}
+    ## TODO:  PREVIEW IS ONLY PSUEDO WORKING, IT WILL USE THE TEXT AND MORE TEXT, BUT IT WON'T DO
+    # PROPER REPLACEMENT ON GM TAGS SUCH AS {{MINUTE}} BECAUSE ITS USING THE PREVIOUS ENTRY AS
+    # A TEMPLATE, THIS NEEDS TO BE REWORKED SO THAT MORE DATA CAN BE PASSED IN, OR THAT 
+    # ENTRY VARIABLES CAN BE SIGNIFIED TO ASSUME NOW FOR TIMES.  NOTE THIS IS A VERY LARGE ISSUE
+    # FOR EXAMPLE, {{PREVIOUS}} TAG WILL POINT TO THE 2ND TO LAST ENTRY, NOT LAST ENTRY
+    unless( $gmCounters->{'entrytotal'} < 1 ){
+        $entryVars = Gm_Core::getEntryVariables( entryid=>$gmCounters->{'entrytotal'}, previewMain=>$newentrymaintext,
+                                                 previewMore=>$newentrymoretext, errHandler=>\&Gm_Web::displayAdminErrorExit );
+        
+        $entryreturn = Gm_Core::translateEntryTemplates( entryVars=>$entryVars,
+                                                        template=>$entryVars->{'thisentrymainbody'}, errHandler=>\&Gm_Web::displayAdminErrorExit);
+        
+        $newentrymaintext = $entryreturn;
+        unless( $newentrymoretext eq Gm_Constants::EMPTY ){
+            $entryreturn = Gm_Core::translateEntryTemplates( entryVars=>$entryVars,
+                                                            template=>$entryVars->{'thisentrymorebody'}, errHandler=>\&Gm_Web::displayAdminErrorExit);
+            
+            $newentrymoretext = $entryreturn;
+        }
+    }
 
-	my $showmoretext = Gm_Constants::EMPTY;
-	if( $newentrymoretext ne Gm_Constants::EMPTY ){ 
-		$showmoretext = "</P><P ALIGN=CENTER><CENTER>\n<B>[extended text]</B>\n</CENTER></P>".
-			"<P ALIGN=JUSTIFY>\n$newentrymoretext\n"; 
-	}
+    my $showmoretext = Gm_Constants::EMPTY;
+    if( $newentrymoretext ne Gm_Constants::EMPTY ){ 
+        $showmoretext = "</P><P ALIGN=CENTER><CENTER>\n<B>[extended text]</B>\n</CENTER></P>".
+            "<P ALIGN=JUSTIFY>\n$newentrymoretext\n"; 
+    }
 
-	if( $message eq Gm_Constants::EMPTY ){
-		if( $newentrysubject ne Gm_Constants::EMPTY ){
-			$message = '<span class="section_title">Previewing "'.$newentrysubject.'"</span>'.
-				'<br /><span class="info_text">Click "Add This Entry" below to add this entry '.
-				'to your site, or click "Re-Edit This Entry" to re-edit it.</span>';
-		} else {
-			$message = '<span class="section_title">Previewing New Entry</span><br />'.
-				'<span class="info_text">Click "Add This Entry" below to add this entry to '.
-				'your site, or click "Re-Edit This Entry" to re-edit it.</span>';
-		}
-	}
+    if( $message eq Gm_Constants::EMPTY ){
+        if( $newentrysubject ne Gm_Constants::EMPTY ){
+            $message = '<span class="section_title">Previewing "'.$newentrysubject.'"</span>'.
+                '<br /><span class="info_text">Click "Add This Entry" below to add this entry '.
+                'to your site, or click "Re-Edit This Entry" to re-edit it.</span>';
+        } else {
+            $message = '<span class="section_title">Previewing New Entry</span><br />'.
+                '<span class="info_text">Click "Add This Entry" below to add this entry to '.
+                'your site, or click "Re-Edit This Entry" to re-edit it.</span>';
+        }
+    }
 
-	my $page = "<p>$message</p>\n";	
-	$page .= "<p class=\"text_left\">$newentrymaintext $showmoretext</p>\n";
-	$page .= '<p class="text_left"><form action="gm.cgi" method=post>'.
-		Gm_Security::getFormAuth( author=>\%AUTHOR )."\n".
-		'<input type="hidden" name="section" value="'.$IN{'section'}.'">'."\n".
-		'<input type=hidden name="entryid" value="'.$IN{'entryid'}.'">'."\n".
-		'<input type=hidden name="revisedentrysubject" value="'.$newentrysubjectdeloused.'">'."\n".
-		'<input type=hidden name="revisedentrymaintext" value="'.$newentrymaintextdeloused.'">'."\n".
-		'<input type=hidden name="revisedentrymoretext" value="'.$newentrymoretextdeloused.'">'."\n".
-		'<input type=hidden name="revisedentryallowkarma" value="'.$IN{'revisedentryallowkarma'}.'">'."\n".
-		'<input type=hidden name="revisedentryallowcomments" value="'.$IN{'revisedentryallowcomments'}.'">'."\n".
-		'<input type=hidden name="revisedentryemoticonsallowed" value="'.$IN{'revisedentryemoticonsallowed'}.'">'."\n".
-		'<input type=hidden name="revisedentrystayattop" value="'.$IN{'revisedentrystayattop'}.'">'."\n".
-		'<input type=hidden name="revisedentrymusic" value="'.$IN{'revisedentrymusic'}.'">'."\n".
-		'<input type=hidden name="revisedentrymood" value="'.$IN{'revisedentrymood'}.'">'."\n".
-		'<input type=hidden name="autorebuild" value="'.$IN{'autorebuild'}.'">'."\n".
-		'<input type=hidden name="revisedentryopenstatus" value="'.$IN{'revisedentryopenstatus'}.'">'."\n".
-		'<input type=hidden name="gmbm" value="'.$IN{'gmbm'}.'">'."\n". ## bookmarklet or maybe ajax?
-		'<input type=submit class="button" name="view" value="Re-Edit This Entry"> '."\n".
-		'<input type=submit class="button" name="update" style="background: #D0FFD0" VALUE="Post Entry">'."\n".
-		'</form></p>';
-		
-	unless( $IN{'gmbm'}	){
-		$page .= "\n\n".'<p><form action="gm.cgi" method="post"> '.Gm_Security::getFormAuth( author=>\%AUTHOR ).
-			'<input type=submit class="button" name="menu" VALUE="'.Gm_Core::text( Gm_Constants::RETURN_MAIN_MENU ).
-			'" STYLE="background: #C0C0C0"></form></p>';
-	}
-		
-	Gm_Web::displayAdminPageExit( $page );
-	## NAVIGATION SHOULD BE DE-BUTTONED
-	exit(0); ## will never get here, in theory
+    my $page = "<p>$message</p>\n";	
+    $page .= "<p class=\"text_left\">$newentrymaintext $showmoretext</p>\n";
+    $page .= '<p class="text_left"><form action="gm.cgi" method=post>'.
+        Gm_Security::getFormAuth( author=>\%AUTHOR )."\n".
+        '<input type="hidden" name="section" value="'.$IN{'section'}.'">'."\n".
+        '<input type=hidden name="entryid" value="'.$IN{'entryid'}.'">'."\n".
+        '<input type=hidden name="revisedentrysubject" value="'.$newentrysubjectdeloused.'">'."\n".
+        '<input type=hidden name="revisedentrymaintext" value="'.$newentrymaintextdeloused.'">'."\n".
+        '<input type=hidden name="revisedentrymoretext" value="'.$newentrymoretextdeloused.'">'."\n".
+        '<input type=hidden name="revisedentryallowkarma" value="'.$IN{'revisedentryallowkarma'}.'">'."\n".
+        '<input type=hidden name="revisedentryallowcomments" value="'.$IN{'revisedentryallowcomments'}.'">'."\n".
+        '<input type=hidden name="revisedentryemoticonsallowed" value="'.$IN{'revisedentryemoticonsallowed'}.'">'."\n".
+        '<input type=hidden name="revisedentrystayattop" value="'.$IN{'revisedentrystayattop'}.'">'."\n".
+        '<input type=hidden name="revisedentrymusic" value="'.$IN{'revisedentrymusic'}.'">'."\n".
+        '<input type=hidden name="revisedentrymood" value="'.$IN{'revisedentrymood'}.'">'."\n".
+        '<input type=hidden name="autorebuild" value="'.$IN{'autorebuild'}.'">'."\n".
+        '<input type=hidden name="revisedentryopenstatus" value="'.$IN{'revisedentryopenstatus'}.'">'."\n".
+        '<input type=hidden name="gmbm" value="'.$IN{'gmbm'}.'">'."\n". ## bookmarklet or maybe ajax?
+        '<input type=submit class="button" name="view" value="Re-Edit This Entry"> '."\n".
+        '<input type=submit class="button" name="update" style="background: #D0FFD0" VALUE="Post Entry">'."\n".
+        '</form></p>';
+    
+    unless( $IN{'gmbm'}	){
+        $page .= "\n\n".'<p><form action="gm.cgi" method="post"> '.Gm_Security::getFormAuth( author=>\%AUTHOR ).
+            '<input type=submit class="button" name="menu" VALUE="'.Gm_Core::text( Gm_Constants::RETURN_MAIN_MENU ).
+                                                             '" STYLE="background: #C0C0C0"></form></p>';
+    }
+    
+    Gm_Web::displayAdminPageExit( $page );
+    ## NAVIGATION SHOULD BE DE-BUTTONED
+    exit(0); ## will never get here, in theory
 
 }
 
@@ -3134,704 +3134,704 @@ sub viewPreview {
 ## Update Entry
 # save the changes for a particular entry that has been updated
 sub updateEntry {
-	my $message = Gm_Constants::EMPTY;
-	my $newEntry = Gm_Constants::FALSE;
-	
-#&gm_validate;
+    my $message = Gm_Constants::EMPTY;
+    my $newEntry = Gm_Constants::FALSE;
+    
+    #&gm_validate;
 
-## Already done
-# if ($gmentryeditaccess eq Gm_Constants::NO) {
-# 	gm_writetocplog("$IN{'authorname'} attempted to edit entry #$IN{'revisedentrynumber'} without authorization");
-# 	$statusnote = qq(<B><FONT COLOR="#FF0000">You don't have access to edit entries.</FONT></B><P>);
-# 	&gm_frontpage;
-# }
+    ## Already done
+    # if ($gmentryeditaccess eq Gm_Constants::NO) {
+    # 	gm_writetocplog("$IN{'authorname'} attempted to edit entry #$IN{'revisedentrynumber'} without authorization");
+    # 	$statusnote = qq(<B><FONT COLOR="#FF0000">You don't have access to edit entries.</FONT></B><P>);
+    # 	&gm_frontpage;
+    # }
 
-## BAD! don't trust the user input for author name or revised entry name
-# if (($IN{'authorname'} ne $IN{'revisedentryauthor'}) && ($gmentryeditaccess eq "mineonly")) {
-# 	gm_writetocplog("$IN{'authorname'} attempted to edit entry #$IN{'entryselectionlist'} (by $IN{'revisedentryauthor'}) without authorization");
-# 	$statusnote = qq(<B><FONT COLOR="#FF0000">You don't have access to edit entries you didn't create.</FONT></B><P>);
-# 	&gm_editentryselection;
-# }
+    ## BAD! don't trust the user input for author name or revised entry name
+    # if (($IN{'authorname'} ne $IN{'revisedentryauthor'}) && ($gmentryeditaccess eq "mineonly")) {
+    # 	gm_writetocplog("$IN{'authorname'} attempted to edit entry #$IN{'entryselectionlist'} (by $IN{'revisedentryauthor'}) without authorization");
+    # 	$statusnote = qq(<B><FONT COLOR="#FF0000">You don't have access to edit entries you didn't create.</FONT></B><P>);
+    # 	&gm_editentryselection;
+    # }
 
-	if( $IN{'entryid'} eq Gm_Constants::EMPTY ){
-		$message = '<span class="error_msg">You must select an entry to edit.</span>';
-		return( $message ); ## should default to filterEntries
-	}
+    if( $IN{'entryid'} eq Gm_Constants::EMPTY ){
+        $message = '<span class="error_msg">You must select an entry to edit.</span>';
+        return( $message ); ## should default to filterEntries
+    }
 
-	## Why are we doing this???
-	$IN{'revisedentrysubject'} = Gm_Utils::toStoreSafe($IN{'revisedentrysubject'});
-	$IN{'revisedentrysubject'} = Gm_Utils::toConfigSafe($IN{'revisedentrysubject'});
+    ## Why are we doing this???
+    $IN{'revisedentrysubject'} = Gm_Utils::toStoreSafe($IN{'revisedentrysubject'});
+    $IN{'revisedentrysubject'} = Gm_Utils::toConfigSafe($IN{'revisedentrysubject'});
 
-#	if( $IN{'revisedentrymaintext'} eq Gm_Constants::EMPTY ){
-	if( $IN{'revisedentrymaintext'} eq Gm_Constants::EMPTY ){
-		$message = '<span class="error_msg">You left the main text field blank.  Please '.
-			'try again.</span>';
-		##$IN{'entryselectionlist'} = $IN{'revisedentrynumber'};  ## shouldn't need this if use entryid
-		#&gm_editthisentry;
-		if( $IN{'entryid'} eq 'new' ){
-			newEntry( $message );
-		} else {
-			editEntry( $message );
-		}
-	}
+    #	if( $IN{'revisedentrymaintext'} eq Gm_Constants::EMPTY ){
+    if( $IN{'revisedentrymaintext'} eq Gm_Constants::EMPTY ){
+        $message = '<span class="error_msg">You left the main text field blank.  Please '.
+            'try again.</span>';
+        ##$IN{'entryselectionlist'} = $IN{'revisedentrynumber'};  ## shouldn't need this if use entryid
+        #&gm_editthisentry;
+        if( $IN{'entryid'} eq 'new' ){
+            newEntry( $message );
+        } else {
+            editEntry( $message );
+        }
+    }
 
-#	&gm_readconfig; ## already global
-#	&gm_readtemplates; ## don't need
-	my $gmTemplates = Gm_Storage::getTemplates( errHandler=>\&Gm_Web::displayAdminErrorExit );
-	
-#	&gm_readcounter; ## REfactor to use Storage directly
-	my $gmCounters = Gm_Storage::getCounters( errHandler=>\&Gm_Web::displayAdminErrorExit );
+    #	&gm_readconfig; ## already global
+    #	&gm_readtemplates; ## don't need
+    my $gmTemplates = Gm_Storage::getTemplates( errHandler=>\&Gm_Web::displayAdminErrorExit );
+    
+    #	&gm_readcounter; ## REfactor to use Storage directly
+    my $gmCounters = Gm_Storage::getCounters( errHandler=>\&Gm_Web::displayAdminErrorExit );
 
 
-	my $gmEntry = {};
+    my $gmEntry = {};
 
-	if( $IN{'entryid'} eq 'new' ){
-		## Setting up new values	
+    if( $IN{'entryid'} eq 'new' ){
+        ## Setting up new values	
 	#&gm_readcounter; ## already done
-		## Counter variables should be maintained by Storage, as part of a save entry function
-#		my $gmCounters = Gm_Storage::getCounters( errHandler=>\&Gm_Web::displayAdminErrorExit );	## already have gmCounters
-		$gmCounters->{'entrytotal'}++;
-#		&gm_writecounter;  
-		### WE really, really shouldn't do this until the file has been saved!!!
-		Gm_Storage::setCounters( list=>$gmCounters, errHandler=>\&Gm_Web::displayAdminErrorExit );
-		
-		$IN{'entryid'} = $gmCounters->{'entrytotal'};
-		$newEntry = Gm_Constants::TRUE;
+        ## Counter variables should be maintained by Storage, as part of a save entry function
+        #		my $gmCounters = Gm_Storage::getCounters( errHandler=>\&Gm_Web::displayAdminErrorExit );	## already have gmCounters
+        $gmCounters->{'entrytotal'}++;
+        #		&gm_writecounter;  
+        ### WE really, really shouldn't do this until the file has been saved!!!
+        Gm_Storage::setCounters( list=>$gmCounters, errHandler=>\&Gm_Web::displayAdminErrorExit );
+        
+        $IN{'entryid'} = $gmCounters->{'entrytotal'};
+        $newEntry = Gm_Constants::TRUE;
 	
 	# $newentrynumberpadded = sprintf ("%8d", $newentrynumber);
 	# $newentrynumberpadded =~ tr/ /0/;
-		my $newentrynumberpadded = Gm_Utils::toEntryPadded( $gmCounters->{'entrytotal'} ); 
+        my $newentrynumberpadded = Gm_Utils::toEntryPadded( $gmCounters->{'entrytotal'} ); 
 	
 	#&gm_readconfig;  ## laready done
-		my ($basedate, $wday, $mon, $mday, $JSYear, $hour, $min, $sec, $AMPM ) = 
-			Gm_Utils::getStdDate( $gmConfigs->{'gmserveroffset'} );
-		my $shortyear = substr($JSYear, -2, 2);
-			
-		my $montwo = Gm_Utils::toTwoDigit( $mon );
-		my $mdaytwo = Gm_Utils::toTwoDigit( $mday );
-		my $hourtwo = Gm_Utils::toTwoDigit( $hour );
-		my $mintwo = Gm_Utils::toTwoDigit( $min );
+        my ($basedate, $wday, $mon, $mday, $JSYear, $hour, $min, $sec, $AMPM ) = 
+            Gm_Utils::getStdDate( $gmConfigs->{'gmserveroffset'} );
+        my $shortyear = substr($JSYear, -2, 2);
+        
+        my $montwo = Gm_Utils::toTwoDigit( $mon );
+        my $mdaytwo = Gm_Utils::toTwoDigit( $mday );
+        my $hourtwo = Gm_Utils::toTwoDigit( $hour );
+        my $mintwo = Gm_Utils::toTwoDigit( $min );
 	
 	#	my %gmEntry = ();
-		$gmEntry->{'entryinfo'}{'id'} = $gmCounters->{'entrytotal'};
-		$gmEntry->{'entryinfo'}{'author'} = $AUTHOR{'author'};
-		$gmEntry->{'entryinfo'}{'weekday'} = $wday;
-		$gmEntry->{'entryinfo'}{'month'} = $mon;
-		$gmEntry->{'entryinfo'}{'day'} = $mday;
-		$gmEntry->{'entryinfo'}{'year'} = $JSYear;
-		$gmEntry->{'entryinfo'}{'hour'} = $hour;
-		$gmEntry->{'entryinfo'}{'minute'} = $min;
-		$gmEntry->{'entryinfo'}{'second'} = $sec;
-		$gmEntry->{'entryinfo'}{'ampm'} = $AMPM;
-		$gmEntry->{'entryinfo'}{'karmapos'} = 0;
-		$gmEntry->{'entryinfo'}{'karmaneg'} = 0;
-		$gmEntry->{'entryinfo'}{'commenttotal'} = 0;
-		$gmEntry->{'karmavotes'} = { '0.0.0.0' => 'I' };
-		$gmEntry->{'comments'} = [];
+        $gmEntry->{'entryinfo'}{'id'} = $gmCounters->{'entrytotal'};
+        $gmEntry->{'entryinfo'}{'author'} = $AUTHOR{'author'};
+        $gmEntry->{'entryinfo'}{'weekday'} = $wday;
+        $gmEntry->{'entryinfo'}{'month'} = $mon;
+        $gmEntry->{'entryinfo'}{'day'} = $mday;
+        $gmEntry->{'entryinfo'}{'year'} = $JSYear;
+        $gmEntry->{'entryinfo'}{'hour'} = $hour;
+        $gmEntry->{'entryinfo'}{'minute'} = $min;
+        $gmEntry->{'entryinfo'}{'second'} = $sec;
+        $gmEntry->{'entryinfo'}{'ampm'} = $AMPM;
+        $gmEntry->{'entryinfo'}{'karmapos'} = 0;
+        $gmEntry->{'entryinfo'}{'karmaneg'} = 0;
+        $gmEntry->{'entryinfo'}{'commenttotal'} = 0;
+        $gmEntry->{'karmavotes'} = { '0.0.0.0' => 'I' };
+        $gmEntry->{'comments'} = [];
 
-		
-	} else {
-		$gmEntry = Gm_Storage::getEntry( id=>$IN{'entryid'},
-			errHandler=>\&Gm_Web::displayAdminErrorExit );
-	}
+        
+    } else {
+        $gmEntry = Gm_Storage::getEntry( id=>$IN{'entryid'},
+                                         errHandler=>\&Gm_Web::displayAdminErrorExit );
+    }
 
-	# ($thisentrynumber, $thisentryauthor, $thisentrysubject, $thisentryweekdaynumber, $thisentrymonth, $thisentryday, $thisentryyearyear, $thisentryhour, $thisentryminute, $thisentrysecond, $thisentryampm, $thisentrypositivekarma, $thisentrynegativekarma, $thisentrycommentsnumber, $thisentryallowkarma, $thisentryallowcomments, $thisentryopenstatus, $thisentrymusic, $thisentrymood, $thisentryemoticonsallowed) = split (/\|/, $entrylines[0]);
-	my $thisentrynumber = $gmEntry->{'entryinfo'}{'id'};
-	my $thisentryauthor = $gmEntry->{'entryinfo'}{'author'};
-	my $thisentrysubject = $gmEntry->{'entryinfo'}{'subject'};
-	my $thisentryweekdaynumber = $gmEntry->{'entryinfo'}{'weekday'};
-	my $thisentrymonth = $gmEntry->{'entryinfo'}{'month'};
-	my $thisentryday = $gmEntry->{'entryinfo'}{'day'};
-	my $thisentryyearyear = $gmEntry->{'entryinfo'}{'year'};
-	my $thisentryhour = $gmEntry->{'entryinfo'}{'hour'};
-	my $thisentryminute = $gmEntry->{'entryinfo'}{'minute'};
-	my $thisentrysecond = $gmEntry->{'entryinfo'}{'second'};
-	my $thisentryampm = $gmEntry->{'entryinfo'}{'ampm'};
-	my $thisentrypositivekarma = $gmEntry->{'entryinfo'}{'karmapos'};
-	my $thisentrynegativekarma = $gmEntry->{'entryinfo'}{'karmaneg'};
-	my $thisentrycommentsnumber = $gmEntry->{'entryinfo'}{'commenttotal'};
-	my $thisentryallowkarma = $gmEntry->{'entryinfo'}{'karma'};
-	my $thisentryallowcomments = $gmEntry->{'entryinfo'}{'comments'};
-	my $thisentryopenstatus = $gmEntry->{'entryinfo'}{'status'};
-	my $thisentrymusic = $gmEntry->{'entryinfo'}{'music'};
-	my $thisentrymood = $gmEntry->{'entryinfo'}{'mood'};
-	my $thisentryemoticonsallowed = $gmEntry->{'entryinfo'}{'emoticons'};
-	
-#	$thisentrynumberpadded = Gm_Utils::toEntryPadded( $IN{'revisedentrynumber'} );
-	my $thisentrynumberpadded = Gm_Utils::toEntryPadded( $IN{'entryid'} );
+    # ($thisentrynumber, $thisentryauthor, $thisentrysubject, $thisentryweekdaynumber, $thisentrymonth, $thisentryday, $thisentryyearyear, $thisentryhour, $thisentryminute, $thisentrysecond, $thisentryampm, $thisentrypositivekarma, $thisentrynegativekarma, $thisentrycommentsnumber, $thisentryallowkarma, $thisentryallowcomments, $thisentryopenstatus, $thisentrymusic, $thisentrymood, $thisentryemoticonsallowed) = split (/\|/, $entrylines[0]);
+    my $thisentrynumber = $gmEntry->{'entryinfo'}{'id'};
+    my $thisentryauthor = $gmEntry->{'entryinfo'}{'author'};
+    my $thisentrysubject = $gmEntry->{'entryinfo'}{'subject'};
+    my $thisentryweekdaynumber = $gmEntry->{'entryinfo'}{'weekday'};
+    my $thisentrymonth = $gmEntry->{'entryinfo'}{'month'};
+    my $thisentryday = $gmEntry->{'entryinfo'}{'day'};
+    my $thisentryyearyear = $gmEntry->{'entryinfo'}{'year'};
+    my $thisentryhour = $gmEntry->{'entryinfo'}{'hour'};
+    my $thisentryminute = $gmEntry->{'entryinfo'}{'minute'};
+    my $thisentrysecond = $gmEntry->{'entryinfo'}{'second'};
+    my $thisentryampm = $gmEntry->{'entryinfo'}{'ampm'};
+    my $thisentrypositivekarma = $gmEntry->{'entryinfo'}{'karmapos'};
+    my $thisentrynegativekarma = $gmEntry->{'entryinfo'}{'karmaneg'};
+    my $thisentrycommentsnumber = $gmEntry->{'entryinfo'}{'commenttotal'};
+    my $thisentryallowkarma = $gmEntry->{'entryinfo'}{'karma'};
+    my $thisentryallowcomments = $gmEntry->{'entryinfo'}{'comments'};
+    my $thisentryopenstatus = $gmEntry->{'entryinfo'}{'status'};
+    my $thisentrymusic = $gmEntry->{'entryinfo'}{'music'};
+    my $thisentrymood = $gmEntry->{'entryinfo'}{'mood'};
+    my $thisentryemoticonsallowed = $gmEntry->{'entryinfo'}{'emoticons'};
+    
+    #	$thisentrynumberpadded = Gm_Utils::toEntryPadded( $IN{'revisedentrynumber'} );
+    my $thisentrynumberpadded = Gm_Utils::toEntryPadded( $IN{'entryid'} );
 
-### NEW
-#	if( ($IN{'authorname'} ne $thisentryauthor) && ($gmentryeditaccess eq 'mineonly') ){
-	if( $newEntry ){
-		if( $AUTHOR{'postnew'} ne Gm_Constants::Y ){
-			Gm_Core::writeToCplog("$AUTHOR{'author'} attempted to add an entry without authorization");
-			$message = '<span class="error_msg">You don\'t have access to add entries.</span>';
-			#&gm_frontpage;
-			frontPage( $message );
-		}
-	} else {
-		if( $AUTHOR{'author'} ne $thisentryauthor && $AUTHOR{'editentries'} eq Gm_Constants::O ){
-		#	gm_writetocplog("$IN{'authorname'} attempted to edit entry #$IN{'entryselectionlist'} (by $thisentryauthor) without authorization");
-			Gm_Core::writeToCplog("$AUTHOR{'author'} attempted to edit entry #$IN{'entryid'} ".
-				"(by $thisentryauthor) without authorization");
-			$message = '<span class="error_msg">You don\'t have access to edit entries you '.
-				'didn\'t create.</span>';
-	#		&gm_editentryselection;
-			return( $message ); ## should default to filterEntries
-		}
-	}
-# chomp ($thisentryemoticonsallowed);
+    ### NEW
+    #	if( ($IN{'authorname'} ne $thisentryauthor) && ($gmentryeditaccess eq 'mineonly') ){
+    if( $newEntry ){
+        if( $AUTHOR{'postnew'} ne Gm_Constants::Y ){
+            Gm_Core::writeToCplog("$AUTHOR{'author'} attempted to add an entry without authorization");
+            $message = '<span class="error_msg">You don\'t have access to add entries.</span>';
+            #&gm_frontpage;
+            frontPage( $message );
+        }
+    } else {
+        if( $AUTHOR{'author'} ne $thisentryauthor && $AUTHOR{'editentries'} eq Gm_Constants::O ){
+            #	gm_writetocplog("$IN{'authorname'} attempted to edit entry #$IN{'entryselectionlist'} (by $thisentryauthor) without authorization");
+            Gm_Core::writeToCplog("$AUTHOR{'author'} attempted to edit entry #$IN{'entryid'} ".
+                                  "(by $thisentryauthor) without authorization");
+            $message = '<span class="error_msg">You don\'t have access to edit entries you '.
+                'didn\'t create.</span>';
+            #		&gm_editentryselection;
+            return( $message ); ## should default to filterEntries
+        }
+    }
+    # chomp ($thisentryemoticonsallowed);
 
-	## are they opening or closing this entry, gm counter variables REPLACE
-	if( $thisentryopenstatus eq Gm_Constants::OPEN && 
-		$IN{'revisedentryopenstatus'} eq Gm_Constants::CLOSED ){
-		$gmCounters->{'opentotal'}--;
-		$gmCounters->{'closedtotal'}++;
-	}
-	if( $thisentryopenstatus eq Gm_Constants::CLOSED && 
-		$IN{'revisedentryopenstatus'} eq Gm_Constants::OPEN ){
-		$gmCounters->{'opentotal'}++;
-		$gmCounters->{'closedtotal'}--;
-	}
+    ## are they opening or closing this entry, gm counter variables REPLACE
+    if( $thisentryopenstatus eq Gm_Constants::OPEN && 
+        $IN{'revisedentryopenstatus'} eq Gm_Constants::CLOSED ){
+        $gmCounters->{'opentotal'}--;
+        $gmCounters->{'closedtotal'}++;
+    }
+    if( $thisentryopenstatus eq Gm_Constants::CLOSED && 
+        $IN{'revisedentryopenstatus'} eq Gm_Constants::OPEN ){
+        $gmCounters->{'opentotal'}++;
+        $gmCounters->{'closedtotal'}--;
+    }
 
-	my $thisentryyear = substr($thisentryyearyear, -2, 2);
+    my $thisentryyear = substr($thisentryyearyear, -2, 2);
 
-	my $thisentryweekday = (Gm_Constants::DAYS)[$thisentryweekdaynumber];
-	my $thisentrymonthword = (Gm_Constants::MONTHS_SHORT)[$thisentrymonth-1];
+    my $thisentryweekday = (Gm_Constants::DAYS)[$thisentryweekdaynumber];
+    my $thisentrymonthword = (Gm_Constants::MONTHS_SHORT)[$thisentrymonth-1];
 
-	my $thisentrymonthmonth = Gm_Utils::toTwoDigit( $thisentrymonth );
-	my $thisentrydayday = Gm_Utils::toTwoDigit( $thisentryday );
-	my $thisentryhourhour = Gm_Utils::toTwoDigit( $thisentryhour );
-	my $thisentryminuteminute = Gm_Utils::toTwoDigit( $thisentryminute );
-	my $thisentrysecondsecond = Gm_Utils::toTwoDigit( $thisentrysecond );
-	
-	$IN{'revisedentrysubject'} = Gm_Utils::toStoreSafe($IN{'revisedentrysubject'});
-	$IN{'revisedentrysubject'} = Gm_Utils::toConfigSafe($IN{'revisedentrysubject'}); ## why only one?
-	$IN{'revisedentrymaintext'} = Gm_Utils::toStoreSafe($IN{'revisedentrymaintext'});
-	$IN{'revisedentrymoretext'} = Gm_Utils::toStoreSafe($IN{'revisedentrymoretext'});
-	$IN{'revisedentrymusic'} = Gm_Utils::toStoreSafe($IN{'revisedentrymusic'});
-	$IN{'revisedentrymood'} = Gm_Utils::toStoreSafe($IN{'revisedentrymood'});
-	
-	$IN{'revisedentrysubject'} = Gm_Utils::sanitizeInput($IN{'revisedentrysubject'});
-	$IN{'revisedentrymaintext'} = Gm_Utils::sanitizeInput($IN{'revisedentrymaintext'});
-	$IN{'revisedentrymoretext'} = Gm_Utils::sanitizeInput($IN{'revisedentrymoretext'});
-	$IN{'revisedentrymusic'} = Gm_Utils::sanitizeInput($IN{'revisedentrymusic'});
-	$IN{'revisedentrymood'} = Gm_Utils::sanitizeInput($IN{'revisedentrymood'});
+    my $thisentrymonthmonth = Gm_Utils::toTwoDigit( $thisentrymonth );
+    my $thisentrydayday = Gm_Utils::toTwoDigit( $thisentryday );
+    my $thisentryhourhour = Gm_Utils::toTwoDigit( $thisentryhour );
+    my $thisentryminuteminute = Gm_Utils::toTwoDigit( $thisentryminute );
+    my $thisentrysecondsecond = Gm_Utils::toTwoDigit( $thisentrysecond );
+    
+    $IN{'revisedentrysubject'} = Gm_Utils::toStoreSafe($IN{'revisedentrysubject'});
+    $IN{'revisedentrysubject'} = Gm_Utils::toConfigSafe($IN{'revisedentrysubject'}); ## why only one?
+    $IN{'revisedentrymaintext'} = Gm_Utils::toStoreSafe($IN{'revisedentrymaintext'});
+    $IN{'revisedentrymoretext'} = Gm_Utils::toStoreSafe($IN{'revisedentrymoretext'});
+    $IN{'revisedentrymusic'} = Gm_Utils::toStoreSafe($IN{'revisedentrymusic'});
+    $IN{'revisedentrymood'} = Gm_Utils::toStoreSafe($IN{'revisedentrymood'});
+    
+    $IN{'revisedentrysubject'} = Gm_Utils::sanitizeInput($IN{'revisedentrysubject'});
+    $IN{'revisedentrymaintext'} = Gm_Utils::sanitizeInput($IN{'revisedentrymaintext'});
+    $IN{'revisedentrymoretext'} = Gm_Utils::sanitizeInput($IN{'revisedentrymoretext'});
+    $IN{'revisedentrymusic'} = Gm_Utils::sanitizeInput($IN{'revisedentrymusic'});
+    $IN{'revisedentrymood'} = Gm_Utils::sanitizeInput($IN{'revisedentrymood'});
 
-	## TODO: MAKE STUFF WORK DIRECTLY OFF OF THE GMENTRY INSTEAD OF USING TEMP VARS
-	$gmEntry->{'entryinfo'}{'id'} = $thisentrynumber;
-	$gmEntry->{'entryinfo'}{'author'} = $thisentryauthor;
-	$gmEntry->{'entryinfo'}{'subject'} = $IN{'revisedentrysubject'};
-	$gmEntry->{'entryinfo'}{'weekday'} = $thisentryweekdaynumber;
-	$gmEntry->{'entryinfo'}{'month'} = $thisentrymonth;
-	$gmEntry->{'entryinfo'}{'day'} = $thisentryday;
-	$gmEntry->{'entryinfo'}{'year'} = $thisentryyearyear;
-	$gmEntry->{'entryinfo'}{'hour'} = $thisentryhour;
-	$gmEntry->{'entryinfo'}{'minute'} = $thisentryminute;
-	$gmEntry->{'entryinfo'}{'second'} = $thisentrysecond;
-	$gmEntry->{'entryinfo'}{'ampm'} = $thisentryampm;
-	$gmEntry->{'entryinfo'}{'karmapos'} = $thisentrypositivekarma;
-	$gmEntry->{'entryinfo'}{'karmaneg'} = $thisentrynegativekarma;
-	$gmEntry->{'entryinfo'}{'commenttotal'} = $thisentrycommentsnumber;
-	
-	## TODO: DON'T USE THESE VALUES FROM WEB FORM UNLESS ITS ALLOWED BY THE AUTHORS PERMISSIONS
-	# CLEAN UP VIEWENTRY TO REMOVE HIDDEN FIELDS
-	$gmEntry->{'entryinfo'}{'karma'} = $IN{'revisedentryallowkarma'};
-	$gmEntry->{'entryinfo'}{'comments'} = $IN{'revisedentryallowcomments'};
-	$gmEntry->{'entryinfo'}{'status'} = $IN{'revisedentryopenstatus'};
-	$gmEntry->{'entryinfo'}{'music'} = $IN{'revisedentrymusic'};
-	$gmEntry->{'entryinfo'}{'mood'} = $IN{'revisedentrymood'};
-	$gmEntry->{'entryinfo'}{'emoticons'} = $IN{'revisedentryemoticonsallowed'};
-	
-	$gmEntry->{'maintext'} = $IN{'revisedentrymaintext'};
-	$gmEntry->{'extendedtext'} = $IN{'revisedentrymoretext'};
+    ## TODO: MAKE STUFF WORK DIRECTLY OFF OF THE GMENTRY INSTEAD OF USING TEMP VARS
+    $gmEntry->{'entryinfo'}{'id'} = $thisentrynumber;
+    $gmEntry->{'entryinfo'}{'author'} = $thisentryauthor;
+    $gmEntry->{'entryinfo'}{'subject'} = $IN{'revisedentrysubject'};
+    $gmEntry->{'entryinfo'}{'weekday'} = $thisentryweekdaynumber;
+    $gmEntry->{'entryinfo'}{'month'} = $thisentrymonth;
+    $gmEntry->{'entryinfo'}{'day'} = $thisentryday;
+    $gmEntry->{'entryinfo'}{'year'} = $thisentryyearyear;
+    $gmEntry->{'entryinfo'}{'hour'} = $thisentryhour;
+    $gmEntry->{'entryinfo'}{'minute'} = $thisentryminute;
+    $gmEntry->{'entryinfo'}{'second'} = $thisentrysecond;
+    $gmEntry->{'entryinfo'}{'ampm'} = $thisentryampm;
+    $gmEntry->{'entryinfo'}{'karmapos'} = $thisentrypositivekarma;
+    $gmEntry->{'entryinfo'}{'karmaneg'} = $thisentrynegativekarma;
+    $gmEntry->{'entryinfo'}{'commenttotal'} = $thisentrycommentsnumber;
+    
+    ## TODO: DON'T USE THESE VALUES FROM WEB FORM UNLESS ITS ALLOWED BY THE AUTHORS PERMISSIONS
+    # CLEAN UP VIEWENTRY TO REMOVE HIDDEN FIELDS
+    $gmEntry->{'entryinfo'}{'karma'} = $IN{'revisedentryallowkarma'};
+    $gmEntry->{'entryinfo'}{'comments'} = $IN{'revisedentryallowcomments'};
+    $gmEntry->{'entryinfo'}{'status'} = $IN{'revisedentryopenstatus'};
+    $gmEntry->{'entryinfo'}{'music'} = $IN{'revisedentrymusic'};
+    $gmEntry->{'entryinfo'}{'mood'} = $IN{'revisedentrymood'};
+    $gmEntry->{'entryinfo'}{'emoticons'} = $IN{'revisedentryemoticonsallowed'};
+    
+    $gmEntry->{'maintext'} = $IN{'revisedentrymaintext'};
+    $gmEntry->{'extendedtext'} = $IN{'revisedentrymoretext'};
 
-	Gm_Storage::setEntry( entry=>$gmEntry, 'new'=>$newEntry, 
-		errHandler=>\&Gm_Web::displayAdminErrorExit );
+    Gm_Storage::setEntry( entry=>$gmEntry, 'new'=>$newEntry, 
+                          errHandler=>\&Gm_Web::displayAdminErrorExit );
 
-	my $revisedentrymorestatus = Gm_Constants::N;
-	if( $IN{'revisedentrymoretext'} ne Gm_Constants::EMPTY ){ 
-		$revisedentrymorestatus = Gm_Constants::Y; 
-	}
-	my $revisedentrymarkopen = Gm_Constants::O;
-	if( $IN{'revisedentryopenstatus'} eq Gm_Constants::CLOSED ){ 
-		$revisedentrymarkopen = 'C'; 
-	}
+    my $revisedentrymorestatus = Gm_Constants::N;
+    if( $IN{'revisedentrymoretext'} ne Gm_Constants::EMPTY ){ 
+        $revisedentrymorestatus = Gm_Constants::Y; 
+    }
+    my $revisedentrymarkopen = Gm_Constants::O;
+    if( $IN{'revisedentryopenstatus'} eq Gm_Constants::CLOSED ){ 
+        $revisedentrymarkopen = 'C'; 
+    }
 
 
-	## Needed in case its a new entry
-	my $shortyear = substr( $thisentryyearyear, -2, 2 );
-	my $montwo = Gm_Utils::toTwoDigit( $thisentrymonth );
-	my $mdaytwo = Gm_Utils::toTwoDigit( $thisentryday );
-	my $hourtwo = Gm_Utils::toTwoDigit( $thisentryhour );
-	my $mintwo = Gm_Utils::toTwoDigit( $thisentryminute );
+    ## Needed in case its a new entry
+    my $shortyear = substr( $thisentryyearyear, -2, 2 );
+    my $montwo = Gm_Utils::toTwoDigit( $thisentrymonth );
+    my $mdaytwo = Gm_Utils::toTwoDigit( $thisentryday );
+    my $hourtwo = Gm_Utils::toTwoDigit( $thisentryhour );
+    my $mintwo = Gm_Utils::toTwoDigit( $thisentryminute );
 
-	my %updatedInfo = ();
-	$updatedInfo{'id'} = $thisentrynumber; ## for new
-	$updatedInfo{'author'} = $thisentryauthor; ## for new
-	$updatedInfo{'subject'} = $IN{'revisedentrysubject'};
-	$updatedInfo{'created'} = "$montwo\/$mdaytwo\/$shortyear"; ## for new
-	$updatedInfo{'createt'} = "$hourtwo\:$mintwo $thisentryampm";	## for new
-	$updatedInfo{'status'} = $revisedentrymarkopen;
-	$updatedInfo{'extended'} = $revisedentrymorestatus;
-	$updatedInfo{'music'} = $IN{'revisedentrymusic'};
-	$updatedInfo{'mood'} = $IN{'revisedentrymood'};
-	$updatedInfo{'emoticons'} = $IN{'revisedentryemoticonsallowed'};
-	
-	if( $newEntry ){
-		Gm_Storage::addEntrylist( %updatedInfo, errHandler=>\&Gm_Web::displayAdminErrorExit );
-	} else {
-		Gm_Storage::updateEntrylist( key=>$IN{'entryid'}, %updatedInfo, 
-			errHandler=>\&Gm_Web::displayAdminErrorExit );
-	}
+    my %updatedInfo = ();
+    $updatedInfo{'id'} = $thisentrynumber; ## for new
+    $updatedInfo{'author'} = $thisentryauthor; ## for new
+    $updatedInfo{'subject'} = $IN{'revisedentrysubject'};
+    $updatedInfo{'created'} = "$montwo\/$mdaytwo\/$shortyear"; ## for new
+    $updatedInfo{'createt'} = "$hourtwo\:$mintwo $thisentryampm";	## for new
+    $updatedInfo{'status'} = $revisedentrymarkopen;
+    $updatedInfo{'extended'} = $revisedentrymorestatus;
+    $updatedInfo{'music'} = $IN{'revisedentrymusic'};
+    $updatedInfo{'mood'} = $IN{'revisedentrymood'};
+    $updatedInfo{'emoticons'} = $IN{'revisedentryemoticonsallowed'};
+    
+    if( $newEntry ){
+        Gm_Storage::addEntrylist( %updatedInfo, errHandler=>\&Gm_Web::displayAdminErrorExit );
+    } else {
+        Gm_Storage::updateEntrylist( key=>$IN{'entryid'}, %updatedInfo, 
+                                     errHandler=>\&Gm_Web::displayAdminErrorExit );
+    }
 
-	if( $IN{'revisedentrystayattop'} eq Gm_Constants::NO && 
-		$gmCounters->{'stayattopentry'} eq $thisentrynumber ){ 
-		$gmCounters->{'stayattopentry'} = 0; 
-	}
+    if( $IN{'revisedentrystayattop'} eq Gm_Constants::NO && 
+        $gmCounters->{'stayattopentry'} eq $thisentrynumber ){ 
+        $gmCounters->{'stayattopentry'} = 0; 
+    }
 
-	if( $IN{'revisedentrystayattop'} eq Gm_Constants::YES ){ 
-		$gmCounters->{'stayattopentry'} = $thisentrynumber; 
-	}
+    if( $IN{'revisedentrystayattop'} eq Gm_Constants::YES ){ 
+        $gmCounters->{'stayattopentry'} = $thisentrynumber; 
+    }
 
-#	&gm_writecounter; ## replace this with storage call
-	Gm_Storage::setCounters( list=>$gmCounters, errHandler=>\&Gm_Web::displayAdminErrorExit );
+    #	&gm_writecounter; ## replace this with storage call
+    Gm_Storage::setCounters( list=>$gmCounters, errHandler=>\&Gm_Web::displayAdminErrorExit );
 
-	my $recordentrysubject = $IN{'revisedentrysubject'};
-	if( $recordentrysubject eq Gm_Constants::EMPTY ){ 
-		$recordentrysubject = "[no subject]"; 
-	}
+    my $recordentrysubject = $IN{'revisedentrysubject'};
+    if( $recordentrysubject eq Gm_Constants::EMPTY ){ 
+        $recordentrysubject = "[no subject]"; 
+    }
 
-	if( $newEntry ){
-		Gm_Core::writeToCplog("$AUTHOR{'author'} added a new entry (#$IN{'entryid'}: $recordentrysubject)");
-	} else {
-		Gm_Core::writeToCplog("$AUTHOR{'author'} edited an entry (#$IN{'entryid'}: $recordentrysubject)");
-	}
+    if( $newEntry ){
+        Gm_Core::writeToCplog("$AUTHOR{'author'} added a new entry (#$IN{'entryid'}: $recordentrysubject)");
+    } else {
+        Gm_Core::writeToCplog("$AUTHOR{'author'} edited an entry (#$IN{'entryid'}: $recordentrysubject)");
+    }
 
-	my $entryreturn = Gm_Constants::EMPTY;
-	my $entryVars = {};
-	
-	## TODO: REPLACE WITH A CALL TO CORE
-	if ($IN{'autorebuild'} eq 'indexandentry') {
-		#&gm_readconfig;
-		#&gm_readcounter;
-		#&gm_readtemplates;
-		#&gm_generatemainindex;
-		Gm_Core::constructMainIndex( errHandler=>\&Gm_Web::displayAdminErrorExit );
+    my $entryreturn = Gm_Constants::EMPTY;
+    my $entryVars = {};
+    
+    ## TODO: REPLACE WITH A CALL TO CORE
+    if ($IN{'autorebuild'} eq 'indexandentry') {
+        #&gm_readconfig;
+        #&gm_readcounter;
+        #&gm_readtemplates;
+        #&gm_generatemainindex;
+        Gm_Core::constructMainIndex( errHandler=>\&Gm_Web::displayAdminErrorExit );
 	#	&gm_getentryvariables($IN{'revisedentrynumber'});	
-		$entryVars = Gm_Core::getEntryVariables( entryid=>$IN{'entryid'}, 
-			errHandler=>\&Gm_Web::displayAdminErrorExit );
+        $entryVars = Gm_Core::getEntryVariables( entryid=>$IN{'entryid'}, 
+                                                 errHandler=>\&Gm_Web::displayAdminErrorExit );
 	
-		if (($entryVars->{'thisentryopenstatus'} eq Gm_Constants::OPEN) && 
-			($gmConfigs->{'gmgenerateentrypages'} eq Gm_Constants::YES)) {
-			if ($entryVars->{'thisentrymorebody'} ne Gm_Constants::EMPTY) {
-	# 			&gm_formatentry($gmmoreentrypagetemplate);
-				$entryreturn = Gm_Core::translateEntryTemplates( entryVars=>$entryVars,
-					template=>$gmTemplates->{'gmmoreentrypagetemplate'}, errHandler=>\&Gm_Web::displayAdminErrorExit);
-			} else {
-	# 			&gm_formatentry($gmentrypagetemplate);
-				$entryreturn = Gm_Core::translateEntryTemplates( entryVars=>$entryVars,
-					template=>$gmTemplates->{'gmentrypagetemplate'}, errHandler=>\&Gm_Web::displayAdminErrorExit);
-			}
+        if (($entryVars->{'thisentryopenstatus'} eq Gm_Constants::OPEN) && 
+            ($gmConfigs->{'gmgenerateentrypages'} eq Gm_Constants::YES)) {
+            if ($entryVars->{'thisentrymorebody'} ne Gm_Constants::EMPTY) {
+                # 			&gm_formatentry($gmmoreentrypagetemplate);
+                $entryreturn = Gm_Core::translateEntryTemplates( entryVars=>$entryVars,
+                                                                template=>$gmTemplates->{'gmmoreentrypagetemplate'}, errHandler=>\&Gm_Web::displayAdminErrorExit);
+            } else {
+                # 			&gm_formatentry($gmentrypagetemplate);
+                $entryreturn = Gm_Core::translateEntryTemplates( entryVars=>$entryVars,
+                                                                template=>$gmTemplates->{'gmentrypagetemplate'}, errHandler=>\&Gm_Web::displayAdminErrorExit);
+            }
 
-			Gm_Storage::saveFile( loc=>"$gmConfigs->{'gmentriespath'}/$entryVars->{'thisentrynumberpadded'}".
-				".$gmConfigs->{'gmentrysuffix'}", 
-				content=>[$entryreturn], ch_mod=>'0666', errHandler=>\&Gm_Web::displayAdminErrorExit,
-				'new'=>1 );		
-		} else {
-			unlink ("$gmConfigs->{'gmentriespath'}/$entryVars->{'thisentrynumberpadded'}.$gmConfigs->{'gmentrysuffix'}");
-		}
-		if( $newEntry ){
-			$message = '<span class="status_msg">Your new entry has been added.</span>';	
-		} else {
-			$message = '<span class="status_msg">Entry #'.$IN{'entryid'}.' ('.$recordentrysubject.
-				') has been edited and the main index & this entry\'s page have been rebuilt.</span>';
-		}
-	} else {
-		$message = '<span class="status_msg">Entry #'.$IN{'entryid'}.' ('.$recordentrysubject.
-			') has been edited. Be sure to rebuild your files for the changes to be visible '.
-			'on your site.</span>';
-	}
+            Gm_Storage::saveFile( loc=>"$gmConfigs->{'gmentriespath'}/$entryVars->{'thisentrynumberpadded'}".
+                                 ".$gmConfigs->{'gmentrysuffix'}", 
+                                 content=>[$entryreturn], ch_mod=>'0666', errHandler=>\&Gm_Web::displayAdminErrorExit,
+                                 'new'=>1 );		
+        } else {
+            unlink ("$gmConfigs->{'gmentriespath'}/$entryVars->{'thisentrynumberpadded'}.$gmConfigs->{'gmentrysuffix'}");
+        }
+        if( $newEntry ){
+            $message = '<span class="status_msg">Your new entry has been added.</span>';	
+        } else {
+            $message = '<span class="status_msg">Entry #'.$IN{'entryid'}.' ('.$recordentrysubject.
+                                                                            ') has been edited and the main index & this entry\'s page have been rebuilt.</span>';
+        }
+    } else {
+        $message = '<span class="status_msg">Entry #'.$IN{'entryid'}.' ('.$recordentrysubject.
+                                                                        ') has been edited. Be sure to rebuild your files for the changes to be visible '.
+            'on your site.</span>';
+    }
 
-	
-	### This has got to be duplicating something
-	## TODO: fix with rebuildUpdate or some core function can be leveraged
-	if( $newEntry ){	
-		if( $gmConfigs->{'gmgenerateentrypages'} eq Gm_Constants::YES ){
+    
+    ### This has got to be duplicating something
+    ## TODO: fix with rebuildUpdate or some core function can be leveraged
+    if( $newEntry ){	
+        if( $gmConfigs->{'gmgenerateentrypages'} eq Gm_Constants::YES ){
+            
+            # 	&gm_readconfig;
+            # #	&gm_getentryvariables($newentrynumber);
+            # 	$entryVars = Gm_Core::getEntryVariables( entryid=>$newentrynumber, 
+            #   	errHandler=>\&Gm_Web::displayAdminErrorExit );
+            # 	if ($entryVars->{'thisentryopenstatus'} eq Gm_Constants::OPEN) {
+            # 		if ($entryVars->{'thisentrymorebody'} ne Gm_Constants::EMPTY) {
+            # # 			&gm_formatentry($gmmoreentrypagetemplate);
+            # 			$entryreturn = Gm_Core::translateEntryTemplates( entryVars=>$entryVars,
+            # 				template=>$gmmoreentrypagetemplate, errHandler=>\&Gm_Web::displayAdminErrorExit);
+            # 		} else {
+            # # 			&gm_formatentry($gmentrypagetemplate);
+            # 			$entryreturn = Gm_Core::translateEntryTemplates( entryVars=>$entryVars,
+            # 				template=>$gmentrypagetemplate, errHandler=>\&Gm_Web::displayAdminErrorExit);
+            # 		}
+            # # 		open (THISFILE, ">$EntriesPath/$thisentrynumberpadded.$entrysuffix") || &gm_dangermouse("Can't write file to $EntriesPath/$thisentrynumberpadded.$entrysuffix - please run Diagnostics & Repair in the Configuration screen.");
+            # # 		print THISFILE $entryreturn;
+            # # 		close (THISFILE);
+            # # 		chmod (0666, "$EntriesPath/$newentrynumberpadded.$entrysuffix");
+            # 		Gm_Storage::saveFile( loc=>"$EntriesPath/$entryVars->{'thisentrynumberpadded'}.$entrysuffix", 
+            # 			content=>[$entryreturn],'new'=>1, ch_mod=>'0666', 
+            # 			errHandler=>\&Gm_Web::displayAdminErrorExit );
+            # 	} else {
+            # 		unlink( "$EntriesPath/$entryVars->{'thisentrynumberpadded'}.$entrysuffix" );
+            # 	}
+            
+            ## Refreshing the previous entry
+            if( $gmCounters->{'entrytotal'} ne '1' ){
+                my $updatepreviousnumber = $gmCounters->{'entrytotal'} - 1;
+                $entryVars = Gm_Core::getEntryVariables( entryid=>$updatepreviousnumber, 
+                                                         errHandler=>\&Gm_Web::displayAdminErrorExit );
 		
-		# 	&gm_readconfig;
-		# #	&gm_getentryvariables($newentrynumber);
-		# 	$entryVars = Gm_Core::getEntryVariables( entryid=>$newentrynumber, 
-		#   	errHandler=>\&Gm_Web::displayAdminErrorExit );
-		# 	if ($entryVars->{'thisentryopenstatus'} eq Gm_Constants::OPEN) {
-		# 		if ($entryVars->{'thisentrymorebody'} ne Gm_Constants::EMPTY) {
-		# # 			&gm_formatentry($gmmoreentrypagetemplate);
-		# 			$entryreturn = Gm_Core::translateEntryTemplates( entryVars=>$entryVars,
-		# 				template=>$gmmoreentrypagetemplate, errHandler=>\&Gm_Web::displayAdminErrorExit);
-		# 		} else {
-		# # 			&gm_formatentry($gmentrypagetemplate);
-		# 			$entryreturn = Gm_Core::translateEntryTemplates( entryVars=>$entryVars,
-		# 				template=>$gmentrypagetemplate, errHandler=>\&Gm_Web::displayAdminErrorExit);
-		# 		}
-		# # 		open (THISFILE, ">$EntriesPath/$thisentrynumberpadded.$entrysuffix") || &gm_dangermouse("Can't write file to $EntriesPath/$thisentrynumberpadded.$entrysuffix - please run Diagnostics & Repair in the Configuration screen.");
-		# # 		print THISFILE $entryreturn;
-		# # 		close (THISFILE);
-		# # 		chmod (0666, "$EntriesPath/$newentrynumberpadded.$entrysuffix");
-		# 		Gm_Storage::saveFile( loc=>"$EntriesPath/$entryVars->{'thisentrynumberpadded'}.$entrysuffix", 
-		# 			content=>[$entryreturn],'new'=>1, ch_mod=>'0666', 
-		# 			errHandler=>\&Gm_Web::displayAdminErrorExit );
-		# 	} else {
-		# 		unlink( "$EntriesPath/$entryVars->{'thisentrynumberpadded'}.$entrysuffix" );
-		# 	}
-		
-			## Refreshing the previous entry
-			if( $gmCounters->{'entrytotal'} ne '1' ){
-				my $updatepreviousnumber = $gmCounters->{'entrytotal'} - 1;
-				$entryVars = Gm_Core::getEntryVariables( entryid=>$updatepreviousnumber, 
-					errHandler=>\&Gm_Web::displayAdminErrorExit );
-		
-				if ($entryVars->{'thisentryopenstatus'} eq Gm_Constants::OPEN) {
-					if ($updatepreviousnumber <= $gmCounters->{'archivetotal'}) {
-						if ($entryVars->{'thisentrymorebody'} ne Gm_Constants::EMPTY) {
-							$entryreturn = Gm_Core::translateEntryTemplates( entryVars=>$entryVars,
-								template=>$gmTemplates->{'gmmorearchiveentrypagetemplate'}, 
-								errHandler=>\&Gm_Web::displayAdminErrorExit);
-						} else {
-							$entryreturn = Gm_Core::translateEntryTemplates( entryVars=>$entryVars,
-								template=>$gmTemplates->{'gmarchiveentrypagetemplate'}, 
-								errHandler=>\&Gm_Web::displayAdminErrorExit);
-						}
-					} else {
-						if ($entryVars->{'thisentrymorebody'} ne Gm_Constants::EMPTY) {
-							$entryreturn = Gm_Core::translateEntryTemplates( entryVars=>$entryVars,
-								template=>$gmTemplates->{'gmmoreentrypagetemplate'}, errHandler=>\&Gm_Web::displayAdminErrorExit);
-						} else {
-							$entryreturn = Gm_Core::translateEntryTemplates( entryVars=>$entryVars,
-								template=>$gmTemplates->{'gmentrypagetemplate'}, errHandler=>\&Gm_Web::displayAdminErrorExit);
-						}
-					}
+                if ($entryVars->{'thisentryopenstatus'} eq Gm_Constants::OPEN) {
+                    if ($updatepreviousnumber <= $gmCounters->{'archivetotal'}) {
+                        if ($entryVars->{'thisentrymorebody'} ne Gm_Constants::EMPTY) {
+                            $entryreturn = Gm_Core::translateEntryTemplates( entryVars=>$entryVars,
+                                                                             template=>$gmTemplates->{'gmmorearchiveentrypagetemplate'}, 
+                                                                             errHandler=>\&Gm_Web::displayAdminErrorExit);
+                        } else {
+                            $entryreturn = Gm_Core::translateEntryTemplates( entryVars=>$entryVars,
+                                                                             template=>$gmTemplates->{'gmarchiveentrypagetemplate'}, 
+                                                                             errHandler=>\&Gm_Web::displayAdminErrorExit);
+                        }
+                    } else {
+                        if ($entryVars->{'thisentrymorebody'} ne Gm_Constants::EMPTY) {
+                            $entryreturn = Gm_Core::translateEntryTemplates( entryVars=>$entryVars,
+                                                                             template=>$gmTemplates->{'gmmoreentrypagetemplate'}, errHandler=>\&Gm_Web::displayAdminErrorExit);
+                        } else {
+                            $entryreturn = Gm_Core::translateEntryTemplates( entryVars=>$entryVars,
+                                                                             template=>$gmTemplates->{'gmentrypagetemplate'}, errHandler=>\&Gm_Web::displayAdminErrorExit);
+                        }
+                    }
 
-					Gm_Storage::saveFile( loc=>"$gmConfigs->{'gmentriespath'}/$entryVars->{'thisentrynumberpadded'}.$gmConfigs->{'gmentrysuffix'}", 
-						content=>[$entryreturn], ch_mod=>'0666', 
-						errHandler=>\&Gm_Web::displayAdminErrorExit );			
-				} else {
-					unlink ("$gmConfigs->{'gmentriespath'}/$entryVars->{'thisentrynumberpadded'}.$gmConfigs->{'gmentrysuffix'}");
-				}
-			}
-		}
-			
-		#&gm_generatemainindex;
-		
-		#&gm_readcounter;
-		## > 1 ??		
-		##  using newentrynumber, but could we switch to Gm_Core::hasPosted() since it won't be 0 if entrytotal isn't 0
-		if (($gmCounters->{'archivetotal'} ne '0') || ($gmConfigs->{'gmconcurrentmainandarchives'} eq Gm_Constants::YES)) {
-			##  using newentrynumber, but could we switch to Gm_Core::hasPosted() since it won't be 0 if entrytotal isn't 0
-			if (($gmConfigs->{'gmgenerateentrypages'} eq Gm_Constants::YES) && ($gmCounters->{'archivetotal'} ne '0')) {
+                    Gm_Storage::saveFile( loc=>"$gmConfigs->{'gmentriespath'}/$entryVars->{'thisentrynumberpadded'}.$gmConfigs->{'gmentrysuffix'}", 
+                                          content=>[$entryreturn], ch_mod=>'0666', 
+                                          errHandler=>\&Gm_Web::displayAdminErrorExit );			
+                } else {
+                    unlink ("$gmConfigs->{'gmentriespath'}/$entryVars->{'thisentrynumberpadded'}.$gmConfigs->{'gmentrysuffix'}");
+                }
+            }
+        }
+        
+        #&gm_generatemainindex;
+        
+        #&gm_readcounter;
+        ## > 1 ??		
+        ##  using newentrynumber, but could we switch to Gm_Core::hasPosted() since it won't be 0 if entrytotal isn't 0
+        if (($gmCounters->{'archivetotal'} ne '0') || ($gmConfigs->{'gmconcurrentmainandarchives'} eq Gm_Constants::YES)) {
+            ##  using newentrynumber, but could we switch to Gm_Core::hasPosted() since it won't be 0 if entrytotal isn't 0
+            if (($gmConfigs->{'gmgenerateentrypages'} eq Gm_Constants::YES) && ($gmCounters->{'archivetotal'} ne '0')) {
 
 		# 		&gm_getentryvariables($newarchivenumber);
-				$entryVars = Gm_Core::getEntryVariables( entryid=>$gmCounters->{'archivetotal'}, 
-					errHandler=>\&Gm_Web::displayAdminErrorExit );
-				my $originaldaymarker = "$entryVars->{'thisentryday'} $entryVars->{'thisentrymonth'}";
-				my $currentdaymarker = $originaldaymarker;
-				my $markercount = $gmCounters->{'archivetotal'};
-				do {
-					if ($entryVars->{'thisentryopenstatus'} eq Gm_Constants::OPEN) {
-						if ($entryVars->{'thisentrymorebody'} ne Gm_Constants::EMPTY) {
-							$entryreturn = Gm_Core::translateEntryTemplates( entryVars=>$entryVars,
-								template=>$gmTemplates->{'gmmorearchiveentrypagetemplate'}, 
-								errHandler=>\&Gm_Web::displayAdminErrorExit);
-						} else {
-		# 					&gm_formatentry($gmarchiveentrypagetemplate);
-							$entryreturn = Gm_Core::translateEntryTemplates( entryVars=>$entryVars,
-								template=>$gmTemplates->{'gmarchiveentrypagetemplate'}, 
-								errHandler=>\&Gm_Web::displayAdminErrorExit);
-						}
+                $entryVars = Gm_Core::getEntryVariables( entryid=>$gmCounters->{'archivetotal'}, 
+                                                         errHandler=>\&Gm_Web::displayAdminErrorExit );
+                my $originaldaymarker = "$entryVars->{'thisentryday'} $entryVars->{'thisentrymonth'}";
+                my $currentdaymarker = $originaldaymarker;
+                my $markercount = $gmCounters->{'archivetotal'};
+                do {
+                    if ($entryVars->{'thisentryopenstatus'} eq Gm_Constants::OPEN) {
+                        if ($entryVars->{'thisentrymorebody'} ne Gm_Constants::EMPTY) {
+                            $entryreturn = Gm_Core::translateEntryTemplates( entryVars=>$entryVars,
+                                                                             template=>$gmTemplates->{'gmmorearchiveentrypagetemplate'}, 
+                                                                             errHandler=>\&Gm_Web::displayAdminErrorExit);
+                        } else {
+                            # 					&gm_formatentry($gmarchiveentrypagetemplate);
+                            $entryreturn = Gm_Core::translateEntryTemplates( entryVars=>$entryVars,
+                                                                             template=>$gmTemplates->{'gmarchiveentrypagetemplate'}, 
+                                                                             errHandler=>\&Gm_Web::displayAdminErrorExit);
+                        }
 
-						Gm_Storage::saveFile( loc=>"$gmConfigs->{'gmentriespath'}/$entryVars->{'thisentrynumberpadded'}.$gmConfigs->{'gmentrysuffix'}", 
-							content=>[$entryreturn], ch_mod=>'0666', 
-							errHandler=>\&Gm_Web::displayAdminErrorExit );	
-					} else {
-						unlink ("$gmConfigs->{'gmentriespath'}/$entryVars->{'thisentrynumberpadded'}.$gmConfigs->{'gmentrysuffix'}");
-					}
-					$markercount--;
-					if ($markercount eq '0') {
-						$currentdaymarker = "finis";
-					} else {
-		# 				&gm_getentryvariables($markercount);
-						$entryVars = Gm_Core::getEntryVariables( entryid=>$markercount, 
-							errHandler=>\&Gm_Web::displayAdminErrorExit );
-						$currentdaymarker = "$entryVars->{'thisentryday'} $entryVars->{'thisentrymonth'}";
-					}		
-				} until $currentdaymarker ne $originaldaymarker;
-			}
-		
-			if( $gmConfigs->{'gmconcurrentmainandarchives'} eq Gm_Constants::YES ){ 
-				$gmCounters->{'archivetotal'} = $gmCounters->{'entrytotal'}; 
-			}
-			unless( $gmConfigs->{'gmkeepmonthlyarchives'} eq Gm_Constants::NO ){ 
-#				&gm_generatearchive($newarchivenumber); 
-				Gm_Core::constructArchives( startnum=>$gmCounters->{'archivetotal'}, 
-					buildnum=>1, errHandler=>\&Gm_Web::displayAdminErrorExit );
-			}
-#			&gm_readcounter;  ## need?  Won't this wipe out the concurrent value?  yes it will.
-			$gmCounters = Gm_Storage::getCounters( errHandler=>\&Gm_Web::displayAdminErrorExit );  ## resetting?
-		}
-		
-		if( $gmConfigs->{'gmkeeparchivemasterindex'} eq Gm_Constants::YES ){
-			##  using newentrynumber, but could we switch to Gm_Core::hasPosted() since it won't be 0 if entrytotal isn't 0
-			## or should we have a new core function?  ne 0 is sloppy
-			if( $gmCounters->{'archivetotal'} ne '0' ){
-				$entryVars = Gm_Core::getEntryVariables( entryid=>$gmCounters->{'archivetotal'}, 
-					errHandler=>\&Gm_Web::displayAdminErrorExit );
-			} else {
-				$entryVars = Gm_Core::getEntryVariables( entryid=>$gmCounters->{'entrytotal'}, 
-					errHandler=>\&Gm_Web::displayAdminErrorExit );
-			}
-		# 	&gm_formatentry($gmarchivemasterindextemplate);
-			$entryreturn = Gm_Core::translateEntryTemplates( entryVars=>$entryVars,
-				template=>$gmTemplates->{'gmarchivemasterindextemplate'}, errHandler=>\&Gm_Web::displayAdminErrorExit);	
+                        Gm_Storage::saveFile( loc=>"$gmConfigs->{'gmentriespath'}/$entryVars->{'thisentrynumberpadded'}.$gmConfigs->{'gmentrysuffix'}", 
+                                              content=>[$entryreturn], ch_mod=>'0666', 
+                                              errHandler=>\&Gm_Web::displayAdminErrorExit );	
+                    } else {
+                        unlink ("$gmConfigs->{'gmentriespath'}/$entryVars->{'thisentrynumberpadded'}.$gmConfigs->{'gmentrysuffix'}");
+                    }
+                    $markercount--;
+                    if ($markercount eq '0') {
+                        $currentdaymarker = "finis";
+                    } else {
+                        # 				&gm_getentryvariables($markercount);
+                        $entryVars = Gm_Core::getEntryVariables( entryid=>$markercount, 
+                                                                 errHandler=>\&Gm_Web::displayAdminErrorExit );
+                        $currentdaymarker = "$entryVars->{'thisentryday'} $entryVars->{'thisentrymonth'}";
+                    }		
+                } until $currentdaymarker ne $originaldaymarker;
+            }
+            
+            if( $gmConfigs->{'gmconcurrentmainandarchives'} eq Gm_Constants::YES ){ 
+                $gmCounters->{'archivetotal'} = $gmCounters->{'entrytotal'}; 
+            }
+            unless( $gmConfigs->{'gmkeepmonthlyarchives'} eq Gm_Constants::NO ){ 
+                #				&gm_generatearchive($newarchivenumber); 
+                Gm_Core::constructArchives( startnum=>$gmCounters->{'archivetotal'}, 
+                                            buildnum=>1, errHandler=>\&Gm_Web::displayAdminErrorExit );
+            }
+            #			&gm_readcounter;  ## need?  Won't this wipe out the concurrent value?  yes it will.
+            $gmCounters = Gm_Storage::getCounters( errHandler=>\&Gm_Web::displayAdminErrorExit );  ## resetting?
+        }
+        
+        if( $gmConfigs->{'gmkeeparchivemasterindex'} eq Gm_Constants::YES ){
+            ##  using newentrynumber, but could we switch to Gm_Core::hasPosted() since it won't be 0 if entrytotal isn't 0
+            ## or should we have a new core function?  ne 0 is sloppy
+            if( $gmCounters->{'archivetotal'} ne '0' ){
+                $entryVars = Gm_Core::getEntryVariables( entryid=>$gmCounters->{'archivetotal'}, 
+                                                        errHandler=>\&Gm_Web::displayAdminErrorExit );
+            } else {
+                $entryVars = Gm_Core::getEntryVariables( entryid=>$gmCounters->{'entrytotal'}, 
+                                                        errHandler=>\&Gm_Web::displayAdminErrorExit );
+            }
+            # 	&gm_formatentry($gmarchivemasterindextemplate);
+            $entryreturn = Gm_Core::translateEntryTemplates( entryVars=>$entryVars,
+                                                            template=>$gmTemplates->{'gmarchivemasterindextemplate'}, errHandler=>\&Gm_Web::displayAdminErrorExit);	
 
-			Gm_Storage::saveFile( loc=>"$gmConfigs->{'gmentriespath'}/$gmConfigs->{'gmindexfilename'}", 
-				content=>[$entryreturn], ch_mod=>'0666', 
-				errHandler=>\&Gm_Web::displayAdminErrorExit );
-		}
-		
-		## Updating total entries by author
-		my $gmauthors = Gm_Storage::getAuthors( errHandler=>\&Gm_Web::displayAdminErrorExit );
-#		my $selectedauthor = $gmauthors->{$IN{'authorname'}};
-		my $selectedauthor = $gmauthors->{$AUTHOR{'author'}};
-		my $authorEntries = ++$selectedauthor->{'posttotal'};
-		
-		Gm_Storage::updateAuthor( key=>$selectedauthor->{'author'}, 
-				posttotal=>$authorEntries, 
-				errHandler=>\&Gm_Web::displayAdminErrorExit );
-			
-		if( $gmConfigs->{'gmotherfilelist'} ne Gm_Constants::EMPTY && 
-			$gmConfigs->{'gmotherfilelistentryrebuild'} eq Gm_Constants::YES ){
-			$IN{'rebuilding'} = 'connectedaftersave';
-			$IN{'rebuildfrom'} = 'connected';
-#			&gm_rebuildupdate; ## TODO: this should call local
-			rebuildUpdate();
-		}	
-		
-	}
+            Gm_Storage::saveFile( loc=>"$gmConfigs->{'gmentriespath'}/$gmConfigs->{'gmindexfilename'}", 
+                                 content=>[$entryreturn], ch_mod=>'0666', 
+                                 errHandler=>\&Gm_Web::displayAdminErrorExit );
+        }
+        
+        ## Updating total entries by author
+        my $gmauthors = Gm_Storage::getAuthors( errHandler=>\&Gm_Web::displayAdminErrorExit );
+        #		my $selectedauthor = $gmauthors->{$IN{'authorname'}};
+        my $selectedauthor = $gmauthors->{$AUTHOR{'author'}};
+        my $authorEntries = ++$selectedauthor->{'posttotal'};
+        
+        Gm_Storage::updateAuthor( key=>$selectedauthor->{'author'}, 
+                                 posttotal=>$authorEntries, 
+                                 errHandler=>\&Gm_Web::displayAdminErrorExit );
+        
+        if( $gmConfigs->{'gmotherfilelist'} ne Gm_Constants::EMPTY && 
+            $gmConfigs->{'gmotherfilelistentryrebuild'} eq Gm_Constants::YES ){
+            $IN{'rebuilding'} = 'connectedaftersave';
+            $IN{'rebuildfrom'} = 'connected';
+            #			&gm_rebuildupdate; ## TODO: this should call local
+            rebuildUpdate();
+        }	
+        
+    }
 
 
 
-	#&gm_frontpage;
-##	filterEntryList( $message );  ## this will default to filterentryllist
-  return( $message ); ## should default to filterEntries
+    #&gm_frontpage;
+    ##	filterEntryList( $message );  ## this will default to filterentryllist
+    return( $message ); ## should default to filterEntries
 }
 
 
 ## Delete Entry Comments
 # Edit a particular entry, or provide the blank form for a new entry
 sub deleteEntryComments {
-	my $message = Gm_Constants::EMPTY;
-#&gm_validate;
+    my $message = Gm_Constants::EMPTY;
+    #&gm_validate;
 
-	my @del_ids = split("\t",$IN{'multideletecommentselection'});
+    my @del_ids = split("\t",$IN{'multideletecommentselection'});
 
-# 	if ($gmentryeditaccess eq Gm_Constants::NO) {
-# 		gm_writetocplog("$IN{'authorname'} attempted to delete a comment from entry #$IN{'revisedentrynumber'} ($IN{'revisedentrysubject'}) without authorization");
-# 		$statusnote = qq(<B><FONT COLOR="#FF0000">You don't have access to delete comments.</FONT></B><P>);
-# 		&gm_frontpage;
-# 	}
+    # 	if ($gmentryeditaccess eq Gm_Constants::NO) {
+    # 		gm_writetocplog("$IN{'authorname'} attempted to delete a comment from entry #$IN{'revisedentrynumber'} ($IN{'revisedentrysubject'}) without authorization");
+    # 		$statusnote = qq(<B><FONT COLOR="#FF0000">You don't have access to delete comments.</FONT></B><P>);
+    # 		&gm_frontpage;
+    # 	}
 
-	if( $IN{'multideletecommentselection'} eq Gm_Constants::EMPTY ){
-		$message = '<span class="error_msg">You must select a comment to be deleted.</span>';
-#		&gm_editthisentry;
-		editEntry( $message );	
-	}
+    if( $IN{'multideletecommentselection'} eq Gm_Constants::EMPTY ){
+        $message = '<span class="error_msg">You must select a comment to be deleted.</span>';
+        #		&gm_editthisentry;
+        editEntry( $message );	
+    }
 
-# if (($IN{'authorname'} ne $IN{'revisedentryauthor'}) && ($gmentryeditaccess eq "mineonly")) {
-# 	gm_writetocplog("$IN{'authorname'} attempted to delete a comment from entry #$IN{'entryselectionlist'} (by $IN{'revisedentryauthor'}) without authorization");
-# 	$statusnote = qq(<B><FONT COLOR="#FF0000">You don't have access to delete comments from entries you didn't create.</FONT></B><P>);
-# 	&gm_editentryselection;
-# }
+    # if (($IN{'authorname'} ne $IN{'revisedentryauthor'}) && ($gmentryeditaccess eq "mineonly")) {
+    # 	gm_writetocplog("$IN{'authorname'} attempted to delete a comment from entry #$IN{'entryselectionlist'} (by $IN{'revisedentryauthor'}) without authorization");
+    # 	$statusnote = qq(<B><FONT COLOR="#FF0000">You don't have access to delete comments from entries you didn't create.</FONT></B><P>);
+    # 	&gm_editentryselection;
+    # }
 
-	my $thisentrynumberpadded = Gm_Utils::toEntryPadded( $IN{'entryid'} );
+    my $thisentrynumberpadded = Gm_Utils::toEntryPadded( $IN{'entryid'} );
 
-	my $gmEntry = Gm_Storage::getEntry( id=>$IN{'entryid'},
-		errHandler=>\&Gm_Web::displayUserErrorExit );
+    my $gmEntry = Gm_Storage::getEntry( id=>$IN{'entryid'},
+                                        errHandler=>\&Gm_Web::displayUserErrorExit );
 
-	## TODO: refactor out usage of variables, make work directly off of entry
-	my $thisentrynumber = $gmEntry->{'entryinfo'}{'id'};
-	my $thisentryauthor = $gmEntry->{'entryinfo'}{'author'};
-	my $thisentrysubject = $gmEntry->{'entryinfo'}{'subject'};
-	my $thisentryweekdaynumber = $gmEntry->{'entryinfo'}{'weekday'};
-	my $thisentrymonth = $gmEntry->{'entryinfo'}{'month'};
-	my $thisentryday = $gmEntry->{'entryinfo'}{'day'};
-	my $thisentryyearyear = $gmEntry->{'entryinfo'}{'year'};
-	my $thisentryhour = $gmEntry->{'entryinfo'}{'hour'};
-	my $thisentryminute = $gmEntry->{'entryinfo'}{'minute'};
-	my $thisentrysecond = $gmEntry->{'entryinfo'}{'second'};
-	my $thisentryampm = $gmEntry->{'entryinfo'}{'ampm'};
-	my $thisentrypositivekarma = $gmEntry->{'entryinfo'}{'karmapos'};
-	my $thisentrynegativekarma = $gmEntry->{'entryinfo'}{'karmaneg'};
-	my $thisentrycommentsnumber = $gmEntry->{'entryinfo'}{'commenttotal'};
-	my $thisentryallowkarma = $gmEntry->{'entryinfo'}{'karma'};
-	my $thisentryallowcomments = $gmEntry->{'entryinfo'}{'comments'};
-	my $thisentryopenstatus = $gmEntry->{'entryinfo'}{'status'};
-	my $thisentrymusic = $gmEntry->{'entryinfo'}{'music'};
-	my $thisentrymood = $gmEntry->{'entryinfo'}{'mood'};
-	my $thisentryemoticonsallowed = $gmEntry->{'entryinfo'}{'emoticons'};
+    ## TODO: refactor out usage of variables, make work directly off of entry
+    my $thisentrynumber = $gmEntry->{'entryinfo'}{'id'};
+    my $thisentryauthor = $gmEntry->{'entryinfo'}{'author'};
+    my $thisentrysubject = $gmEntry->{'entryinfo'}{'subject'};
+    my $thisentryweekdaynumber = $gmEntry->{'entryinfo'}{'weekday'};
+    my $thisentrymonth = $gmEntry->{'entryinfo'}{'month'};
+    my $thisentryday = $gmEntry->{'entryinfo'}{'day'};
+    my $thisentryyearyear = $gmEntry->{'entryinfo'}{'year'};
+    my $thisentryhour = $gmEntry->{'entryinfo'}{'hour'};
+    my $thisentryminute = $gmEntry->{'entryinfo'}{'minute'};
+    my $thisentrysecond = $gmEntry->{'entryinfo'}{'second'};
+    my $thisentryampm = $gmEntry->{'entryinfo'}{'ampm'};
+    my $thisentrypositivekarma = $gmEntry->{'entryinfo'}{'karmapos'};
+    my $thisentrynegativekarma = $gmEntry->{'entryinfo'}{'karmaneg'};
+    my $thisentrycommentsnumber = $gmEntry->{'entryinfo'}{'commenttotal'};
+    my $thisentryallowkarma = $gmEntry->{'entryinfo'}{'karma'};
+    my $thisentryallowcomments = $gmEntry->{'entryinfo'}{'comments'};
+    my $thisentryopenstatus = $gmEntry->{'entryinfo'}{'status'};
+    my $thisentrymusic = $gmEntry->{'entryinfo'}{'music'};
+    my $thisentrymood = $gmEntry->{'entryinfo'}{'mood'};
+    my $thisentryemoticonsallowed = $gmEntry->{'entryinfo'}{'emoticons'};
 
-#	if( ($IN{'authorname'} ne $IN{'revisedentryauthor'} ) && ($gmentryeditaccess eq "mineonly")) {
-	if( $AUTHOR{'author'} ne $thisentryauthor && $AUTHOR{'editentries'} eq Gm_Constants::O ){
-		Gm_Core::writeToCplog("$AUTHOR{'author'} attempted to delete comments from entry #".
-			$IN{'entryid'}." (by $thisentryauthor) without authorization");
-		$message = '<span class="error_msg">You don\'t have access to delete entries '.
-			'you didn\'t create.</span>';
-#		&gm_editentryselection;
-		filterEntryList( $message );
-	}
+    #	if( ($IN{'authorname'} ne $IN{'revisedentryauthor'} ) && ($gmentryeditaccess eq "mineonly")) {
+    if( $AUTHOR{'author'} ne $thisentryauthor && $AUTHOR{'editentries'} eq Gm_Constants::O ){
+        Gm_Core::writeToCplog("$AUTHOR{'author'} attempted to delete comments from entry #".
+                              $IN{'entryid'}." (by $thisentryauthor) without authorization");
+        $message = '<span class="error_msg">You don\'t have access to delete entries '.
+            'you didn\'t create.</span>';
+        #		&gm_editentryselection;
+        filterEntryList( $message );
+    }
 
-	## Figure out which ones go - TODO: REFACTOR THIS, MUST BE A BETTER WAY TO DO THIS
-	#$statusnote = Gm_Constants::EMPTY;
-	foreach my $del_id (@del_ids){
-		my $deleteme = $del_id - 1;
-		
-		$thisentrycommentsnumber--;
+    ## Figure out which ones go - TODO: REFACTOR THIS, MUST BE A BETTER WAY TO DO THIS
+    #$statusnote = Gm_Constants::EMPTY;
+    foreach my $del_id (@del_ids){
+        my $deleteme = $del_id - 1;
+        
+        $thisentrycommentsnumber--;
 	# 	$entrylines[$deleteme] = '*DELETED*';
-		$gmEntry->{'comments'}[$deleteme] = '*DELETED*';
-		
-		$message .= '<span class="status_msg">Comment #'.$del_id.' has been deleted.</span><br />';
-	}
+        $gmEntry->{'comments'}[$deleteme] = '*DELETED*';
+        
+        $message .= '<span class="status_msg">Comment #'.$del_id.' has been deleted.</span><br />';
+    }
 
-	## Make new list
-	my @new_comments = ();
-	foreach my $ent ( @{$gmEntry->{'comments'}} ){
-		push( @new_comments, $ent ) 
-			unless( $ent eq '*DELETED*' );
-	}
-	## Setting comments to new list
-	$gmEntry->{'comments'} = \@new_comments;
+    ## Make new list
+    my @new_comments = ();
+    foreach my $ent ( @{$gmEntry->{'comments'}} ){
+        push( @new_comments, $ent ) 
+            unless( $ent eq '*DELETED*' );
+    }
+    ## Setting comments to new list
+    $gmEntry->{'comments'} = \@new_comments;
 
-	Gm_Storage::setEntry( entry=>$gmEntry, errHandler=>\&Gm_Web::displayAdminErrorExit );
+    Gm_Storage::setEntry( entry=>$gmEntry, errHandler=>\&Gm_Web::displayAdminErrorExit );
 
-	## Updating counter TODO: USE STORAGE DIRECTLY
-	#&gm_readcounter;
-	my $gmCounters = Gm_Storage::getCounters( errHandler=>\&Gm_Web::displayAdminErrorExit );
-	$gmCounters->{'commenttotal'} = $gmCounters->{'commenttotal'} - scalar( @del_ids );
-	#&gm_writecounter;
-	Gm_Storage::setCounters( list=>$gmCounters, errHandler=>\&Gm_Web::displayAdminErrorExit );
+    ## Updating counter TODO: USE STORAGE DIRECTLY
+    #&gm_readcounter;
+    my $gmCounters = Gm_Storage::getCounters( errHandler=>\&Gm_Web::displayAdminErrorExit );
+    $gmCounters->{'commenttotal'} = $gmCounters->{'commenttotal'} - scalar( @del_ids );
+    #&gm_writecounter;
+    Gm_Storage::setCounters( list=>$gmCounters, errHandler=>\&Gm_Web::displayAdminErrorExit );
 
-	Gm_Core::writeToCplog("$AUTHOR{'author'} deleted a comment(s) \#".
-		join(',',@del_ids)." from entry #$IN{'entryid'} ($thisentrysubject)");
+    Gm_Core::writeToCplog("$AUTHOR{'author'} deleted a comment(s) \#".
+                         join(',',@del_ids)." from entry #$IN{'entryid'} ($thisentrysubject)");
 
-#	&gm_editthisentry;
-	
-	editEntry( $message );
+    #	&gm_editthisentry;
+    
+    editEntry( $message );
 }
 
 ## View Entry Comment
 # Edit a particular entry's comment
 # (opt) ARG1: Message to display to user, could be error or confirmation of action
 sub viewEntryComment {
-	my $message = shift( @_ ) || Gm_Constants::EMPTY;
-#&gm_validate;
+    my $message = shift( @_ ) || Gm_Constants::EMPTY;
+    #&gm_validate;
 
-# if ($gmentryeditaccess eq Gm_Constants::NO) {
-# 	gm_writetocplog("$IN{'authorname'} attempted to edit comment #$IN{'revisedentrycommentselection'} in entry #$IN{'revisedentrynumber'} ($IN{'revisedentrysubject'}) without authorization");
-# 	$statusnote = qq(<B><FONT COLOR="#FF0000">You don't have access to edit comments.</FONT></B><P>);
-# 	&gm_frontpage;
-# }
+    # if ($gmentryeditaccess eq Gm_Constants::NO) {
+    # 	gm_writetocplog("$IN{'authorname'} attempted to edit comment #$IN{'revisedentrycommentselection'} in entry #$IN{'revisedentrynumber'} ($IN{'revisedentrysubject'}) without authorization");
+    # 	$statusnote = qq(<B><FONT COLOR="#FF0000">You don't have access to edit comments.</FONT></B><P>);
+    # 	&gm_frontpage;
+    # }
 
-	if ($IN{'revisedentrycommentselection'} eq Gm_Constants::EMPTY) {
-		$message = '<span class="error_msg">You must select a comment to be edited.</span>';
+    if ($IN{'revisedentrycommentselection'} eq Gm_Constants::EMPTY) {
+        $message = '<span class="error_msg">You must select a comment to be edited.</span>';
 	#	$IN{'entryselectionlist'} = $IN{'revisedentrynumber'};
-#		&gm_editthisentry;
-		editEntry( $message );
-	}
+        #		&gm_editthisentry;
+        editEntry( $message );
+    }
 
-	my $thisentrynumberpadded = Gm_Utils::toEntryPadded( $IN{'entryid'} );
+    my $thisentrynumberpadded = Gm_Utils::toEntryPadded( $IN{'entryid'} );
 
-	my $gmEntry = Gm_Storage::getEntry( id=>$IN{'entryid'},
-		errHandler=>\&Gm_Web::displayUserErrorExit );
+    my $gmEntry = Gm_Storage::getEntry( id=>$IN{'entryid'},
+                                       errHandler=>\&Gm_Web::displayUserErrorExit );
 
-	my $thisentryauthor = $gmEntry->{'entryinfo'}{'author'};
-	my $thisentrysubject = $gmEntry->{'entryinfo'}{'subject'};
-	
-	if( $AUTHOR{'author'} ne $thisentryauthor && $AUTHOR{'editentries'} eq Gm_Constants::O ){
-		Gm_Core::writeToCplog( "$AUTHOR{'author'}  attempted to edit a comment in entry ".
-			"#$IN{'entryid'} (by $thisentryauthor) without authorization" );
-		$message = '<span class="error_msg">You don\'t have access to edit comments '.
-			'in entries you didn\'t create.</span>';
-		filterEntryList( $message );
-	}
+    my $thisentryauthor = $gmEntry->{'entryinfo'}{'author'};
+    my $thisentrysubject = $gmEntry->{'entryinfo'}{'subject'};
+    
+    if( $AUTHOR{'author'} ne $thisentryauthor && $AUTHOR{'editentries'} eq Gm_Constants::O ){
+        Gm_Core::writeToCplog( "$AUTHOR{'author'}  attempted to edit a comment in entry ".
+                               "#$IN{'entryid'} (by $thisentryauthor) without authorization" );
+        $message = '<span class="error_msg">You don\'t have access to edit comments '.
+            'in entries you didn\'t create.</span>';
+        filterEntryList( $message );
+    }
 
-	my $comm_index = $IN{'revisedentrycommentselection'} - 1;
-	## TODO: refactor out usage of variables, make work directly off of entry
-	my $thiscommentauthor =  defined( $IN{'revisedentrycommentauthor'} ) ? 
-		$IN{'revisedentrycommentauthor'} : $gmEntry->{'comments'}[$comm_index]{'name'};
-	my $thiscommentauthorip = $gmEntry->{'comments'}[$comm_index]{'ip'};
-	my $thiscommentauthoremailabsolute =   defined( $IN{'revisedentrycommentauthoremail'} ) ? 
-		$IN{'revisedentrycommentauthoremail'} : $gmEntry->{'comments'}[$comm_index]{'email'};
-	my $thiscommentauthorhomepageabsolute =   defined( $IN{'revisedentrycommentauthorhomepage'} ) ? 
-		$IN{'revisedentrycommentauthorhomepage'} : $gmEntry->{'comments'}[$comm_index]{'homepage'};
-	my $thiscommentweekdaynumber = $gmEntry->{'comments'}[$comm_index]{'weekday'};
-	my $thiscommentmonth = $gmEntry->{'comments'}[$comm_index]{'month'};
-	my $thiscommentday = $gmEntry->{'comments'}[$comm_index]{'day'};
-	my $thiscommentyearyear = $gmEntry->{'comments'}[$comm_index]{'year'};
-	my $thiscommenthour = $gmEntry->{'comments'}[$comm_index]{'hour'};
-	my $thiscommentminute = $gmEntry->{'comments'}[$comm_index]{'minute'};
-	my $thiscommentsecond = $gmEntry->{'comments'}[$comm_index]{'second'};
-	my $thiscommentampm = $gmEntry->{'comments'}[$comm_index]{'ampm'};
-	my $thiscommenttext =   defined( $IN{'revisedentrycommenttext'} ) ? 
-		$IN{'revisedentrycommenttext'} : $gmEntry->{'comments'}[$comm_index]{'comment'};
+    my $comm_index = $IN{'revisedentrycommentselection'} - 1;
+    ## TODO: refactor out usage of variables, make work directly off of entry
+    my $thiscommentauthor =  defined( $IN{'revisedentrycommentauthor'} ) ? 
+        $IN{'revisedentrycommentauthor'} : $gmEntry->{'comments'}[$comm_index]{'name'};
+    my $thiscommentauthorip = $gmEntry->{'comments'}[$comm_index]{'ip'};
+    my $thiscommentauthoremailabsolute =   defined( $IN{'revisedentrycommentauthoremail'} ) ? 
+        $IN{'revisedentrycommentauthoremail'} : $gmEntry->{'comments'}[$comm_index]{'email'};
+    my $thiscommentauthorhomepageabsolute =   defined( $IN{'revisedentrycommentauthorhomepage'} ) ? 
+        $IN{'revisedentrycommentauthorhomepage'} : $gmEntry->{'comments'}[$comm_index]{'homepage'};
+    my $thiscommentweekdaynumber = $gmEntry->{'comments'}[$comm_index]{'weekday'};
+    my $thiscommentmonth = $gmEntry->{'comments'}[$comm_index]{'month'};
+    my $thiscommentday = $gmEntry->{'comments'}[$comm_index]{'day'};
+    my $thiscommentyearyear = $gmEntry->{'comments'}[$comm_index]{'year'};
+    my $thiscommenthour = $gmEntry->{'comments'}[$comm_index]{'hour'};
+    my $thiscommentminute = $gmEntry->{'comments'}[$comm_index]{'minute'};
+    my $thiscommentsecond = $gmEntry->{'comments'}[$comm_index]{'second'};
+    my $thiscommentampm = $gmEntry->{'comments'}[$comm_index]{'ampm'};
+    my $thiscommenttext =   defined( $IN{'revisedentrycommenttext'} ) ? 
+        $IN{'revisedentrycommenttext'} : $gmEntry->{'comments'}[$comm_index]{'comment'};
 
-	my $thiscommentmonthmonth = Gm_Utils::toTwoDigit( $thiscommentmonth );
-	my $thiscommentdayday = Gm_Utils::toTwoDigit( $thiscommentday );
-	my $thiscommenthourhour = Gm_Utils::toTwoDigit( $thiscommenthour );
-	my $thiscommentminuteminute = Gm_Utils::toTwoDigit( $thiscommentminute );
-	my $thiscommentsecondsecond = Gm_Utils::toTwoDigit( $thiscommentsecond );
+    my $thiscommentmonthmonth = Gm_Utils::toTwoDigit( $thiscommentmonth );
+    my $thiscommentdayday = Gm_Utils::toTwoDigit( $thiscommentday );
+    my $thiscommenthourhour = Gm_Utils::toTwoDigit( $thiscommenthour );
+    my $thiscommentminuteminute = Gm_Utils::toTwoDigit( $thiscommentminute );
+    my $thiscommentsecondsecond = Gm_Utils::toTwoDigit( $thiscommentsecond );
 
-	$thiscommenttext = Gm_Utils::toWebSafe($thiscommenttext);
+    $thiscommenttext = Gm_Utils::toWebSafe($thiscommenttext);
 
-	if( $message eq Gm_Constants::EMPTY ){ 
-		$message = "<span class=\"section_title\">Editing Comment #$IN{'revisedentrycommentselection'} ".
-			"In Entry #$IN{'entryid'} ($thisentrysubject)</span><br />\nPosted on ".
-			"$thiscommentmonthmonth/$thiscommentdayday/$thiscommentyearyear $thiscommenthourhour\:".
-			"$thiscommentminuteminute\:$thiscommentsecondsecond $thiscommentampm<P>";
-	}
+    if( $message eq Gm_Constants::EMPTY ){ 
+        $message = "<span class=\"section_title\">Editing Comment #$IN{'revisedentrycommentselection'} ".
+            "In Entry #$IN{'entryid'} ($thisentrysubject)</span><br />\nPosted on ".
+            "$thiscommentmonthmonth/$thiscommentdayday/$thiscommentyearyear $thiscommenthourhour\:".
+            "$thiscommentminuteminute\:$thiscommentsecondsecond $thiscommentampm<P>";
+    }
 
 
-	my $page = "<p>$message</p>\n<form action=\"gm.cgi\" method=post>".
-		Gm_Security::getFormAuth( author=>\%AUTHOR ).
-		'<input type=hidden name="section" value="'.$IN{'section'}.'">'.
-		'<input type=hidden name="revisedentrycommentselection" value="'.
-		$IN{'revisedentrycommentselection'}.'">'.
-		'<input type=hidden name="entryid" value="'.$IN{'entryid'}.'">'.
-		'<input type=hidden name="entryselectionview" value="'.$IN{'entryselectionview'}.'">';
+    my $page = "<p>$message</p>\n<form action=\"gm.cgi\" method=post>".
+        Gm_Security::getFormAuth( author=>\%AUTHOR ).
+        '<input type=hidden name="section" value="'.$IN{'section'}.'">'.
+        '<input type=hidden name="revisedentrycommentselection" value="'.
+                                                             $IN{'revisedentrycommentselection'}.'">'.
+        '<input type=hidden name="entryid" value="'.$IN{'entryid'}.'">'.
+        '<input type=hidden name="entryselectionview" value="'.$IN{'entryselectionview'}.'">';
 
-	$page .= '<table width="95%" class="form_table"><tr><th width="20%">Author:</th>'.
-		'<td><input type=text class="inputfield" name="revisedentrycommentauthor" value="'.
-		$thiscommentauthor.'" size="45"></td></tr>';
-	$page .= '<tr><th>E-Mail:</th><td><input type=text class="inputfield" '.
-		'name="revisedentrycommentauthoremail" '.
-		'value="'.$thiscommentauthoremailabsolute.'" size="45"></td></tr>';
-	$page .= '<tr><th>Homepage:</th><td><input type=text class="inputfield" '.
-		'name="revisedentrycommentauthorhomepage" '.
-		'value="'.$thiscommentauthorhomepageabsolute.'" size="45"></td></tr>';
-	$page .= '<tr><th>Comment Text:</th><td><textarea name="revisedentrycommenttext" cols=86 '.
-		'rows=10  class="inputfield">'.$thiscommenttext.'</textarea></td></tr>';
-	$page .= '<tr><th>&nbsp</th><td><INPUT TYPE=RESET CLASS="button" '.
-		'STYLE="background: #FFD0D0" VALUE="Undo Changes Since Last Save"> '.
-		'<input type=submit class="button" name="updatecomment" style="background: #D0FFD0" '.
-		'value="Save Changes To This Comment"></td></th></table>'."\n";
-		
-	$page .= '<p><input type=SUBMIT class="button" name="view" '.
-		'value="Return To Entry Editing"></form></p>'."\n";		
+    $page .= '<table width="95%" class="form_table"><tr><th width="20%">Author:</th>'.
+        '<td><input type=text class="inputfield" name="revisedentrycommentauthor" value="'.
+                                                             $thiscommentauthor.'" size="45"></td></tr>';
+    $page .= '<tr><th>E-Mail:</th><td><input type=text class="inputfield" '.
+        'name="revisedentrycommentauthoremail" '.
+        'value="'.$thiscommentauthoremailabsolute.'" size="45"></td></tr>';
+    $page .= '<tr><th>Homepage:</th><td><input type=text class="inputfield" '.
+        'name="revisedentrycommentauthorhomepage" '.
+        'value="'.$thiscommentauthorhomepageabsolute.'" size="45"></td></tr>';
+    $page .= '<tr><th>Comment Text:</th><td><textarea name="revisedentrycommenttext" cols=86 '.
+        'rows=10  class="inputfield">'.$thiscommenttext.'</textarea></td></tr>';
+    $page .= '<tr><th>&nbsp</th><td><INPUT TYPE=RESET CLASS="button" '.
+        'STYLE="background: #FFD0D0" VALUE="Undo Changes Since Last Save"> '.
+        '<input type=submit class="button" name="updatecomment" style="background: #D0FFD0" '.
+        'value="Save Changes To This Comment"></td></th></table>'."\n";
+    
+    $page .= '<p><input type=SUBMIT class="button" name="view" '.
+        'value="Return To Entry Editing"></form></p>'."\n";		
 
-	$page .= '<form action="gm.cgi" method="post">'.Gm_Security::getFormAuth( author=>\%AUTHOR ).
-		'<input type=SUBMIT class="button" name="menu" value="'.
-		Gm_Core::text( Gm_Constants::RETURN_MAIN_MENU ).'" style="background: #C0C0C0"></form>'."\n";
+    $page .= '<form action="gm.cgi" method="post">'.Gm_Security::getFormAuth( author=>\%AUTHOR ).
+        '<input type=SUBMIT class="button" name="menu" value="'.
+                                                             Gm_Core::text( Gm_Constants::RETURN_MAIN_MENU ).'" style="background: #C0C0C0"></form>'."\n";
 
-	Gm_Web::displayAdminPageExit( $page );
-	## NAVIGATION SHOULD BE DE-BUTTONED
-	exit(0); ## will never get here, in theory
+    Gm_Web::displayAdminPageExit( $page );
+    ## NAVIGATION SHOULD BE DE-BUTTONED
+    exit(0); ## will never get here, in theory
 }
 
 ## Update Entry Comment
@@ -3839,62 +3839,62 @@ sub viewEntryComment {
 ## NOTE: should part of this be generized and put in Core?  Something that doesn't presume where its being
 # called from so it can be reused with normal user self-registration?
 sub updateEntryComment {
-	my $message = Gm_Constants::EMPTY;
-	
-	$IN{'revisedentrycommentauthor'} = Gm_Utils::toConfigSafe($IN{'revisedentrycommentauthor'});
-	$IN{'revisedentrycommentauthoremail'} = Gm_Utils::toConfigSafe($IN{'revisedentrycommentauthoremail'});
-	$IN{'revisedentrycommentauthorhomepage'} = Gm_Utils::toConfigSafe($IN{'revisedentrycommentauthorhomepage'});
-	$IN{'revisedentrycommenttext'} = Gm_Utils::toStoreSafe($IN{'revisedentrycommenttext'});
-	
-	if( $IN{'revisedentrycommentauthor'} eq Gm_Constants::EMPTY || 
-		$IN{'revisedentrycommenttext'} eq Gm_Constants::EMPTY ){
-		$message = '<span class="error_msg">You left either the comment author or '.
-			'text blank.  Please try again.</span>';
+    my $message = Gm_Constants::EMPTY;
+    
+    $IN{'revisedentrycommentauthor'} = Gm_Utils::toConfigSafe($IN{'revisedentrycommentauthor'});
+    $IN{'revisedentrycommentauthoremail'} = Gm_Utils::toConfigSafe($IN{'revisedentrycommentauthoremail'});
+    $IN{'revisedentrycommentauthorhomepage'} = Gm_Utils::toConfigSafe($IN{'revisedentrycommentauthorhomepage'});
+    $IN{'revisedentrycommenttext'} = Gm_Utils::toStoreSafe($IN{'revisedentrycommenttext'});
+    
+    if( $IN{'revisedentrycommentauthor'} eq Gm_Constants::EMPTY || 
+        $IN{'revisedentrycommenttext'} eq Gm_Constants::EMPTY ){
+        $message = '<span class="error_msg">You left either the comment author or '.
+            'text blank.  Please try again.</span>';
 
-		viewEntryComment( $message );
-	}
-	
-	if( $IN{'revisedentrycommentselection'} eq Gm_Constants::EMPTY ){
-		$message = '<span class="error_msg">You must select a comment to edit.</span>';
+        viewEntryComment( $message );
+    }
+    
+    if( $IN{'revisedentrycommentselection'} eq Gm_Constants::EMPTY ){
+        $message = '<span class="error_msg">You must select a comment to edit.</span>';
 
-		editEntry( $message );
-	}
+        editEntry( $message );
+    }
 
-#$thisentrynumberpadded = Gm_Utils::toEntryPadded( $IN{'revisedentrynumber'} );
-	my $thisentrynumberpadded = Gm_Utils::toEntryPadded( $IN{'entryid'} );
+    #$thisentrynumberpadded = Gm_Utils::toEntryPadded( $IN{'revisedentrynumber'} );
+    my $thisentrynumberpadded = Gm_Utils::toEntryPadded( $IN{'entryid'} );
 
-	my $gmEntry = Gm_Storage::getEntry( id=>$IN{'entryid'},
-		errHandler=>\&Gm_Web::displayUserErrorExit );
+    my $gmEntry = Gm_Storage::getEntry( id=>$IN{'entryid'},
+                                       errHandler=>\&Gm_Web::displayUserErrorExit );
 
-	my $thisentryauthor = $gmEntry->{'entryinfo'}{'author'};
-	my $thisentrysubject = $gmEntry->{'entryinfo'}{'subject'};
-	
-	if( $AUTHOR{'author'} ne $thisentryauthor && $AUTHOR{'editentries'} eq Gm_Constants::O ){
-		Gm_Core::writeToCplog( "$AUTHOR{'author'}  attempted to edit a comment in entry ".
-			"#$IN{'entryid'} (by $thisentryauthor) without authorization" );
-		$message = '<span class="error_msg">You don\'t have access to edit comments '.
-			'in entries you didn\'t create.</span>';
-		filterEntryList( $message );
-	}
+    my $thisentryauthor = $gmEntry->{'entryinfo'}{'author'};
+    my $thisentrysubject = $gmEntry->{'entryinfo'}{'subject'};
+    
+    if( $AUTHOR{'author'} ne $thisentryauthor && $AUTHOR{'editentries'} eq Gm_Constants::O ){
+        Gm_Core::writeToCplog( "$AUTHOR{'author'}  attempted to edit a comment in entry ".
+                              "#$IN{'entryid'} (by $thisentryauthor) without authorization" );
+        $message = '<span class="error_msg">You don\'t have access to edit comments '.
+            'in entries you didn\'t create.</span>';
+        filterEntryList( $message );
+    }
 
-	my $comm_index = $IN{'revisedentrycommentselection'} - 1;
+    my $comm_index = $IN{'revisedentrycommentselection'} - 1;
 
-	$gmEntry->{'comments'}[$comm_index]{'name'} = $IN{'revisedentrycommentauthor'};
-	$gmEntry->{'comments'}[$comm_index]{'email'} = $IN{'revisedentrycommentauthoremail'};
-	$gmEntry->{'comments'}[$comm_index]{'homepage'} = $IN{'revisedentrycommentauthorhomepage'};
-	$gmEntry->{'comments'}[$comm_index]{'comment'} = $IN{'revisedentrycommenttext'};
+    $gmEntry->{'comments'}[$comm_index]{'name'} = $IN{'revisedentrycommentauthor'};
+    $gmEntry->{'comments'}[$comm_index]{'email'} = $IN{'revisedentrycommentauthoremail'};
+    $gmEntry->{'comments'}[$comm_index]{'homepage'} = $IN{'revisedentrycommentauthorhomepage'};
+    $gmEntry->{'comments'}[$comm_index]{'comment'} = $IN{'revisedentrycommenttext'};
 
-	Gm_Storage::setEntry( entry=>$gmEntry, errHandler=>\&Gm_Web::displayAdminErrorExit );
+    Gm_Storage::setEntry( entry=>$gmEntry, errHandler=>\&Gm_Web::displayAdminErrorExit );
 
-	Gm_Core::writeToCplog( "$AUTHOR{'author'} edited comment ".
-		"#$IN{'revisedentrycommentselection'} in entry #$IN{'entryid'} ($IN{'revisedentrysubject'})");
+    Gm_Core::writeToCplog( "$AUTHOR{'author'} edited comment ".
+                          "#$IN{'revisedentrycommentselection'} in entry #$IN{'entryid'} ($IN{'revisedentrysubject'})");
 
-	$message = '<span class="status_msg">Comment #'.$IN{'revisedentrycommentselection'}.
-		' has been edited.  Be sure to rebuild your files to make the changes visible on that '.
-		'entry\'s page.</span>';
+    $message = '<span class="status_msg">Comment #'.$IN{'revisedentrycommentselection'}.
+        ' has been edited.  Be sure to rebuild your files to make the changes visible on that '.
+        'entry\'s page.</span>';
 
 
-	editEntry( $message );
+    editEntry( $message );
 
 }
 
@@ -3903,65 +3903,65 @@ sub updateEntryComment {
 ## Handle all requests for bookmarklets, move to entries?
 ## and verify that author can access this section
 sub viewBookmarklet {
-	my $message = Gm_Constants::EMPTY;
-	
-	if( $AUTHOR{'bookmarklets'} ne Gm_Constants::Y ){
-		Gm_Core::writeToCplog("$AUTHOR{'author'} attempted to add bookmarklets without authorization");
-		$message = '<span class="error_msg">You don\'t have access to use bookmarklets.</span>';
-		Gm_Web::displayAdminErrorExit( $message );
-	}
+    my $message = Gm_Constants::EMPTY;
+    
+    if( $AUTHOR{'bookmarklets'} ne Gm_Constants::Y ){
+        Gm_Core::writeToCplog("$AUTHOR{'author'} attempted to add bookmarklets without authorization");
+        $message = '<span class="error_msg">You don\'t have access to use bookmarklets.</span>';
+        Gm_Web::displayAdminErrorExit( $message );
+    }
 
-	unless( Gm_Core::hasPosted() ){
-		unless( Gm_Core::hasDiagRun() ){
-			frontPage( '<span class="error_msg">Please run "Diagnostics & Repair" '.
-				'in the Configuration screen before adding bookmarklets.</span>');
-		}
-	}
+    unless( Gm_Core::hasPosted() ){
+        unless( Gm_Core::hasDiagRun() ){
+            frontPage( '<span class="error_msg">Please run "Diagnostics & Repair" '.
+                       'in the Configuration screen before adding bookmarklets.</span>');
+        }
+    }
 
-	if( $message eq Gm_Constants::EMPTY ){ 
-		$message = '<span class="section_title">Add Bookmarklets</span>'; 
-	}
+    if( $message eq Gm_Constants::EMPTY ){ 
+        $message = '<span class="section_title">Add Bookmarklets</span>'; 
+    }
 
-	Gm_Core::writeToCplog("$AUTHOR{'author'} added a bookmarklet");
+    Gm_Core::writeToCplog("$AUTHOR{'author'} added a bookmarklet");
 
-	my $page = "<p>$message</p>\n";	
+    my $page = "<p>$message</p>\n";	
 
-	$page .= '<p class="text_left">Installing bookmarklets makes for the quickest '.
-		'and most convenient way to "blog" new items, allowing you to post new entries to '.
-		'Greymatter with one mouse-click while surfing anywhere on the web.<p>';
-	$page .= '<p class="text_left">After installing a '.
-		'bookmarklet, clicking the new "Post To Greymatter" menu or toolbar button in your browser or '.
-		'selecting the bookmark '.
-		'will load Greymatter in a pop-up window containing a link to the website you\'re currently '.
-		'visiting all ready to go in your new entry, plus any text from the website that you may '.
-		'have highlighted.</p>';
-	$page .= '<p class="text_left">These bookmarklets currently require that Javascript be enabled in your '.
-		'browser.  Also, since bookmarklets contain your Greymatter name and password, you may wish to '.
-		'be careful about installing these if you share your computer with others.</p>'."\n";
-	$page .= '<p class="text_left">There are several ways to install bookmarklet:<ul class="text_left">'.
-		'<li>just drag the following link to your browser\'s menu or toolbar</li>'.
-		'<li>right click the link and select "bookmark this link"</li>'.
-		'<li>right click the link and select "copy this link location" then paste the '.
-		'url into a new bookmark in your browser</li></ul></p>'."\n";
-	$page .= '<p><B><A HREF="javascript:var lt;if(window.getSelection){lt=window.getSelection();}'.
-		'else if(document.selection){lt=document.selection.createRange();}if(lt.text){lt=userSelection.text;}'.
-		'void(gmwindow=window.open(\''.$gmConfigs->{'gmcgiwebpath'}.'/gm.cgi?gmbm=1&'.
-		Gm_Security::getUrlAuth(  author=>\%AUTHOR ).'&section=entries&new=1&logtext=\'+escape(lt)+\'&'.
-		'loglink=\'+escape(location.href)+\'&loglinktitle=\'+escape(document.title),'.
-		'\'gmwindow\',\'scrollbars=yes,width=750,height=460,left=75,top=75,resizable=yes,'.
-		'status=yes\'));gmwindow.focus();">Post To Greymatter (bookmarklet)</A></B></p>';
-		
-	$page .= '<p class="text_left">And that\'s that!  You should now have the bookmarklets '.
-		'installed and working correctly, allowing one-click automatic logging to Greymatter from '.
-		'anywhere on the web.</p>';
-		
-	$page .= "\n\n".'<p><form action="gm.cgi" method="post"> '.Gm_Security::getFormAuth( author=>\%AUTHOR ).
-		'<input type=submit class="button" name="menu" VALUE="'.Gm_Core::text( Gm_Constants::RETURN_MAIN_MENU ).
-		'" STYLE="background: #C0C0C0"></form></p>';
+    $page .= '<p class="text_left">Installing bookmarklets makes for the quickest '.
+        'and most convenient way to "blog" new items, allowing you to post new entries to '.
+        'Greymatter with one mouse-click while surfing anywhere on the web.<p>';
+    $page .= '<p class="text_left">After installing a '.
+        'bookmarklet, clicking the new "Post To Greymatter" menu or toolbar button in your browser or '.
+        'selecting the bookmark '.
+        'will load Greymatter in a pop-up window containing a link to the website you\'re currently '.
+        'visiting all ready to go in your new entry, plus any text from the website that you may '.
+        'have highlighted.</p>';
+    $page .= '<p class="text_left">These bookmarklets currently require that Javascript be enabled in your '.
+        'browser.  Also, since bookmarklets contain your Greymatter name and password, you may wish to '.
+        'be careful about installing these if you share your computer with others.</p>'."\n";
+    $page .= '<p class="text_left">There are several ways to install bookmarklet:<ul class="text_left">'.
+        '<li>just drag the following link to your browser\'s menu or toolbar</li>'.
+        '<li>right click the link and select "bookmark this link"</li>'.
+        '<li>right click the link and select "copy this link location" then paste the '.
+        'url into a new bookmark in your browser</li></ul></p>'."\n";
+    $page .= '<p><B><A HREF="javascript:var lt;if(window.getSelection){lt=window.getSelection();}'.
+                                                   'else if(document.selection){lt=document.selection.createRange();}if(lt.text){lt=userSelection.text;}'.
+                                                   'void(gmwindow=window.open(\''.$gmConfigs->{'gmcgiwebpath'}.'/gm.cgi?gmbm=1&'.
+                                                                              Gm_Security::getUrlAuth(  author=>\%AUTHOR ).'&section=entries&new=1&logtext=\'+escape(lt)+\'&'.
+                                                                              'loglink=\'+escape(location.href)+\'&loglinktitle=\'+escape(document.title),'.
+                                                                              '\'gmwindow\',\'scrollbars=yes,width=750,height=460,left=75,top=75,resizable=yes,'.
+                                                                              'status=yes\'));gmwindow.focus();">Post To Greymatter (bookmarklet)</A></B></p>';
+    
+    $page .= '<p class="text_left">And that\'s that!  You should now have the bookmarklets '.
+        'installed and working correctly, allowing one-click automatic logging to Greymatter from '.
+        'anywhere on the web.</p>';
+    
+    $page .= "\n\n".'<p><form action="gm.cgi" method="post"> '.Gm_Security::getFormAuth( author=>\%AUTHOR ).
+        '<input type=submit class="button" name="menu" VALUE="'.Gm_Core::text( Gm_Constants::RETURN_MAIN_MENU ).
+                                                                                                                   '" STYLE="background: #C0C0C0"></form></p>';
 
-	Gm_Web::displayAdminPageExit( $page );
-	## NAVIGATION SHOULD BE DE-BUTTONED
-	exit(0); ## will never get here, in theory
+    Gm_Web::displayAdminPageExit( $page );
+    ## NAVIGATION SHOULD BE DE-BUTTONED
+    exit(0); ## will never get here, in theory
 
 }
 
@@ -3971,33 +3971,33 @@ sub viewBookmarklet {
 ## and verify that configs can access this section
 sub doConfigs {
 
-	## Access to configs is global, no need for granularity
-	### TODO: CALL AUTH WITH FLAG TO WORK ON Banip, OR CHECK AUTHOR PERMS
-	## TODO: Move this to auth, auth should return users perms, or it should take a flag to 
-	# indicate which perms to check with this being handed off to a generic permDenied func
-	if( $AUTHOR{'editconfigs'} ne Gm_Constants::Y ){
-		Gm_Core::writeToCplog( '<span class="error_msg">'.Gm_Core::text( 
-			Gm_Constants::SECTION_NO_ACCESS, { AUTHOR=>$AUTHOR{'author'} }).'</span>' );
-		my $statusnote = '<span class="error_msg">'.Gm_Core::text( Gm_Constants::SECTION_ACCESS_DENY ).
-			'</span><br />';
-		frontPage( $statusnote );
-	}
-	
-	my $status = Gm_Constants::EMPTY;
-# TODO, SHOULD THESE BE USING CONSTANTS?
-	if( $IN{'update'} ){
-		$status = updateConfigs();
-		
-	} elsif( $IN{'viewdiag'} ){
-		$status = viewDiagnosticRepair();
-		
-	} elsif( $IN{'dodiagrepair'} ){
-		$status = doDiagnosticRepair();
-		
-	}
-	
+    ## Access to configs is global, no need for granularity
+    ### TODO: CALL AUTH WITH FLAG TO WORK ON Banip, OR CHECK AUTHOR PERMS
+    ## TODO: Move this to auth, auth should return users perms, or it should take a flag to 
+    # indicate which perms to check with this being handed off to a generic permDenied func
+    if( $AUTHOR{'editconfigs'} ne Gm_Constants::Y ){
+        Gm_Core::writeToCplog( '<span class="error_msg">'.Gm_Core::text( 
+                                  Gm_Constants::SECTION_NO_ACCESS, { AUTHOR=>$AUTHOR{'author'} }).'</span>' );
+        my $statusnote = '<span class="error_msg">'.Gm_Core::text( Gm_Constants::SECTION_ACCESS_DENY ).
+            '</span><br />';
+        frontPage( $statusnote );
+    }
+    
+    my $status = Gm_Constants::EMPTY;
+    # TODO, SHOULD THESE BE USING CONSTANTS?
+    if( $IN{'update'} ){
+        $status = updateConfigs();
+        
+    } elsif( $IN{'viewdiag'} ){
+        $status = viewDiagnosticRepair();
+        
+    } elsif( $IN{'dodiagrepair'} ){
+        $status = doDiagnosticRepair();
+        
+    }
+    
 
-	viewConfigs( $status );
+    viewConfigs( $status );
 }
 
 ## View Configurations
@@ -4005,752 +4005,752 @@ sub doConfigs {
 # (opt) ARG1: Message to display to user, could be error or confirmation of action
 # html used for noting with something is update: "<B><FONT COLOR="#00FF00">Updated</FONT></B> "
 sub viewConfigs {
-	my $message = shift( @_ ) || Gm_Constants::EMPTY;
-
-
-	my ($basedate, $wday, $mon, $mday, $JSYear, $hour, $min, $sec, $AMPM ) = 
-		Gm_Utils::getStdDate( $gmConfigs->{'gmserveroffset'} );
-	my $montwo = Gm_Utils::toTwoDigit( $mon );
-	my $mdaytwo = Gm_Utils::toTwoDigit( $mday );
-	my $hourtwo = Gm_Utils::toTwoDigit( $hour );
-	my $mintwo = Gm_Utils::toTwoDigit( $min );
-
-	my $censorlist = Gm_Utils::toWebSafe( $gmConfigs->{'gmcensorlist'} );
-	my $otherfilelist = Gm_Utils::toWebSafe( $gmConfigs->{'gmotherfilelist'} );
-
-	
-	## TODO: ADD LABEL TAGS FOR ACCESSABILITY
-	
-	my $rowcolor = Gm_Web::altRowColor();
-
-	my $page = '<span class="section_title">Configuration Options</span> ('.
-		'<a href="javascript:init();">Expand All</a>)<br /><p>'.$message.'</p>';
-	
-	$page .= '<script language="JavaScript">
-/* Will change the size of the given element 
-  ARG1: id of span to hide
-  ARG2: id of span that is the controller, the hide/show link
-*/
-function hider( toFlip, toLink ){
-	if( document.getElementById && document.getElementById(toFlip) != null ){
-		var subject = document.getElementById( toFlip );
-		var controller = document.getElementById( toLink ); 
-		if( subject.className != "hidden" ){
-			_hideShow( "hidden", "Show", subject, controller );
-
-	} else {
-			_hideShow( "", "Hide", subject, controller );
-		}
-	}
-	
-	function _hideShow( className, theText, sub, con ){
-		sub.className=className;
-		var link = document.createElement("a");
-		link.href = \'javascript:hider(\\\'\'+ toFlip +\'\\\', \\\'\'+ toLink +\'\\\');\';
-		link.appendChild( document.createTextNode( theText ));
-		
-		while( con.hasChildNodes() ){
-			con.removeChild( con.firstChild );
-		}
-		con.appendChild( link );
-	}
-}
-
-function init(){
-	var cookieStrings = ["pathConfigHidden|pathConfigHider", "indexArchiveHidden|indexArchiveHider",
-		"emailOptionHidden|emailOptionHider", "emoticonOptionHidden|emoticonOptionHider",
-		"karmaCommentHidden|karmaCommentHider","dateTimeHidden|dateTimeHider",
-		"fileUploadHidden|fileUploadHider","censorOptionHidden|censorOptionHider",
-		"connectFilesHidden|connectFilesHider", "miscOptionHidden|miscOptionHider"];
-	for( var i=0;i< cookieStrings.length;i++ ){
-		var cookieParts = cookieStrings[i].split("|");
-		// should be calling a function to hide, not the toggle function
-		hider( cookieParts[0], cookieParts[1] );
-	}
-}
-
-window.onload = init;
-</script>
-';
-	
-	$page .= '<form action="gm.cgi" method=post>'.Gm_Security::getFormAuth( author=>\%AUTHOR ).
-		'<input type="hidden" name="section" value="'.$IN{'section'}.'">'.
-		'<table style="font-size: small; width: 100%">';
-	
-	$page .= '<tr class="section_head"><th>Path Configuration</th><td>'.
-		_hiderCodeEntry('pathConfigHidden', 'pathConfigHider').
-		'</tr><tr><td colspan="2"><span id="pathConfigHidden"><table class="config_table">'.
-		'<tr><td valign=middle bgcolor="#FFFFD0" colspan=2>'.
-		'<span class="info_text">Your paths tell Greymatter where to look for things on your site; local paths are relative to '.
-		'your server, and the website paths are their respective pointers on the web.  Each of these paths MUST be correctly set for '.
-		'Greymatter to work correctly; if you can\'t seem to set them right, use virtual paths (with "." and "../") instead; read the '.
-		'Troubleshooting section of the <a href="'.Gm_Constants::GM_FORUM.'" title="read the manual" target="_blank">manual</a> '.
-		'for more information.  It\'s a good idea to run "Diagnostics & Repair" after saving changes to your paths.</span></td></tr>';
-
-	$page .= '<tr '.$rowcolor.'><th width="40%"><span class="info_title"><label for="logpath">Local Log '.
-		'Path:</label></span><br /><span class="info_text">The main weblog/journal directory on your account, '.
-		'where your main index file is.</span></td><td>'.
-		'<input type=text class="inputfield" name="editedlogpath" value="'.$gmConfigs->{'gmlogpath'}.
-		'" id="logpath"></td></tr>';
-	$rowcolor = Gm_Web::altRowColor( $rowcolor );
-	
-	$page .= '<tr '.$rowcolor.'><th><span class="info_title"><label for="entriespath">Local Entries/Archives '.
-		'Path:</label></span><br /><span class="info_text">The directory on your account where your entry '.
-		'files (current and archived) are to be stored.</span></td><td>'.
-		'<input type=text class="inputfield" name="editedentriespath" value="'.$gmConfigs->{'gmentriespath'}.
-		'" id="entriespath"></td></tr>';
-	$rowcolor = Gm_Web::altRowColor( $rowcolor );
-	
-	$page .= '<tr '.$rowcolor.'><th><span class="info_title"><label for="cgilocalpath">Local CGI Path:'.
-		'</label></span><br /><span class="info_text">The place on your account where you keep all your '.
-		'Greymatter CGI files ("gm*.cgi").</span></td><td>'.
-		'<INPUT TYPE=TEXT CLASS="inputfield" NAME="editedcgilocalpath" VALUE="'.$gmConfigs->{'gmcgilocalpath'}.
-		'" id="cgilocalpath"></td></tr>';
-	$rowcolor = Gm_Web::altRowColor( $rowcolor );
-	
-	$page .= '<tr '.$rowcolor.'><th><span class="info_title"><label for="logwebpath">Website Log Path:'.
-		'</label></span><br /><span class="info_text">The website address of the directory where your main '.
-		'index file is.</span></td><td>'.
-		'<INPUT TYPE=TEXT CLASS="inputfield" NAME="editedlogwebpath" VALUE="'.$gmConfigs->{'gmlogwebpath'}.
-		'" id="logwebpath"></td></tr>';
-	$rowcolor = Gm_Web::altRowColor( $rowcolor );
-	
-	$page .= '<tr '.$rowcolor.'><th><span class="info_title"><label for="entrieswebpath">Website Entries Path:'.
-		'</label></span><br /><span class="info_text">The website address of the directory where all your '.
-		'entries are to be stored.</span></td><td>'.
-		'<INPUT TYPE=TEXT CLASS="inputfield" NAME="editedentrieswebpath" VALUE="'.$gmConfigs->{'gmentrieswebpath'}.
-		'" id="entrieswebpath"></td></tr>';
-	$rowcolor = Gm_Web::altRowColor( $rowcolor );
-	
-	$page .= '<tr '.$rowcolor.'><th><span class="info_title"><label for="cgiwebpath">Website CGI Path:'.
-		'</label></span><br /><span class="info_text">The website address of the directory where all your '.
-		'Greymatter CGI files are kept.</span></td><td>'.
-		'<INPUT TYPE=TEXT CLASS="inputfield" NAME="editedcgiwebpath" VALUE="'.$gmConfigs->{'gmcgiwebpath'}.
-		'" id="cgiwebpath"></td></tr>';
-	$rowcolor = Gm_Web::altRowColor( $rowcolor );
-	
-	$page .= '<tr '.$rowcolor.'><th><span class="info_title"><label for="emoticonspath">Website Emoticons '.
-		'Path:</label></span><br /><span class="info_text">The path for the emoticon images. either a '.
-		'website path (like http://) or a local path (like /emoticons). no slash ("/") at the end.</span></td><td>'.
-		'<INPUT TYPE=TEXT CLASS="inputfield" NAME="editedemoticonspath" VALUE="'.$gmConfigs->{'gmemoticonspath'}.
-		'" id="emoticonspath"></td></tr>';
-	$rowcolor = Gm_Web::altRowColor( $rowcolor );
-	$page .= '</table></td></tr>';
-
-
-	$page .= '<tr class="section_head"><th>Index & Archive Options</th><td>'.
-		_hiderCodeEntry('indexArchiveHidden', 'indexArchiveHider').
-		'</tr><tr><td colspan="2"><span id="indexArchiveHidden"><table class="config_table">';
-	$page .= '<tr><td valign=middle bgcolor="#C0C0C0" COLSPAN=2><span class="info_text">'.
-		'Options relating to your main index and your archives.</span></td></tr>';
-
-	$page .= '<tr '.$rowcolor.'><th width="40%"><span class="info_title"><label for="indexfilename">'.
-		'Index filename:</label></span><br /><span class="info_text">The filename of your log/journal\'s '.
-		'main index.  If you enable "Keep archive master index", Greymatter will create that file in the '.
-		'archives directory with the same filename.</span></td><td>'.
-		'<INPUT TYPE=TEXT CLASS="inputfield" NAME="editedindexfilename" id="indexfilename" VALUE="'.
-		$gmConfigs->{'gmindexfilename'}.'"></td></tr>';
-	$rowcolor = Gm_Web::altRowColor( $rowcolor );
-
-	$page .= '<tr '.$rowcolor.'><th><span class="info_title"><label for="entrysuffix">.suffix to entry '.
-		'files:</label></span><br /><span class="info_text">If you have "Generate pages for individual '.
-		'entries" enabled, this is the suffix those pages will have.</span></td><td>'.
-		'<INPUT TYPE=TEXT CLASS="inputfield" NAME="editedentrysuffix" id="entrysuffix" VALUE="'.
-		$gmConfigs->{'gmentrysuffix'}.'"></td></tr>';
-	$rowcolor = Gm_Web::altRowColor( $rowcolor );
-
-	$page .= '<tr '.$rowcolor.'><th><span class="info_title"><label for="logarchivesuffix">.suffix to log '.
-		'archives:</span><br /><span class="info_text">If you have "Keep monthly/weekly log archives" '.
-		'enabled, this is the suffix those log archive files will have.</span></td><td>'.
-		'<INPUT TYPE=TEXT CLASS="inputfield" NAME="editedlogarchivesuffix" id="logarchivesuffix" VALUE="'.
-		$gmConfigs->{'gmlogarchivesuffix'}.'"></td></tr>';
-	$rowcolor = Gm_Web::altRowColor( $rowcolor );
-
-	$page .= '<tr '.$rowcolor.'><th><span class="info_title"><label for="indexdays">Days to keep '.
-		'on main index:</span><br /><span class="info_text">The number of days worth of entries Greymatter '.
-		'will list on your main index before scrolling them off.</span></td><td>'.
-		'<INPUT TYPE=TEXT CLASS="inputfield" NAME="editedindexdays" id="indexdays" VALUE="'.
-		$gmConfigs->{'gmindexdays'}.'"></td></tr>';
-	$rowcolor = Gm_Web::altRowColor( $rowcolor );
-
-	$page .= '<tr '.$rowcolor.'><th><span class="info_title">Generate pages for individual entries?</span><br />'.
-		'<span class="info_text">Specifies whether you want individual entries to have their own pages.  Comments '.
-		'are disabled if this is turned off.</span></td><td>'.
-		Gm_Web::createRadioButton( name=>'editedgenerateentrypages', value=>Gm_Constants::YES,
- 		checked=>$gmConfigs->{'gmgenerateentrypages'}, id=>'generateentrypagesyes', label=>'Yes' ).
- 		'&#160; '.Gm_Web::createRadioButton( name=>'editedgenerateentrypages', value=>Gm_Constants::NO,
-		checked=>$gmConfigs->{'gmgenerateentrypages'}, id=>'generateentrypagesno', label=>'No' ).
-		'</td></tr>';
-	$rowcolor = Gm_Web::altRowColor( $rowcolor );
-
-	$page .= '<tr '.$rowcolor.'><th><span class="info_title">Keep archive master index?</span><br />'.
-		'<span class="info_text">If enabled, Greymatter will keep an index (with the same filename as above) '.
-		'in your entries/archives directory, intended to be an overview of all your archives.</span></td><td>'.
-		Gm_Web::createRadioButton( name=>'editedkeeparchivemasterindex', value=>Gm_Constants::YES,
- 		checked=>$gmConfigs->{'gmkeeparchivemasterindex'}, id=>'keeparchivemasterindexyes', label=>'Yes' ).
- 		' &#160; '.Gm_Web::createRadioButton( name=>'editedkeeparchivemasterindex', value=>Gm_Constants::NO,
- 		checked=>$gmConfigs->{'gmkeeparchivemasterindex'}, id=>'keeparchivemasterindexno', label=>'No' ).
- 		' </td></tr>';
-	$rowcolor = Gm_Web::altRowColor( $rowcolor );
-
-	$page .= '<tr '.$rowcolor.'><th><span class="info_title">Keep monthly/weekly log archives?</span><br />'.
-		'<span class="info_text">If enabled, Greymatter will keep archive files of your log in monthly or weekly '.
-		'installments in your entries/archives directory.</span></td><td>'.
-		Gm_Web::createRadioButton( name=>'editedkeepmonthlyarchives', value=>Gm_Constants::YES,
- 		checked=>$gmConfigs->{'gmkeepmonthlyarchives'}, id=>'gmkeepmonthlyarchivesyes', label=>'Yes' ).
- 		' &#160; '.Gm_Web::createRadioButton( name=>'editedkeepmonthlyarchives', value=>Gm_Constants::NO,
- 		checked=>$gmConfigs->{'gmkeepmonthlyarchives'}, id=>'gmkeepmonthlyarchivesno', label=>'No'  ).
- 		' </td></tr>';
-	$rowcolor = Gm_Web::altRowColor( $rowcolor );
- 
-	$page .= '<tr '.$rowcolor.'><th><span class="info_title">Keep main index and archive log indexes '.
-		'concurrent with each other?</span><br /><span class="info_text">If enabled, both new and archived '.
-		'entries will be listed in the monthly/weekly archives; if disabled, Greymatter won\'t list entries '.
-		'there until they\'ve scrolled off the main index.  For simplicity\'s sake, it\'s a good idea leave '.
-		'this on.</span></td><td>'.
-		Gm_Web::createRadioButton( name=>'editedconcurrentmainandarchives', value=>Gm_Constants::YES,
- 		checked=>$gmConfigs->{'gmconcurrentmainandarchives'}, id=>'concurrentmainandarchivesyes', label=>'Yes' ).
- 		' &#160; '.Gm_Web::createRadioButton( name=>'editedconcurrentmainandarchives', value=>Gm_Constants::NO,
- 		checked=>$gmConfigs->{'gmconcurrentmainandarchives'}, id=>'concurrentmainandarchivesno', label=>'No' ).
- 		' </td></tr>';
-	$rowcolor = Gm_Web::altRowColor( $rowcolor );
-
-	$page .= '<tr '.$rowcolor.'><th><span class="info_title">Archive by month or week?</span><br />'.
-		'<span class="info_text">If "Keep monthly/weekly log archives" is enabled, this specifies whether '.
-		'the log archives will be generated by the month or by the week.</span></td><td>'.
-		Gm_Web::createRadioButton( name=>'editedarchiveformat', value=>Gm_Constants::MONTH,
- 		checked=>$gmConfigs->{'gmarchiveformat'}, id=>'archiveformatmonth', label=>'Monthly' ).
- 		' &#160; '.Gm_Web::createRadioButton( name=>'editedarchiveformat', value=>Gm_Constants::WEEK,
- 		checked=>$gmConfigs->{'gmarchiveformat'}, id=>'archiveformatweek', label=>'Weekly'  ).
- 		' </td></tr>';
-	$rowcolor = Gm_Web::altRowColor( $rowcolor );
-	$page .= '</table></td></tr>';
-	
-	
-	$page .= '<tr class="section_head"><th>E-Mail Options</th><td>'.
-		_hiderCodeEntry('emailOptionHidden', 'emailOptionHider').
-		'</tr><tr><td colspan="2"><span id="emailOptionHidden"><table class="config_table">';
-	$page .= '<tr><td valign=middle bgcolor="#C0C0C0" COLSPAN=2>'.
-		'<span class="info_text">Options relating to e-mail setup and notification.  If you don\'t plan to have '.
-		'Greymatter send you e-mails, you can safely ignore the "E-Mail Program Location" and "E-Mail(s) to send '.
-		'notices to" fields.</span></td></tr>';
-
-	$page .= '<tr '.$rowcolor.'><th width="40%"><span class="info_title">E-Mail Program Location:</span><br />'.
-		'<span class="info_text">The pointer to the mail program (usually Sendmail) on your account.</span></td><td>'.
-		'<INPUT TYPE=TEXT CLASS="inputfield" NAME="editedmailprog" VALUE="'.$gmConfigs->{'gmmailprog'}.'"></td></tr>';
-	$rowcolor = Gm_Web::altRowColor( $rowcolor );
-
-	$page .= '<tr '.$rowcolor.'><th><span class="info_title">E-Mail(s) to send notices to:</span><br />'.
-		'<span class="info_text">The e-mail addresses you want all notifications (if any) to be sent to.  '.
-		'Separate multiple e-mail addresses with semicolons.</span></td><td>'.
-		'<INPUT TYPE=TEXT CLASS="inputfield" NAME="editednotifyemail" VALUE="'.$gmConfigs->{'gmnotifyemail'}.'"></td></tr>';
-	$rowcolor = Gm_Web::altRowColor( $rowcolor );
-	
-	$page .= '<tr '.$rowcolor.'><th><span class="info_title">Send e-mail notifications for:</span><br />'.
-		'<span class="info_text">Indicates whether you want Greymatter to send e-mails notifying you of new '.
-		'karma votes, new comment postings, both karma and comments, or to disable e-mail notification '.
-		'altogether.</span></td><td>'.Gm_Web::createRadioButton( name=>'editednotifyforstatus', 
-		value=>Gm_Constants::KARMA, checked=>$gmConfigs->{'gmnotifyforstatus'} ).' New karma votes &#160;'.
-		Gm_Web::createRadioButton( name=>'editednotifyforstatus', value=>Gm_Constants::COMMENTS,
-		checked=>$gmConfigs->{'gmnotifyforstatus'} ).' New comments<BR>'.
-		Gm_Web::createRadioButton( name=>'editednotifyforstatus', value=>Gm_Constants::BOTH,
-		checked=>$gmConfigs->{'gmnotifyforstatus'} ).' Both &#160; '.
-		Gm_Web::createRadioButton( name=>'editednotifyforstatus', value=>Gm_Constants::NEITHER,
-		checked=>$gmConfigs->{'gmnotifyforstatus'} ).' Neither </td></tr>';
-	$rowcolor = Gm_Web::altRowColor( $rowcolor );
-	$page .= '</table></td></tr>';
-
-
-	$page .= '<tr class="section_head"><th>Emoticon Options</th><td>'.
-		_hiderCodeEntry('emoticonOptionHidden', 'emoticonOptionHider').
-		'</tr><tr><td colspan="2"><span id="emoticonOptionHidden"><table class="config_table">';
-	$page .= '<tr><td valign=middle bgcolor="#C0C0C0" COLSPAN=2><span class="info_text">'.
-		'Options relating to using emoticons in entries and comments.</span></td></tr>';
-
-	$page .= '<tr '.$rowcolor.'><th width="40%"><span class="info_title">Allow emoticons?</span><br />'.
-		'<span class="info_text">Specifies if you want to allow emoticons in the entries and/or the comments.'.
-		'</span></td><td>'.Gm_Web::createRadioButton( name=>'editedemoticonsallowed', value=>Gm_Constants::ENTRIES,
-		checked=>$gmConfigs->{'gmemoticonsallowed'} ).' Entries only &#160; '.
-		Gm_Web::createRadioButton( name=>'editedemoticonsallowed', value=>Gm_Constants::COMMENTS,
-		checked=>$gmConfigs->{'gmemoticonsallowed'} ).' Comments only<BR> '.
-		Gm_Web::createRadioButton( name=>'editedemoticonsallowed', value=>Gm_Constants::BOTH,
-		checked=>$gmConfigs->{'gmemoticonsallowed'} ).' Both &#160; '.Gm_Web::createRadioButton( name=>'editedemoticonsallowed', 
-		value=>Gm_Constants::NEITHER, checked=>$gmConfigs->{'gmemoticonsallowed'} ).' Neither </td></tr>';
-	$rowcolor = Gm_Web::altRowColor( $rowcolor );
-	$page .= '</table></td></tr>';
-
-	
-	$page .= '<tr class="section_head"><th>Karma & Comments Options</th><td>'.
-		_hiderCodeEntry('karmaCommentHidden', 'karmaCommentHider').
-		'</tr><tr><td colspan="2"><span id="karmaCommentHidden"><table class="config_table">';
-	$page .= '<tr><td valign=middle bgcolor="#C0C0C0" COLSPAN=2>'.
-		'<span class="info_text">Options relating to karma voting and comment '.
-		'posting.  Obviously, certain options can be ignored if you have their respective functions disabled '.
-		'(for example, if you disable comments or have "Generate pages for individual entries" turned off, none '.
-		'of the options relating to comments will have any effect).</span></td></tr>';
-
-	$page .= '<tr '.$rowcolor.'><th width="40%"><span class="info_title">Allow karma voting and/or comment '.
-		'posting?</span><br /><span class="info_text">Specifies whether you want to permit voting on karma, '.
-		'posting comments, both, or neither, on your site.  You can leave them enabled and still turn karma or '.
-		'comments on or off for individual entries; to disable either or both will override that for ALL entries.'.
-		'</span></td><td>'.Gm_Web::createRadioButton( name=>'editedallowkarmaorcomments', value=>Gm_Constants::KARMA,
-		checked=>$gmConfigs->{'gmallowkarmaorcomments'} ).' Karma only &#160; '.
-		Gm_Web::createRadioButton( name=>'editedallowkarmaorcomments', value=>Gm_Constants::COMMENTS,
-		checked=>$gmConfigs->{'gmallowkarmaorcomments'} ).'Comments only<BR> '.
-		Gm_Web::createRadioButton( name=>'editedallowkarmaorcomments', value=>Gm_Constants::BOTH,
-		checked=>$gmConfigs->{'gmallowkarmaorcomments'} ).'Both &#160;  '.
-		Gm_Web::createRadioButton( name=>'editedallowkarmaorcomments', value=>Gm_Constants::NEITHER,
-		checked=>$gmConfigs->{'gmallowkarmaorcomments'} ).'Neither </td></tr>';
-	$rowcolor = Gm_Web::altRowColor( $rowcolor );
-
-	$page .= '<tr '.$rowcolor.'><th><span class="info_title">Order of comments on entry pages:</span><br />'.
-		'<span class="info_text">The order in which you want comments displayed.  If "ascending", they\'ll be '.
-		'listed from newest to oldest, with the newest comment at the top; if "descending", from first to '.
-		'last, with the first comment at the top.</span></td><td>'.
-		Gm_Web::createRadioButton( name=>'editedcommentsorder', value=>Gm_Constants::ASCENDING,
-		checked=>$gmConfigs->{'gmcommentsorder'} ).' Ascending &#160; '.
-		Gm_Web::createRadioButton( name=>'editedcommentsorder', value=>Gm_Constants::DESCENDING,
-		checked=>$gmConfigs->{'gmcommentsorder'} ).' Descending </td></tr>';
-	$rowcolor = Gm_Web::altRowColor( $rowcolor );
-
-
-	$page .= '<tr '.$rowcolor.'><th><span class="info_title">Can post comments and vote on karma in archives?</span><br />'.
-		'<span class="info_text">If enabled, visitors can cast karma votes or post comments (if applicable) '.
-		'on entries no longer listed on the main index.  Enabling this may slow down your site over time.'.
-		'</span></td><td>'.Gm_Web::createRadioButton( name=>'editedposttoarchives', value=>Gm_Constants::YES,
-		checked=>$gmConfigs->{'gmposttoarchives'} ).' Yes &#160; '.
-		Gm_Web::createRadioButton( name=>'editedposttoarchives', value=>Gm_Constants::NO,
-		checked=>$gmConfigs->{'gmposttoarchives'} ).' No </td></tr>';
-	$rowcolor = Gm_Web::altRowColor( $rowcolor );
-
-	$page .= '<tr '.$rowcolor.'><th><span class="info_title">Karma voting on by default?</span><br />'.
-		'<span class="info_text">Specifies whether "Allow karma voting on this entry" is preselected to '.
-		'"Yes" or "No" by default on the "Add a new entry" screen.</span></td><td>'.
-		Gm_Web::createRadioButton( name=>'editedallowkarmadefault', value=>Gm_Constants::YES,
-		checked=>$gmConfigs->{'gmallowkarmadefault'} ).' Yes &#160; '.
-		Gm_Web::createRadioButton( name=>'editedallowkarmadefault', value=>Gm_Constants::NO,
-		checked=>$gmConfigs->{'gmallowkarmadefault'} ).' No </td></tr>';
-	$rowcolor = Gm_Web::altRowColor( $rowcolor );
-
-	$page .= '<tr '.$rowcolor.'><th><span class="info_title">Comment posting on by default?</span><br />'.
-		'<span class="info_text">Specifies whether "Allow comments to be posted to this entry" is preselected '.
-		'to "Yes" or "No" by default on the "Add a new entry" screen.</span></td><td>'.
-		Gm_Web::createRadioButton( name=>'editedallowcommentsdefault', value=>Gm_Constants::YES,
-		checked=>$gmConfigs->{'gmallowcommentsdefault'} ).' Yes &#160; '.
-		Gm_Web::createRadioButton( name=>'editedallowcommentsdefault', value=>Gm_Constants::NO,
-		checked=>$gmConfigs->{'gmallowcommentsdefault'} ).' No </td></tr>';
-	$rowcolor = Gm_Web::altRowColor( $rowcolor );
-
-
-	$page .= '<tr '.$rowcolor.'><th><span class="info_title">HTML allowed in comments?</span><br />'.
-		'<span class="info_text">Indicates whether you want to allow visitors to include HTML codes '.
-		'in their comments, or to have Greymatter strip them out.  You can also specify whether only the '.
-		'codes for links, bold and italics can be included, or just the codes for links.</span></td><td>'.
-		Gm_Web::createRadioButton( name=>'editedallowhtmlincomments', value=>Gm_Constants::YES,
-		checked=>$gmConfigs->{'gmallowhtmlincomments'} ).' All HTML allowed &#160; '.
-		Gm_Web::createRadioButton( name=>'editedallowhtmlincomments', value=>Gm_Constants::NO,
-		checked=>$gmConfigs->{'gmallowhtmlincomments'} ).' No HTML allowed<BR> '.
-		Gm_Web::createRadioButton( name=>'editedallowhtmlincomments', value=>'linkboldital',
-		checked=>$gmConfigs->{'gmallowhtmlincomments'} ).' Linking, Bold & Italic code only<BR> '.
-		Gm_Web::createRadioButton( name=>'editedallowhtmlincomments', value=>'linkonly',
-		checked=>$gmConfigs->{'gmallowhtmlincomments'} ).' Linking code only </td></tr>';
-	$rowcolor = Gm_Web::altRowColor( $rowcolor );
-
-
-	$page .= '<tr '.$rowcolor.'><th><span class="info_title">Auto-link URLs in comments?</span><br />'.
-		'<span class="info_text">If enabled, Greymatter will automatically link to any website or e-mail '.
-		'addresses that users post in their comments (unless you\'ve enabled linking above and they\'ve '.
-		'already linked the website/e-mail address themselves).</span></td><td>'.
-		Gm_Web::createRadioButton( name=>'editedautolinkurls', value=>Gm_Constants::YES,
-		checked=>$gmConfigs->{'gmautolinkurls'} ).' Yes &#160; '.
-		Gm_Web::createRadioButton( name=>'editedautolinkurls', value=>Gm_Constants::NO,
-		checked=>$gmConfigs->{'gmautolinkurls'} ).' No </td></tr>';
-	$rowcolor = Gm_Web::altRowColor( $rowcolor );
-
-
-	$page .= '<tr '.$rowcolor.'><th><span class="info_title">Strip new lines from comments?</span><br />'.
-		'<span class="info_text">If enabled, all line and paragraph breaks are stripped when displaying '.
-		'visitors\' comments, turning them into unbroken blocks of text; if disabled, Greymatter preserves '.
-		'the visitors\' original formatting.</span></td><td>'.
-		Gm_Web::createRadioButton( name=>'editedstriplinesfromcomments', value=>Gm_Constants::YES,
-		checked=>$gmConfigs->{'gmstriplinesfromcomments'} ).' Yes &#160; '.
-		Gm_Web::createRadioButton( name=>'editedstriplinesfromcomments', value=>Gm_Constants::NO,
-		checked=>$gmConfigs->{'gmstriplinesfromcomments'} ).' No </td></tr>';
-	$rowcolor = Gm_Web::altRowColor( $rowcolor );
-
-
-	$page .= '<tr '.$rowcolor.'><th><span class="info_title">Allow multiple karma votes from same IP?</span><br />'.
-		'<span class="info_text">If enabled, the same visitor could cast multiple karma votes on the same entry; if '.
-		'disabled, only one vote per visitor is allowed.</span></td><td>'.
-		Gm_Web::createRadioButton( name=>'editedallowmultiplekarmavotes', value=>Gm_Constants::YES,
-		checked=>$gmConfigs->{'gmallowmultiplekarmavotes'} ).' Yes &#160; '.
-		Gm_Web::createRadioButton( name=>'editedallowmultiplekarmavotes', value=>Gm_Constants::NO,
-		checked=>$gmConfigs->{'gmallowmultiplekarmavotes'} ).' No </td></tr>';
-	$rowcolor = Gm_Web::altRowColor( $rowcolor );
-
-
-	$page .= '<tr '.$rowcolor.'><th><span class="info_title">Mention it in the control panel log when comments '.
-		'and karma votes are added?</span><br /><span class="info_text">Enable this if you want Greymatter to '.
-		'mention all new comments and karma votes in the control panel log.</span></td><td>'.
-		Gm_Web::createRadioButton( name=>'editedlogkarmaandcomments', value=>Gm_Constants::YES,
-		checked=>$gmConfigs->{'gmlogkarmaandcomments'} ).' Yes &#160; '.
-		Gm_Web::createRadioButton( name=>'editedlogkarmaandcomments', value=>Gm_Constants::NO,
-		checked=>$gmConfigs->{'gmlogkarmaandcomments'} ).' No </td></tr>';
-	$rowcolor = Gm_Web::altRowColor( $rowcolor );
-
-	$page .= '<tr '.$rowcolor.'><th><span class="info_title">Mention it in the control panel log when '.
-		'PHP hack attempts are detected?</span><br /><span class="info_text">Enable this if you want '.
-		'Greymatter to log all attempts at hacking in the control panel log. Particularly useful for those '.
-		'who have set their file .suffix to .php.</span></td><td>'.
-		Gm_Web::createRadioButton( name=>'editedkeepphphacklog', value=>Gm_Constants::YES,
-		checked=>$gmConfigs->{'gmkeepphphacklog'} ).' Yes &#160; '.
-		Gm_Web::createRadioButton( name=>'editedkeepphphacklog', value=>Gm_Constants::NO,
-		checked=>$gmConfigs->{'gmkeepphphacklog'} ).' No </td></tr>';
-	$rowcolor = Gm_Web::altRowColor( $rowcolor );
-
-	$page .= '<tr '.$rowcolor.'><th><span class="info_title">Send e-mail notifications when PHP hack attempts '.
-		'are detected?</span><br /><span class="info_text">Enable this if you want to receive mail when PHP hack '.
-		'attempts are logged. Particularly useful for those who have set their file .suffix to .php.</span></td><td>'.
-		Gm_Web::createRadioButton( name=>'editedmailhacknotice', value=>Gm_Constants::YES,
-		checked=>$gmConfigs->{'gmmailhacknotice'} ).' Yes &#160; '.
-		Gm_Web::createRadioButton( name=>'editedmailhacknotice', value=>Gm_Constants::NO,
-		checked=>$gmConfigs->{'gmmailhacknotice'} ).' No </td></tr>';
-	$rowcolor = Gm_Web::altRowColor( $rowcolor );
-
-	$page .= '<tr '.$rowcolor.'><th><span class="info_title">Password Protect Author Name in Comments?</span><br />'.
-		'<span class="info_text">If enabled '.
-		'comments cannot be entered that contain a registered authors name.  When authors '.
-		'wish to post comments they must enter their author name, the "_", and their '.
-		'password.  In other words as AUTHORNAME_PASSWORD (using proper case for the '.
-		'username and password).  Exact means that the commenter name must match the '.
-		'author\'s name exactly.</span></td><td>'.
-		Gm_Web::createRadioButton( name=>'editedprotectauthorname', value=>'LOOSE',
-		checked=>$gmConfigs->{'gmprotectauthorname'} ).' Loose &#160; '.
-		Gm_Web::createRadioButton( name=>'editedprotectauthorname', value=>'STRICT',
-		checked=>$gmConfigs->{'gmprotectauthorname'} ).' Exact &#160; '.
-		Gm_Web::createRadioButton( name=>'editedprotectauthorname', value=>Gm_Constants::NO,
-		checked=>$gmConfigs->{'gmprotectauthorname'} ).' No </td></tr>';
-	$rowcolor = Gm_Web::altRowColor( $rowcolor );
-
-	$page .= '<tr '.$rowcolor.'><th><span class="info_title">Limit Links in Comments?</span><br />'.
-		'<span class="info_text">If enabled comments that contain more than the specified allowed amount '.
-		'of comments will be automatically block and/or banned.</span></td><td>'.
-		Gm_Web::createRadioButton( name=>'editedcommentlinklimit', value=>'blockban',
-		checked=>$gmConfigs->{'gmcommentlinklimit'} ).' Block and Ban &#160; '.
-		Gm_Web::createRadioButton( name=>'editedcommentlinklimit', value=>'block',
-		checked=>$gmConfigs->{'gmcommentlinklimit'} ).' Block &#160; '.
-		Gm_Web::createRadioButton( name=>'editedcommentlinklimit', value=>Gm_Constants::NO,
-		checked=>$gmConfigs->{'gmcommentlinklimit'} ).' No <br />'.
-		'<INPUT TYPE=TEXT CLASS="inputfield" NAME="editedcommentlinklimitnum" VALUE="'.
-		$gmConfigs->{'gmcommentlinklimitnum'}.'" style="width: 80%;"> links </td></tr>';
-	$rowcolor = Gm_Web::altRowColor( $rowcolor );
-
-	$page .= '<tr '.$rowcolor.'><th><span class="info_title"> Force Previewing when Posting a Comment?</span><br />'.
-		'<span class="info_text">If enabled comments cannot be entered without previewing first.  This '.
-		'extra step can help cut down on spam.  Note that if this is enabled, you may wish to remove the '.
-		'"Submit" button on the comment entry template, since this will just take the user'.
-		'to the preview page, or remove the "Preview" button.'.
-		'<br />Note: This may require a modification to the "Confirmation Form Template",'.
-		' simply add or verify that the button in that template has the "name=postit" attribute.'.
-		'<br />Note: If you choose "Random", a random phrase will be hidden on the preview form, '.
-		'ensuring that comments cannot be posted directly, they must be Previewed.  This is recommended '.
-		'but requires that the line "&lt;input type=hidden name=previewrand value={{previewrand}} /&gt;" be put '.
-		'just before the submit button in the Comment Confirmation templates.</span></td><td>'.
-		Gm_Web::createRadioButton( name=>'editedcommentforcepreview', value=>'rand',
-		checked=>$gmConfigs->{'gmcommentforcepreview'} ).' Random '.
-		Gm_Web::createRadioButton( name=>'editedcommentforcepreview', value=>Gm_Constants::YES,
-		checked=>$gmConfigs->{'gmcommentforcepreview'} ).' Yes &#160; '.
-		Gm_Web::createRadioButton( name=>'editedcommentforcepreview', value=>Gm_Constants::NO,
-		checked=>$gmConfigs->{'gmcommentforcepreview'} ).' No </td></tr>';
-	$rowcolor = Gm_Web::altRowColor( $rowcolor );
-
-	$page .= '<tr '.$rowcolor.'><th><span class="info_title">Commenter Verification?</span><br />'.
-		'<span class="info_text">If enabled when a comment is submitted, the commenter will be '.
-		'prompted to retype a "pass-phrase" withen 3 minutes, to cut down on automated spam.  '.
-		'You can provide a static pass-phrase that users will '.
-		'be prompted, or the pass-phrase will be used to create a random 7 character string.</span></td><td>'.
-		Gm_Web::createRadioButton( name=>'editedcommentverify', value=>'random',
-		checked=>$gmConfigs->{'gmcommentverify'} ).' Random Phrase &#160; '.
-		Gm_Web::createRadioButton( name=>'editedcommentverify', value=>'static',
-		checked=>$gmConfigs->{'gmcommentverify'} ).' Static Phrase &#160; '.
-		Gm_Web::createRadioButton( name=>'editedcommentverify', value=>Gm_Constants::NO,
-		checked=>$gmConfigs->{'gmcommentverify'} ).' No <br />'.
-		'<INPUT TYPE=TEXT CLASS="inputfield" NAME="editedcommentverifyphrase" VALUE="'.
-		$gmConfigs->{'gmcommentverifyphrase'}.'" style="width: 80%;"> phrase </td></tr>';
-	$rowcolor = Gm_Web::altRowColor( $rowcolor );
-
-	$page .= '<tr '.$rowcolor.'><th><span class="info_title">Verify Site Comment/Karma Vote Posted From?</span><br />'.
-		'<span class="info_text">If enabled will verify that the page that comments are posted or karma votes are '.
-		'from matches the site listed in Website Path variables.  '.
-		'Spammers can fake where the form is posted from, but some do not.  This will block their '.
-		'comments/ karma votes with an error message.  May not work with some path configurations.'.
-		'</span></td><td>'.
-		Gm_Web::createRadioButton( name=>'editedcommentverifyreferer', value=>Gm_Constants::YES,
-		checked=>$gmConfigs->{'gmcommentverifyreferer'} ).' Yes &#160; '.
-		Gm_Web::createRadioButton( name=>'editedcommentverifyreferer', value=>Gm_Constants::NO,
-		checked=>$gmConfigs->{'gmcommentverifyreferer'} ).' No </td></tr>';
-	$rowcolor = Gm_Web::altRowColor( $rowcolor );
-
-	$page .= '<tr '.$rowcolor.'><th><span class="info_title">Comment Throttling?</span><br />'.
-		'<span class="info_text">If enabled '.
-		'will limit the amount of comments that can be made on an entry by a single user '.
-		'(assuming that the user\'s IP is the same) in a given day.  Static will allow the user '.
-		'to comment every X minutes, while Exponential will allow the second comment after 1 minute, '.
-		'the third after 4, fourth after 9, and so on.'.
-		'</span></td><td>'.
-		Gm_Web::createRadioButton( name=>'editedcommentthrottle', value=>Gm_Constants::YES,
-		checked=>$gmConfigs->{'gmcommentthrottle'} ).' Exponential &#160; '.
-		Gm_Web::createRadioButton( name=>'editedcommentthrottle', value=>'static',
-		checked=>$gmConfigs->{'gmcommentthrottle'} ).' Static '.
-		Gm_Web::createRadioButton( name=>'editedcommentthrottle', value=>Gm_Constants::NO,
-		checked=>$gmConfigs->{'gmcommentthrottle'} ).' No <br />'.
-		'<INPUT TYPE=TEXT CLASS="inputfield" NAME="editedcommentthrottlemin" VALUE="'.
-		$gmConfigs->{'gmcommentthrottlemin'}.'" style="width: 80%;"> minutes </td></tr>';
-	$rowcolor = Gm_Web::altRowColor( $rowcolor );
-	$page .= '</table></td></tr>';
- 
- 
-	$page .= '<tr class="section_head"><th>Date & Time Options</th><td>'.
-		_hiderCodeEntry('dateTimeHidden', 'dateTimeHider').
-		'</tr><tr><td colspan="2"><span id="dateTimeHidden"><table class="config_table">';
-	$page .= '<tr><td valign=middle bgcolor="#C0C0C0" COLSPAN=2>'.
-		'<span class="info_text">Miscellaneous options regarding to dates & times.  Use the wide '.
-		'variety date and time variables in your templates to fine-tune how you want the date and time to '.
-		'appear on your site.</span></td></tr>';
-
-	$page .= '<tr '.$rowcolor.'><th width="40%"><span class="info_title">Server Offset Time:</span><br />'.
-		'<span class="info_text">As of this moment, Greymatter reads your time as <B>'.$hour.':'.$mintwo.' '.$AMPM.
-		'</B>.  If this is incorrect, specify the number of hours to add or subtract from this time (to subtract, '.
-		'make it a negative number, with a minus in front of it).</span></td><td>'.
-		'<INPUT TYPE=TEXT CLASS="inputfield" NAME="editedoffsettime" VALUE="'.$gmConfigs->{'gmserveroffset'}.
-		'"></td></tr>';
-	$rowcolor = Gm_Web::altRowColor( $rowcolor );
-
-	$page .= '<tr '.$rowcolor.'><th><span class="info_title">Your Time Zone:</span><br />'.
-		'<span class="info_text">The time zone you live in.  This is what will appear wherever you use the '.
-		'{{timezone}} variable in your templates.</span></td><td>'.
-		'<INPUT TYPE=TEXT CLASS="inputfield" NAME="editedtimezone" VALUE="'.$gmConfigs->{'gmtimezone'}.'"></td></tr>';
-	$rowcolor = Gm_Web::altRowColor( $rowcolor );
-	$page .= '</table></td></tr>';
-	
-	
-	$page .= '<tr class="section_head"><th>File Uploading Options</th><td>'.
-		_hiderCodeEntry('fileUploadHidden', 'fileUploadHider').
-		'</tr><tr><td colspan="2"><span id="fileUploadHidden"><table class="config_table">';
-	$page .= '<tr><td valign=middle bgcolor="#C0C0C0" COLSPAN=2>'.
-		'<span class="info_text">Options relating to uploading files from within Greymatter.</span>'.
-		'</td></tr>';
-
-	$page .= '<tr '.$rowcolor.'><th width="40%"><span class="info_title">Allowed File Types:</span><br />'.
-		'<span class="info_text">If you only wish to allow certain types of files to be uploaded, enter their '.
-		'file suffixes here.  Separate allowed file types by semicolons (for example, "jpg;gif;zip").  Leave '.
-		'this blank to allow any type of file to be uploaded.</span></td><td>'.
-		'<INPUT TYPE=TEXT CLASS="inputfield" NAME="editeduploadfilesallowed" VALUE="'.
-		$gmConfigs->{'gmuploadfilesallowed'}.'"></td></tr>';
-	$rowcolor = Gm_Web::altRowColor( $rowcolor );
-
-	$page .= '<tr '.$rowcolor.'><th><span class="info_title">Maximum Filesize Allowed:</span><br />'.
-		'<span class="info_text">If you don\'t wish to allow files larger than a certain size to be uploaded, '.
-		'specify that limit here (in KB/kilobytes).  Leave this on "0" to allow files of any size to be '.
-		'uploaded.</span></td><td>'.
-		'<INPUT TYPE=TEXT CLASS="inputfield" NAME="editeduploadfilesizelimit" VALUE="'.
-		$gmConfigs->{'gmuploadfilesizelimit'}.'"></td></tr>';
-	$rowcolor = Gm_Web::altRowColor( $rowcolor );
-	$page .= '</table></td></tr>';
-	
- 
-	$page .= '<tr class="section_head"><th>Censoring Options</th><td>'.
-		_hiderCodeEntry('censorOptionHidden', 'censorOptionHider').
-		'</tr><tr><td colspan="2"><span id="censorOptionHidden"><table class="config_table">';
-	$page .= '<tr><td valign=middle bgcolor="#C0C0C0" COLSPAN=2>'.
-		'<span class="info_text">Words or phrases you want to censor on your site (if any), and where to '.
-		'censor them.<BR>Censored terms will be turned into "*" asterisks.</span></td></tr>';
-
-	$page .= '<tr '.$rowcolor.'><th width="40%"><span class="info_title">Enable censoring?</span><br />'.
-		'<span class="info_text">Specifies whether you want any words or phrases in your censor list to appear '.
-		'censored for entries, comments, or both.  Leave it on "Neither" to disable censorship.</span></td><td>'.
-		Gm_Web::createRadioButton( name=>'editedcensorenabled', value=>Gm_Constants::ENTRIES,
-		checked=>$gmConfigs->{'gmcensorenabled'} ).' Entries only &#160 '.
-		Gm_Web::createRadioButton( name=>'editedcensorenabled', value=>Gm_Constants::COMMENTS,
-		checked=>$gmConfigs->{'gmcensorenabled'} ).' Comments only <br /> '.
-		Gm_Web::createRadioButton( name=>'editedcensorenabled', value=>Gm_Constants::BOTH,
-		checked=>$gmConfigs->{'gmcensorenabled'} ).' Both &#160; '.
-		Gm_Web::createRadioButton( name=>'editedcensorenabled', value=>Gm_Constants::NEITHER,
-		checked=>$gmConfigs->{'gmcensorenabled'} ).' Neither </td></tr>';
-	$rowcolor = Gm_Web::altRowColor( $rowcolor );
-
-	$page .= '<tr '.$rowcolor.'><th><span class="info_title">Censor List</span><br />'.
-		'<span class="info_text">Enter any words or phrases you want to censor, separated by lines (press '.
-		'return after each word/phrase).  Use [brackets] around words/phrases to censor the term only if '.
-		'it\'s not part of another word/phrase; for example, censoring the word hell would render hell '.
-		'as **** and shell as s****, but censoring [hell] would only turn hell by itself into asterisks, '.
-		'and leave the word shell alone.</span></td><td>'.
-		'<TEXTAREA NAME="editedcensorlist" COLS=25 ROWS=6 class="inputfield">'.$gmConfigs->{'gmcensorlist'}.
-		'</TEXTAREA></td></tr>';
-	$rowcolor = Gm_Web::altRowColor( $rowcolor );
-	$page .= '</table></td></tr>';
-	
-	
-	$page .= '<tr class="section_head"><th>Connect Other Files</th><td>'.
-		_hiderCodeEntry('connectFilesHidden', 'connectFilesHider').
-		'</tr><tr><td colspan="2"><span id="connectFilesHidden"><table class="config_table">';
-	$page .= '<tr><td valign=middle bgcolor="#C0C0C0" COLSPAN=2>'.
-		'<span class="info_text">If you wish, you can connect other '.
-		'files on your account to Greymatter, and have them treated as if they were one of Greymatter\'s '.
-		'regular index files; for example, using {{header}} or {{footer}} in another file to insert your '.
-		'Greymatter header or footer into that file.  (You\'ll need to edit & upload these files to your '.
-		'account outside Greymatter.)  This is <B>only recommended for advanced users</B> that are already '.
-		'comfortable using Greymatter.</span></td></tr>';
-
-	$page .= '<tr '.$rowcolor.'><th width="40%"><span class="info_title">Filename List</span><br />'.
-		'<span class="info_text">To connect a file to Greymatter, <B>CHMOD it to 666</B>&#151;making sure '.
-		'it contains whatever Greymatter variables you wish&#151;and enter its filename on the right; place '.
-		'each filename on separate lines.  If the file isn\'t in the same directory as gm.cgi, then use '.
-		'virtual paths relative to where it\'s running from.  For example, if you want to connect "test.htm" '.
-		'and it\'s in the directory above gm.cgi, you\'d use ../test.htm; or, if you run gm.cgi from '.
-		'/here/cgi-bin and test.htm was in /there/log, you\'d use ../../there/log ("../" means to go up '.
-		'one directory).  Greymatter will automatically create a "pattern" file in your entries directory '.
-		'for each filename, and whenever you reupload a changed file, Greymatter will automatically update '.
-		'its stored pattern for that file.</span></td><td>'.
-		'<TEXTAREA NAME="editedotherfilelist" COLS=25 ROWS=10 class="inputfield">'.
-		$gmConfigs->{'gmotherfilelist'}.'</TEXTAREA></td></tr>';
-	$rowcolor = Gm_Web::altRowColor( $rowcolor );
-
-	$page .= '<tr '.$rowcolor.'><th><span class="info_title">Update them when adding entries?</span><br />'.
-		'<span class="info_text">If "Yes", then Greymatter will automatically update any of the connected '.
-		'files above when new entries are added; if not, they\'ll only be updated whenever you rebuild them '.
-		'(either specifically, or by rebuilding everything).</span></td><td>'.
-		Gm_Web::createRadioButton( name=>'editedotherfilelistentryrebuild', value=>Gm_Constants::YES,
-		checked=>$gmConfigs->{'gmotherfilelistentryrebuild'} ).' Yes &#160; '.
-		Gm_Web::createRadioButton( name=>'editedotherfilelistentryrebuild', value=>Gm_Constants::NO,
-		checked=>$gmConfigs->{'gmotherfilelistentryrebuild'} ).' No </td></tr>';
-	$rowcolor = Gm_Web::altRowColor( $rowcolor );
-	$page .= '</table></td></tr>';
-
-	
-	$page .= '<tr class="section_head"><th>Miscellaneous Options</th><td>'.
-		_hiderCodeEntry('miscOptionHidden', 'miscOptionHider').
-		'</tr><tr><td colspan="2"><span id="miscOptionHidden"><table class="config_table">';
-	$page .= '<tr><td valign=middle bgcolor="#C0C0C0" COLSPAN=2><span class="info_title">'.
-		'Options for a variety of features.</span></td></tr>';
-
-	$page .= '<tr '.$rowcolor.'><th width="40%"><span class="info_title">Enable/Disable cookies?</span><br />'.
-		'<span class="info_text">By default, Greymatter doesn\'t keep a cookie on your browser to remember '.
-		'your name and password.  To enable Greymatter\'s cookies, select "Yes".</span></td><td>'.
-		Gm_Web::createRadioButton( name=>'editedcookiesallowed', value=>Gm_Constants::YES,
-		checked=>$gmConfigs->{'gmcookiesallowed'} ).' Yes &#160; '.
-		Gm_Web::createRadioButton( name=>'editedcookiesallowed', value=>Gm_Constants::NO,
-		checked=>$gmConfigs->{'gmcookiesallowed'} ).' No '.
-		'<br /><INPUT TYPE=CHECKBOX NAME="editeddeletecookies" VALUE="yes"> Delete cookies set by Greymatter?'.
-		'</td></tr>';
-	$rowcolor = Gm_Web::altRowColor( $rowcolor );
-
-	$page .= '<tr '.$rowcolor.'><th><span class="info_title">Keep control panel log?</span><br />'.
-		'<span class="info_text">Specifies whether you want Greymatter to keep its internal log of all activity; '.
-		'disable this if you want to shut it off.</span></td><td>'.
-		Gm_Web::createRadioButton( name=>'editedkeeplog', value=>Gm_Constants::YES,
-		checked=>$gmConfigs->{'gmkeeplog'} ).' Yes &#160; '.
-		Gm_Web::createRadioButton( name=>'editedkeeplog', value=>Gm_Constants::NO,
-		checked=>$gmConfigs->{'gmkeeplog'} ).' No </td></tr>';
-	$rowcolor = Gm_Web::altRowColor( $rowcolor );
-
-	$page .= '<tr '.$rowcolor.'><th><span class="info_title">Allow "easy formatting"?</span><br />'.
-		'<span class="info_text">With "easy formatting", bold text, italics & underlining can be done easily '.
-		'by bracketing text with two **asterisks**, \\\\backslashes\\\\ or __underlines__ respectively.  You '.
-		'can specify whether this is enabled in entries, comments, or both; if disabled, the characters won\'t be '.
-		'converted.</span></td><td>'.
-		Gm_Web::createRadioButton( name=>'editedinlineformatting', value=>Gm_Constants::ENTRIES,
-		checked=>$gmConfigs->{'gminlineformatting'} ).' Entries only &#160; '.
-		Gm_Web::createRadioButton( name=>'editedinlineformatting', value=>Gm_Constants::COMMENTS,
-		checked=>$gmConfigs->{'gminlineformatting'} ).' Comments only<BR> '.
-		Gm_Web::createRadioButton( name=>'editedinlineformatting', value=>Gm_Constants::BOTH,
-		checked=>$gmConfigs->{'gminlineformatting'} ).' Both &#160; '.
-		Gm_Web::createRadioButton( name=>'editedinlineformatting', value=>Gm_Constants::NEITHER,
-		checked=>$gmConfigs->{'gminlineformatting'} ).' Neither </td></tr>';
-	$rowcolor = Gm_Web::altRowColor( $rowcolor );
-
-	$page .= '<tr '.$rowcolor.'><th><span class="info_title">Default entry list view:</span><br />'.
-		'<span class="info_text">This specifies which view will be the default when you go to the Edit '.
-		'An Entry selection menu.</span></td><td><SELECT NAME="editeddefaultentrylistview" CLASS="selectlist">'.
-		Gm_Web::createOption( value=>'main', label=>' Current entries ('.$gmConfigs->{'gmindexdays'}.' day(s))',
-		checked=>$gmConfigs->{'gmdefaultentrylistview'} ).
-		Gm_Web::createOption( value=>'onlyyou', label=>' All entries by you',
-		checked=>$gmConfigs->{'gmdefaultentrylistview'} ).
-		Gm_Web::createOption( value=>Gm_Constants::MORE, label=>' All extended entries',
-		checked=>$gmConfigs->{'gmdefaultentrylistview'} ).
-		Gm_Web::createOption( value=>Gm_Constants::OPEN, label=>' All open entries',
-		checked=>$gmConfigs->{'gmdefaultentrylistview'} ).
-		Gm_Web::createOption( value=>Gm_Constants::CLOSED, label=>' All closed entries',
-		checked=>$gmConfigs->{'gmdefaultentrylistview'} ).
-		Gm_Web::createOption( value=>Gm_Constants::ALL, label=>' All entries',
-		checked=>$gmConfigs->{'gmdefaultentrylistview'} ).'</SELECT></td></tr>';
-	$rowcolor = Gm_Web::altRowColor( $rowcolor );
-	
-	$page .= '<tr '.$rowcolor.'><th><span class="info_title">Order of list links:</span><br />'.
-		'<span class="info_text">The order in which you want links to be displayed in log list '.
-		'variables&#151;check the manual for more information on those.  If "ascending", the links will '.
-		'be listed from newest to oldest, with the newest entry at the top; if "descending", from first to '.
-		'last, with the first entry at the top.</span></td><td>'.
-		Gm_Web::createRadioButton( name=>'editedentrylistsortorder', value=>Gm_Constants::ASCENDING,
-		checked=>$gmConfigs->{'gmentrylistsortorder'} ).' Ascending &#160; '.
-		Gm_Web::createRadioButton( name=>'editedentrylistsortorder', value=>Gm_Constants::DESCENDING,
-		checked=>$gmConfigs->{'gmentrylistsortorder'} ).' Descending </td></tr>';
-	$rowcolor = Gm_Web::altRowColor( $rowcolor );
-
-	$page .= '<tr '.$rowcolor.'><th><span class="info_title">Log entry list variable number:</span><br />'.
-		'<span class="info_text">The number of entries to link to, starting from the most recent, whenever '.
-		'the "number" variant of the log entrylist variables (for example, if this is set to 5, using '.
-		'{{logmoreentrylist number}} would generate a list of links to the five most recent extended entries).  '.
-		'Check the <a href="'.Gm_Constants::GM_FORUM.'" title="read the manual" target="_blank">manual</a> '.
-		'for more information on those variables.</span></td><td>'.
-		'<INPUT TYPE=TEXT CLASS="inputfield" NAME="editedentrylistcountnumber" VALUE="'.
-		$gmConfigs->{'gmentrylistcountnumber'}.'"></td></tr>';
-	$rowcolor = Gm_Web::altRowColor( $rowcolor );
-
-	$page .= '<tr '.$rowcolor.'><th><span class="info_title">Link to entries in {{logentrylist comments}} '.
-		'only if comments are active?</span><br /><span class="info_text">If you use {{logentrylist comments}} '.
-		'and its related variables (see the <a href="'.Gm_Constants::GM_FORUM.'" title="read the manual" '.
-		'target="_blank">manual</a> for more information), this specifies whether to list only entries to '.
-		'which comments can still be posted.</span></td><td>'.
-		Gm_Web::createRadioButton( name=>'editedcommententrylistonlyifokay', value=>Gm_Constants::YES,
-		checked=>$gmConfigs->{'gmcommententrylistonlyifokay'} ).' Yes &#160; '.
-		Gm_Web::createRadioButton( name=>'editedcommententrylistonlyifokay', value=>Gm_Constants::NO,
-		checked=>$gmConfigs->{'gmcommententrylistonlyifokay'} ).' No </td></tr>';
-	$rowcolor = Gm_Web::altRowColor( $rowcolor );
-
-	$page .= '<tr '.$rowcolor.'><th><span class="info_title">Entries to link to in 	{{calendar}}:</span><br />'.
-		'<span class="info_text">Whenever you use {{calendar}} or {{calendarweek}} to generate tables linking '.
-		'to your entries, this specifies whether you want to link to the most recent entry for that day, or to '.
-		'link only to extended entries.  (It won\'t generate links at all if "Generate pages for individual '.
-		'entries" is turned off).</span></td><td>'.
-		Gm_Web::createRadioButton( name=>'editedlinktocalendarentries', value=>Gm_Constants::ALL,
-		checked=>$gmConfigs->{'gmlinktocalendarentries'} ).' Always link to entry for that calendar day<br />'.
-		Gm_Web::createRadioButton( name=>'editedlinktocalendarentries', value=>Gm_Constants::MORE,
-		checked=>$gmConfigs->{'gmlinktocalendarentries'} ).' Link only to extended entries </td></tr>';
-	$rowcolor = Gm_Web::altRowColor( $rowcolor );
-
-	$page .= '<tr '.$rowcolor.'><th><span class="info_title">"Automatically rebuild" selected by default?'.
-		'</span><br /><span class="info_text">Selects whether the option to automatically rebuild files '.
-		'after saving changes to templates or entries is prechecked by default.  (Authors without access '.
-		'to rebuilding files won\'t see this option.)</span></td><td>'.
-		Gm_Web::createRadioButton( name=>'editedautomaticrebuilddefault', value=>Gm_Constants::YES,
-		checked=>$gmConfigs->{'gmautomaticrebuilddefault'} ).' Yes &#160; '.
-		Gm_Web::createRadioButton( name=>'editedautomaticrebuilddefault', value=>Gm_Constants::NO,
-		checked=>$gmConfigs->{'gmautomaticrebuilddefault'} ).' No </td></tr>';
-	$rowcolor = Gm_Web::altRowColor( $rowcolor );
-	$page .= '</table></td></tr>';
-	
-	$page .= '</table><p><INPUT TYPE=SUBMIT CLASS="button" NAME="viewdiag" '.
-		'style="background: #D0FFD0; width: 485;" VALUE="Save Configs and Perform Diagnostics"></p>'.
-		'<p><INPUT TYPE=RESET class="cancel_button button_hov" VALUE="Undo Changes Since Last Save"> '.
-		'<INPUT TYPE=SUBMIT class="accept_button button_hov" NAME="update" VALUE="Save Configuration"></p></form>';
-	$page .= '<form action="gm.cgi" method="post">'.Gm_Security::getFormAuth( author=>\%AUTHOR ).
-		'<input type=SUBMIT class="button" name="menu" value="'.Gm_Core::text( Gm_Constants::RETURN_MAIN_MENU ).
-		'" style="background: #C0C0C0"></form>';
-
-
-	Gm_Web::displayAdminPageExit( $page );
-	exit(0);
+    my $message = shift( @_ ) || Gm_Constants::EMPTY;
+
+
+    my ($basedate, $wday, $mon, $mday, $JSYear, $hour, $min, $sec, $AMPM ) = 
+        Gm_Utils::getStdDate( $gmConfigs->{'gmserveroffset'} );
+    my $montwo = Gm_Utils::toTwoDigit( $mon );
+    my $mdaytwo = Gm_Utils::toTwoDigit( $mday );
+    my $hourtwo = Gm_Utils::toTwoDigit( $hour );
+    my $mintwo = Gm_Utils::toTwoDigit( $min );
+
+    my $censorlist = Gm_Utils::toWebSafe( $gmConfigs->{'gmcensorlist'} );
+    my $otherfilelist = Gm_Utils::toWebSafe( $gmConfigs->{'gmotherfilelist'} );
+
+    
+    ## TODO: ADD LABEL TAGS FOR ACCESSABILITY
+    
+    my $rowcolor = Gm_Web::altRowColor();
+
+    my $page = '<span class="section_title">Configuration Options</span> ('.
+                                                                          '<a href="javascript:init();">Expand All</a>)<br /><p>'.$message.'</p>';
+    
+    $page .= '<script language="JavaScript">
+        /* Will change the size of the given element 
+      ARG1: id of span to hide
+      ARG2: id of span that is the controller, the hide/show link
+        */
+        function hider( toFlip, toLink ){
+    if( document.getElementById && document.getElementById(toFlip) != null ){
+    var subject = document.getElementById( toFlip );
+    var controller = document.getElementById( toLink ); 
+    if( subject.className != "hidden" ){
+    _hideShow( "hidden", "Show", subject, controller );
+
+    } else {
+    _hideShow( "", "Hide", subject, controller );
+    }
+    }
+    
+    function _hideShow( className, theText, sub, con ){
+    sub.className=className;
+    var link = document.createElement("a");
+    link.href = \'javascript:hider(\\\'\'+ toFlip +\'\\\', \\\'\'+ toLink +\'\\\');\';
+    link.appendChild( document.createTextNode( theText ));
+    
+    while( con.hasChildNodes() ){
+    con.removeChild( con.firstChild );
+    }
+    con.appendChild( link );
+    }
+    }
+
+    function init(){
+    var cookieStrings = ["pathConfigHidden|pathConfigHider", "indexArchiveHidden|indexArchiveHider",
+                         "emailOptionHidden|emailOptionHider", "emoticonOptionHidden|emoticonOptionHider",
+                         "karmaCommentHidden|karmaCommentHider","dateTimeHidden|dateTimeHider",
+                         "fileUploadHidden|fileUploadHider","censorOptionHidden|censorOptionHider",
+                         "connectFilesHidden|connectFilesHider", "miscOptionHidden|miscOptionHider"];
+    for( var i=0;i< cookieStrings.length;i++ ){
+    var cookieParts = cookieStrings[i].split("|");
+    // should be calling a function to hide, not the toggle function
+        hider( cookieParts[0], cookieParts[1] );
+    }
+    }
+
+    window.onload = init;
+    </script>
+        ';
+    
+    $page .= '<form action="gm.cgi" method=post>'.Gm_Security::getFormAuth( author=>\%AUTHOR ).
+        '<input type="hidden" name="section" value="'.$IN{'section'}.'">'.
+        '<table style="font-size: small; width: 100%">';
+    
+    $page .= '<tr class="section_head"><th>Path Configuration</th><td>'.
+        _hiderCodeEntry('pathConfigHidden', 'pathConfigHider').
+        '</tr><tr><td colspan="2"><span id="pathConfigHidden"><table class="config_table">'.
+        '<tr><td valign=middle bgcolor="#FFFFD0" colspan=2>'.
+        '<span class="info_text">Your paths tell Greymatter where to look for things on your site; local paths are relative to '.
+                                                                                                       'your server, and the website paths are their respective pointers on the web.  Each of these paths MUST be correctly set for '.
+                                                                                                       'Greymatter to work correctly; if you can\'t seem to set them right, use virtual paths (with "." and "../") instead; read the '.
+                                                                                                                                                                                                                                'Troubleshooting section of the <a href="'.Gm_Constants::GM_FORUM.'" title="read the manual" target="_blank">manual</a> '.
+                                                                                                                                                                                                                                'for more information.  It\'s a good idea to run "Diagnostics & Repair" after saving changes to your paths.</span></td></tr>';
+
+    $page .= '<tr '.$rowcolor.'><th width="40%"><span class="info_title"><label for="logpath">Local Log '.
+        'Path:</label></span><br /><span class="info_text">The main weblog/journal directory on your account, '.
+        'where your main index file is.</span></td><td>'.
+        '<input type=text class="inputfield" name="editedlogpath" value="'.$gmConfigs->{'gmlogpath'}.
+                                             '" id="logpath"></td></tr>';
+    $rowcolor = Gm_Web::altRowColor( $rowcolor );
+    
+    $page .= '<tr '.$rowcolor.'><th><span class="info_title"><label for="entriespath">Local Entries/Archives '.
+        'Path:</label></span><br /><span class="info_text">The directory on your account where your entry '.
+        'files (current and archived) are to be stored.</span></td><td>'.
+        '<input type=text class="inputfield" name="editedentriespath" value="'.$gmConfigs->{'gmentriespath'}.
+                                             '" id="entriespath"></td></tr>';
+    $rowcolor = Gm_Web::altRowColor( $rowcolor );
+    
+    $page .= '<tr '.$rowcolor.'><th><span class="info_title"><label for="cgilocalpath">Local CGI Path:'.
+        '</label></span><br /><span class="info_text">The place on your account where you keep all your '.
+        'Greymatter CGI files ("gm*.cgi").</span></td><td>'.
+        '<INPUT TYPE=TEXT CLASS="inputfield" NAME="editedcgilocalpath" VALUE="'.$gmConfigs->{'gmcgilocalpath'}.
+                                             '" id="cgilocalpath"></td></tr>';
+    $rowcolor = Gm_Web::altRowColor( $rowcolor );
+    
+    $page .= '<tr '.$rowcolor.'><th><span class="info_title"><label for="logwebpath">Website Log Path:'.
+        '</label></span><br /><span class="info_text">The website address of the directory where your main '.
+        'index file is.</span></td><td>'.
+        '<INPUT TYPE=TEXT CLASS="inputfield" NAME="editedlogwebpath" VALUE="'.$gmConfigs->{'gmlogwebpath'}.
+                                             '" id="logwebpath"></td></tr>';
+    $rowcolor = Gm_Web::altRowColor( $rowcolor );
+    
+    $page .= '<tr '.$rowcolor.'><th><span class="info_title"><label for="entrieswebpath">Website Entries Path:'.
+        '</label></span><br /><span class="info_text">The website address of the directory where all your '.
+        'entries are to be stored.</span></td><td>'.
+        '<INPUT TYPE=TEXT CLASS="inputfield" NAME="editedentrieswebpath" VALUE="'.$gmConfigs->{'gmentrieswebpath'}.
+                                             '" id="entrieswebpath"></td></tr>';
+    $rowcolor = Gm_Web::altRowColor( $rowcolor );
+    
+    $page .= '<tr '.$rowcolor.'><th><span class="info_title"><label for="cgiwebpath">Website CGI Path:'.
+        '</label></span><br /><span class="info_text">The website address of the directory where all your '.
+        'Greymatter CGI files are kept.</span></td><td>'.
+        '<INPUT TYPE=TEXT CLASS="inputfield" NAME="editedcgiwebpath" VALUE="'.$gmConfigs->{'gmcgiwebpath'}.
+                                             '" id="cgiwebpath"></td></tr>';
+    $rowcolor = Gm_Web::altRowColor( $rowcolor );
+    
+    $page .= '<tr '.$rowcolor.'><th><span class="info_title"><label for="emoticonspath">Website Emoticons '.
+        'Path:</label></span><br /><span class="info_text">The path for the emoticon images. either a '.
+        'website path (like http://) or a local path (like /emoticons). no slash ("/") at the end.</span></td><td>'.
+    '<INPUT TYPE=TEXT CLASS="inputfield" NAME="editedemoticonspath" VALUE="'.$gmConfigs->{'gmemoticonspath'}.
+                                             '" id="emoticonspath"></td></tr>';
+    $rowcolor = Gm_Web::altRowColor( $rowcolor );
+    $page .= '</table></td></tr>';
+
+
+    $page .= '<tr class="section_head"><th>Index & Archive Options</th><td>'.
+        _hiderCodeEntry('indexArchiveHidden', 'indexArchiveHider').
+        '</tr><tr><td colspan="2"><span id="indexArchiveHidden"><table class="config_table">';
+    $page .= '<tr><td valign=middle bgcolor="#C0C0C0" COLSPAN=2><span class="info_text">'.
+        'Options relating to your main index and your archives.</span></td></tr>';
+
+    $page .= '<tr '.$rowcolor.'><th width="40%"><span class="info_title"><label for="indexfilename">'.
+        'Index filename:</label></span><br /><span class="info_text">The filename of your log/journal\'s '.
+        'main index.  If you enable "Keep archive master index", Greymatter will create that file in the '.
+        'archives directory with the same filename.</span></td><td>'.
+        '<INPUT TYPE=TEXT CLASS="inputfield" NAME="editedindexfilename" id="indexfilename" VALUE="'.
+                                             $gmConfigs->{'gmindexfilename'}.'"></td></tr>';
+    $rowcolor = Gm_Web::altRowColor( $rowcolor );
+
+    $page .= '<tr '.$rowcolor.'><th><span class="info_title"><label for="entrysuffix">.suffix to entry '.
+        'files:</label></span><br /><span class="info_text">If you have "Generate pages for individual '.
+                                             'entries" enabled, this is the suffix those pages will have.</span></td><td>'.
+        '<INPUT TYPE=TEXT CLASS="inputfield" NAME="editedentrysuffix" id="entrysuffix" VALUE="'.
+                                             $gmConfigs->{'gmentrysuffix'}.'"></td></tr>';
+    $rowcolor = Gm_Web::altRowColor( $rowcolor );
+
+    $page .= '<tr '.$rowcolor.'><th><span class="info_title"><label for="logarchivesuffix">.suffix to log '.
+        'archives:</span><br /><span class="info_text">If you have "Keep monthly/weekly log archives" '.
+        'enabled, this is the suffix those log archive files will have.</span></td><td>'.
+        '<INPUT TYPE=TEXT CLASS="inputfield" NAME="editedlogarchivesuffix" id="logarchivesuffix" VALUE="'.
+                                             $gmConfigs->{'gmlogarchivesuffix'}.'"></td></tr>';
+    $rowcolor = Gm_Web::altRowColor( $rowcolor );
+
+    $page .= '<tr '.$rowcolor.'><th><span class="info_title"><label for="indexdays">Days to keep '.
+        'on main index:</span><br /><span class="info_text">The number of days worth of entries Greymatter '.
+        'will list on your main index before scrolling them off.</span></td><td>'.
+        '<INPUT TYPE=TEXT CLASS="inputfield" NAME="editedindexdays" id="indexdays" VALUE="'.
+                                             $gmConfigs->{'gmindexdays'}.'"></td></tr>';
+    $rowcolor = Gm_Web::altRowColor( $rowcolor );
+
+    $page .= '<tr '.$rowcolor.'><th><span class="info_title">Generate pages for individual entries?</span><br />'.
+        '<span class="info_text">Specifies whether you want individual entries to have their own pages.  Comments '.
+        'are disabled if this is turned off.</span></td><td>'.
+        Gm_Web::createRadioButton( name=>'editedgenerateentrypages', value=>Gm_Constants::YES,
+                                  checked=>$gmConfigs->{'gmgenerateentrypages'}, id=>'generateentrypagesyes', label=>'Yes' ).
+        '&#160; '.Gm_Web::createRadioButton( name=>'editedgenerateentrypages', value=>Gm_Constants::NO,
+                                            checked=>$gmConfigs->{'gmgenerateentrypages'}, id=>'generateentrypagesno', label=>'No' ).
+                    '</td></tr>';
+    $rowcolor = Gm_Web::altRowColor( $rowcolor );
+
+    $page .= '<tr '.$rowcolor.'><th><span class="info_title">Keep archive master index?</span><br />'.
+        '<span class="info_text">If enabled, Greymatter will keep an index (with the same filename as above) '.
+        'in your entries/archives directory, intended to be an overview of all your archives.</span></td><td>'.
+        Gm_Web::createRadioButton( name=>'editedkeeparchivemasterindex', value=>Gm_Constants::YES,
+                                  checked=>$gmConfigs->{'gmkeeparchivemasterindex'}, id=>'keeparchivemasterindexyes', label=>'Yes' ).
+        ' &#160; '.Gm_Web::createRadioButton( name=>'editedkeeparchivemasterindex', value=>Gm_Constants::NO,
+                                             checked=>$gmConfigs->{'gmkeeparchivemasterindex'}, id=>'keeparchivemasterindexno', label=>'No' ).
+                     ' </td></tr>';
+    $rowcolor = Gm_Web::altRowColor( $rowcolor );
+
+    $page .= '<tr '.$rowcolor.'><th><span class="info_title">Keep monthly/weekly log archives?</span><br />'.
+        '<span class="info_text">If enabled, Greymatter will keep archive files of your log in monthly or weekly '.
+        'installments in your entries/archives directory.</span></td><td>'.
+        Gm_Web::createRadioButton( name=>'editedkeepmonthlyarchives', value=>Gm_Constants::YES,
+                                  checked=>$gmConfigs->{'gmkeepmonthlyarchives'}, id=>'gmkeepmonthlyarchivesyes', label=>'Yes' ).
+        ' &#160; '.Gm_Web::createRadioButton( name=>'editedkeepmonthlyarchives', value=>Gm_Constants::NO,
+                                             checked=>$gmConfigs->{'gmkeepmonthlyarchives'}, id=>'gmkeepmonthlyarchivesno', label=>'No'  ).
+                     ' </td></tr>';
+    $rowcolor = Gm_Web::altRowColor( $rowcolor );
+    
+    $page .= '<tr '.$rowcolor.'><th><span class="info_title">Keep main index and archive log indexes '.
+        'concurrent with each other?</span><br /><span class="info_text">If enabled, both new and archived '.
+        'entries will be listed in the monthly/weekly archives; if disabled, Greymatter won\'t list entries '.
+                                                                    'there until they\'ve scrolled off the main index.  For simplicity\'s sake, it\'s a good idea leave '.
+                                                                    'this on.</span></td><td>'.
+                                                                    Gm_Web::createRadioButton( name=>'editedconcurrentmainandarchives', value=>Gm_Constants::YES,
+                                                                                              checked=>$gmConfigs->{'gmconcurrentmainandarchives'}, id=>'concurrentmainandarchivesyes', label=>'Yes' ).
+                                                                    ' &#160; '.Gm_Web::createRadioButton( name=>'editedconcurrentmainandarchives', value=>Gm_Constants::NO,
+                                                                                                         checked=>$gmConfigs->{'gmconcurrentmainandarchives'}, id=>'concurrentmainandarchivesno', label=>'No' ).
+                                                                                 ' </td></tr>';
+    $rowcolor = Gm_Web::altRowColor( $rowcolor );
+
+    $page .= '<tr '.$rowcolor.'><th><span class="info_title">Archive by month or week?</span><br />'.
+        '<span class="info_text">If "Keep monthly/weekly log archives" is enabled, this specifies whether '.
+        'the log archives will be generated by the month or by the week.</span></td><td>'.
+        Gm_Web::createRadioButton( name=>'editedarchiveformat', value=>Gm_Constants::MONTH,
+                                  checked=>$gmConfigs->{'gmarchiveformat'}, id=>'archiveformatmonth', label=>'Monthly' ).
+        ' &#160; '.Gm_Web::createRadioButton( name=>'editedarchiveformat', value=>Gm_Constants::WEEK,
+                                             checked=>$gmConfigs->{'gmarchiveformat'}, id=>'archiveformatweek', label=>'Weekly'  ).
+                     ' </td></tr>';
+    $rowcolor = Gm_Web::altRowColor( $rowcolor );
+    $page .= '</table></td></tr>';
+    
+    
+    $page .= '<tr class="section_head"><th>E-Mail Options</th><td>'.
+        _hiderCodeEntry('emailOptionHidden', 'emailOptionHider').
+        '</tr><tr><td colspan="2"><span id="emailOptionHidden"><table class="config_table">';
+    $page .= '<tr><td valign=middle bgcolor="#C0C0C0" COLSPAN=2>'.
+        '<span class="info_text">Options relating to e-mail setup and notification.  If you don\'t plan to have '.
+        'Greymatter send you e-mails, you can safely ignore the "E-Mail Program Location" and "E-Mail(s) to send '.
+                                             'notices to" fields.</span></td></tr>';
+
+    $page .= '<tr '.$rowcolor.'><th width="40%"><span class="info_title">E-Mail Program Location:</span><br />'.
+        '<span class="info_text">The pointer to the mail program (usually Sendmail) on your account.</span></td><td>'.
+        '<INPUT TYPE=TEXT CLASS="inputfield" NAME="editedmailprog" VALUE="'.$gmConfigs->{'gmmailprog'}.'"></td></tr>';
+    $rowcolor = Gm_Web::altRowColor( $rowcolor );
+
+    $page .= '<tr '.$rowcolor.'><th><span class="info_title">E-Mail(s) to send notices to:</span><br />'.
+        '<span class="info_text">The e-mail addresses you want all notifications (if any) to be sent to.  '.
+        'Separate multiple e-mail addresses with semicolons.</span></td><td>'.
+        '<INPUT TYPE=TEXT CLASS="inputfield" NAME="editednotifyemail" VALUE="'.$gmConfigs->{'gmnotifyemail'}.'"></td></tr>';
+    $rowcolor = Gm_Web::altRowColor( $rowcolor );
+    
+    $page .= '<tr '.$rowcolor.'><th><span class="info_title">Send e-mail notifications for:</span><br />'.
+        '<span class="info_text">Indicates whether you want Greymatter to send e-mails notifying you of new '.
+        'karma votes, new comment postings, both karma and comments, or to disable e-mail notification '.
+        'altogether.</span></td><td>'.Gm_Web::createRadioButton( name=>'editednotifyforstatus', 
+                                                                value=>Gm_Constants::KARMA, checked=>$gmConfigs->{'gmnotifyforstatus'} ).' New karma votes &#160;'.
+                                                                                                                                                                 Gm_Web::createRadioButton( name=>'editednotifyforstatus', value=>Gm_Constants::COMMENTS,
+                                                                                                                                                                                           checked=>$gmConfigs->{'gmnotifyforstatus'} ).' New comments<BR>'.
+                                                                                                                                                                 Gm_Web::createRadioButton( name=>'editednotifyforstatus', value=>Gm_Constants::BOTH,
+                                                                                                                                                                                           checked=>$gmConfigs->{'gmnotifyforstatus'} ).' Both &#160; '.
+                                                                                                                                                                                                                                                        Gm_Web::createRadioButton( name=>'editednotifyforstatus', value=>Gm_Constants::NEITHER,
+                                                                                                                                                                                                                                                                                  checked=>$gmConfigs->{'gmnotifyforstatus'} ).' Neither </td></tr>';
+    $rowcolor = Gm_Web::altRowColor( $rowcolor );
+    $page .= '</table></td></tr>';
+
+
+    $page .= '<tr class="section_head"><th>Emoticon Options</th><td>'.
+        _hiderCodeEntry('emoticonOptionHidden', 'emoticonOptionHider').
+        '</tr><tr><td colspan="2"><span id="emoticonOptionHidden"><table class="config_table">';
+    $page .= '<tr><td valign=middle bgcolor="#C0C0C0" COLSPAN=2><span class="info_text">'.
+        'Options relating to using emoticons in entries and comments.</span></td></tr>';
+
+    $page .= '<tr '.$rowcolor.'><th width="40%"><span class="info_title">Allow emoticons?</span><br />'.
+        '<span class="info_text">Specifies if you want to allow emoticons in the entries and/or the comments.'.
+        '</span></td><td>'.Gm_Web::createRadioButton( name=>'editedemoticonsallowed', value=>Gm_Constants::ENTRIES,
+                                                     checked=>$gmConfigs->{'gmemoticonsallowed'} ).' Entries only &#160; '.
+                                                                                                                           Gm_Web::createRadioButton( name=>'editedemoticonsallowed', value=>Gm_Constants::COMMENTS,
+                                                                                                                                                     checked=>$gmConfigs->{'gmemoticonsallowed'} ).' Comments only<BR> '.
+                                                                                                                           Gm_Web::createRadioButton( name=>'editedemoticonsallowed', value=>Gm_Constants::BOTH,
+                                                                                                                                                     checked=>$gmConfigs->{'gmemoticonsallowed'} ).' Both &#160; '.Gm_Web::createRadioButton( name=>'editedemoticonsallowed', 
+                                                                                                                                                                                                                                           value=>Gm_Constants::NEITHER, checked=>$gmConfigs->{'gmemoticonsallowed'} ).' Neither </td></tr>';
+    $rowcolor = Gm_Web::altRowColor( $rowcolor );
+    $page .= '</table></td></tr>';
+
+    
+    $page .= '<tr class="section_head"><th>Karma & Comments Options</th><td>'.
+        _hiderCodeEntry('karmaCommentHidden', 'karmaCommentHider').
+        '</tr><tr><td colspan="2"><span id="karmaCommentHidden"><table class="config_table">';
+    $page .= '<tr><td valign=middle bgcolor="#C0C0C0" COLSPAN=2>'.
+        '<span class="info_text">Options relating to karma voting and comment '.
+        'posting.  Obviously, certain options can be ignored if you have their respective functions disabled '.
+        '(for example, if you disable comments or have "Generate pages for individual entries" turned off, none '.
+          'of the options relating to comments will have any effect).</span></td></tr>';
+
+    $page .= '<tr '.$rowcolor.'><th width="40%"><span class="info_title">Allow karma voting and/or comment '.
+        'posting?</span><br /><span class="info_text">Specifies whether you want to permit voting on karma, '.
+        'posting comments, both, or neither, on your site.  You can leave them enabled and still turn karma or '.
+        'comments on or off for individual entries; to disable either or both will override that for ALL entries.'.
+                                                        '</span></td><td>'.Gm_Web::createRadioButton( name=>'editedallowkarmaorcomments', value=>Gm_Constants::KARMA,
+                                                                                                     checked=>$gmConfigs->{'gmallowkarmaorcomments'} ).' Karma only &#160; '.
+                                                                                                                                                                             Gm_Web::createRadioButton( name=>'editedallowkarmaorcomments', value=>Gm_Constants::COMMENTS,
+                                                                                                                                                                                                       checked=>$gmConfigs->{'gmallowkarmaorcomments'} ).'Comments only<BR> '.
+                                                                                                                                                                             Gm_Web::createRadioButton( name=>'editedallowkarmaorcomments', value=>Gm_Constants::BOTH,
+                                                                                                                                                                                                       checked=>$gmConfigs->{'gmallowkarmaorcomments'} ).'Both &#160;  '.
+                                                                                                                                                                                                                                                                         Gm_Web::createRadioButton( name=>'editedallowkarmaorcomments', value=>Gm_Constants::NEITHER,
+                                                                                                                                                                                                                                                                                                   checked=>$gmConfigs->{'gmallowkarmaorcomments'} ).'Neither </td></tr>';
+    $rowcolor = Gm_Web::altRowColor( $rowcolor );
+
+    $page .= '<tr '.$rowcolor.'><th><span class="info_title">Order of comments on entry pages:</span><br />'.
+        '<span class="info_text">The order in which you want comments displayed.  If "ascending", they\'ll be '.
+        'listed from newest to oldest, with the newest comment at the top; if "descending", from first to '.
+                                                                               'last, with the first comment at the top.</span></td><td>'.
+                                                                               Gm_Web::createRadioButton( name=>'editedcommentsorder', value=>Gm_Constants::ASCENDING,
+                                                                                                         checked=>$gmConfigs->{'gmcommentsorder'} ).' Ascending &#160; '.
+                                                                                                                                                                         Gm_Web::createRadioButton( name=>'editedcommentsorder', value=>Gm_Constants::DESCENDING,
+                                                                                                                                                                                                   checked=>$gmConfigs->{'gmcommentsorder'} ).' Descending </td></tr>';
+    $rowcolor = Gm_Web::altRowColor( $rowcolor );
+
+
+    $page .= '<tr '.$rowcolor.'><th><span class="info_title">Can post comments and vote on karma in archives?</span><br />'.
+        '<span class="info_text">If enabled, visitors can cast karma votes or post comments (if applicable) '.
+        'on entries no longer listed on the main index.  Enabling this may slow down your site over time.'.
+        '</span></td><td>'.Gm_Web::createRadioButton( name=>'editedposttoarchives', value=>Gm_Constants::YES,
+                                                     checked=>$gmConfigs->{'gmposttoarchives'} ).' Yes &#160; '.
+                                                                                                                Gm_Web::createRadioButton( name=>'editedposttoarchives', value=>Gm_Constants::NO,
+                                                                                                                                          checked=>$gmConfigs->{'gmposttoarchives'} ).' No </td></tr>';
+    $rowcolor = Gm_Web::altRowColor( $rowcolor );
+
+    $page .= '<tr '.$rowcolor.'><th><span class="info_title">Karma voting on by default?</span><br />'.
+        '<span class="info_text">Specifies whether "Allow karma voting on this entry" is preselected to '.
+        '"Yes" or "No" by default on the "Add a new entry" screen.</span></td><td>'.
+        Gm_Web::createRadioButton( name=>'editedallowkarmadefault', value=>Gm_Constants::YES,
+                                  checked=>$gmConfigs->{'gmallowkarmadefault'} ).' Yes &#160; '.
+                                                                                                Gm_Web::createRadioButton( name=>'editedallowkarmadefault', value=>Gm_Constants::NO,
+                                                                                                                          checked=>$gmConfigs->{'gmallowkarmadefault'} ).' No </td></tr>';
+    $rowcolor = Gm_Web::altRowColor( $rowcolor );
+
+    $page .= '<tr '.$rowcolor.'><th><span class="info_title">Comment posting on by default?</span><br />'.
+        '<span class="info_text">Specifies whether "Allow comments to be posted to this entry" is preselected '.
+        'to "Yes" or "No" by default on the "Add a new entry" screen.</span></td><td>'.
+        Gm_Web::createRadioButton( name=>'editedallowcommentsdefault', value=>Gm_Constants::YES,
+                                  checked=>$gmConfigs->{'gmallowcommentsdefault'} ).' Yes &#160; '.
+                                                                                                   Gm_Web::createRadioButton( name=>'editedallowcommentsdefault', value=>Gm_Constants::NO,
+                                                                                                                             checked=>$gmConfigs->{'gmallowcommentsdefault'} ).' No </td></tr>';
+    $rowcolor = Gm_Web::altRowColor( $rowcolor );
+
+
+    $page .= '<tr '.$rowcolor.'><th><span class="info_title">HTML allowed in comments?</span><br />'.
+        '<span class="info_text">Indicates whether you want to allow visitors to include HTML codes '.
+        'in their comments, or to have Greymatter strip them out.  You can also specify whether only the '.
+        'codes for links, bold and italics can be included, or just the codes for links.</span></td><td>'.
+        Gm_Web::createRadioButton( name=>'editedallowhtmlincomments', value=>Gm_Constants::YES,
+                                  checked=>$gmConfigs->{'gmallowhtmlincomments'} ).' All HTML allowed &#160; '.
+                                                                                                               Gm_Web::createRadioButton( name=>'editedallowhtmlincomments', value=>Gm_Constants::NO,
+                                                                                                                                         checked=>$gmConfigs->{'gmallowhtmlincomments'} ).' No HTML allowed<BR> '.
+                                                                                                               Gm_Web::createRadioButton( name=>'editedallowhtmlincomments', value=>'linkboldital',
+                                                                                                                                         checked=>$gmConfigs->{'gmallowhtmlincomments'} ).' Linking, Bold & Italic code only<BR> '.
+                                                                                                               Gm_Web::createRadioButton( name=>'editedallowhtmlincomments', value=>'linkonly',
+                                                                                                                                          checked=>$gmConfigs->{'gmallowhtmlincomments'} ).' Linking code only </td></tr>';
+    $rowcolor = Gm_Web::altRowColor( $rowcolor );
+
+
+    $page .= '<tr '.$rowcolor.'><th><span class="info_title">Auto-link URLs in comments?</span><br />'.
+        '<span class="info_text">If enabled, Greymatter will automatically link to any website or e-mail '.
+        'addresses that users post in their comments (unless you\'ve enabled linking above and they\'ve '.
+                                                      'already linked the website/e-mail address themselves).</span></td><td>'.
+        Gm_Web::createRadioButton( name=>'editedautolinkurls', value=>Gm_Constants::YES,
+                                   checked=>$gmConfigs->{'gmautolinkurls'} ).' Yes &#160; '.
+                                                                                              Gm_Web::createRadioButton( name=>'editedautolinkurls', value=>Gm_Constants::NO,
+                                                                                                                         checked=>$gmConfigs->{'gmautolinkurls'} ).' No </td></tr>';
+    $rowcolor = Gm_Web::altRowColor( $rowcolor );
+
+
+    $page .= '<tr '.$rowcolor.'><th><span class="info_title">Strip new lines from comments?</span><br />'.
+        '<span class="info_text">If enabled, all line and paragraph breaks are stripped when displaying '.
+        'visitors\' comments, turning them into unbroken blocks of text; if disabled, Greymatter preserves '.
+                                                                             'the visitors\' original formatting.</span></td><td>'.
+                                                                             Gm_Web::createRadioButton( name=>'editedstriplinesfromcomments', value=>Gm_Constants::YES,
+                                                                                                        checked=>$gmConfigs->{'gmstriplinesfromcomments'} ).' Yes &#160; '.
+                                                                                                                                                                             Gm_Web::createRadioButton( name=>'editedstriplinesfromcomments', value=>Gm_Constants::NO,
+                                                                                                                                                                                                        checked=>$gmConfigs->{'gmstriplinesfromcomments'} ).' No </td></tr>';
+    $rowcolor = Gm_Web::altRowColor( $rowcolor );
+
+
+    $page .= '<tr '.$rowcolor.'><th><span class="info_title">Allow multiple karma votes from same IP?</span><br />'.
+        '<span class="info_text">If enabled, the same visitor could cast multiple karma votes on the same entry; if '.
+                                                                                                                     'disabled, only one vote per visitor is allowed.</span></td><td>'.
+                                                                                                                     Gm_Web::createRadioButton( name=>'editedallowmultiplekarmavotes', value=>Gm_Constants::YES,
+                                                                                                                                                checked=>$gmConfigs->{'gmallowmultiplekarmavotes'} ).' Yes &#160; '.
+                                                                                                                                                                                                                      Gm_Web::createRadioButton( name=>'editedallowmultiplekarmavotes', value=>Gm_Constants::NO,
+                                                                                                                                                                                                                                                 checked=>$gmConfigs->{'gmallowmultiplekarmavotes'} ).' No </td></tr>';
+    $rowcolor = Gm_Web::altRowColor( $rowcolor );
+
+
+    $page .= '<tr '.$rowcolor.'><th><span class="info_title">Mention it in the control panel log when comments '.
+        'and karma votes are added?</span><br /><span class="info_text">Enable this if you want Greymatter to '.
+        'mention all new comments and karma votes in the control panel log.</span></td><td>'.
+        Gm_Web::createRadioButton( name=>'editedlogkarmaandcomments', value=>Gm_Constants::YES,
+                                  checked=>$gmConfigs->{'gmlogkarmaandcomments'} ).' Yes &#160; '.
+                                                                                                  Gm_Web::createRadioButton( name=>'editedlogkarmaandcomments', value=>Gm_Constants::NO,
+                                                                                                                            checked=>$gmConfigs->{'gmlogkarmaandcomments'} ).' No </td></tr>';
+    $rowcolor = Gm_Web::altRowColor( $rowcolor );
+
+    $page .= '<tr '.$rowcolor.'><th><span class="info_title">Mention it in the control panel log when '.
+        'PHP hack attempts are detected?</span><br /><span class="info_text">Enable this if you want '.
+        'Greymatter to log all attempts at hacking in the control panel log. Particularly useful for those '.
+        'who have set their file .suffix to .php.</span></td><td>'.
+        Gm_Web::createRadioButton( name=>'editedkeepphphacklog', value=>Gm_Constants::YES,
+                                  checked=>$gmConfigs->{'gmkeepphphacklog'} ).' Yes &#160; '.
+                                                                                             Gm_Web::createRadioButton( name=>'editedkeepphphacklog', value=>Gm_Constants::NO,
+                                                                                                                       checked=>$gmConfigs->{'gmkeepphphacklog'} ).' No </td></tr>';
+    $rowcolor = Gm_Web::altRowColor( $rowcolor );
+
+    $page .= '<tr '.$rowcolor.'><th><span class="info_title">Send e-mail notifications when PHP hack attempts '.
+        'are detected?</span><br /><span class="info_text">Enable this if you want to receive mail when PHP hack '.
+        'attempts are logged. Particularly useful for those who have set their file .suffix to .php.</span></td><td>'.
+        Gm_Web::createRadioButton( name=>'editedmailhacknotice', value=>Gm_Constants::YES,
+                                  checked=>$gmConfigs->{'gmmailhacknotice'} ).' Yes &#160; '.
+                                                                                             Gm_Web::createRadioButton( name=>'editedmailhacknotice', value=>Gm_Constants::NO,
+                                                                                                                       checked=>$gmConfigs->{'gmmailhacknotice'} ).' No </td></tr>';
+    $rowcolor = Gm_Web::altRowColor( $rowcolor );
+
+    $page .= '<tr '.$rowcolor.'><th><span class="info_title">Password Protect Author Name in Comments?</span><br />'.
+        '<span class="info_text">If enabled '.
+        'comments cannot be entered that contain a registered authors name.  When authors '.
+        'wish to post comments they must enter their author name, the "_", and their '.
+        'password.  In other words as AUTHORNAME_PASSWORD (using proper case for the '.
+                                                           'username and password).  Exact means that the commenter name must match the '.
+        'author\'s name exactly.</span></td><td>'.
+        Gm_Web::createRadioButton( name=>'editedprotectauthorname', value=>'LOOSE',
+                                  checked=>$gmConfigs->{'gmprotectauthorname'} ).' Loose &#160; '.
+                                                                                                  Gm_Web::createRadioButton( name=>'editedprotectauthorname', value=>'STRICT',
+                                                                                                                            checked=>$gmConfigs->{'gmprotectauthorname'} ).' Exact &#160; '.
+                                                                                                                                                                                              Gm_Web::createRadioButton( name=>'editedprotectauthorname', value=>Gm_Constants::NO,
+                                                                                                                                                                                                                         checked=>$gmConfigs->{'gmprotectauthorname'} ).' No </td></tr>';
+    $rowcolor = Gm_Web::altRowColor( $rowcolor );
+
+    $page .= '<tr '.$rowcolor.'><th><span class="info_title">Limit Links in Comments?</span><br />'.
+        '<span class="info_text">If enabled comments that contain more than the specified allowed amount '.
+        'of comments will be automatically block and/or banned.</span></td><td>'.
+        Gm_Web::createRadioButton( name=>'editedcommentlinklimit', value=>'blockban',
+                                   checked=>$gmConfigs->{'gmcommentlinklimit'} ).' Block and Ban &#160; '.
+                                                                                                            Gm_Web::createRadioButton( name=>'editedcommentlinklimit', value=>'block',
+                                                                                                                                       checked=>$gmConfigs->{'gmcommentlinklimit'} ).' Block &#160; '.
+                                                                                                                                                                                                        Gm_Web::createRadioButton( name=>'editedcommentlinklimit', value=>Gm_Constants::NO,
+                                                                                                                                                                                                                                   checked=>$gmConfigs->{'gmcommentlinklimit'} ).' No <br />'.
+                                                                                                                                                                                                        '<INPUT TYPE=TEXT CLASS="inputfield" NAME="editedcommentlinklimitnum" VALUE="'.
+                                             $gmConfigs->{'gmcommentlinklimitnum'}.'" style="width: 80%;"> links </td></tr>';
+    $rowcolor = Gm_Web::altRowColor( $rowcolor );
+
+    $page .= '<tr '.$rowcolor.'><th><span class="info_title"> Force Previewing when Posting a Comment?</span><br />'.
+        '<span class="info_text">If enabled comments cannot be entered without previewing first.  This '.
+        'extra step can help cut down on spam.  Note that if this is enabled, you may wish to remove the '.
+        '"Submit" button on the comment entry template, since this will just take the user'.
+        'to the preview page, or remove the "Preview" button.'.
+        '<br />Note: This may require a modification to the "Confirmation Form Template",'.
+        ' simply add or verify that the button in that template has the "name=postit" attribute.'.
+        '<br />Note: If you choose "Random", a random phrase will be hidden on the preview form, '.
+        'ensuring that comments cannot be posted directly, they must be Previewed.  This is recommended '.
+        'but requires that the line "&lt;input type=hidden name=previewrand value={{previewrand}} /&gt;" be put '.
+        'just before the submit button in the Comment Confirmation templates.</span></td><td>'.
+        Gm_Web::createRadioButton( name=>'editedcommentforcepreview', value=>'rand',
+                                  checked=>$gmConfigs->{'gmcommentforcepreview'} ).' Random '.
+        Gm_Web::createRadioButton( name=>'editedcommentforcepreview', value=>Gm_Constants::YES,
+                                  checked=>$gmConfigs->{'gmcommentforcepreview'} ).' Yes &#160; '.
+                                                                                                  Gm_Web::createRadioButton( name=>'editedcommentforcepreview', value=>Gm_Constants::NO,
+                                                                                                                            checked=>$gmConfigs->{'gmcommentforcepreview'} ).' No </td></tr>';
+    $rowcolor = Gm_Web::altRowColor( $rowcolor );
+
+    $page .= '<tr '.$rowcolor.'><th><span class="info_title">Commenter Verification?</span><br />'.
+        '<span class="info_text">If enabled when a comment is submitted, the commenter will be '.
+        'prompted to retype a "pass-phrase" withen 3 minutes, to cut down on automated spam.  '.
+        'You can provide a static pass-phrase that users will '.
+        'be prompted, or the pass-phrase will be used to create a random 7 character string.</span></td><td>'.
+        Gm_Web::createRadioButton( name=>'editedcommentverify', value=>'random',
+                                  checked=>$gmConfigs->{'gmcommentverify'} ).' Random Phrase &#160; '.
+                                                                                                      Gm_Web::createRadioButton( name=>'editedcommentverify', value=>'static',
+                                                                                                                                checked=>$gmConfigs->{'gmcommentverify'} ).' Static Phrase &#160; '.
+                                                                                                                                                                                                    Gm_Web::createRadioButton( name=>'editedcommentverify', value=>Gm_Constants::NO,
+                                                                                                                                                                                                                              checked=>$gmConfigs->{'gmcommentverify'} ).' No <br />'.
+                                                                                                                                                                                                    '<INPUT TYPE=TEXT CLASS="inputfield" NAME="editedcommentverifyphrase" VALUE="'.
+                                                                                                           $gmConfigs->{'gmcommentverifyphrase'}.'" style="width: 80%;"> phrase </td></tr>';
+    $rowcolor = Gm_Web::altRowColor( $rowcolor );
+
+    $page .= '<tr '.$rowcolor.'><th><span class="info_title">Verify Site Comment/Karma Vote Posted From?</span><br />'.
+        '<span class="info_text">If enabled will verify that the page that comments are posted or karma votes are '.
+        'from matches the site listed in Website Path variables.  '.
+        'Spammers can fake where the form is posted from, but some do not.  This will block their '.
+        'comments/ karma votes with an error message.  May not work with some path configurations.'.
+        '</span></td><td>'.
+        Gm_Web::createRadioButton( name=>'editedcommentverifyreferer', value=>Gm_Constants::YES,
+                                  checked=>$gmConfigs->{'gmcommentverifyreferer'} ).' Yes &#160; '.
+                                                                                                   Gm_Web::createRadioButton( name=>'editedcommentverifyreferer', value=>Gm_Constants::NO,
+                                                                                                                             checked=>$gmConfigs->{'gmcommentverifyreferer'} ).' No </td></tr>';
+    $rowcolor = Gm_Web::altRowColor( $rowcolor );
+
+    $page .= '<tr '.$rowcolor.'><th><span class="info_title">Comment Throttling?</span><br />'.
+        '<span class="info_text">If enabled '.
+        'will limit the amount of comments that can be made on an entry by a single user '.
+        '(assuming that the user\'s IP is the same) in a given day.  Static will allow the user '.
+        'to comment every X minutes, while Exponential will allow the second comment after 1 minute, '.
+        'the third after 4, fourth after 9, and so on.'.
+        '</span></td><td>'.
+        Gm_Web::createRadioButton( name=>'editedcommentthrottle', value=>Gm_Constants::YES,
+                                  checked=>$gmConfigs->{'gmcommentthrottle'} ).' Exponential &#160; '.
+                                                                                                      Gm_Web::createRadioButton( name=>'editedcommentthrottle', value=>'static',
+                                                                                                                                checked=>$gmConfigs->{'gmcommentthrottle'} ).' Static '.
+                                                                                                      Gm_Web::createRadioButton( name=>'editedcommentthrottle', value=>Gm_Constants::NO,
+                                                                                                                                checked=>$gmConfigs->{'gmcommentthrottle'} ).' No <br />'.
+                                                                                                      '<INPUT TYPE=TEXT CLASS="inputfield" NAME="editedcommentthrottlemin" VALUE="'.
+                                                                                                                                                                         $gmConfigs->{'gmcommentthrottlemin'}.'" style="width: 80%;"> minutes </td></tr>';
+    $rowcolor = Gm_Web::altRowColor( $rowcolor );
+    $page .= '</table></td></tr>';
+    
+    
+    $page .= '<tr class="section_head"><th>Date & Time Options</th><td>'.
+        _hiderCodeEntry('dateTimeHidden', 'dateTimeHider').
+        '</tr><tr><td colspan="2"><span id="dateTimeHidden"><table class="config_table">';
+    $page .= '<tr><td valign=middle bgcolor="#C0C0C0" COLSPAN=2>'.
+        '<span class="info_text">Miscellaneous options regarding to dates & times.  Use the wide '.
+        'variety date and time variables in your templates to fine-tune how you want the date and time to '.
+        'appear on your site.</span></td></tr>';
+
+    $page .= '<tr '.$rowcolor.'><th width="40%"><span class="info_title">Server Offset Time:</span><br />'.
+        '<span class="info_text">As of this moment, Greymatter reads your time as <B>'.$hour.':'.$mintwo.' '.$AMPM.
+        '</B>.  If this is incorrect, specify the number of hours to add or subtract from this time (to subtract, '.
+                                                                                                     'make it a negative number, with a minus in front of it).</span></td><td>'.
+        '<INPUT TYPE=TEXT CLASS="inputfield" NAME="editedoffsettime" VALUE="'.$gmConfigs->{'gmserveroffset'}.
+                                                                                                                                                                                                                                      '"></td></tr>';
+    $rowcolor = Gm_Web::altRowColor( $rowcolor );
+
+    $page .= '<tr '.$rowcolor.'><th><span class="info_title">Your Time Zone:</span><br />'.
+        '<span class="info_text">The time zone you live in.  This is what will appear wherever you use the '.
+        '{{timezone}} variable in your templates.</span></td><td>'.
+        '<INPUT TYPE=TEXT CLASS="inputfield" NAME="editedtimezone" VALUE="'.$gmConfigs->{'gmtimezone'}.'"></td></tr>';
+    $rowcolor = Gm_Web::altRowColor( $rowcolor );
+    $page .= '</table></td></tr>';
+    
+    
+    $page .= '<tr class="section_head"><th>File Uploading Options</th><td>'.
+        _hiderCodeEntry('fileUploadHidden', 'fileUploadHider').
+        '</tr><tr><td colspan="2"><span id="fileUploadHidden"><table class="config_table">';
+    $page .= '<tr><td valign=middle bgcolor="#C0C0C0" COLSPAN=2>'.
+        '<span class="info_text">Options relating to uploading files from within Greymatter.</span>'.
+        '</td></tr>';
+
+    $page .= '<tr '.$rowcolor.'><th width="40%"><span class="info_title">Allowed File Types:</span><br />'.
+        '<span class="info_text">If you only wish to allow certain types of files to be uploaded, enter their '.
+        'file suffixes here.  Separate allowed file types by semicolons (for example, "jpg;gif;zip").  Leave '.
+        'this blank to allow any type of file to be uploaded.</span></td><td>'.
+        '<INPUT TYPE=TEXT CLASS="inputfield" NAME="editeduploadfilesallowed" VALUE="'.
+                                                                                                   $gmConfigs->{'gmuploadfilesallowed'}.'"></td></tr>';
+    $rowcolor = Gm_Web::altRowColor( $rowcolor );
+
+    $page .= '<tr '.$rowcolor.'><th><span class="info_title">Maximum Filesize Allowed:</span><br />'.
+        '<span class="info_text">If you don\'t wish to allow files larger than a certain size to be uploaded, '.
+        'specify that limit here (in KB/kilobytes).  Leave this on "0" to allow files of any size to be '.
+        'uploaded.</span></td><td>'.
+        '<INPUT TYPE=TEXT CLASS="inputfield" NAME="editeduploadfilesizelimit" VALUE="'.
+                                                                                                   $gmConfigs->{'gmuploadfilesizelimit'}.'"></td></tr>';
+    $rowcolor = Gm_Web::altRowColor( $rowcolor );
+    $page .= '</table></td></tr>';
+    
+    
+    $page .= '<tr class="section_head"><th>Censoring Options</th><td>'.
+        _hiderCodeEntry('censorOptionHidden', 'censorOptionHider').
+        '</tr><tr><td colspan="2"><span id="censorOptionHidden"><table class="config_table">';
+    $page .= '<tr><td valign=middle bgcolor="#C0C0C0" COLSPAN=2>'.
+        '<span class="info_text">Words or phrases you want to censor on your site (if any), and where to '.
+        'censor them.<BR>Censored terms will be turned into "*" asterisks.</span></td></tr>';
+
+    $page .= '<tr '.$rowcolor.'><th width="40%"><span class="info_title">Enable censoring?</span><br />'.
+        '<span class="info_text">Specifies whether you want any words or phrases in your censor list to appear '.
+        'censored for entries, comments, or both.  Leave it on "Neither" to disable censorship.</span></td><td>'.
+        Gm_Web::createRadioButton( name=>'editedcensorenabled', value=>Gm_Constants::ENTRIES,
+                                   checked=>$gmConfigs->{'gmcensorenabled'} ).' Entries only &#160 '.
+        Gm_Web::createRadioButton( name=>'editedcensorenabled', value=>Gm_Constants::COMMENTS,
+                                   checked=>$gmConfigs->{'gmcensorenabled'} ).' Comments only <br /> '.
+        Gm_Web::createRadioButton( name=>'editedcensorenabled', value=>Gm_Constants::BOTH,
+                                   checked=>$gmConfigs->{'gmcensorenabled'} ).' Both &#160; '.
+                                                                                                Gm_Web::createRadioButton( name=>'editedcensorenabled', value=>Gm_Constants::NEITHER,
+                                                                                                                           checked=>$gmConfigs->{'gmcensorenabled'} ).' Neither </td></tr>';
+    $rowcolor = Gm_Web::altRowColor( $rowcolor );
+
+    $page .= '<tr '.$rowcolor.'><th><span class="info_title">Censor List</span><br />'.
+        '<span class="info_text">Enter any words or phrases you want to censor, separated by lines (press '.
+                                                                                                    'return after each word/phrase).  Use [brackets] around words/phrases to censor the term only if '.
+        'it\'s not part of another word/phrase; for example, censoring the word hell would render hell '.
+                                                    'as **** and shell as s****, but censoring [hell] would only turn hell by itself into asterisks, '.
+                                                    'and leave the word shell alone.</span></td><td>'.
+                                                    '<TEXTAREA NAME="editedcensorlist" COLS=25 ROWS=6 class="inputfield">'.$gmConfigs->{'gmcensorlist'}.
+                                                    '</TEXTAREA></td></tr>';
+    $rowcolor = Gm_Web::altRowColor( $rowcolor );
+    $page .= '</table></td></tr>';
+    
+    
+    $page .= '<tr class="section_head"><th>Connect Other Files</th><td>'.
+        _hiderCodeEntry('connectFilesHidden', 'connectFilesHider').
+        '</tr><tr><td colspan="2"><span id="connectFilesHidden"><table class="config_table">';
+    $page .= '<tr><td valign=middle bgcolor="#C0C0C0" COLSPAN=2>'.
+        '<span class="info_text">If you wish, you can connect other '.
+        'files on your account to Greymatter, and have them treated as if they were one of Greymatter\'s '.
+        'regular index files; for example, using {{header}} or {{footer}} in another file to insert your '.
+                                  'Greymatter header or footer into that file.  (You\'ll need to edit & upload these files to your '.
+                                                                                 'account outside Greymatter.)  This is <B>only recommended for advanced users</B> that are already '.
+                                  'comfortable using Greymatter.</span></td></tr>';
+
+    $page .= '<tr '.$rowcolor.'><th width="40%"><span class="info_title">Filename List</span><br />'.
+        '<span class="info_text">To connect a file to Greymatter, <B>CHMOD it to 666</B>&#151;making sure '.
+                                                                                                  'it contains whatever Greymatter variables you wish&#151;and enter its filename on the right; place '.
+                                                                                                                                                                                                    'each filename on separate lines.  If the file isn\'t in the same directory as gm.cgi, then use '.
+                                                                                                                                                                                                    'virtual paths relative to where it\'s running from.  For example, if you want to connect "test.htm" '.
+                                                                                                                                                                                                    'and it\'s in the directory above gm.cgi, you\'d use ../test.htm; or, if you run gm.cgi from '.
+                                                                                                                                                                                                                                                                          '/here/cgi-bin and test.htm was in /there/log, you\'d use ../../there/log ("../" means to go up '.
+                                                                                                                                                                                                                                                                                                                                                     'one directory).  Greymatter will automatically create a "pattern" file in your entries directory '.
+                                                                                                                                                                                                                                                                          'for each filename, and whenever you reupload a changed file, Greymatter will automatically update '.
+                                                                                                                                                                                                                                                                          'its stored pattern for that file.</span></td><td>'.
+                                                                                                                                                                                                                                                                          '<TEXTAREA NAME="editedotherfilelist" COLS=25 ROWS=10 class="inputfield">'.
+                                                                                                                                                                                                                                                                          $gmConfigs->{'gmotherfilelist'}.'</TEXTAREA></td></tr>';
+    $rowcolor = Gm_Web::altRowColor( $rowcolor );
+
+    $page .= '<tr '.$rowcolor.'><th><span class="info_title">Update them when adding entries?</span><br />'.
+        '<span class="info_text">If "Yes", then Greymatter will automatically update any of the connected '.
+        'files above when new entries are added; if not, they\'ll only be updated whenever you rebuild them '.
+                                                     '(either specifically, or by rebuilding everything).</span></td><td>'.
+                                                     Gm_Web::createRadioButton( name=>'editedotherfilelistentryrebuild', value=>Gm_Constants::YES,
+                                                                                checked=>$gmConfigs->{'gmotherfilelistentryrebuild'} ).' Yes &#160; '.
+                                                                                                                                                        Gm_Web::createRadioButton( name=>'editedotherfilelistentryrebuild', value=>Gm_Constants::NO,
+                                                                                                                                                                                   checked=>$gmConfigs->{'gmotherfilelistentryrebuild'} ).' No </td></tr>';
+    $rowcolor = Gm_Web::altRowColor( $rowcolor );
+    $page .= '</table></td></tr>';
+
+    
+    $page .= '<tr class="section_head"><th>Miscellaneous Options</th><td>'.
+        _hiderCodeEntry('miscOptionHidden', 'miscOptionHider').
+        '</tr><tr><td colspan="2"><span id="miscOptionHidden"><table class="config_table">';
+    $page .= '<tr><td valign=middle bgcolor="#C0C0C0" COLSPAN=2><span class="info_title">'.
+        'Options for a variety of features.</span></td></tr>';
+
+    $page .= '<tr '.$rowcolor.'><th width="40%"><span class="info_title">Enable/Disable cookies?</span><br />'.
+        '<span class="info_text">By default, Greymatter doesn\'t keep a cookie on your browser to remember '.
+        'your name and password.  To enable Greymatter\'s cookies, select "Yes".</span></td><td>'.
+        Gm_Web::createRadioButton( name=>'editedcookiesallowed', value=>Gm_Constants::YES,
+                                  checked=>$gmConfigs->{'gmcookiesallowed'} ).' Yes &#160; '.
+                                                                                             Gm_Web::createRadioButton( name=>'editedcookiesallowed', value=>Gm_Constants::NO,
+                                                                                                                       checked=>$gmConfigs->{'gmcookiesallowed'} ).' No '.
+                                                                                             '<br /><INPUT TYPE=CHECKBOX NAME="editeddeletecookies" VALUE="yes"> Delete cookies set by Greymatter?'.
+                                                                                             '</td></tr>';
+    $rowcolor = Gm_Web::altRowColor( $rowcolor );
+
+    $page .= '<tr '.$rowcolor.'><th><span class="info_title">Keep control panel log?</span><br />'.
+        '<span class="info_text">Specifies whether you want Greymatter to keep its internal log of all activity; '.
+                                                                                                                     'disable this if you want to shut it off.</span></td><td>'.
+                                                                                                                     Gm_Web::createRadioButton( name=>'editedkeeplog', value=>Gm_Constants::YES,
+                                                                                                                                               checked=>$gmConfigs->{'gmkeeplog'} ).' Yes &#160; '.
+                                                                                                                                                                                                   Gm_Web::createRadioButton( name=>'editedkeeplog', value=>Gm_Constants::NO,
+                                                                                                                                                                                                                             checked=>$gmConfigs->{'gmkeeplog'} ).' No </td></tr>';
+    $rowcolor = Gm_Web::altRowColor( $rowcolor );
+
+    $page .= '<tr '.$rowcolor.'><th><span class="info_title">Allow "easy formatting"?</span><br />'.
+        '<span class="info_text">With "easy formatting", bold text, italics & underlining can be done easily '.
+        'by bracketing text with two **asterisks**, \\\\backslashes\\\\ or __underlines__ respectively.  You '.
+        'can specify whether this is enabled in entries, comments, or both; if disabled, the characters won\'t be '.
+                                                                                'converted.</span></td><td>'.
+                                                                                Gm_Web::createRadioButton( name=>'editedinlineformatting', value=>Gm_Constants::ENTRIES,
+                                                                                                          checked=>$gmConfigs->{'gminlineformatting'} ).' Entries only &#160; '.
+                                                                                                                                                                                Gm_Web::createRadioButton( name=>'editedinlineformatting', value=>Gm_Constants::COMMENTS,
+                                                                                                                                                                                                          checked=>$gmConfigs->{'gminlineformatting'} ).' Comments only<BR> '.
+                                                                                                                                                                                Gm_Web::createRadioButton( name=>'editedinlineformatting', value=>Gm_Constants::BOTH,
+                                                                                                                                                                                                          checked=>$gmConfigs->{'gminlineformatting'} ).' Both &#160; '.
+                                                                                                                                                                                                                                                                        Gm_Web::createRadioButton( name=>'editedinlineformatting', value=>Gm_Constants::NEITHER,
+                                                                                                                                                                                                                                                                                                  checked=>$gmConfigs->{'gminlineformatting'} ).' Neither </td></tr>';
+    $rowcolor = Gm_Web::altRowColor( $rowcolor );
+
+    $page .= '<tr '.$rowcolor.'><th><span class="info_title">Default entry list view:</span><br />'.
+        '<span class="info_text">This specifies which view will be the default when you go to the Edit '.
+        'An Entry selection menu.</span></td><td><SELECT NAME="editeddefaultentrylistview" CLASS="selectlist">'.
+        Gm_Web::createOption( value=>'main', label=>' Current entries ('.$gmConfigs->{'gmindexdays'}.' day(s))',
+                              checked=>$gmConfigs->{'gmdefaultentrylistview'} ).
+        Gm_Web::createOption( value=>'onlyyou', label=>' All entries by you',
+                              checked=>$gmConfigs->{'gmdefaultentrylistview'} ).
+        Gm_Web::createOption( value=>Gm_Constants::MORE, label=>' All extended entries',
+                              checked=>$gmConfigs->{'gmdefaultentrylistview'} ).
+        Gm_Web::createOption( value=>Gm_Constants::OPEN, label=>' All open entries',
+                              checked=>$gmConfigs->{'gmdefaultentrylistview'} ).
+        Gm_Web::createOption( value=>Gm_Constants::CLOSED, label=>' All closed entries',
+                              checked=>$gmConfigs->{'gmdefaultentrylistview'} ).
+        Gm_Web::createOption( value=>Gm_Constants::ALL, label=>' All entries',
+                              checked=>$gmConfigs->{'gmdefaultentrylistview'} ).'</SELECT></td></tr>';
+    $rowcolor = Gm_Web::altRowColor( $rowcolor );
+    
+    $page .= '<tr '.$rowcolor.'><th><span class="info_title">Order of list links:</span><br />'.
+        '<span class="info_text">The order in which you want links to be displayed in log list '.
+        'variables&#151;check the manual for more information on those.  If "ascending", the links will '.
+                            'be listed from newest to oldest, with the newest entry at the top; if "descending", from first to '.
+                                                                                                    'last, with the first entry at the top.</span></td><td>'.
+                                                                                                    Gm_Web::createRadioButton( name=>'editedentrylistsortorder', value=>Gm_Constants::ASCENDING,
+                                                                                                                               checked=>$gmConfigs->{'gmentrylistsortorder'} ).' Ascending &#160; '.
+                                                                                                                                                                                                      Gm_Web::createRadioButton( name=>'editedentrylistsortorder', value=>Gm_Constants::DESCENDING,
+                                                                                                                                                                                                                                 checked=>$gmConfigs->{'gmentrylistsortorder'} ).' Descending </td></tr>';
+    $rowcolor = Gm_Web::altRowColor( $rowcolor );
+
+    $page .= '<tr '.$rowcolor.'><th><span class="info_title">Log entry list variable number:</span><br />'.
+        '<span class="info_text">The number of entries to link to, starting from the most recent, whenever '.
+        'the "number" variant of the log entrylist variables (for example, if this is set to 5, using '.
+                                                              '{{logmoreentrylist number}} would generate a list of links to the five most recent extended entries).  '.
+        'Check the <a href="'.Gm_Constants::GM_FORUM.'" title="read the manual" target="_blank">manual</a> '.
+        'for more information on those variables.</span></td><td>'.
+        '<INPUT TYPE=TEXT CLASS="inputfield" NAME="editedentrylistcountnumber" VALUE="'.
+                                                                                                   $gmConfigs->{'gmentrylistcountnumber'}.'"></td></tr>';
+    $rowcolor = Gm_Web::altRowColor( $rowcolor );
+
+    $page .= '<tr '.$rowcolor.'><th><span class="info_title">Link to entries in {{logentrylist comments}} '.
+        'only if comments are active?</span><br /><span class="info_text">If you use {{logentrylist comments}} '.
+        'and its related variables (see the <a href="'.Gm_Constants::GM_FORUM.'" title="read the manual" '.
+                                    'target="_blank">manual</a> for more information), this specifies whether to list only entries to '.
+        'which comments can still be posted.</span></td><td>'.
+        Gm_Web::createRadioButton( name=>'editedcommententrylistonlyifokay', value=>Gm_Constants::YES,
+                                   checked=>$gmConfigs->{'gmcommententrylistonlyifokay'} ).' Yes &#160; '.
+                                                                                                            Gm_Web::createRadioButton( name=>'editedcommententrylistonlyifokay', value=>Gm_Constants::NO,
+                                                                                                                                       checked=>$gmConfigs->{'gmcommententrylistonlyifokay'} ).' No </td></tr>';
+    $rowcolor = Gm_Web::altRowColor( $rowcolor );
+
+    $page .= '<tr '.$rowcolor.'><th><span class="info_title">Entries to link to in 	{{calendar}}:</span><br />'.
+        '<span class="info_text">Whenever you use {{calendar}} or {{calendarweek}} to generate tables linking '.
+        'to your entries, this specifies whether you want to link to the most recent entry for that day, or to '.
+        'link only to extended entries.  (It won\'t generate links at all if "Generate pages for individual '.
+                                                                                                   'entries" is turned off).</span></td><td>'.
+        Gm_Web::createRadioButton( name=>'editedlinktocalendarentries', value=>Gm_Constants::ALL,
+                                   checked=>$gmConfigs->{'gmlinktocalendarentries'} ).' Always link to entry for that calendar day<br />'.
+        Gm_Web::createRadioButton( name=>'editedlinktocalendarentries', value=>Gm_Constants::MORE,
+                                   checked=>$gmConfigs->{'gmlinktocalendarentries'} ).' Link only to extended entries </td></tr>';
+    $rowcolor = Gm_Web::altRowColor( $rowcolor );
+
+    $page .= '<tr '.$rowcolor.'><th><span class="info_title">"Automatically rebuild" selected by default?'.
+        '</span><br /><span class="info_text">Selects whether the option to automatically rebuild files '.
+        'after saving changes to templates or entries is prechecked by default.  (Authors without access '.
+                                                                                  'to rebuilding files won\'t see this option.)</span></td><td>'.
+        Gm_Web::createRadioButton( name=>'editedautomaticrebuilddefault', value=>Gm_Constants::YES,
+                                   checked=>$gmConfigs->{'gmautomaticrebuilddefault'} ).' Yes &#160; '.
+                                                                                                         Gm_Web::createRadioButton( name=>'editedautomaticrebuilddefault', value=>Gm_Constants::NO,
+                                                                                                                                    checked=>$gmConfigs->{'gmautomaticrebuilddefault'} ).' No </td></tr>';
+    $rowcolor = Gm_Web::altRowColor( $rowcolor );
+    $page .= '</table></td></tr>';
+    
+    $page .= '</table><p><INPUT TYPE=SUBMIT CLASS="button" NAME="viewdiag" '.
+        'style="background: #D0FFD0; width: 485;" VALUE="Save Configs and Perform Diagnostics"></p>'.
+        '<p><INPUT TYPE=RESET class="cancel_button button_hov" VALUE="Undo Changes Since Last Save"> '.
+        '<INPUT TYPE=SUBMIT class="accept_button button_hov" NAME="update" VALUE="Save Configuration"></p></form>';
+    $page .= '<form action="gm.cgi" method="post">'.Gm_Security::getFormAuth( author=>\%AUTHOR ).
+        '<input type=SUBMIT class="button" name="menu" value="'.Gm_Core::text( Gm_Constants::RETURN_MAIN_MENU ).
+                                                    '" style="background: #C0C0C0"></form>';
+
+
+    Gm_Web::displayAdminPageExit( $page );
+    exit(0);
 }
 
 
@@ -4760,65 +4760,65 @@ window.onload = init;
 ## NOTE: should part of this be generized and put in Core?  Something that doesn't presume where its being
 # called from so it can be reused with normal user self-registration?
 sub updateConfigs {
-	my $message = Gm_Constants::EMPTY;
+    my $message = Gm_Constants::EMPTY;
+    
+    $message = _saveConfigs();
+    unless( $message ){
+        $message = '<span class="status_msg">The config file has been updated.  Be sure to rebuild your files '.
+            'for the changes to take effect on your site, if appropriate.</span>';
 	
-	$message = _saveConfigs();
-	unless( $message ){
-		$message = '<span class="status_msg">The config file has been updated.  Be sure to rebuild your files '.
-			'for the changes to take effect on your site, if appropriate.</span>';
-	
-		if( $IN{'editeddeletecookies'} eq Gm_Constants::YES ){
-			$message .= "\n<SCRIPT TYPE=\"text/javascript\" LANGUAGE=\"JavaScript\">\n<!--//\ndeleteCookie".
-				"(\"gmcookiename\");\ndeleteCookie(\"gmcookiepw\");\n//-->\n</SCRIPT>";
-		}
-	}
+        if( $IN{'editeddeletecookies'} eq Gm_Constants::YES ){
+            $message .= "\n<SCRIPT TYPE=\"text/javascript\" LANGUAGE=\"JavaScript\">\n<!--//\ndeleteCookie".
+                "(\"gmcookiename\");\ndeleteCookie(\"gmcookiepw\");\n//-->\n</SCRIPT>";
+        }
+    }
 
-	## REFRESHING global configs, won't need todo if change to Storage::getConfig
-	$gmConfigs = Gm_Storage::getConfigs( errHandler=>\&Gm_Web::displayAdminErrorExit );
-	
-	return( $message );
+    ## REFRESHING global configs, won't need todo if change to Storage::getConfig
+    $gmConfigs = Gm_Storage::getConfigs( errHandler=>\&Gm_Web::displayAdminErrorExit );
+    
+    return( $message );
 }	
 
 
 ## Diagnostics and Repair
 # Screen to show the diagnostics and repair
 sub viewDiagnosticRepair {
-	my $message = Gm_Constants::EMPTY;
-	
-	## Saving the configuration stuff first
-	$message = _saveConfigs( confirm_msg=>0);
-	return( $message ) if( $message );  ## back to viewConfigs to fix an issue
+    my $message = Gm_Constants::EMPTY;
+    
+    ## Saving the configuration stuff first
+    $message = _saveConfigs( confirm_msg=>0);
+    return( $message ) if( $message );  ## back to viewConfigs to fix an issue
 
-# &gm_saveconfigurationdr;
-# &gm_validate;
+    # &gm_saveconfigurationdr;
+    # &gm_validate;
 
-	my $page = '<span class="section_title">Diagnostics & Repair</span><p>'.
-		'<span class="info_text">This will check file access and permissions for your Greymatter '.
-		'installation, correctly CHMOD all files (if it can; you will need to do this manually if '.
-		'Greymatter can\'t do this automatically), repair any missing entries or corrupt counter files, '.
-		'and rebuild your entry list.  If you are installing Greymatter for the first time, if you\'ve '.
-		'changed your path settings and want to verify them, or if you believe an important configuration '.
-		'file might be corrupt, click below to run diagnostics and rebuilding operations on your Greymatter '.
-		'setup.  Running this will not alter your files.  <B>Note:</B> This will verify your Local paths, '.
-		'but it cannot verify your Website paths.<P>Please wait for several moments after clicking '.
-		'(or even minutes if you have a large number of entries).<br /><B>DO NOT interrupt this procedure '.
-		'once started!</B><br /><br />';
-		
-	$page .= '<form action="gm.cgi" method=post>'.Gm_Security::getFormAuth( author=>\%AUTHOR ).
-		'<input type="hidden" name="section" value="'.$IN{'section'}.'">'.
-		'<p><input type=submit class="button" name="dodiagrepair" '.
-		'style="background: #D0FFD0" value="Perform Diagnostics & Repair"></p></form>';
-		
-	$page .= '<form action="gm.cgi" method=post>'.Gm_Security::getFormAuth( author=>\%AUTHOR ).
-		'<input type="hidden" name="section" value="'.$IN{'section'}.'">'.
-		'<input type=submit class="button" name="configs" value="Return To Configuration"></form>';		
-		
-	$page .= "\n\n".'<p><form action="gm.cgi" method="post"> '.Gm_Security::getFormAuth( author=>\%AUTHOR ).
-		'<input type=submit class="button" name="menu" VALUE="'.Gm_Core::text( Gm_Constants::RETURN_MAIN_MENU ).
-		'" STYLE="background: #C0C0C0"></form></p>';
+    my $page = '<span class="section_title">Diagnostics & Repair</span><p>'.
+        '<span class="info_text">This will check file access and permissions for your Greymatter '.
+        'installation, correctly CHMOD all files (if it can; you will need to do this manually if '.
+                                                                 'Greymatter can\'t do this automatically), repair any missing entries or corrupt counter files, '.
+        'and rebuild your entry list.  If you are installing Greymatter for the first time, if you\'ve '.
+        'changed your path settings and want to verify them, or if you believe an important configuration '.
+        'file might be corrupt, click below to run diagnostics and rebuilding operations on your Greymatter '.
+        'setup.  Running this will not alter your files.  <B>Note:</B> This will verify your Local paths, '.
+        'but it cannot verify your Website paths.<P>Please wait for several moments after clicking '.
+        '(or even minutes if you have a large number of entries).<br /><B>DO NOT interrupt this procedure '.
+        'once started!</B><br /><br />';
+    
+    $page .= '<form action="gm.cgi" method=post>'.Gm_Security::getFormAuth( author=>\%AUTHOR ).
+        '<input type="hidden" name="section" value="'.$IN{'section'}.'">'.
+        '<p><input type=submit class="button" name="dodiagrepair" '.
+        'style="background: #D0FFD0" value="Perform Diagnostics & Repair"></p></form>';
+    
+    $page .= '<form action="gm.cgi" method=post>'.Gm_Security::getFormAuth( author=>\%AUTHOR ).
+        '<input type="hidden" name="section" value="'.$IN{'section'}.'">'.
+        '<input type=submit class="button" name="configs" value="Return To Configuration"></form>';		
+    
+    $page .= "\n\n".'<p><form action="gm.cgi" method="post"> '.Gm_Security::getFormAuth( author=>\%AUTHOR ).
+        '<input type=submit class="button" name="menu" VALUE="'.Gm_Core::text( Gm_Constants::RETURN_MAIN_MENU ).
+                                                                       '" STYLE="background: #C0C0C0"></form></p>';
 
-	Gm_Web::displayAdminPageExit( $page );
-	exit(0);
+    Gm_Web::displayAdminPageExit( $page );
+    exit(0);
 }
 
 
@@ -4829,250 +4829,250 @@ sub viewDiagnosticRepair {
 ## for counters
 sub doDiagnosticRepair {
 
-#&gm_validate;
+    #&gm_validate;
+    
+    # if ($gmconfigurationaccess ne Gm_Constants::YES) {
+    # 	gm_writetocplog("$IN{'authorname'} attempted to perform diagnostics & repair without authorization");
+    # 	$statusnote = qq(<B><FONT COLOR="#FF0000">You don't have access to perform diagnostics & repair.</FONT></B><P>);
+    # 	&gm_frontpage;
+    # }
+
+    my $docreport = "<UL class=\"text_left\">\n";
+
+    # NOTE: THIS IS NO LONGER VALIDATING THE CGILOCALPATH BY doing open with that in path 
+    ## ( DO WE NEED THAT VAR?)
+    my $worked = Gm_Storage::validateResources( errHandler=>\&Gm_Web::displayAdminErrorExit, ch_mod=>'1' );
+
+    if( $worked ){
+        $docreport .= "<LI> All config files are readable/writeable and are CHMODed correctly\n";
+        $docreport .= "<LI> The local CGI path is correctly configured and all essential files are there\n";
+    } else {
+        $docreport .= "<LI> Config files are <b>NOT</b> readable/writeable; errors were encountered\n";
+        $docreport .= "<LI> The local CGI path is <b>NOT</b> correctly configured; errors were encountered\n";
+    }
+
+    # open (NOWHEREMAN, ">$EntriesPath/gm-testfile.txt") || &gm_dangermouse("Can't create files in $EntriesPath.  Make sure the entries/archives path is correctly configured and that this directory is CHMODed to 777.");
+    # print NOWHEREMAN "test";
+    # close (NOWHEREMAN);
+    #  IS THIS NECESCARY?  CAN WE TEST WITH FLAGS SOMEHOW?
+    Gm_Storage::saveFile( loc=>"$gmConfigs->{'gmentriespath'}/gm-testfile.txt", content=>['test'],
+                         'new'=>1, ch_mod=>'0666', errHandler=>\&Gm_Web::displayAdminErrorExit );
+    
+    unlink ("$gmConfigs->{'gmentriespath'}/gm-testfile.txt") || 
+        &gm_dangermouse("Can't delete the gm-testfile.txt file created in $gmConfigs->{'gmentriespath'}.  Your server may not support this operation.");
+    
+    $docreport .= "<LI> The entries/archives path is readable/writeable and is CHMODed correctly</LI>\n";
+
+
+    if ( -e "$gmConfigs->{'gmentriespath'}/$gmConfigs->{'gmindexfilename'}" ){
+        Gm_Storage::validateFile( file=>"$gmConfigs->{'gmentriespath'}/$gmConfigs->{'gmindexfilename'}", writable=>1, ch_mod=>1, 
+                                 errHandler=>\&Gm_Web::displayAdminErrorExit );
 	
-# if ($gmconfigurationaccess ne Gm_Constants::YES) {
-# 	gm_writetocplog("$IN{'authorname'} attempted to perform diagnostics & repair without authorization");
-# 	$statusnote = qq(<B><FONT COLOR="#FF0000">You don't have access to perform diagnostics & repair.</FONT></B><P>);
-# 	&gm_frontpage;
-# }
-
-	my $docreport = "<UL class=\"text_left\">\n";
-
-	# NOTE: THIS IS NO LONGER VALIDATING THE CGILOCALPATH BY doing open with that in path 
-	## ( DO WE NEED THAT VAR?)
-	my $worked = Gm_Storage::validateResources( errHandler=>\&Gm_Web::displayAdminErrorExit, ch_mod=>'1' );
-
-	if( $worked ){
-		$docreport .= "<LI> All config files are readable/writeable and are CHMODed correctly\n";
-		$docreport .= "<LI> The local CGI path is correctly configured and all essential files are there\n";
-	} else {
-		$docreport .= "<LI> Config files are <b>NOT</b> readable/writeable; errors were encountered\n";
-		$docreport .= "<LI> The local CGI path is <b>NOT</b> correctly configured; errors were encountered\n";
-	}
-
-	# open (NOWHEREMAN, ">$EntriesPath/gm-testfile.txt") || &gm_dangermouse("Can't create files in $EntriesPath.  Make sure the entries/archives path is correctly configured and that this directory is CHMODed to 777.");
-	# print NOWHEREMAN "test";
-	# close (NOWHEREMAN);
-	#  IS THIS NECESCARY?  CAN WE TEST WITH FLAGS SOMEHOW?
-	Gm_Storage::saveFile( loc=>"$gmConfigs->{'gmentriespath'}/gm-testfile.txt", content=>['test'],
-		'new'=>1, ch_mod=>'0666', errHandler=>\&Gm_Web::displayAdminErrorExit );
-	
- 	unlink ("$gmConfigs->{'gmentriespath'}/gm-testfile.txt") || 
- 		&gm_dangermouse("Can't delete the gm-testfile.txt file created in $gmConfigs->{'gmentriespath'}.  Your server may not support this operation.");
-	
-	$docreport .= "<LI> The entries/archives path is readable/writeable and is CHMODed correctly</LI>\n";
+        $docreport .= "<LI> The archive index file is readable/writeable and is CHMODed correctly</LI>\n";
+    }
 
 
-	if ( -e "$gmConfigs->{'gmentriespath'}/$gmConfigs->{'gmindexfilename'}" ){
-		Gm_Storage::validateFile( file=>"$gmConfigs->{'gmentriespath'}/$gmConfigs->{'gmindexfilename'}", writable=>1, ch_mod=>1, 
-			errHandler=>\&Gm_Web::displayAdminErrorExit );
-	
-		$docreport .= "<LI> The archive index file is readable/writeable and is CHMODed correctly</LI>\n";
-	}
+    my $gmCounters = Gm_Storage::getCounters( errHandler=>\&Gm_Web::displayAdminErrorExit );
+
+    my $oldentrynumbercount = $gmCounters->{'entrytotal'};
+    my $countentriesfromhere = 5000;  ## this is a needless built in limit, and silly, better ways to do this
+    ## NOTE:  ONE DAY WILL NEED TO ALLOW USER TO SELECT A RANGE OF ENTRIES TO BUILD, TO GIVE BETTER CONTROL
+    # TO THEM.
+    my $foundtopentry = Gm_Constants::NO;		
+
+    ### Make storeage function to get list of entries ?? opening entry though, so ...
+    do {
+        my $countentriesfromherepadded = Gm_Utils::toEntryPadded( $countentriesfromhere );
+        
+        if ($countentriesfromhere eq '0') {
+            $gmCounters->{'entrytotal'} = '0';
+            $foundtopentry = Gm_Constants::YES;
+        }
+        if (-e "$gmConfigs->{'gmentriespath'}/$countentriesfromherepadded.cgi") {
+            $gmCounters->{'entrytotal'} = $countentriesfromhere;
+            $foundtopentry = Gm_Constants::YES;
+        }
+        $countentriesfromhere--;
+    } until $foundtopentry eq Gm_Constants::YES;
+    ### Make storeage function to get list of entries
+
+    #&gm_writecounter;
+    Gm_Storage::setCounters( list=>$gmCounters, errHandler=>\&Gm_Web::displayAdminErrorExit );
+    
+    ## TODO:  NEED TO ADD LOGIC TO FIX OTHER COUNTER VARIABLES, JUST KEEPS TRACK OF ARCHIVE AND TOTAL
+
+    if ($oldentrynumbercount ne $gmCounters->{'entrytotal'}) {
+        $docreport .= "<LI> The counter was successfully repaired\n";
+        ## this is actually fixing the archivetotal var
+        #&gm_generatemainindex;
+        Gm_Core::constructMainIndex( errHandler=>\&Gm_Web::displayAdminErrorExit );
+    }
+    ## TODO:  NEED TO ADD LOGIC TO FIX OTHER COUNTER VARIABLES, JUST KEEPS TRACK OF ARCHIVE AND TOTAL
 
 
-	my $gmCounters = Gm_Storage::getCounters( errHandler=>\&Gm_Web::displayAdminErrorExit );
+    if( Gm_Core::hasPosted() ){
+        my $checkentrycounter = $gmCounters->{'entrytotal'};
+        my $docreportentryappend = Gm_Constants::NO;
+        do {
+            my $checkentrycounterpadded = Gm_Utils::toEntryPadded( $checkentrycounter );
+            
+            ## Checking for a missing file
+            my $makedummyentry = Gm_Constants::NO;
+            # 		if (!(open(ENTRYCHECK,"<$EntriesPath/$checkentrycounterpadded.cgi"))) { 
+            if (! -r "$gmConfigs->{'gmentriespath'}/$checkentrycounterpadded.cgi" ){ 
+                ## TODO: THERE SHOULD PROBABLY BE A FILE EXISTS, STORAGE FUNCTION
+                $makedummyentry = Gm_Constants::YES;	
+            }
+            #		close(ENTRYCHECK);
+            if (($makedummyentry eq Gm_Constants::YES) && ($checkentrycounter ne '0')) {
+                my ($basedate, $wday, $mon, $mday, $JSYear, $hour, $min, $sec, $AMPM ) = 
+                    Gm_Utils::getStdDate( $gmConfigs->{'gmserveroffset'} );
+                my $montwo = Gm_Utils::toTwoDigit( $mon );
+                my $mdaytwo = Gm_Utils::toTwoDigit( $mday );
+                my $hourtwo = Gm_Utils::toTwoDigit( $hour );
+                my $mintwo = Gm_Utils::toTwoDigit( $min );
+                my $thisnewwday = $wday;
+                my $thisnewmon = $mon;
+                my $thisnewmday = $mday;
+                my $thisnewyear = $JSYear;
+                my $thisnewhour = $hour;
+                my $thisnewmin = $min;
+                my $thisnewsec = $sec;
+                my $thisnewampm = $AMPM;
+                if ($checkentrycounter ne $gmCounters->{'entrytotal'}) {
+                    
+                    my $nextentrynumber = $checkentrycounter + 1;
+                    #					my $nextentrynumberpadded = Gm_Utils::toEntryPadded( $nextentrynumber );  ## Not used by anyone!
 
-	my $oldentrynumbercount = $gmCounters->{'entrytotal'};
-	my $countentriesfromhere = 5000;  ## this is a needless built in limit, and silly, better ways to do this
-	## NOTE:  ONE DAY WILL NEED TO ALLOW USER TO SELECT A RANGE OF ENTRIES TO BUILD, TO GIVE BETTER CONTROL
-	# TO THEM.
-	my $foundtopentry = Gm_Constants::NO;		
+                    my $gmEntry = Gm_Storage::getEntry( id=>$nextentrynumber, 
+                                                       errHandler=>\&Gm_Web::displayAdminErrorExit );
+                    
+                    $nextentrynumber = $gmEntry->{'entryinfo'}{'id'};
+                    #					my $nextentryauthor = $gmEntry->{'entryinfo'}{'author'};
+                    #					my $nextentrysubject = $gmEntry->{'entryinfo'}{'subject'};
+                    my $nextentryweekdaynumber = $gmEntry->{'entryinfo'}{'weekday'};
+                    my $nextentrymonth = $gmEntry->{'entryinfo'}{'month'};
+                    my $nextentryday = $gmEntry->{'entryinfo'}{'day'};
+                    my $nextentryyearyear = $gmEntry->{'entryinfo'}{'year'};
+                    my $nextentryhour = $gmEntry->{'entryinfo'}{'hour'};
+                    my $nextentryminute = $gmEntry->{'entryinfo'}{'minute'};
+                    my $nextentrysecond = $gmEntry->{'entryinfo'}{'second'};
+                    my $nextentryampm = $gmEntry->{'entryinfo'}{'ampm'};
+                    #					my $nextentrypositivekarma = $gmEntry->{'entryinfo'}{'karmapos'};
+                    #					my $nextentrynegativekarma = $gmEntry->{'entryinfo'}{'karmaneg'};
+                    #					my $nextentrycommentsnumber = $gmEntry->{'entryinfo'}{'commenttotal'};
+                    #					my $nextentryallowkarma = $gmEntry->{'entryinfo'}{'karma'};
+                    #					my $nextentryallowcomments = $gmEntry->{'entryinfo'}{'comments'};
+                    #					my $nextentryopenstatus = $gmEntry->{'entryinfo'}{'status'};
+                    #					my $nextentrymusic = $gmEntry->{'entryinfo'}{'music'};
+                    #					my $nextentrymood = $gmEntry->{'entryinfo'}{'mood'};
+                    #					my $nextentryemoticonsallowed = $gmEntry->{'entryinfo'}{'emoticons'};
+                    
+                    $thisnewwday = $nextentryweekdaynumber;
+                    $thisnewmon = $nextentrymonth;
+                    $thisnewmday = $nextentryday;
+                    $thisnewyear = $nextentryyearyear;
+                    $thisnewhour = $nextentryhour;
+                    $thisnewmin = $nextentryminute;
+                    $thisnewsec = $nextentrysecond;
+                    $thisnewampm = $nextentryampm;					
+                    
+                } elsif ($checkentrycounter ne '1') {
+                    my $previousentrynumber = $checkentrycounter - 1;
+                    #					my $previousentrynumberpadded = Gm_Utils::toEntryPadded( $previousentrynumber );
 
-### Make storeage function to get list of entries ?? opening entry though, so ...
-	do {
-		my $countentriesfromherepadded = Gm_Utils::toEntryPadded( $countentriesfromhere );
-		
-		if ($countentriesfromhere eq '0') {
-			$gmCounters->{'entrytotal'} = '0';
-			$foundtopentry = Gm_Constants::YES;
-		}
-		if (-e "$gmConfigs->{'gmentriespath'}/$countentriesfromherepadded.cgi") {
-			$gmCounters->{'entrytotal'} = $countentriesfromhere;
-			$foundtopentry = Gm_Constants::YES;
-		}
-		$countentriesfromhere--;
-	} until $foundtopentry eq Gm_Constants::YES;
-### Make storeage function to get list of entries
+                    my $gmEntry = Gm_Storage::getEntry( id=>$previousentrynumber, 
+                                                        errHandler=>\&Gm_Web::displayAdminErrorExit );
+                    
+                    $previousentrynumber = $gmEntry->{'entryinfo'}{'id'};
+                    #					my $previousentryauthor = $gmEntry->{'entryinfo'}{'author'};
+                    #					my $previousentrysubject = $gmEntry->{'entryinfo'}{'subject'};
+                    my $previousentryweekdaynumber = $gmEntry->{'entryinfo'}{'weekday'};
+                    my $previousentrymonth = $gmEntry->{'entryinfo'}{'month'};
+                    my $previousentryday = $gmEntry->{'entryinfo'}{'day'};
+                    my $previousentryyearyear = $gmEntry->{'entryinfo'}{'year'};
+                    my $previousentryhour = $gmEntry->{'entryinfo'}{'hour'};
+                    my $previousentryminute = $gmEntry->{'entryinfo'}{'minute'};
+                    my $previousentrysecond = $gmEntry->{'entryinfo'}{'second'};
+                    my $previousentryampm = $gmEntry->{'entryinfo'}{'ampm'};
+                    #					my $previousentrypositivekarma = $gmEntry->{'entryinfo'}{'karmapos'};
+                    #					my $previousentrynegativekarma = $gmEntry->{'entryinfo'}{'karmaneg'};
+                    #					my $previousentrycommentsnumber = $gmEntry->{'entryinfo'}{'commenttotal'};
+                    #					my $previousentryallowkarma = $gmEntry->{'entryinfo'}{'karma'};
+                    #					my $previousentryallowcomments = $gmEntry->{'entryinfo'}{'comments'};
+                    #					my $previousentryopenstatus = $gmEntry->{'entryinfo'}{'status'};
+                    #					my $previousentrymusic = $gmEntry->{'entryinfo'}{'music'};
+                    #					my $previousentrymood = $gmEntry->{'entryinfo'}{'mood'};
+                    #					my $previousentryemoticonsallowed = $gmEntry->{'entryinfo'}{'emoticons'};
+                    
+                    $thisnewwday = $previousentryweekdaynumber;
+                    $thisnewmon = $previousentrymonth;
+                    $thisnewmday = $previousentryday;
+                    $thisnewyear = $previousentryyearyear;
+                    $thisnewhour = $previousentryhour;
+                    $thisnewmin = $previousentryminute;
+                    $thisnewsec = $previousentrysecond;
+                    $thisnewampm = $previousentryampm;
+                }
 
-	#&gm_writecounter;
-	Gm_Storage::setCounters( list=>$gmCounters, errHandler=>\&Gm_Web::displayAdminErrorExit );
-	
-	## TODO:  NEED TO ADD LOGIC TO FIX OTHER COUNTER VARIABLES, JUST KEEPS TRACK OF ARCHIVE AND TOTAL
+                my $gmEntry = {};
+                if( -e "$gmConfigs->{'gmentriespath'}/$checkentrycounterpadded.cgi" ){
+                    $gmEntry = Gm_Storage::getEntry( id=>$checkentrycounter, errHandler=>\&Gm_Web::displayAdminErrorExit );
+                }
+                
+                unless( $gmEntry->{'comments'} ){
+                    $gmEntry->{'comments'} = [];
+                }
+                unless( $gmEntry->{'karmavotes'} ){
+                    $gmEntry->{'karmavotes'} = { '0.0.0.0'=>'I' };
+                }			
+                
+                $gmEntry->{'entryinfo'}{'id'} = $checkentrycounter;
+                $gmEntry->{'entryinfo'}{'author'} = 'Greymatter';
+                $gmEntry->{'entryinfo'}{'subject'} = '*Repaired*';
+                $gmEntry->{'entryinfo'}{'weekday'} = $thisnewwday;
+                $gmEntry->{'entryinfo'}{'month'} = $thisnewmon;
+                $gmEntry->{'entryinfo'}{'day'} = $thisnewmday;
+                $gmEntry->{'entryinfo'}{'year'} = $thisnewyear;
+                $gmEntry->{'entryinfo'}{'hour'} = $thisnewhour;
+                $gmEntry->{'entryinfo'}{'minute'} = $thisnewmin;
+                $gmEntry->{'entryinfo'}{'second'} = $thisnewsec;
+                $gmEntry->{'entryinfo'}{'ampm'} = $thisnewampm;
+                $gmEntry->{'entryinfo'}{'karmapos'} = 0;
+                $gmEntry->{'entryinfo'}{'karmaneg'} = 0;
+                $gmEntry->{'entryinfo'}{'commenttotal'} = 0;
+                $gmEntry->{'entryinfo'}{'karma'} = Gm_Constants::NO;
+                $gmEntry->{'entryinfo'}{'comments'} = Gm_Constants::NO;
+                $gmEntry->{'entryinfo'}{'status'} = Gm_Constants::CLOSED;
+                
+                $gmEntry->{'maintext'} = 'This entry was detected by Greymatter during Diagnostics '.
+                    '& Repair as being missing or corrupt.  This is a dummy entry only.  DO NOT reopen this entry.';
+                
+                Gm_Storage::setEntry( entry=>$gmEntry, 'new'=>1, errHandler=>\&Gm_Web::displayAdminErrorExit );
+                
+                $docreportentryappend = Gm_Constants::YES;
+                $docreport .= "<LI> Entry #$checkentrycounter was detected as being missing or corrupt and was ".
+                    "successfully replaced (it is recommended that you go to the Rebuild Files screen now and ".
+                    "click \"Rebuild Everything\")\n";
+            }
+            
+            ## TODO: VALIDATE DATA IN THE ENTRIES! WE JUST CHECKED IF IT EXISTS
+            ## SHOULD CHECK A. THAT THE NUMBER FIELDS (SUCH AS ENTRYID) ARE ACTUALLY  NUMBERS
+            ## THAT IF THERE IS A BAD OR NO DATE, THAT IT IS NOTED OR GIVEN THE SAME DATE AS PREVIOUS ENTRY
+            # $foo = 'abc12';  ## originally had some wierd characters like upside down question mark
+            # if( $foo =~ m/\D/g ){
+            # 	$foo =~ s/\D//gi;
+            # }
+            
+            
+            chmod (0666, "$gmConfigs->{'gmentriespath'}/$checkentrycounterpadded.cgi");
+            $checkentrycounter--;
 
-	if ($oldentrynumbercount ne $gmCounters->{'entrytotal'}) {
-		$docreport .= "<LI> The counter was successfully repaired\n";
-		## this is actually fixing the archivetotal var
-		#&gm_generatemainindex;
-		Gm_Core::constructMainIndex( errHandler=>\&Gm_Web::displayAdminErrorExit );
-	}
-	## TODO:  NEED TO ADD LOGIC TO FIX OTHER COUNTER VARIABLES, JUST KEEPS TRACK OF ARCHIVE AND TOTAL
+        } until $checkentrycounter < 1;		
+        $docreport .= "<LI> All entry files are working correctly</LI>\n";
+    }
 
-
-	if( Gm_Core::hasPosted() ){
-		my $checkentrycounter = $gmCounters->{'entrytotal'};
-		my $docreportentryappend = Gm_Constants::NO;
-		do {
-			my $checkentrycounterpadded = Gm_Utils::toEntryPadded( $checkentrycounter );
-			
-			## Checking for a missing file
-			my $makedummyentry = Gm_Constants::NO;
-	# 		if (!(open(ENTRYCHECK,"<$EntriesPath/$checkentrycounterpadded.cgi"))) { 
-			if (! -r "$gmConfigs->{'gmentriespath'}/$checkentrycounterpadded.cgi" ){ 
-	## TODO: THERE SHOULD PROBABLY BE A FILE EXISTS, STORAGE FUNCTION
-				$makedummyentry = Gm_Constants::YES;	
-			}
-	#		close(ENTRYCHECK);
-			if (($makedummyentry eq Gm_Constants::YES) && ($checkentrycounter ne '0')) {
-				my ($basedate, $wday, $mon, $mday, $JSYear, $hour, $min, $sec, $AMPM ) = 
-					Gm_Utils::getStdDate( $gmConfigs->{'gmserveroffset'} );
-				my $montwo = Gm_Utils::toTwoDigit( $mon );
-				my $mdaytwo = Gm_Utils::toTwoDigit( $mday );
-				my $hourtwo = Gm_Utils::toTwoDigit( $hour );
-				my $mintwo = Gm_Utils::toTwoDigit( $min );
-				my $thisnewwday = $wday;
-				my $thisnewmon = $mon;
-				my $thisnewmday = $mday;
-				my $thisnewyear = $JSYear;
-				my $thisnewhour = $hour;
-				my $thisnewmin = $min;
-				my $thisnewsec = $sec;
-				my $thisnewampm = $AMPM;
-				if ($checkentrycounter ne $gmCounters->{'entrytotal'}) {
-				
-					my $nextentrynumber = $checkentrycounter + 1;
-#					my $nextentrynumberpadded = Gm_Utils::toEntryPadded( $nextentrynumber );  ## Not used by anyone!
-
-					my $gmEntry = Gm_Storage::getEntry( id=>$nextentrynumber, 
-						errHandler=>\&Gm_Web::displayAdminErrorExit );
-					
-					$nextentrynumber = $gmEntry->{'entryinfo'}{'id'};
-#					my $nextentryauthor = $gmEntry->{'entryinfo'}{'author'};
-#					my $nextentrysubject = $gmEntry->{'entryinfo'}{'subject'};
-					my $nextentryweekdaynumber = $gmEntry->{'entryinfo'}{'weekday'};
-					my $nextentrymonth = $gmEntry->{'entryinfo'}{'month'};
-					my $nextentryday = $gmEntry->{'entryinfo'}{'day'};
-					my $nextentryyearyear = $gmEntry->{'entryinfo'}{'year'};
-					my $nextentryhour = $gmEntry->{'entryinfo'}{'hour'};
-					my $nextentryminute = $gmEntry->{'entryinfo'}{'minute'};
-					my $nextentrysecond = $gmEntry->{'entryinfo'}{'second'};
-					my $nextentryampm = $gmEntry->{'entryinfo'}{'ampm'};
-#					my $nextentrypositivekarma = $gmEntry->{'entryinfo'}{'karmapos'};
-#					my $nextentrynegativekarma = $gmEntry->{'entryinfo'}{'karmaneg'};
-#					my $nextentrycommentsnumber = $gmEntry->{'entryinfo'}{'commenttotal'};
-#					my $nextentryallowkarma = $gmEntry->{'entryinfo'}{'karma'};
-#					my $nextentryallowcomments = $gmEntry->{'entryinfo'}{'comments'};
-#					my $nextentryopenstatus = $gmEntry->{'entryinfo'}{'status'};
-#					my $nextentrymusic = $gmEntry->{'entryinfo'}{'music'};
-#					my $nextentrymood = $gmEntry->{'entryinfo'}{'mood'};
-#					my $nextentryemoticonsallowed = $gmEntry->{'entryinfo'}{'emoticons'};
-					
-					$thisnewwday = $nextentryweekdaynumber;
-					$thisnewmon = $nextentrymonth;
-					$thisnewmday = $nextentryday;
-					$thisnewyear = $nextentryyearyear;
-					$thisnewhour = $nextentryhour;
-					$thisnewmin = $nextentryminute;
-					$thisnewsec = $nextentrysecond;
-					$thisnewampm = $nextentryampm;					
-						
-				} elsif ($checkentrycounter ne '1') {
-					my $previousentrynumber = $checkentrycounter - 1;
-#					my $previousentrynumberpadded = Gm_Utils::toEntryPadded( $previousentrynumber );
-
-					my $gmEntry = Gm_Storage::getEntry( id=>$previousentrynumber, 
-						errHandler=>\&Gm_Web::displayAdminErrorExit );
-					
-					$previousentrynumber = $gmEntry->{'entryinfo'}{'id'};
-#					my $previousentryauthor = $gmEntry->{'entryinfo'}{'author'};
-#					my $previousentrysubject = $gmEntry->{'entryinfo'}{'subject'};
-					my $previousentryweekdaynumber = $gmEntry->{'entryinfo'}{'weekday'};
-					my $previousentrymonth = $gmEntry->{'entryinfo'}{'month'};
-					my $previousentryday = $gmEntry->{'entryinfo'}{'day'};
-					my $previousentryyearyear = $gmEntry->{'entryinfo'}{'year'};
-					my $previousentryhour = $gmEntry->{'entryinfo'}{'hour'};
-					my $previousentryminute = $gmEntry->{'entryinfo'}{'minute'};
-					my $previousentrysecond = $gmEntry->{'entryinfo'}{'second'};
-					my $previousentryampm = $gmEntry->{'entryinfo'}{'ampm'};
-#					my $previousentrypositivekarma = $gmEntry->{'entryinfo'}{'karmapos'};
-#					my $previousentrynegativekarma = $gmEntry->{'entryinfo'}{'karmaneg'};
-#					my $previousentrycommentsnumber = $gmEntry->{'entryinfo'}{'commenttotal'};
-#					my $previousentryallowkarma = $gmEntry->{'entryinfo'}{'karma'};
-#					my $previousentryallowcomments = $gmEntry->{'entryinfo'}{'comments'};
-#					my $previousentryopenstatus = $gmEntry->{'entryinfo'}{'status'};
-#					my $previousentrymusic = $gmEntry->{'entryinfo'}{'music'};
-#					my $previousentrymood = $gmEntry->{'entryinfo'}{'mood'};
-#					my $previousentryemoticonsallowed = $gmEntry->{'entryinfo'}{'emoticons'};
-	
-					$thisnewwday = $previousentryweekdaynumber;
-					$thisnewmon = $previousentrymonth;
-					$thisnewmday = $previousentryday;
-					$thisnewyear = $previousentryyearyear;
-					$thisnewhour = $previousentryhour;
-					$thisnewmin = $previousentryminute;
-					$thisnewsec = $previousentrysecond;
-					$thisnewampm = $previousentryampm;
-				}
-
-				my $gmEntry = {};
-				if( -e "$gmConfigs->{'gmentriespath'}/$checkentrycounterpadded.cgi" ){
-					$gmEntry = Gm_Storage::getEntry( id=>$checkentrycounter, errHandler=>\&Gm_Web::displayAdminErrorExit );
-				}
-				
-				unless( $gmEntry->{'comments'} ){
-					$gmEntry->{'comments'} = [];
-				}
-				unless( $gmEntry->{'karmavotes'} ){
-					$gmEntry->{'karmavotes'} = { '0.0.0.0'=>'I' };
-				}			
-	
-				$gmEntry->{'entryinfo'}{'id'} = $checkentrycounter;
-				$gmEntry->{'entryinfo'}{'author'} = 'Greymatter';
-				$gmEntry->{'entryinfo'}{'subject'} = '*Repaired*';
-				$gmEntry->{'entryinfo'}{'weekday'} = $thisnewwday;
-				$gmEntry->{'entryinfo'}{'month'} = $thisnewmon;
-				$gmEntry->{'entryinfo'}{'day'} = $thisnewmday;
-				$gmEntry->{'entryinfo'}{'year'} = $thisnewyear;
-				$gmEntry->{'entryinfo'}{'hour'} = $thisnewhour;
-				$gmEntry->{'entryinfo'}{'minute'} = $thisnewmin;
-				$gmEntry->{'entryinfo'}{'second'} = $thisnewsec;
-				$gmEntry->{'entryinfo'}{'ampm'} = $thisnewampm;
-				$gmEntry->{'entryinfo'}{'karmapos'} = 0;
-				$gmEntry->{'entryinfo'}{'karmaneg'} = 0;
-				$gmEntry->{'entryinfo'}{'commenttotal'} = 0;
-				$gmEntry->{'entryinfo'}{'karma'} = Gm_Constants::NO;
-				$gmEntry->{'entryinfo'}{'comments'} = Gm_Constants::NO;
-				$gmEntry->{'entryinfo'}{'status'} = Gm_Constants::CLOSED;
-				
-				$gmEntry->{'maintext'} = 'This entry was detected by Greymatter during Diagnostics '.
-					'& Repair as being missing or corrupt.  This is a dummy entry only.  DO NOT reopen this entry.';
-	
-				Gm_Storage::setEntry( entry=>$gmEntry, 'new'=>1, errHandler=>\&Gm_Web::displayAdminErrorExit );
-	
-				$docreportentryappend = Gm_Constants::YES;
-				$docreport .= "<LI> Entry #$checkentrycounter was detected as being missing or corrupt and was ".
-					"successfully replaced (it is recommended that you go to the Rebuild Files screen now and ".
-					"click \"Rebuild Everything\")\n";
-			}
-			
-			## TODO: VALIDATE DATA IN THE ENTRIES! WE JUST CHECKED IF IT EXISTS
-			## SHOULD CHECK A. THAT THE NUMBER FIELDS (SUCH AS ENTRYID) ARE ACTUALLY  NUMBERS
-			## THAT IF THERE IS A BAD OR NO DATE, THAT IT IS NOTED OR GIVEN THE SAME DATE AS PREVIOUS ENTRY
-			# $foo = 'abc12';  ## originally had some wierd characters like upside down question mark
-			# if( $foo =~ m/\D/g ){
-			# 	$foo =~ s/\D//gi;
-			# }
-			
-			
-			chmod (0666, "$gmConfigs->{'gmentriespath'}/$checkentrycounterpadded.cgi");
-			$checkentrycounter--;
-
-		} until $checkentrycounter < 1;		
-		$docreport .= "<LI> All entry files are working correctly</LI>\n";
-	}
-
-	if( Gm_Core::hasPosted() ){
+    if( Gm_Core::hasPosted() ){
 	# 	$checkentrycounter = $newentrynumber;
 	# 	my %rebuiltentrylist = ();
 	# 	do {
@@ -5100,64 +5100,64 @@ sub doDiagnosticRepair {
 	# 	} until $checkentrycounter < 1;	
 	# 
 	# 	Gm_Storage::setEntrylist( list=>\%rebuiltentrylist, errHandler=>\&Gm_Web::displayAdminErrorExit );
-		Gm_Core::reconstructEntrylist( errHandler=>\&Gm_Web::displayAdminErrorExit );
-		$docreport .= "<LI> The entry list was successfully rebuilt</LI>\n"
-	}
+        Gm_Core::reconstructEntrylist( errHandler=>\&Gm_Web::displayAdminErrorExit );
+        $docreport .= "<LI> The entry list was successfully rebuilt</LI>\n"
+    }
 
-	Gm_Storage::validateFile( file=>"$gmConfigs->{'gmlogpath'}/$gmConfigs->{'gmindexfilename'}", writable=>1, ch_mod=>1, 
-		errHandler=>\&Gm_Web::displayAdminErrorExit );
+    Gm_Storage::validateFile( file=>"$gmConfigs->{'gmlogpath'}/$gmConfigs->{'gmindexfilename'}", writable=>1, ch_mod=>1, 
+                             errHandler=>\&Gm_Web::displayAdminErrorExit );
 
-	$docreport .= "<LI> The main index file is readable/writeable and is CHMODed correctly</LI>\n";
+    $docreport .= "<LI> The main index file is readable/writeable and is CHMODed correctly</LI>\n";
 
-	if( $gmConfigs->{'gmotherfilelist'} ne Gm_Constants::EMPTY ){
-		my @connectedfilelist = split ('\\n', $gmConfigs->{'gmotherfilelist'});
-		foreach my $usethisfilename (@connectedfilelist) {
-			Gm_Storage::validateFile( file=>"$usethisfilename", writable=>1, ch_mod=>1, 
-				errHandler=>\&Gm_Web::displayAdminErrorExit );
-		}
-		$docreport .= "<LI> All connected files are readable/writeable and are CHMODed correctly</LI>\n";
-	}
+    if( $gmConfigs->{'gmotherfilelist'} ne Gm_Constants::EMPTY ){
+        my @connectedfilelist = split ('\\n', $gmConfigs->{'gmotherfilelist'});
+        foreach my $usethisfilename (@connectedfilelist) {
+            Gm_Storage::validateFile( file=>"$usethisfilename", writable=>1, ch_mod=>1, 
+                                     errHandler=>\&Gm_Web::displayAdminErrorExit );
+        }
+        $docreport .= "<LI> All connected files are readable/writeable and are CHMODed correctly</LI>\n";
+    }
 
-	Gm_Core::writeToCplog( "$AUTHOR{'author'} successfully performed diagnostics & repair.", Gm_Constants::YES );
+    Gm_Core::writeToCplog( "$AUTHOR{'author'} successfully performed diagnostics & repair.", Gm_Constants::YES );
 
-	my $page = '<span class="section_title">Diagnostics & Repair Complete</span>'.
-		'<p class="info_text">All operations were completed successfully.  Greymatter successfully '.
-		'checked and/or performed the following:</p><p>'.$docreport.'</UL></p>';
+    my $page = '<span class="section_title">Diagnostics & Repair Complete</span>'.
+        '<p class="info_text">All operations were completed successfully.  Greymatter successfully '.
+        'checked and/or performed the following:</p><p>'.$docreport.'</UL></p>';
 
-	$page .= '<form action="gm.cgi" method=post>'.Gm_Security::getFormAuth( author=>\%AUTHOR ).
-		'<input type="hidden" name="section" value="'.$IN{'section'}.'">'.
-		'<input type=submit class="button" name="configs" value="Return To Configuration"></form>';	
+    $page .= '<form action="gm.cgi" method=post>'.Gm_Security::getFormAuth( author=>\%AUTHOR ).
+        '<input type="hidden" name="section" value="'.$IN{'section'}.'">'.
+        '<input type=submit class="button" name="configs" value="Return To Configuration"></form>';	
 
-	$page .= "\n\n".'<p><form action="gm.cgi" method="post"> '.Gm_Security::getFormAuth( author=>\%AUTHOR ).
-		'<input type=submit class="button" name="menu" VALUE="'.Gm_Core::text( Gm_Constants::RETURN_MAIN_MENU ).
-		'" STYLE="background: #C0C0C0"></form></p>';
+    $page .= "\n\n".'<p><form action="gm.cgi" method="post"> '.Gm_Security::getFormAuth( author=>\%AUTHOR ).
+        '<input type=submit class="button" name="menu" VALUE="'.Gm_Core::text( Gm_Constants::RETURN_MAIN_MENU ).
+                                                                                       '" STYLE="background: #C0C0C0"></form></p>';
 
-	Gm_Web::displayAdminPageExit( $page );
-	exit(0);
-	
-# print<<GMDIAGNOSTICSFINISHED;
-# 
-# $gmheadtag
-# $gmframetop
-# <FONT COLOR="#0000FF"><B>Diagnostics & Repair Complete</B></FONT>
-# <P>
-# 
-# <P>
-# <TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0><TR><TD ALIGN=LEFT>$gmfonttag$docreport</FONT></TD></TR></TABLE>
-# <P>
-# <FORM ACTION="gm.cgi" METHOD=POST><INPUT TYPE=HIDDEN NAME="authorname" VALUE="$IN{'authorname'}">
-# <INPUT TYPE=HIDDEN NAME="authorpassword" VALUE="$IN{'authorpassword'}">
-# <INPUT TYPE=SUBMIT CLASS="button" NAME="configs" VALUE="Return To Configuration"> 
-# <INPUT TYPE=SUBMIT CLASS="button" NAME="thomas" VALUE="Return To Main Menu" STYLE="background: #C0C0C0">
-# </FORM></P><P ALIGN=CENTER>
-# $gmframebottom
-# 
-# </BODY>
-# </HTML>
-# 
-# GMDIAGNOSTICSFINISHED
-# 
-# exit;
+    Gm_Web::displayAdminPageExit( $page );
+    exit(0);
+    
+    # print<<GMDIAGNOSTICSFINISHED;
+    # 
+    # $gmheadtag
+    # $gmframetop
+    # <FONT COLOR="#0000FF"><B>Diagnostics & Repair Complete</B></FONT>
+    # <P>
+    # 
+    # <P>
+    # <TABLE BORDER=0 CELLPADDING=0 CELLSPACING=0><TR><TD ALIGN=LEFT>$gmfonttag$docreport</FONT></TD></TR></TABLE>
+    # <P>
+    # <FORM ACTION="gm.cgi" METHOD=POST><INPUT TYPE=HIDDEN NAME="authorname" VALUE="$IN{'authorname'}">
+    # <INPUT TYPE=HIDDEN NAME="authorpassword" VALUE="$IN{'authorpassword'}">
+    # <INPUT TYPE=SUBMIT CLASS="button" NAME="configs" VALUE="Return To Configuration"> 
+    # <INPUT TYPE=SUBMIT CLASS="button" NAME="thomas" VALUE="Return To Main Menu" STYLE="background: #C0C0C0">
+    # </FORM></P><P ALIGN=CENTER>
+    # $gmframebottom
+    # 
+    # </BODY>
+    # </HTML>
+    # 
+    # GMDIAGNOSTICSFINISHED
+    # 
+    # exit;
 }
 
 
@@ -5167,208 +5167,208 @@ sub doDiagnosticRepair {
 # This is a helper function to save the config file
 # RETURN: An empty string if successfull, otherwise and error string
 sub _saveConfigs {
-	my $message = Gm_Constants::EMPTY;
-	
-	chomp ($IN{'editedcensorlist'});
-	$IN{'editedcensorlist'} = Gm_Utils::toStoreSafe($IN{'editedcensorlist'});
-	chomp ($IN{'editedotherfilelist'});
-	$IN{'editedotherfilelist'} = Gm_Utils::toStoreSafe($IN{'editedotherfilelist'});
-	
-	$IN{'editedlogpath'} = Gm_Utils::toConfigSafe($IN{'editedlogpath'});
-	$IN{'editedentriespath'} = Gm_Utils::toConfigSafe($IN{'editedentriespath'});
-	$IN{'editedlogwebpath'} = Gm_Utils::toConfigSafe($IN{'editedlogwebpath'});
-	$IN{'editedentrieswebpath'} = Gm_Utils::toConfigSafe($IN{'editedentrieswebpath'});
-	$IN{'editednotifyemail'} = Gm_Utils::toConfigSafe($IN{'editednotifyemail'});
-	$IN{'editedindexfilename'} = Gm_Utils::toConfigSafe($IN{'editedindexfilename'});
-	$IN{'editedentrysuffix'} = Gm_Utils::toConfigSafe($IN{'editedentrysuffix'});
-	$IN{'editedindexdays'} = Gm_Utils::toConfigSafe($IN{'editedindexdays'});
-	$IN{'editedoffsettime'} = Gm_Utils::toConfigSafe($IN{'editedoffsettime'});
-	$IN{'editedtimezone'} = Gm_Utils::toConfigSafe($IN{'editedtimezone'});
-	$IN{'editedmailprog'} = Gm_Utils::toConfigSafe($IN{'editedmailprog'});
-	$IN{'editedcgilocalpath'} = Gm_Utils::toConfigSafe($IN{'editedcgilocalpath'});
-	$IN{'editedcgiwebpath'} = Gm_Utils::toConfigSafe($IN{'editedcgiwebpath'});
-	$IN{'editedemoticonspath'} = Gm_Utils::toConfigSafe($IN{'editedemoticonspath'});
-	$IN{'editedentrylistcountnumber'} = Gm_Utils::toConfigSafe($IN{'editedentrylistcountnumber'});
-	$IN{'editedlogarchivesuffix'} = Gm_Utils::toConfigSafe($IN{'editedlogarchivesuffix'});
-	
-	$IN{'editedcensorlist'} =~ s/^\s+//;
-	$IN{'editedcensorlist'} =~ s/\s+$//;
-	$IN{'editedotherfilelist'} =~ s/^\s+//;
-	$IN{'editedotherfilelist'} =~ s/^\s+//;
-	
-	$IN{'editedentrysuffix'} =~ s/\.//g;
-	$IN{'editednotifyemail'} =~ s/ //g;
-	$IN{'editedlogarchivesuffix'} =~ s/\.//g;
+    my $message = Gm_Constants::EMPTY;
+    
+    chomp ($IN{'editedcensorlist'});
+    $IN{'editedcensorlist'} = Gm_Utils::toStoreSafe($IN{'editedcensorlist'});
+    chomp ($IN{'editedotherfilelist'});
+    $IN{'editedotherfilelist'} = Gm_Utils::toStoreSafe($IN{'editedotherfilelist'});
+    
+    $IN{'editedlogpath'} = Gm_Utils::toConfigSafe($IN{'editedlogpath'});
+    $IN{'editedentriespath'} = Gm_Utils::toConfigSafe($IN{'editedentriespath'});
+    $IN{'editedlogwebpath'} = Gm_Utils::toConfigSafe($IN{'editedlogwebpath'});
+    $IN{'editedentrieswebpath'} = Gm_Utils::toConfigSafe($IN{'editedentrieswebpath'});
+    $IN{'editednotifyemail'} = Gm_Utils::toConfigSafe($IN{'editednotifyemail'});
+    $IN{'editedindexfilename'} = Gm_Utils::toConfigSafe($IN{'editedindexfilename'});
+    $IN{'editedentrysuffix'} = Gm_Utils::toConfigSafe($IN{'editedentrysuffix'});
+    $IN{'editedindexdays'} = Gm_Utils::toConfigSafe($IN{'editedindexdays'});
+    $IN{'editedoffsettime'} = Gm_Utils::toConfigSafe($IN{'editedoffsettime'});
+    $IN{'editedtimezone'} = Gm_Utils::toConfigSafe($IN{'editedtimezone'});
+    $IN{'editedmailprog'} = Gm_Utils::toConfigSafe($IN{'editedmailprog'});
+    $IN{'editedcgilocalpath'} = Gm_Utils::toConfigSafe($IN{'editedcgilocalpath'});
+    $IN{'editedcgiwebpath'} = Gm_Utils::toConfigSafe($IN{'editedcgiwebpath'});
+    $IN{'editedemoticonspath'} = Gm_Utils::toConfigSafe($IN{'editedemoticonspath'});
+    $IN{'editedentrylistcountnumber'} = Gm_Utils::toConfigSafe($IN{'editedentrylistcountnumber'});
+    $IN{'editedlogarchivesuffix'} = Gm_Utils::toConfigSafe($IN{'editedlogarchivesuffix'});
+    
+    $IN{'editedcensorlist'} =~ s/^\s+//;
+    $IN{'editedcensorlist'} =~ s/\s+$//;
+    $IN{'editedotherfilelist'} =~ s/^\s+//;
+    $IN{'editedotherfilelist'} =~ s/^\s+//;
+    
+    $IN{'editedentrysuffix'} =~ s/\.//g;
+    $IN{'editednotifyemail'} =~ s/ //g;
+    $IN{'editedlogarchivesuffix'} =~ s/\.//g;
 
-	if( $IN{'editedlogpath'} eq Gm_Constants::EMPTY || $IN{'editedentriespath'} eq Gm_Constants::EMPTY || 
-		$IN{'editedlogwebpath'} eq Gm_Constants::EMPTY || $IN{'editedentrieswebpath'} eq Gm_Constants::EMPTY || 
-		$IN{'editedindexfilename'} eq Gm_Constants::EMPTY || $IN{'editedentrysuffix'} eq Gm_Constants::EMPTY || 
-		$IN{'editedindexdays'} eq Gm_Constants::EMPTY || $IN{'editedoffsettime'} eq Gm_Constants::EMPTY || 
-		$IN{'editedtimezone'} eq Gm_Constants::EMPTY || $IN{'editedcgilocalpath'} eq Gm_Constants::EMPTY || 
-		$IN{'editedcgiwebpath'} eq Gm_Constants::EMPTY || $IN{'editedentrylistcountnumber'} eq Gm_Constants::EMPTY || 
-		$IN{'editedlogarchivesuffix'} eq Gm_Constants::EMPTY ){
-		
-		## TODO: denote these required fields, with red star?
-		$message = '<span class="error_msg">You left one or more of the required fields blank.  Please try again.</span>';
-		return( $message ); ## should default to viewConfigs
-	}
+    if( $IN{'editedlogpath'} eq Gm_Constants::EMPTY || $IN{'editedentriespath'} eq Gm_Constants::EMPTY || 
+        $IN{'editedlogwebpath'} eq Gm_Constants::EMPTY || $IN{'editedentrieswebpath'} eq Gm_Constants::EMPTY || 
+        $IN{'editedindexfilename'} eq Gm_Constants::EMPTY || $IN{'editedentrysuffix'} eq Gm_Constants::EMPTY || 
+        $IN{'editedindexdays'} eq Gm_Constants::EMPTY || $IN{'editedoffsettime'} eq Gm_Constants::EMPTY || 
+        $IN{'editedtimezone'} eq Gm_Constants::EMPTY || $IN{'editedcgilocalpath'} eq Gm_Constants::EMPTY || 
+        $IN{'editedcgiwebpath'} eq Gm_Constants::EMPTY || $IN{'editedentrylistcountnumber'} eq Gm_Constants::EMPTY || 
+        $IN{'editedlogarchivesuffix'} eq Gm_Constants::EMPTY ){
+        
+        ## TODO: denote these required fields, with red star?
+        $message = '<span class="error_msg">You left one or more of the required fields blank.  Please try again.</span>';
+        return( $message ); ## should default to viewConfigs
+    }
 
-	if( $IN{'editedindexdays'} =~ /\D/ ){
-		$message = '<span class="error_msg">"Days to keep on main index" must be a number.</span>';
-		return( $message );
-	}
-	
-	if( $IN{'editedoffsettime'} =~ /[^0-9.-]/ ){
-		$message = '<span class="error_msg">"Server Offset Time" must be a number.</span>';
-		return( $message );
-	}
+    if( $IN{'editedindexdays'} =~ /\D/ ){
+        $message = '<span class="error_msg">"Days to keep on main index" must be a number.</span>';
+        return( $message );
+    }
+    
+    if( $IN{'editedoffsettime'} =~ /[^0-9.-]/ ){
+        $message = '<span class="error_msg">"Server Offset Time" must be a number.</span>';
+        return( $message );
+    }
 
-	if( $IN{'editeduploadfilesizelimit'} eq Gm_Constants::EMPTY ){ 
-		$IN{'editeduploadfilesizelimit'} = 0; 
-	}
+    if( $IN{'editeduploadfilesizelimit'} eq Gm_Constants::EMPTY ){ 
+        $IN{'editeduploadfilesizelimit'} = 0; 
+    }
 
-	if( $IN{'editeduploadfilesizelimit'} =~ /\D/ ){
-		$message = '<span class="error_msg">"Maximum Filesize Allowed" must be a number.</span>';
-		return( $message );
-	}
+    if( $IN{'editeduploadfilesizelimit'} =~ /\D/ ){
+        $message = '<span class="error_msg">"Maximum Filesize Allowed" must be a number.</span>';
+        return( $message );
+    }
 
-	if( $IN{'editednotifyemail'} ne Gm_Constants::EMPTY && $IN{'editedmailprog'} eq Gm_Constants::EMPTY ){
-		$message = '<span class="error_msg">You must give your server\'s e-mail program location if you\'re '.
-			'going to have e-mail notification enabled.</span>';
-		return( $message );
-	}
+    if( $IN{'editednotifyemail'} ne Gm_Constants::EMPTY && $IN{'editedmailprog'} eq Gm_Constants::EMPTY ){
+        $message = '<span class="error_msg">You must give your server\'s e-mail program location if you\'re '.
+            'going to have e-mail notification enabled.</span>';
+        return( $message );
+    }
 
-	if( $IN{'editednotifyemail'} eq Gm_Constants::EMPTY && $IN{'editednotifyforstatus'} ne Gm_Constants::NEITHER ){
-		$message = '<span class="error_msg">You must give an e-mail address to receive e-mail notifications.</span>';
-		return( $message );
-	}
-	
-	if( $IN{'editedentrylistcountnumber'} =~ /\D/ ){
-		$message = '<span class="error_msg">"Log entry list variable number" must be a number.</span>';
-		return( $message );
-	}
+    if( $IN{'editednotifyemail'} eq Gm_Constants::EMPTY && $IN{'editednotifyforstatus'} ne Gm_Constants::NEITHER ){
+        $message = '<span class="error_msg">You must give an e-mail address to receive e-mail notifications.</span>';
+        return( $message );
+    }
+    
+    if( $IN{'editedentrylistcountnumber'} =~ /\D/ ){
+        $message = '<span class="error_msg">"Log entry list variable number" must be a number.</span>';
+        return( $message );
+    }
 
-	$IN{'editeduploadfilesallowed'} =~ s/;/SEMICOLON/g;
-	if ($IN{'editeduploadfilesallowed'} =~ /\W/) {
-		$message = '<span class="error_msg">"Allowed File Types" must only contain alphanumeric characters '.
-			'(besides semicolons).</span>';
-		return( $message );
-	}
-	$IN{'editeduploadfilesallowed'} =~ s/SEMICOLON/;/g;
+    $IN{'editeduploadfilesallowed'} =~ s/;/SEMICOLON/g;
+    if ($IN{'editeduploadfilesallowed'} =~ /\W/) {
+        $message = '<span class="error_msg">"Allowed File Types" must only contain alphanumeric characters '.
+            '(besides semicolons).</span>';
+        return( $message );
+    }
+    $IN{'editeduploadfilesallowed'} =~ s/SEMICOLON/;/g;
 
-	if( $IN{'editedindexdays'} < 1 ){
-		$message = '<span class="error_msg">"Days to keep on main index" must be set to at least one!</span>';
-		return( $message );
-	}
+    if( $IN{'editedindexdays'} < 1 ){
+        $message = '<span class="error_msg">"Days to keep on main index" must be set to at least one!</span>';
+        return( $message );
+    }
 
-	if( $IN{'editedcommentlinklimit'} ne Gm_Constants::NO && $IN{'editedcommentlinklimitnum'} < 1 ){
-		# blocking comments with zero links makes no sense
-		$message = '<span class="error_msg">"Limit Links in Comments" must be set to at '.
-			'least one!</span>';
-		return( $message );
-	}
+    if( $IN{'editedcommentlinklimit'} ne Gm_Constants::NO && $IN{'editedcommentlinklimitnum'} < 1 ){
+        # blocking comments with zero links makes no sense
+        $message = '<span class="error_msg">"Limit Links in Comments" must be set to at '.
+            'least one!</span>';
+        return( $message );
+    }
 
-	if( $IN{'editedcommentverify'} ne Gm_Constants::NO && $IN{'editedcommentverifyphrase'} eq '' ){
-		# if turned on must have a phrase of some sort
-		$message = '<span class="error_msg">Please provide a pass-phrase for '.
-			'"Commenter Verification"!</span>';
-		return( $message );
-	}
-	
-	if( $IN{'editedcommentthrottle'} eq 'static' && ( $IN{'editedcommentthrottlemin'} eq '' ||
-		$IN{'editedcommentthrottlemin'} =~ /\D/  )){
-		# if turned on must have a phrase of some sort
-		$message = '<span class="error_msg">Please provide a number of minutes for '.
-			'"Comment Throttling"!</span>';
-		return( $message );
-	}
+    if( $IN{'editedcommentverify'} ne Gm_Constants::NO && $IN{'editedcommentverifyphrase'} eq '' ){
+        # if turned on must have a phrase of some sort
+        $message = '<span class="error_msg">Please provide a pass-phrase for '.
+            '"Commenter Verification"!</span>';
+        return( $message );
+    }
+    
+    if( $IN{'editedcommentthrottle'} eq 'static' && ( $IN{'editedcommentthrottlemin'} eq '' ||
+                                                      $IN{'editedcommentthrottlemin'} =~ /\D/  )){
+        # if turned on must have a phrase of some sort
+        $message = '<span class="error_msg">Please provide a number of minutes for '.
+            '"Comment Throttling"!</span>';
+        return( $message );
+    }
 
-	## Removing trailing '/'s, can we do this better?
-	if( substr($IN{'editedlogpath'}, -1) eq '/' ){ chop ($IN{'editedlogpath'}) };
-	if( substr($IN{'editedentriespath'}, -1) eq '/' ){ chop ($IN{'editedentriespath'}) };
-	if( substr($IN{'editedcgilocalpath'}, -1) eq '/' ){ chop ($IN{'editedcgilocalpath'}) };
-	if( substr($IN{'editedlogwebpath'}, -1) eq '/' ){ chop ($IN{'editedlogwebpath'}) };
-	if( substr($IN{'editedentrieswebpath'}, -1) eq '/' ){ chop ($IN{'editedentrieswebpath'}) };
-	if( substr($IN{'editedcgiwebpath'}, -1) eq '/' ){ chop ($IN{'editedcgiwebpath'}) };
-	if( substr($IN{'editedemoticonspath'}, -1) eq '/' ){ chop ($IN{'editedemoticonspath'}) };
+    ## Removing trailing '/'s, can we do this better?
+    if( substr($IN{'editedlogpath'}, -1) eq '/' ){ chop ($IN{'editedlogpath'}) };
+    if( substr($IN{'editedentriespath'}, -1) eq '/' ){ chop ($IN{'editedentriespath'}) };
+    if( substr($IN{'editedcgilocalpath'}, -1) eq '/' ){ chop ($IN{'editedcgilocalpath'}) };
+    if( substr($IN{'editedlogwebpath'}, -1) eq '/' ){ chop ($IN{'editedlogwebpath'}) };
+    if( substr($IN{'editedentrieswebpath'}, -1) eq '/' ){ chop ($IN{'editedentrieswebpath'}) };
+    if( substr($IN{'editedcgiwebpath'}, -1) eq '/' ){ chop ($IN{'editedcgiwebpath'}) };
+    if( substr($IN{'editedemoticonspath'}, -1) eq '/' ){ chop ($IN{'editedemoticonspath'}) };
 
-	my %confs = ();
-	$confs{'gmlogpath'} = $IN{'editedlogpath'};
-	$confs{'gmentriespath'} = $IN{'editedentriespath'};
-	$confs{'gmlogwebpath'} = $IN{'editedlogwebpath'};
-	$confs{'gmentrieswebpath'} = $IN{'editedentrieswebpath'};
-	$confs{'gmnotifyemail'} = $IN{'editednotifyemail'};
-	$confs{'gmindexfilename'} = $IN{'editedindexfilename'};
-	$confs{'gmentrysuffix'} = $IN{'editedentrysuffix'};
-	$confs{'gmindexdays'} = $IN{'editedindexdays'};
-	$confs{'gmserveroffset'} = $IN{'editedoffsettime'};
-	$confs{'gmtimezone'} = $IN{'editedtimezone'};
-	$confs{'gmkeeplog'} = $IN{'editedkeeplog'};
-	$confs{'gmposttoarchives'} = $IN{'editedposttoarchives'};
-	$confs{'gmallowkarmadefault'} = $IN{'editedallowkarmadefault'};
-	$confs{'gmallowcommentsdefault'} = $IN{'editedallowcommentsdefault'};
-	$confs{'gmcommentsorder'} = $IN{'editedcommentsorder'};
-	$confs{'gmgenerateentrypages'} = $IN{'editedgenerateentrypages'};
-	$confs{'gmallowhtmlincomments'} = $IN{'editedallowhtmlincomments'};
-	$confs{'gmlogkarmaandcomments'} = $IN{'editedlogkarmaandcomments'};
-	$confs{'gmmailprog'} = $IN{'editedmailprog'};
-	$confs{'gmnotifyforstatus'} = $IN{'editednotifyforstatus'};
-	$confs{'gmautolinkurls'} = $IN{'editedautolinkurls'};
-	$confs{'gmstriplinesfromcomments'} = $IN{'editedstriplinesfromcomments'};
-	$confs{'gmallowmultiplekarmavotes'} = $IN{'editedallowmultiplekarmavotes'};
-	$confs{'gmversionsetup'} = $gmConfigs->{'gmversionsetup'};
-	$confs{'gmversion'} = Gm_Constants::GM_VERSION;
-	$confs{'gmcgilocalpath'} = $IN{'editedcgilocalpath'};
-	$confs{'gmcgiwebpath'} = $IN{'editedcgiwebpath'};
-	$confs{'gmconcurrentmainandarchives'} = $IN{'editedconcurrentmainandarchives'};
-	$confs{'gmkeeparchivemasterindex'} = $IN{'editedkeeparchivemasterindex'};
-	$confs{'gmentrylistsortorder'} = $IN{'editedentrylistsortorder'};
-	$confs{'gmallowkarmaorcomments'} = $IN{'editedallowkarmaorcomments'};
-	$confs{'gmentrylistcountnumber'} = $IN{'editedentrylistcountnumber'};
-	$confs{'gmcookiesallowed'} = $IN{'editedcookiesallowed'};
-	$confs{'gmlogarchivesuffix'} = $IN{'editedlogarchivesuffix'};
-	$confs{'gmcensorlist'} = $IN{'editedcensorlist'};
-	$confs{'gmcensorenabled'} = $IN{'editedcensorenabled'};
-	$confs{'gmkeepmonthlyarchives'} = $IN{'editedkeepmonthlyarchives'};
-	$confs{'gmdefaultentrylistview'} = $IN{'editeddefaultentrylistview'};
-	$confs{'gmlinktocalendarentries'} = $IN{'editedlinktocalendarentries'};
-	$confs{'gmautomaticrebuilddefault'} = $IN{'editedautomaticrebuilddefault'};
-	$confs{'gmcommententrylistonlyifokay'} = $IN{'editedcommententrylistonlyifokay'};
-	$confs{'gmotherfilelist'} = $IN{'editedotherfilelist'};
-	$confs{'gmotherfilelistentryrebuild'} = $IN{'editedotherfilelistentryrebuild'};
-	$confs{'gmarchiveformat'} = $IN{'editedarchiveformat'};
-	$confs{'gminlineformatting'} = $IN{'editedinlineformatting'};
-	$confs{'gmuploadfilesallowed'} = $IN{'editeduploadfilesallowed'};
-	$confs{'gmuploadfilesizelimit'} = $IN{'editeduploadfilesizelimit'};
-	$confs{'gmemoticonspath'} = $IN{'editedemoticonspath'};
-	$confs{'gmkeepphphacklog'} = $IN{'editedkeepphphacklog'};
-	$confs{'gmmailhacknotice'} = $IN{'editedmailhacknotice'};
-	$confs{'gmemoticonsallowed'} = $IN{'editedemoticonsallowed'};
-	$confs{'gmprotectauthorname'} = $IN{'editedprotectauthorname'};
-	$confs{'gmcommentlinklimit'} = $IN{'editedcommentlinklimit'};
-	$confs{'gmcommentlinklimitnum'} = $IN{'editedcommentlinklimitnum'};
-	$confs{'gmcommentforcepreview'} = $IN{'editedcommentforcepreview'};
-	$confs{'gmcommentverify'} = $IN{'editedcommentverify'};
-	$confs{'gmcommentverifyphrase'} = $IN{'editedcommentverifyphrase'};
-	$confs{'gmcommentverifyreferer'} = $IN{'editedcommentverifyreferer'};
-	$confs{'gmcommentthrottle'} = $IN{'editedcommentthrottle'};
-	$confs{'gmcommentthrottlemin'} = $IN{'editedcommentthrottlemin'};
+    my %confs = ();
+    $confs{'gmlogpath'} = $IN{'editedlogpath'};
+    $confs{'gmentriespath'} = $IN{'editedentriespath'};
+    $confs{'gmlogwebpath'} = $IN{'editedlogwebpath'};
+    $confs{'gmentrieswebpath'} = $IN{'editedentrieswebpath'};
+    $confs{'gmnotifyemail'} = $IN{'editednotifyemail'};
+    $confs{'gmindexfilename'} = $IN{'editedindexfilename'};
+    $confs{'gmentrysuffix'} = $IN{'editedentrysuffix'};
+    $confs{'gmindexdays'} = $IN{'editedindexdays'};
+    $confs{'gmserveroffset'} = $IN{'editedoffsettime'};
+    $confs{'gmtimezone'} = $IN{'editedtimezone'};
+    $confs{'gmkeeplog'} = $IN{'editedkeeplog'};
+    $confs{'gmposttoarchives'} = $IN{'editedposttoarchives'};
+    $confs{'gmallowkarmadefault'} = $IN{'editedallowkarmadefault'};
+    $confs{'gmallowcommentsdefault'} = $IN{'editedallowcommentsdefault'};
+    $confs{'gmcommentsorder'} = $IN{'editedcommentsorder'};
+    $confs{'gmgenerateentrypages'} = $IN{'editedgenerateentrypages'};
+    $confs{'gmallowhtmlincomments'} = $IN{'editedallowhtmlincomments'};
+    $confs{'gmlogkarmaandcomments'} = $IN{'editedlogkarmaandcomments'};
+    $confs{'gmmailprog'} = $IN{'editedmailprog'};
+    $confs{'gmnotifyforstatus'} = $IN{'editednotifyforstatus'};
+    $confs{'gmautolinkurls'} = $IN{'editedautolinkurls'};
+    $confs{'gmstriplinesfromcomments'} = $IN{'editedstriplinesfromcomments'};
+    $confs{'gmallowmultiplekarmavotes'} = $IN{'editedallowmultiplekarmavotes'};
+    $confs{'gmversionsetup'} = $gmConfigs->{'gmversionsetup'};
+    $confs{'gmversion'} = Gm_Constants::GM_VERSION;
+    $confs{'gmcgilocalpath'} = $IN{'editedcgilocalpath'};
+    $confs{'gmcgiwebpath'} = $IN{'editedcgiwebpath'};
+    $confs{'gmconcurrentmainandarchives'} = $IN{'editedconcurrentmainandarchives'};
+    $confs{'gmkeeparchivemasterindex'} = $IN{'editedkeeparchivemasterindex'};
+    $confs{'gmentrylistsortorder'} = $IN{'editedentrylistsortorder'};
+    $confs{'gmallowkarmaorcomments'} = $IN{'editedallowkarmaorcomments'};
+    $confs{'gmentrylistcountnumber'} = $IN{'editedentrylistcountnumber'};
+    $confs{'gmcookiesallowed'} = $IN{'editedcookiesallowed'};
+    $confs{'gmlogarchivesuffix'} = $IN{'editedlogarchivesuffix'};
+    $confs{'gmcensorlist'} = $IN{'editedcensorlist'};
+    $confs{'gmcensorenabled'} = $IN{'editedcensorenabled'};
+    $confs{'gmkeepmonthlyarchives'} = $IN{'editedkeepmonthlyarchives'};
+    $confs{'gmdefaultentrylistview'} = $IN{'editeddefaultentrylistview'};
+    $confs{'gmlinktocalendarentries'} = $IN{'editedlinktocalendarentries'};
+    $confs{'gmautomaticrebuilddefault'} = $IN{'editedautomaticrebuilddefault'};
+    $confs{'gmcommententrylistonlyifokay'} = $IN{'editedcommententrylistonlyifokay'};
+    $confs{'gmotherfilelist'} = $IN{'editedotherfilelist'};
+    $confs{'gmotherfilelistentryrebuild'} = $IN{'editedotherfilelistentryrebuild'};
+    $confs{'gmarchiveformat'} = $IN{'editedarchiveformat'};
+    $confs{'gminlineformatting'} = $IN{'editedinlineformatting'};
+    $confs{'gmuploadfilesallowed'} = $IN{'editeduploadfilesallowed'};
+    $confs{'gmuploadfilesizelimit'} = $IN{'editeduploadfilesizelimit'};
+    $confs{'gmemoticonspath'} = $IN{'editedemoticonspath'};
+    $confs{'gmkeepphphacklog'} = $IN{'editedkeepphphacklog'};
+    $confs{'gmmailhacknotice'} = $IN{'editedmailhacknotice'};
+    $confs{'gmemoticonsallowed'} = $IN{'editedemoticonsallowed'};
+    $confs{'gmprotectauthorname'} = $IN{'editedprotectauthorname'};
+    $confs{'gmcommentlinklimit'} = $IN{'editedcommentlinklimit'};
+    $confs{'gmcommentlinklimitnum'} = $IN{'editedcommentlinklimitnum'};
+    $confs{'gmcommentforcepreview'} = $IN{'editedcommentforcepreview'};
+    $confs{'gmcommentverify'} = $IN{'editedcommentverify'};
+    $confs{'gmcommentverifyphrase'} = $IN{'editedcommentverifyphrase'};
+    $confs{'gmcommentverifyreferer'} = $IN{'editedcommentverifyreferer'};
+    $confs{'gmcommentthrottle'} = $IN{'editedcommentthrottle'};
+    $confs{'gmcommentthrottlemin'} = $IN{'editedcommentthrottlemin'};
 
-	Gm_Storage::setConfigs( configs=>\%confs, errHandler=>\&Gm_Web::displayAdminErrorExit );
+    Gm_Storage::setConfigs( configs=>\%confs, errHandler=>\&Gm_Web::displayAdminErrorExit );
 
-	if( $gmConfigs->{'gmkeeplog'} eq Gm_Constants::NO && $IN{'editedkeeplog'} eq Gm_Constants::YES ){
-		my ($gmdate) = Gm_Utils::getStdDate( $gmConfigs->{'gmserveroffset'} );
-		Gm_Core::writeToCplog( "$AUTHOR{'author'} re-enabled logging for admin.");
-	}
+    if( $gmConfigs->{'gmkeeplog'} eq Gm_Constants::NO && $IN{'editedkeeplog'} eq Gm_Constants::YES ){
+        my ($gmdate) = Gm_Utils::getStdDate( $gmConfigs->{'gmserveroffset'} );
+        Gm_Core::writeToCplog( "$AUTHOR{'author'} re-enabled logging for admin.");
+    }
 
-	if( $IN{'editedkeeplog'} eq Gm_Constants::NO ){
-		my ($gmdate) = Gm_Utils::getStdDate( $gmConfigs->{'gmserveroffset'} );
-		Gm_Core::writeToCplog( "$AUTHOR{'author'} disabled logging for admin.");
-	}
-	
-	Gm_Core::writeToCplog( "$AUTHOR{'author'} edited the config file");
+    if( $IN{'editedkeeplog'} eq Gm_Constants::NO ){
+        my ($gmdate) = Gm_Utils::getStdDate( $gmConfigs->{'gmserveroffset'} );
+        Gm_Core::writeToCplog( "$AUTHOR{'author'} disabled logging for admin.");
+    }
+    
+    Gm_Core::writeToCplog( "$AUTHOR{'author'} edited the config file");
 
-	return( $message );
+    return( $message );
 }
 
 
@@ -5377,25 +5377,25 @@ sub _saveConfigs {
 ## and verify that templates can access this section
 sub doTemplates {
 
-	### TODO: CALL AUTH WITH FLAG TO WORK ON Banip, OR CHECK AUTHOR PERMS
-	## TODO: Move this to auth, auth should return users perms, or it should take a flag to 
-	# indicate which perms to check with this being handed off to a generic permDenied func
-	if( $AUTHOR{'edittemplates'} ne Gm_Constants::Y && $AUTHOR{'edittemplates'} ne Gm_Constants::O ){
-		Gm_Core::writeToCplog( '<span class="error_msg">'.Gm_Core::text( 
-			Gm_Constants::SECTION_NO_ACCESS, { AUTHOR=>$AUTHOR{'author'} }).'</span>' );
-		my $statusnote = '<span class="error_msg">'.Gm_Core::text( Gm_Constants::SECTION_ACCESS_DENY ).
-			'</span><br />';
-		frontPage( $statusnote );
-	}
-	
-	my $status = Gm_Constants::EMPTY;
-# TODO, SHOULD THESE BE USING CONSTANTS?
-	if( $IN{'update'} ){
-		$status = updateTemplates();
-		
-	}
+    ### TODO: CALL AUTH WITH FLAG TO WORK ON Banip, OR CHECK AUTHOR PERMS
+    ## TODO: Move this to auth, auth should return users perms, or it should take a flag to 
+    # indicate which perms to check with this being handed off to a generic permDenied func
+    if( $AUTHOR{'edittemplates'} ne Gm_Constants::Y && $AUTHOR{'edittemplates'} ne Gm_Constants::O ){
+        Gm_Core::writeToCplog( '<span class="error_msg">'.Gm_Core::text( 
+                                   Gm_Constants::SECTION_NO_ACCESS, { AUTHOR=>$AUTHOR{'author'} }).'</span>' );
+        my $statusnote = '<span class="error_msg">'.Gm_Core::text( Gm_Constants::SECTION_ACCESS_DENY ).
+            '</span><br />';
+        frontPage( $statusnote );
+    }
+    
+    my $status = Gm_Constants::EMPTY;
+    # TODO, SHOULD THESE BE USING CONSTANTS?
+    if( $IN{'update'} ){
+        $status = updateTemplates();
+        
+    }
 
-	viewTemplates( $status );
+    viewTemplates( $status );
 }
 
 
@@ -5403,740 +5403,740 @@ sub doTemplates {
 # View the site templates
 # (opt) ARG1: Message to display to user, could be error or confirmation of action
 sub viewTemplates {
-	my $message = shift( @_ ) || Gm_Constants::EMPTY;
-#&gm_validate;
+    my $message = shift( @_ ) || Gm_Constants::EMPTY;
+    #&gm_validate;
 
-# if ($gmtemplateaccess eq Gm_Constants::NO) {
-# 	gm_writetocplog("$IN{'authorname'} attempted to edit the templates without authorization");
-# 	$statusnote = qq(<B><FONT COLOR="#FF0000">You don't have access to edit the templates.</FONT></B><P>);
-# 	&gm_frontpage;
-# }
+    # if ($gmtemplateaccess eq Gm_Constants::NO) {
+    # 	gm_writetocplog("$IN{'authorname'} attempted to edit the templates without authorization");
+    # 	$statusnote = qq(<B><FONT COLOR="#FF0000">You don't have access to edit the templates.</FONT></B><P>);
+    # 	&gm_frontpage;
+    # }
 
 
-	if( $AUTHOR{'edittemplates'} eq Gm_Constants::O ){
-		$message .= '<br /><span class="status_msg">You only have access to edit the header, footer & '.
-			'sidebar templates.</span>';
-	}
+    if( $AUTHOR{'edittemplates'} eq Gm_Constants::O ){
+        $message .= '<br /><span class="status_msg">You only have access to edit the header, footer & '.
+            'sidebar templates.</span>';
+    }
 
-	my $page = '<span class="section_title">Edit Templates</span> ('.
-		'<a href="javascript:init();">Expand All</a>)<br /><p>Templates control the layout & format of '.
-		'every aspect of your weblog/journal.</p><p>'.$message.'</p>';
+    my $page = '<span class="section_title">Edit Templates</span> ('.
+                                                                   '<a href="javascript:init();">Expand All</a>)<br /><p>Templates control the layout & format of '.
+        'every aspect of your weblog/journal.</p><p>'.$message.'</p>';
 
-	$page .= '<script language="JavaScript">
-/* Will change the size of the given element 
-  ARG1: id of span to hide
-  ARG2: id of span that is the controller, the hide/show link
-*/
-function hider( toFlip, toLink ){
-	if( document.getElementById && document.getElementById(toFlip) != null ){
-		var subject = document.getElementById( toFlip );
-		var controller = document.getElementById( toLink ); 
-		if( subject.className != "hidden" ){
-			_hideShow( "hidden", "Show", subject, controller );
+    $page .= '<script language="JavaScript">
+        /* Will change the size of the given element 
+      ARG1: id of span to hide
+      ARG2: id of span that is the controller, the hide/show link
+        */
+        function hider( toFlip, toLink ){
+    if( document.getElementById && document.getElementById(toFlip) != null ){
+    var subject = document.getElementById( toFlip );
+    var controller = document.getElementById( toLink ); 
+    if( subject.className != "hidden" ){
+    _hideShow( "hidden", "Show", subject, controller );
 
-	} else {
-			_hideShow( "", "Hide", subject, controller );
-		}
-	}
-	
-	function _hideShow( className, theText, sub, con ){
-		sub.className=className;
-		var link = document.createElement("a");
-		link.href = \'javascript:hider(\\\'\'+ toFlip +\'\\\', \\\'\'+ toLink +\'\\\');\';
-		link.appendChild( document.createTextNode( theText ));
-		
-		while( con.hasChildNodes() ){
-			con.removeChild( con.firstChild );
-		}
-		con.appendChild( link );
+    } else {
+    _hideShow( "", "Hide", subject, controller );
+    }
+    }
+    
+    function _hideShow( className, theText, sub, con ){
+    sub.className=className;
+    var link = document.createElement("a");
+    link.href = \'javascript:hider(\\\'\'+ toFlip +\'\\\', \\\'\'+ toLink +\'\\\');\';
+    link.appendChild( document.createTextNode( theText ));
+    
+    while( con.hasChildNodes() ){
+    con.removeChild( con.firstChild );
+    }
+    con.appendChild( link );
+    }
+    }
+
+    function init(){
+    var cookieStrings = ["mainIndexTempHidden|mainIndexTempHider", "archiveTempHidden|archiveTempHider",
+                         "entryTempHidden|entryTempHider", "karmaCommentTempHidden|karmaCommentTempHider",
+                         "headerFooterTempHidden|headerFooterTempHider","miscTempHidden|miscTempHider"];
+    for( var i=0;i< cookieStrings.length;i++ ){
+    var cookieParts = cookieStrings[i].split("|");
+    // should be calling a function to hide, not the toggle function
+        hider( cookieParts[0], cookieParts[1] );
 	}
 }
 
-function init(){
-	var cookieStrings = ["mainIndexTempHidden|mainIndexTempHider", "archiveTempHidden|archiveTempHider",
-		"entryTempHidden|entryTempHider", "karmaCommentTempHidden|karmaCommentTempHider",
-		"headerFooterTempHidden|headerFooterTempHider","miscTempHidden|miscTempHider"];
-	for( var i=0;i< cookieStrings.length;i++ ){
-		var cookieParts = cookieStrings[i].split("|");
-		// should be calling a function to hide, not the toggle function
-		hider( cookieParts[0], cookieParts[1] );
-	}
-}
+    window.onload = init;
+    </script>
+        ';
 
-window.onload = init;
-</script>
-';
+    ## Outer table
+    $page .= '<form action="gm.cgi" method=post>'.Gm_Security::getFormAuth( author=>\%AUTHOR ).
+        '<input type="hidden" name="section" value="'.$IN{'section'}.'">'.
+        '<table style="font-size: small; width: 100%">';
+    
+    my $gmTemplates = Gm_Storage::getTemplates( errHandler=>\&Gm_Web::displayAdminErrorExit );
+    
+    ## Delousing templates
+    foreach my $template ( keys( %{$gmTemplates} ) ){
+        $gmTemplates->{ $template } = Gm_Utils::toWebSafe( $gmTemplates->{ $template } );
+    }
 
-	## Outer table
-	$page .= '<form action="gm.cgi" method=post>'.Gm_Security::getFormAuth( author=>\%AUTHOR ).
-		'<input type="hidden" name="section" value="'.$IN{'section'}.'">'.
-		'<table style="font-size: small; width: 100%">';
-		
-	my $gmTemplates = Gm_Storage::getTemplates( errHandler=>\&Gm_Web::displayAdminErrorExit );
+    if( $AUTHOR{'edittemplates'} eq Gm_Constants::Y ){
+        ## Main Index pages
+        $page .= '<tr class="section_head"><th>Main Index-Related Templates</th><td>'.
+            _hiderCodeEntry('mainIndexTempHidden', 'mainIndexTempHider').
+            '</tr><tr><td colspan="2"><span id="mainIndexTempHidden"><div class="info_text">These are the templates '.
+            'that affect the layout and appearance of your main index.</div><br /><table class="config_table">';
+        
+        $page .= '<tr><td valign=middle bgcolor="#c0c0c0" colspan=2><span class="info_title">Main Index Template</span>'.
+            '<br /><span class="info_text">The overall template for your main index page&#151;typically the first '.
+                                                                                                  'page that people will see on your weblog/journal.  The {{logbody}} variable is the placeholder that '.
+                                                                                                  'tells Greymatter where you want the body of your log to be inserted, so it must be included somewhere '.
+                                                                                                  'in this template.  The format of the log body is controlled through the templates below.</span></td></tr>'.
+                                                                                                  '<tr><td colspan="2"><TEXTAREA NAME="newindextemplate" COLS=86 ROWS=30 class="inputfield">'.
+                                                                                                  $gmTemplates->{'gmindextemplate'}.'</TEXTAREA></td></tr>';
 	
-	## Delousing templates
-	foreach my $template ( keys( %{$gmTemplates} ) ){
-		$gmTemplates->{ $template } = Gm_Utils::toWebSafe( $gmTemplates->{ $template } );
-	}
+        $page .= '<tr><td colspan="2"> &#160; </td></tr>';
+	
+        $page .= '<tr><td valign=middle bgcolor="#c0c0c0" colspan=2><span class="info_title">Index Entry Templates</span>'.
+            '<br /><span class="info_text">These templates control how individual entries are listed in the body of your '.
+            'log.  The left template is the format of standard entry listings, and the right template is the format of '.
+            'extended entry listings (entries that contain "more" text).</span></td></tr>'.
+            '<tr><td bgcolor="#e0f0ff"><span class="info_title">Index Entry Template: Standard Entries</span></td>'.
+            '<td bgcolor="#e0f0ff"><span class="info_title">Index Entry Template: Extended Entries</span></td></tr>'.
+            '<tr><td width="50%"><TEXTAREA NAME="newentrytemplate" COLS=41 ROWS=10 class="inputfield">'.
+            $gmTemplates->{'gmentrytemplate'}.'</TEXTAREA></td>'.
+            '<td><TEXTAREA NAME="newmoreentrytemplate" COLS=41 ROWS=10 class="inputfield">'.
+            $gmTemplates->{'gmmoreentrytemplate'}.'</TEXTAREA></td></tr>'.
+            '<tr><td>&nbsp;</td><td><span class="info_text"><INPUT TYPE=CHECKBOX NAME="entrylistingmorecheck" VALUE="yes"> '.
+                               'Make this the same as the template on the left</span></td></tr>';
+	
+        $page .= '<tr><td colspan="2"> &#160; </td></tr>';
+        
+        $page .= '<tr><td valign=middle bgcolor="#c0c0c0" colspan=2><span class="info_title">"Stay At Top" Index Entry Template</span>'.
+            '<br /><span class="info_text">Like the index entry templates above, except this will apply to any entry '.
+            'you\'ve marked to stay at the top of your main log (only one entry at a time can be marked as such); use '.
+                                                                                                                      'this for any way you might wish to set that apart.</span></td></tr>'.
+                                                                                                                      '<tr><td colspan="2"><TEXTAREA NAME="newstayattoptemplate" COLS=41 ROWS=10 class="inputfield">'.
+                                                                                                                      $gmTemplates->{'gmstayattoptemplate'}.'</TEXTAREA></td></tr><tr><td colspan="2"><span class="info_text">'.
+                                                                                                                      '<INPUT TYPE=CHECKBOX NAME="entrylistingstayattopcheck" VALUE="yes"> Make this the same as the standard '.
+                                                                                                                      'index entry template</span></td></tr>';
+        
+        $page .= '<tr><td colspan="2"> &#160; </td></tr>';
+	
+        $page .= '<tr><td valign=middle bgcolor="#c0c0c0"><span class="info_title">Date Grouping Header '.
+            'Template</span><br /><span class="info_text">When your log is generated, the entry listings for each '.
+            'day are prefaced with a date header; this controls how that date header appears.  Leave this blank '.
+                                                      'if you don\'t want to group your entry listings in this way. DO NOT put {{entry*}}, {{comment*}}, '.
+                                                      'or {{time*}} variables here.</span></td><td bgcolor="#c0c0c0"><span class="info_title">'.
+                                                      'Date Grouping Footer Template</span><br /><span class="info_text">This is '.
+                                                      'the complement to the Date Grouping Template. if you open a tag in the Date Grouping Template '.
+                                                      '(such as a div or td) you can place the closing tag here. That allows you to contain a date '.
+                                                      'grouping inside an element. All date variables that are supported in the Date Grouping Header '.
+                                                      'Template are supported here as well.</span></td></tr>'.
+                                                      '<tr><td><TEXTAREA NAME="newdatetemplate" COLS=41 ROWS=10 WRAP=VIRTUAL class="inputfield">'.
+                                                      $gmTemplates->{'gmdatetemplate'}.'</TEXTAREA></td><td>'.
+                                                      '<TEXTAREA NAME="newdategroupingfootertemplate" COLS=41 ROWS=10 class="inputfield">'.
+                                                      $gmTemplates->{'gmdategroupingfootertemplate'}.'</TEXTAREA></span></td></tr>';
+	
+        $page .= '<tr><td colspan="2"> &#160; </td></tr>';
+        
+        $page .= '<tr><td valign=middle bgcolor="#c0c0c0" colspan=2><span class="info_title">Entry Separator Template</span>'.
+            '<br /><span class="info_text">If you wish, you can have your entry listings divided with a special separator '.
+            'when your log is generated.  Leave this blank if you don\'t want to include a separator. Works only '.
+            'between multiple entries on a single day.</span></td></tr><tr><td colspan="2">'.
+            '<TEXTAREA NAME="newentryseparatortemplate" COLS=41 ROWS=10 class="inputfield">'.
+            $gmTemplates->{'gmentryseparatortemplate'}.'</TEXTAREA></td></tr>';
+	
+        $page .= '</table><br /></span></td></tr>';
+	
+	
+        ## Archive Related Templates
+        $page .= '<tr class="section_head"><th>Archive-Related Templates</th><td>'.
+            _hiderCodeEntry('archiveTempHidden', 'archiveTempHider').
+            '</tr><tr><td colspan="2"><span id="archiveTempHidden"><div class="info_text">These are the '.
+            'templates that affect the layout and appearance of your archives.</div><br /><table class="config_table">';
+        
+        $page .= '<tr><td valign=middle bgcolor="#c0c0c0" colspan=2><span class="info_title">Archive Master Index '.
+            'Template</span><br /><span class="info_text">If you wish, you can keep a master index of your archives&#151;an '.
+                                                                                                                             'index page in your entries/archives directory intended for linking to all the archives (both the '.
+                                                                                                                                                                                                                      'monthly/weekly logs and the individual entry pages) of your site.  You can use variables such as '.
+                                                                                                                             '{{logarchivelist}} and {{logentrylist}} here (or anywhere) to generate those list links; check the '.
+                                                                                                                                                                                                                           '<a href="'.Gm_Constants::GM_FORUM.'" title="read the manual" target="_blank">manual</a> for more '.
+                                                                                                                                                                                                                           'information about those variables.  If you don\'t wish to keep an archive master index, you can '.
+                                                                                                                                                                                                                           'disable it in Configuration.</span></td></tr><tr><td colspan="2">'.
+                                                                                                                                                                                                                           '<TEXTAREA NAME="newarchivemasterindextemplate" COLS=86 ROWS=30 class="inputfield">'.
+                                                                                                                                                                                                                           $gmTemplates->{'gmarchivemasterindextemplate'}.'</TEXTAREA></td></tr>';
+	
+        $page .= '<tr><td colspan="2"> &#160; </td></tr>';
+        
+        $page .= '<tr><td valign=middle bgcolor="#c0c0c0" colspan=2><span class="info_title">Archive Log Index '.
+            'Template</span><br /><span class="info_text">Archive log index files are the archives of your log; '.
+                                                                                                                    'this is like the main index except that the log archives are generated in monthly or weekly '.
+                                                                                                                    'installments, each installment showing the full log for that given month or week.  As with the '.
+                                                                                                                    'main index, {{logbody}} (or {{archivebody}}) is the placeholder that tells Greymatter where to '.
+                                                                                                                    'put the body of your log.</span></td></tr><tr><td colspan="2">'.
+                                                                                                                    '<TEXTAREA NAME="newarchiveindextemplate" COLS=86 ROWS=30 class="inputfield">'.
+                                                                                                                    $gmTemplates->{'gmarchiveindextemplate'}.
+                                                                                                                    '</TEXTAREA></td></tr><tr><td colspan="2"><span class="info_text">'.
+                                                                                                                    '<INPUT TYPE=CHECKBOX NAME="archivelogindexcheck" VALUE="yes"> Make this the same as the main '.
+                                                                                                                    'index template</span></td></tr>';
+	
+        $page .= '<tr><td colspan="2"> &#160; </td></tr>';
+	
+        $page .= '<tr><td valign=middle bgcolor="#c0c0c0" colspan=2><span class="info_title">Log Archive Entry '.
+            'Templates</span><br /><span class="info_text">These templates control how individual entries are '.
+            'listed in the body of your log; these work the same as the main index versions, except this controls '.
+                                                 'how they appear in the log archives instead.  The left template is the format of standard entry '.
+                                                 'listings, and the right template is the format of extended entry listings (entries that contain '.
+                                                                                                                             '"more" text).</span></td></tr><tr><td bgcolor="#e0f0ff"><span class="info_title">Archive Entry '.
+                                                 'Template: Standard Entries</span></td><td bgcolor="#e0f0ff"><span class="info_title">Archive '.
+                                                 'Entry Template: Extended Entries</span></td></tr><tr><td width="50%">'.
+                                                 '<TEXTAREA NAME="newarchiveentrytemplate" COLS=41 ROWS=10 class="inputfield">'.
+                                                 $gmTemplates->{'gmarchiveentrytemplate'}.'</TEXTAREA></td><td>'.
+                                                 '<TEXTAREA NAME="newmorearchiveentrytemplate" COLS=41 ROWS=10 class="inputfield">'.
+                                                 $gmTemplates->{'gmmorearchiveentrytemplate'}.'</TEXTAREA></td></tr>'.
+                                                 '<tr><td><span class="info_text"><INPUT TYPE=CHECKBOX NAME="archiveentrylistingcheck" VALUE="yes"> '.
+                                                 'Make this the same as the main index version</span></td><td><span class="info_text">'.
+                                                 '<INPUT TYPE=CHECKBOX NAME="archiveentrylistingmorecheck" VALUE="yes"> Make this the same as the '.
+                                                 'main index version</span></td></tr>';
+        
+        $page .= '<tr><td colspan="2"> &#160; </td></tr>';
+        
+        $page .= '<tr><td valign=middle bgcolor="#c0c0c0" colspan=2><span class="info_title">Archive Entry '.
+            'Separator Template</span><br /><span class="info_text">If you wish, you can have your entry listings '.
+            'divided with a special separator when your log is generated.  This works the same as it does on the '.
+            'main index, except this is the separator for entries in your log archives.  Leave this blank if you '.
+            'don\'t want to include a separator.</span></td></tr>'.
+            '<tr><td colspan="2"><TEXTAREA NAME="newarchiveentryseparatortemplate" COLS=41 ROWS=10 class="inputfield">'.
+            $gmTemplates->{'gmarchiveentryseparatortemplate'}.'</TEXTAREA></td></tr><tr><td colspan="2"><span class="info_text">'.
+            '<INPUT TYPE=CHECKBOX NAME="archiveentryseparatorcheck" VALUE="yes"> Make this the same as the main '.
+            'index version</span></td></tr>';
+	
+        $page .= '<tr><td colspan="2"> &#160; </td></tr>';
+	
+        $page .= '<tr><td valign=middle bgcolor="#c0c0c0"><span class="info_title">Archive Date Grouping '.
+            'Header Template</span><br /><span class="info_text">When your log is generated, the entry listings '.
+            'for each day are prefaced with a date header; this controls how that date header appears.  This '.
+                                                               'works the same as it does on the main index, except this is how the date header will appear in your '.
+                                                               'log archives.  Leave this blank if you don\'t want to group your entry listings in this way.'.
+                                                               '</span></td><td bgcolor="#c0c0c0"><span class="info_title">Archive Date Grouping Footer Template'.
+                                                               '</span><br /><span class="info_text">This is the complement to the Date Grouping Template. if '.
+                                                               'you open a tag in the Date Grouping Template (such as a div or td) you can place the closing tag '.
+                                                               'here. That allows you to contain a date grouping inside an element. All date variables that are '.
+                                                               'supported in the Date Grouping Header Template are supported here as well. This works the same as '.
+                                                               'it does on the main index, except this is how the date header will appear in your log archives.'.
+                                                               '</span></td></tr><tr><td><TEXTAREA NAME="newdatearchivetemplate" COLS=41 ROWS=10 class="inputfield">'.
+                                                               $gmTemplates->{'gmdatearchivetemplate'}.'</TEXTAREA></td><td>'.
+                                                               '<TEXTAREA NAME="newdategroupingfooterarchivetemplate" COLS=41 ROWS=10 class="inputfield">'.
+                                                               $gmTemplates->{'gmdategroupingfooterarchivetemplate'}.'</TEXTAREA></span></td></tr><tr><td><span class="info_text">'.
+                                                               '<INPUT TYPE=CHECKBOX NAME="archivedateheadercheck" VALUE="yes"> Make this the same as the main '.
+                                                               'index version</td><td><INPUT TYPE=CHECKBOX NAME="archivedatefootercheck" VALUE="yes"> Make this '.
+                                                               'the same as the main index version</span></td></tr>';
+        
+        $page .= '</table><br /></span></td></tr>';
+	
+	
+        ## Entry Page Related Templates
+        $page .= '<tr class="section_head"><th>Entry Page-Related Templates</th><td>'.
+            _hiderCodeEntry('entryTempHidden', 'entryTempHider').
+            '</tr><tr><td colspan="2"><span id="entryTempHidden"><div class="info_text">These are the templates '.
+            'that affect the layout and appearance of the pages for your individual entries (as opposed to the '.
+                                                                                             'Index Entry templates, in the Main Index and Archive template groups, which customise how entries '.
+                                                                                             'appear in the body of your log). If you have "Generate pages for individual entries" disabled in '.
+            'Configuration, you can ignore these templates.</div><br /><table class="config_table">';
+        
+        $page .= '<tr><td valign=middle bgcolor="#c0c0c0" colspan=2><span class="info_title">Entry Page Template: '.
+            'Current Standard Entries</span><br /><span class="info_text">This template controls how the individual '.
+            'pages for your current regular entries (non-archived entries without "more" text) will be formatted.  '.
+            'The {{entrymainbody}} and {{entrymorebody}} variables specify where the body of your standard and '.
+            'extended text (if any) will respectively appear.</span></td></tr><tr><td colspan="2">'.
+            '<TEXTAREA NAME="newentrypagetemplate" COLS=86 ROWS=30 class="inputfield">'.
+            $gmTemplates->{'gmentrypagetemplate'}.'</TEXTAREA></td></tr>';
+	
+        $page .= '<tr><td colspan="2"> &#160; </td></tr>';
+        
+        $page .= '<tr><td valign=middle bgcolor="#c0c0c0" colspan=2><span class="info_title">Archive Log Index '.
+            'Template</span><br /><span class="info_text">Entry Page Template: Current Extended Entries</span>'.
+            '<br /><span class="info_text">Like the above, except this applies to current extended entries '.
+            '(non-archived entries *with* "more" text).</span></td></tr><tr><td colspan="2">'.
+            '<TEXTAREA NAME="newmoreentrypagetemplate" COLS=86 ROWS=30 class="inputfield">'.
+            $gmTemplates->{'gmmoreentrypagetemplate'}.'</TEXTAREA></td></tr><tr><td colspan="2"><span class="info_text">'.
+            '<INPUT TYPE=CHECKBOX NAME="entrymorepagecheck" VALUE="yes"> Make this the same as the above '.
+            'template (current standard entries)</span></td></tr>';
+	
+        $page .= '<tr><td colspan="2"> &#160; </td></tr>';
+        
+        $page .= '<tr><td valign=middle bgcolor="#c0c0c0" colspan=2><span class="info_title">Archive Log Index '.
+            'Template</span><br /><span class="info_text">Entry Page Template: Archived Standard Entries</span>'.
+            '<br /><span class="info_text">Like the above, except this applies to archived entries (entries '.
+                                                                                                    'too old to be listed on the main log) without "more" text.</span></td></tr><tr><td colspan="2">'.
+            '<TEXTAREA NAME="newarchiveentrypagetemplate" COLS=86 ROWS=30 class="inputfield">'.
+            $gmTemplates->{'gmarchiveentrypagetemplate'}.'</TEXTAREA></td></tr><tr><td colspan="2"><span class="info_text">'.
+            '<INPUT TYPE=CHECKBOX NAME="entryarchivepagecheck" VALUE="yes"> Make this the same as the top '.
+            'template (current standard entries)</span></td></tr>';
+	
+        $page .= '<tr><td colspan="2"> &#160; </td></tr>';
+        
+        $page .= '<tr><td valign=middle bgcolor="#c0c0c0" colspan=2><span class="info_title">Archive Log Index '.
+            'Template</span><br /><span class="info_text">Entry Page Template: Archived Extended Entries</span><br />'.
+            '<span class="info_text">Like the above, except this applies to archived entries (entries too old '.
+                                                                                              'to be listed on the main log) *with* "more" text.</span></td></tr><tr><td colspan="2">'.
+            '<TEXTAREA NAME="newmorearchiveentrypagetemplate" COLS=86 ROWS=30 class="inputfield">'.
+            $gmTemplates->{'gmmorearchiveentrypagetemplate'}.'</TEXTAREA></TEXTAREA></td></tr><tr>'.
+            '<td colspan="2"><span class="info_text">'.
+            '<INPUT TYPE=CHECKBOX NAME="entrymorearchivepagecheck" VALUE="yes"> Make this the same as the '.
+            'previous template (archived standard entries)</span></td></tr>';
+        
+        $page .= '</table><br /></span></td></tr>';
+	
+	
+        ## Karma & Comments Related Templates
+        $page .= '<tr class="section_head"><th>Karma & Comments-Related Templates</th><td>'.
+            _hiderCodeEntry('karmaCommentTempHidden', 'karmaCommentTempHider').
+            '</tr><tr><td colspan="2"><span id="karmaCommentTempHidden"><div class="info_text">These are the '.
+            'templates that affect all elements relating to karma voting and comment posting; if you have either '.
+                                                                                                  'or both of those disabled, you can ignore the templates relating to them. All these templates affect '.
+                                                                                                  'things that will not appear on entries for which karma voting and/or comment posting is disabled.</div>'.
+                                                                                                  '<br /><table class="config_table">';
+        
+        $page .= '<tr><td valign=middle bgcolor="#c0c0c0" colspan=2><span class="info_title">'.
+            '{{karmalink}} and {{commentslink}} Templates</span><br /><span class="info_text">These templates '.
+            'are what will appear wherever the {{karmalink}} and {{commentslink}} are used, but only when called '.
+            'for; the contents of {{commentslink}} will only appear on entries for which comments can be posted to, '.
+                      'and the same with {{karmalink}}.  The default approach is to use {{karmalink}} to contain the links '.
+                      'for voting on karma and {{commentslink}} for a link to your entry\'s comments, but you can use these '.
+                      'templates to set anything that will appear, wherever you insert their respective variables, only '.
+                      'for entries with karma or comments enabled respectively.</span></td></tr> <tr><td bgcolor="#e0f0ff">'.
+                      '<span class="info_title">{{karmalink}} Template</span></td><td bgcolor="#e0f0ff"><span class="info_title">'.
+                      '{{commentslink}} Template</span></td></tr><tr><td width="50%">'.
+                      '<TEXTAREA NAME="newkarmalinktemplate" COLS=41 ROWS=10 class="inputfield">'.
+                      $gmTemplates->{'gmkarmalinktemplate'}.'</TEXTAREA></td><td>'.
+                      '<TEXTAREA NAME="newcommentslinktemplate" COLS=41 ROWS=10 class="inputfield">'.
+                      $gmTemplates->{'gmcommentslinktemplate'}.'</TEXTAREA></td></tr>';
+	
+        $page .= '<tr><td colspan="2"> &#160; </td></tr>';
+        
+        $page .= '<tr><td valign=middle bgcolor="#c0c0c0"><span class="info_title">Comment Appearance '.
+            'Template</span><br /><span class="info_text">Whenever comments are added to your entries, this is '.
+            'the template which the comments will be formatted by.</span></td><td bgcolor="#c0c0c0"><span class="info_title">'.
+            '{{entrycommentsform}} Posting Form</span><br /><span class="info_text">This is the form  by which '.
+            'visitors can add comments (appearing whereever {{entrycommentsform}} is used).  You can change '.
+            'the form\'s design, but the "NAME", "VALUE" and "ACTION" values must remain the same.</span></td></tr>'.
+            '<tr><td><TEXTAREA NAME="newcommentstemplate" COLS=41 ROWS=10 class="inputfield">'.
+            $gmTemplates->{'gmcommentstemplate'}.'</TEXTAREA></td><td>'.
+            '<TEXTAREA NAME="newcommentsformtemplate" COLS=41 ROWS=10 class="inputfield">'.
+            $gmTemplates->{'gmcommentsformtemplate'}.'</TEXTAREA></span></td></tr>';
+	
+        $page .= '<tr><td colspan="2"> &#160; </td></tr>';
+        
+        $page .= '<tr><td valign=middle bgcolor="#c0c0c0"><span class="info_title">{{smartemoticonscode}} '.
+            'Template</span><br /><span class="info_text">The {{smartemoticonscode}} template (whatever you set '.
+                                                                                               'below) will only appear if you have allowed emoticons to be posted in comments in your config settings.'.
+            '</span></td><td bgcolor="#c0c0c0"><span class="info_title">{{cookiescode}} Template</span><br />'.
+            '<span class="info_text">The {{cookiescode}} template allows you to define a Javascript that allows '.
+            'setting cookies on your commenters--this supports remembering the details that commenters provide '.
+            'on your site.</span></td></tr><tr><td>'.
+            '<TEXTAREA NAME="newsmartemoticonscodetemplate" COLS=41 ROWS=10 class="inputfield">'.
+            $gmTemplates->{'gmsmartemoticonscodetemplate'}.'</TEXTAREA></td><td>'.
+            '<TEXTAREA NAME="newcookiescodetemplate" COLS=41 ROWS=10 class="inputfield">'.
+            $gmTemplates->{'gmcookiescodetemplate'}.'</TEXTAREA></span></td></tr>';
+        
+        $page .= '<tr><td colspan="2"> &#160; </td></tr>';
+	
+        $page .= '<tr><td valign=middle bgcolor="#c0c0c0"><span class="info_title">{{commentdivider}} '.
+            'Template</span><br /><span class="info_text">The {{commentdivider}} variable (whatever you set '.
+                                                                                           'below) will only appear if at least one comment has been posted to that entry; for example, if you '.
+                                                                                                                                                                               'want to have something that says "This entry has received X comments" in an entry, but don\'t want '.
+                                                                                                                                                                               'that to appear if there haven\'t been any comments posted to it yet.</span></td><td bgcolor="#c0c0c0">'.
+                                                                                                                                                                               '<span class="info_title">{{karmaform}} Template</span><br /><span class="info_text">Just like '.
+                                                                                                                                                                               '{{karmalink}} above, this will only appear on karma-enabled entries; this is intended to allow '.
+                                                                                                                                                                                                                                                         'a handling of karma voting on individual entry pages distinct from the main log, if you wish to '.
+                                                                                                                                                                                                                                                         'do that.</span></td></tr><tr><td>'.
+                                                                                                                                                                                                                                                         '<TEXTAREA NAME="newcommentdividertemplate" COLS=41 ROWS=10 class="inputfield">'.
+                                                                                                                                                                                                                                                         $gmTemplates->{'gmcommentdividertemplate'}.'</TEXTAREA></td><td>'.
+                                                                                                                                                                                                                                                         '<TEXTAREA NAME="newkarmaformtemplate" COLS=41 ROWS=10 class="inputfield">'.
+                                                                                                                                                                                                                                                         $gmTemplates->{'gmkarmaformtemplate'}.'</TEXTAREA></span></td></tr>';
+	
+        $page .= '<tr><td colspan="2"> &#160; </td></tr>';
+	
+        $page .= '<tr><td valign=middle bgcolor="#c0c0c0" colspan=2><span class="info_title">Comment Previewing '.
+            'Templates</span><br /><span class="info_text">If you allow visitors to preview their comments before '.
+            'posting them (to enable this, add a &lt;INPUT TYPE=SUBMIT NAME="gmpostpreview" VALUE="Preview Your '.
+                                             'Comment"&gt; button [the "value" text can be changed to whatever you wish, as long as you keep the '.
+                                                                   'NAME="gmpostpreview" part] to your entry comments form, if it\'s not there already), these templates '.
+            'control what special information will appear (the comment is shown to the user as it would appear in '.
+                                                           'your entry\'s page).  The Preview Divider is what will appear in the preview where {{commentdivider}} '.
+            '(see above) is, and the Confirmation Form takes the place of {{entrycommentsform}} above.</span></td></tr>'.
+            '<tr><td bgcolor="#e0f0ff"><span class="info_title">Preview Divider Template</span></td><td bgcolor="#e0f0ff">'.
+            '<span class="info_title">Confirmation Form Template</span></td></tr><tr><td>'.
+            '<TEXTAREA NAME="newcommentpreviewdividertemplate" COLS=41 ROWS=10 class="inputfield">'.
+            $gmTemplates->{'gmcommentpreviewdividertemplate'}.'</TEXTAREA></td><td>'.
+            '<TEXTAREA NAME="newcommentpreviewformtemplate" COLS=41 ROWS=10 class="inputfield">'.
+            $gmTemplates->{'gmcommentpreviewformtemplate'}.'</TEXTAREA></td></tr>';
+	
+        $page .= '<tr><td colspan="2"> &#160; </td></tr>';
+	
+        $page .= '<tr><td valign=middle bgcolor="#c0c0c0" colspan=2><span class="info_title">{{commentstatussmart}} '.
+            'Templates</span><br /><span class="info_text">If you wish, you can '.
+            'customise the text or other output that {{commentstatussmart}} generates when there are no comments, '.
+            'only one comment, or more than one comment, respectively.</span></td></tr><tr><td bgcolor="#e0f0ff">'.
+            '<span class="info_title">Output for no comments</span></td><td bgcolor="#e0f0ff">'.
+            '<span class="info_title">Output for one comment</span></td></tr><tr><td>'.
+            '<TEXTAREA NAME="newsmartlinknocommentstemplate" COLS=26 ROWS=5 class="inputfield">'.
+            $gmTemplates->{'gmsmartlinknocommentstemplate'}.'</TEXTAREA></td><td>'.
+            '<TEXTAREA NAME="newsmartlinkonecommenttemplate" COLS=26 ROWS=5 class="inputfield">'.
+            $gmTemplates->{'gmsmartlinkonecommenttemplate'}.'</TEXTAREA></td></tr>'.
+            '<tr><td bgcolor="#e0f0ff"><span class="info_title">Output for two or more comments</span></td><td> &#160; </td></tr>'.
+                                                                                                                           '<tr><td><TEXTAREA NAME="newsmartlinkmanycommentstemplate" COLS=26 ROWS=5 class="inputfield">'.
+                                                                                                                           $gmTemplates->{'gmsmartlinkmanycommentstemplate'}.'</TEXTAREA></td><td> &#160; </td></tr>';
+	
+        $page .= '<tr><td colspan="2"> &#160; </td></tr>';
+	
+        $page .= '<tr><td valign=middle bgcolor="#c0c0c0" colspan=2><span class="info_title">{{commentauthoremail}} '.
+            'and {{commentauthorhomepage}} Templates</span><br /><span class="info_text">When used in the Comment '.
+            'Appearance template, these varibles are what will appear whenever an e-mail or homepage address, '.
+            'respectively, has been given by that author of that comment; this is useful, for example, if you '.
+                                                                              'want to set up little icons or somesuch that will appear with someone\'s comment when they give '.
+                                                                              'their e-mail or homepage address.  The simplest approach, though, is to ignore these altogether '.
+                                                                              'and use {{commentauthorsmartlink}} instead.</span></td></tr><tr><td bgcolor="#e0f0ff">'.
+                                                                              '<span class="info_title">{{commentauthoremail}} Template</span></td><td bgcolor="#e0f0ff">'.
+                                                                              '<span class="info_title">{{commentauthorhomepage}} Template</span></td></tr><tr><td>'.
+                                                                              '<TEXTAREA NAME="newcommentauthoremailtemplate" COLS=41 ROWS=10 class="inputfield">'.
+                                                                              $gmTemplates->{'gmcommentauthoremailtemplate'}.'</TEXTAREA></td><td>'.
+                                                                              '<TEXTAREA NAME="newcommentauthorhomepagetemplate" COLS=41 ROWS=10 class="inputfield">'.
+                                                                              $gmTemplates->{'gmcommentauthorhomepagetemplate'}.'</TEXTAREA></td></tr>';
+	
+        $page .= '</table><br /></span></td></tr>';
+	
+    }
 
-	if( $AUTHOR{'edittemplates'} eq Gm_Constants::Y ){
-		## Main Index pages
-		$page .= '<tr class="section_head"><th>Main Index-Related Templates</th><td>'.
-			_hiderCodeEntry('mainIndexTempHidden', 'mainIndexTempHider').
-			'</tr><tr><td colspan="2"><span id="mainIndexTempHidden"><div class="info_text">These are the templates '.
-			'that affect the layout and appearance of your main index.</div><br /><table class="config_table">';
-			
-		$page .= '<tr><td valign=middle bgcolor="#c0c0c0" colspan=2><span class="info_title">Main Index Template</span>'.
-			'<br /><span class="info_text">The overall template for your main index page&#151;typically the first '.
-			'page that people will see on your weblog/journal.  The {{logbody}} variable is the placeholder that '.
-			'tells Greymatter where you want the body of your log to be inserted, so it must be included somewhere '.
-			'in this template.  The format of the log body is controlled through the templates below.</span></td></tr>'.
-			'<tr><td colspan="2"><TEXTAREA NAME="newindextemplate" COLS=86 ROWS=30 class="inputfield">'.
-			$gmTemplates->{'gmindextemplate'}.'</TEXTAREA></td></tr>';
+    if( $AUTHOR{'edittemplates'} eq Gm_Constants::O || $AUTHOR{'edittemplates'} eq Gm_Constants::Y ){
 	
-		$page .= '<tr><td colspan="2"> &#160; </td></tr>';
+        ## Header, Footer & Sidebar (& Custom) Templates Related Templates
+        $page .= '<tr class="section_head"><th>Header, Footer & Sidebar (& Custom) Templates</th><td>'.
+            _hiderCodeEntry('headerFooterTempHidden', 'headerFooterTempHider').
+            '</tr><tr><td colspan="2"><span id="headerFooterTempHidden"><div class="info_text">If you want to '.
+            'have something - certain text, graphics, formatting, etc. - that appears across all your pages, but '.
+            'you don\'t want to have to modify all the templates each time you change them, simply use the Header, '.
+            'Footer and Sidebar templates below, or any of the ten custom templates. Their contents will be inserted '.
+            'wherever the respective variables appear in your templates.</div><br /><table class="config_table">';
+        
+        $page .= '<tr><td valign=middle bgcolor="#c0c0c0" colspan=2><span class="info_title">Header Template'.
+            '</span><br /><span class="info_text">Whatever you put here will appear wherever {{header}} is '.
+            'used in your other templates.</span></td></tr><tr><td colspan="2">'.
+            '<TEXTAREA NAME="newheadertemplate" COLS=86 ROWS=30 class="inputfield">'.
+            $gmTemplates->{'gmheadertemplate'}.'</TEXTAREA></td></tr>';
 	
-		$page .= '<tr><td valign=middle bgcolor="#c0c0c0" colspan=2><span class="info_title">Index Entry Templates</span>'.
-			'<br /><span class="info_text">These templates control how individual entries are listed in the body of your '.
-			'log.  The left template is the format of standard entry listings, and the right template is the format of '.
-			'extended entry listings (entries that contain "more" text).</span></td></tr>'.
-			'<tr><td bgcolor="#e0f0ff"><span class="info_title">Index Entry Template: Standard Entries</span></td>'.
-			'<td bgcolor="#e0f0ff"><span class="info_title">Index Entry Template: Extended Entries</span></td></tr>'.
-			'<tr><td width="50%"><TEXTAREA NAME="newentrytemplate" COLS=41 ROWS=10 class="inputfield">'.
-			$gmTemplates->{'gmentrytemplate'}.'</TEXTAREA></td>'.
-			'<td><TEXTAREA NAME="newmoreentrytemplate" COLS=41 ROWS=10 class="inputfield">'.
-			$gmTemplates->{'gmmoreentrytemplate'}.'</TEXTAREA></td></tr>'.
-			'<tr><td>&nbsp;</td><td><span class="info_text"><INPUT TYPE=CHECKBOX NAME="entrylistingmorecheck" VALUE="yes"> '.
-			'Make this the same as the template on the left</span></td></tr>';
+        $page .= '<tr><td colspan="2"> &#160; </td></tr>';
+        
+        $page .= '<tr><td valign=middle bgcolor="#c0c0c0" colspan=2><span class="info_title">Footer Template'.
+            '</span><br /><span class="info_text">Whatever you put here will appear wherever {{footer}} is used '.
+            'in your other templates.</span></td></tr><tr><td colspan="2">'.
+            '<TEXTAREA NAME="newfootertemplate" COLS=86 ROWS=30 class="inputfield">'.
+            $gmTemplates->{'gmfootertemplate'}.'</TEXTAREA>'.
+            '</td></tr>';
 	
-		$page .= '<tr><td colspan="2"> &#160; </td></tr>';
-		
-		$page .= '<tr><td valign=middle bgcolor="#c0c0c0" colspan=2><span class="info_title">"Stay At Top" Index Entry Template</span>'.
-			'<br /><span class="info_text">Like the index entry templates above, except this will apply to any entry '.
-			'you\'ve marked to stay at the top of your main log (only one entry at a time can be marked as such); use '.
-			'this for any way you might wish to set that apart.</span></td></tr>'.
-			'<tr><td colspan="2"><TEXTAREA NAME="newstayattoptemplate" COLS=41 ROWS=10 class="inputfield">'.
-			$gmTemplates->{'gmstayattoptemplate'}.'</TEXTAREA></td></tr><tr><td colspan="2"><span class="info_text">'.
-			'<INPUT TYPE=CHECKBOX NAME="entrylistingstayattopcheck" VALUE="yes"> Make this the same as the standard '.
-			'index entry template</span></td></tr>';
-			
-		$page .= '<tr><td colspan="2"> &#160; </td></tr>';
+        $page .= '<tr><td colspan="2"> &#160; </td></tr>';
+        
+        $page .= '<tr><td valign=middle bgcolor="#c0c0c0" colspan=2><span class="info_title">Sidebar Template'.
+            '</span><br /><span class="info_text">Whatever you put here will appear wherever {{sidebar}} is used '.
+            'in your other templates.</span></td></tr><tr><td colspan="2">'.
+            '<TEXTAREA NAME="newsidebartemplate" COLS=86 ROWS=30 class="inputfield">'.
+            $gmTemplates->{'gmsidebartemplate'}.'</TEXTAREA></td></tr>';
 	
-		$page .= '<tr><td valign=middle bgcolor="#c0c0c0"><span class="info_title">Date Grouping Header '.
-			'Template</span><br /><span class="info_text">When your log is generated, the entry listings for each '.
-			'day are prefaced with a date header; this controls how that date header appears.  Leave this blank '.
-			'if you don\'t want to group your entry listings in this way. DO NOT put {{entry*}}, {{comment*}}, '.
-			'or {{time*}} variables here.</span></td><td bgcolor="#c0c0c0"><span class="info_title">'.
-			'Date Grouping Footer Template</span><br /><span class="info_text">This is '.
-			'the complement to the Date Grouping Template. if you open a tag in the Date Grouping Template '.
-			'(such as a div or td) you can place the closing tag here. That allows you to contain a date '.
-			'grouping inside an element. All date variables that are supported in the Date Grouping Header '.
-			'Template are supported here as well.</span></td></tr>'.
-			'<tr><td><TEXTAREA NAME="newdatetemplate" COLS=41 ROWS=10 WRAP=VIRTUAL class="inputfield">'.
-			$gmTemplates->{'gmdatetemplate'}.'</TEXTAREA></td><td>'.
-			'<TEXTAREA NAME="newdategroupingfootertemplate" COLS=41 ROWS=10 class="inputfield">'.
-			$gmTemplates->{'gmdategroupingfootertemplate'}.'</TEXTAREA></span></td></tr>';
+        $page .= '<tr><td colspan="2"> &#160; </td></tr>';
 	
-		$page .= '<tr><td colspan="2"> &#160; </td></tr>';
-		
-		$page .= '<tr><td valign=middle bgcolor="#c0c0c0" colspan=2><span class="info_title">Entry Separator Template</span>'.
-			'<br /><span class="info_text">If you wish, you can have your entry listings divided with a special separator '.
-			'when your log is generated.  Leave this blank if you don\'t want to include a separator. Works only '.
-			'between multiple entries on a single day.</span></td></tr><tr><td colspan="2">'.
-			'<TEXTAREA NAME="newentryseparatortemplate" COLS=41 ROWS=10 class="inputfield">'.
-			$gmTemplates->{'gmentryseparatortemplate'}.'</TEXTAREA></td></tr>';
+        $page .= '<tr><td valign=middle bgcolor="#c0c0c0" colspan=2><span class="info_title">Miscellaneous '.
+            'Custom Templates</span><br /><span class="info_text">Whatever you put in any of the templates '.
+            'below will appear wherever their respective variables are used.</span></td></tr>'.
+            '<tr><td bgcolor="#e0f0ff"><span class="info_title">{{customone}} Template</span></td><td bgcolor="#e0f0ff">'.
+            '<span class="info_title">{{customtwo}} Template</span></td></tr><tr><td width="50%">'.
+            '<TEXTAREA NAME="newcustomonetemplate" COLS=41 ROWS=20 class="inputfield">'.
+            $gmTemplates->{'gmcustomonetemplate'}.'</TEXTAREA></td><td>'.
+            '<TEXTAREA NAME="newcustomtwotemplate" COLS=41 ROWS=20 class="inputfield">'.
+            $gmTemplates->{'gmcustomtwotemplate'}.'</TEXTAREA></td></tr>';
+        
+        $page .= '<tr><td bgcolor="#e0f0ff"><span class="info_title">{{customthree}} Template</span></td>'.
+            '<td bgcolor="#e0f0ff"><span class="info_title">{{customfour}} Template</span></td></tr><tr><td>'.
+            '<TEXTAREA NAME="newcustomthreetemplate" COLS=41 ROWS=20 class="inputfield">'.
+            $gmTemplates->{'gmcustomthreetemplate'}.'</TEXTAREA></td><td>'.
+            '<TEXTAREA NAME="newcustomfourtemplate" COLS=41 ROWS=20 class="inputfield">'.
+            $gmTemplates->{'gmcustomfourtemplate'}.'</TEXTAREA></td></tr>';
+        
+        $page .= '<tr><td bgcolor="#e0f0ff"><span class="info_title">{{customfive}} Template</span></td>'.
+            '<td bgcolor="#e0f0ff"><span class="info_title">{{customsix}} Template</span></td></tr><tr><td>'.
+            '<TEXTAREA NAME="newcustomfivetemplate" COLS=41 ROWS=20 class="inputfield">'.
+            $gmTemplates->{'gmcustomfivetemplate'}.'</TEXTAREA></td><td>'.
+            '<TEXTAREA NAME="newcustomsixtemplate" COLS=41 ROWS=20 class="inputfield">'.
+            $gmTemplates->{'gmcustomsixtemplate'}.'</TEXTAREA></td></tr>';
+        
+        $page .= '<tr><td bgcolor="#e0f0ff"><span class="info_title">{{customseven}} Template</span></td>'.
+            '<td bgcolor="#e0f0ff"><span class="info_title">{{customeight}} Template</span></td></tr><tr><td>'.
+            '<TEXTAREA NAME="newcustomseventemplate" COLS=41 ROWS=20 class="inputfield">'.
+            $gmTemplates->{'gmcustomseventemplate'}.'</TEXTAREA></td><td>'.
+            '<TEXTAREA NAME="newcustomeighttemplate" COLS=41 ROWS=20 class="inputfield">'.
+            $gmTemplates->{'gmcustomeighttemplate'}.'</TEXTAREA></td></tr>';
+        
+        $page .= '<tr><td bgcolor="#e0f0ff"><span class="info_title">{{customnine}} Template</span></td>'.
+            '<td bgcolor="#e0f0ff"><span class="info_title">{{customten}} Template</span></td></tr><tr><td>'.
+            '<TEXTAREA NAME="newcustomninetemplate" COLS=41 ROWS=20 class="inputfield">'.
+            $gmTemplates->{'gmcustomninetemplate'}.'</TEXTAREA></td><td>'.
+            '<TEXTAREA NAME="newcustomtentemplate" COLS=41 ROWS=20 class="inputfield">'.
+            $gmTemplates->{'gmcustomtentemplate'}.'</TEXTAREA></td></tr>';
 	
-		$page .= '</table><br /></span></td></tr>';
+        $page .= '<tr><td colspan="2"> &#160; </td></tr>';
+        
+        $page .= '<tr><td valign=middle bgcolor="#c0c0c0" colspan=2><span class="info_title">User Error '.
+            'Header Template</span><br /><span class="info_text">Whatever you put here will appear whenever '.
+            'an error or alert is presented to the user (this will not change how the admin errors are displayed, '.
+                                                         'just errors such as not entering a Name on the comment form). <b>Note</b> that no template tags '.
+            'will work withen this template (they will display as {{template}}).</span></td></tr><tr><td colspan="2">'.
+            '<TEXTAREA NAME="newgmusererrorheadertemplate" COLS=86 ROWS=30 class="inputfield">'.
+            $gmTemplates->{'gmusererrorheadertemplate'}.'</TEXTAREA></td></tr>';
 	
+        $page .= '<tr><td colspan="2"> &#160; </td></tr>';
+        
+        $page .= '<tr><td valign=middle bgcolor="#c0c0c0" colspan=2><span class="info_title">User Error '.
+            'Footer Template</span><br /><span class="info_text">Whatever you put here will appear whenever '.
+            'an error or alert is presented to the user (this will not change how the admin errors are displayed, '.
+                                                         'just errors such as not entering a Name on the comment form).  Close any tags opened by the Error '.
+            'Header Template. <b>Note</b> that no template tags will work withen this template (they will display '.
+                                                                                                'as {{template}}).</span></td></tr><tr><td colspan="2">'.
+            '<TEXTAREA NAME="newgmusererrorfootertemplate" COLS=86 ROWS=30 class="inputfield">'.
+            $gmTemplates->{'gmusererrorfootertemplate'}.'</TEXTAREA></td></tr>';
 	
-		## Archive Related Templates
-		$page .= '<tr class="section_head"><th>Archive-Related Templates</th><td>'.
-			_hiderCodeEntry('archiveTempHidden', 'archiveTempHider').
-			'</tr><tr><td colspan="2"><span id="archiveTempHidden"><div class="info_text">These are the '.
-			'templates that affect the layout and appearance of your archives.</div><br /><table class="config_table">';
-			
-		$page .= '<tr><td valign=middle bgcolor="#c0c0c0" colspan=2><span class="info_title">Archive Master Index '.
-			'Template</span><br /><span class="info_text">If you wish, you can keep a master index of your archives&#151;an '.
-			'index page in your entries/archives directory intended for linking to all the archives (both the '.
-			'monthly/weekly logs and the individual entry pages) of your site.  You can use variables such as '.
-			'{{logarchivelist}} and {{logentrylist}} here (or anywhere) to generate those list links; check the '.
-			'<a href="'.Gm_Constants::GM_FORUM.'" title="read the manual" target="_blank">manual</a> for more '.
-			'information about those variables.  If you don\'t wish to keep an archive master index, you can '.
-			'disable it in Configuration.</span></td></tr><tr><td colspan="2">'.
-			'<TEXTAREA NAME="newarchivemasterindextemplate" COLS=86 ROWS=30 class="inputfield">'.
-			$gmTemplates->{'gmarchivemasterindextemplate'}.'</TEXTAREA></td></tr>';
-	
-		$page .= '<tr><td colspan="2"> &#160; </td></tr>';
-		
-		$page .= '<tr><td valign=middle bgcolor="#c0c0c0" colspan=2><span class="info_title">Archive Log Index '.
-			'Template</span><br /><span class="info_text">Archive log index files are the archives of your log; '.
-			'this is like the main index except that the log archives are generated in monthly or weekly '.
-			'installments, each installment showing the full log for that given month or week.  As with the '.
-			'main index, {{logbody}} (or {{archivebody}}) is the placeholder that tells Greymatter where to '.
-			'put the body of your log.</span></td></tr><tr><td colspan="2">'.
-			'<TEXTAREA NAME="newarchiveindextemplate" COLS=86 ROWS=30 class="inputfield">'.
-			$gmTemplates->{'gmarchiveindextemplate'}.
-			'</TEXTAREA></td></tr><tr><td colspan="2"><span class="info_text">'.
-			'<INPUT TYPE=CHECKBOX NAME="archivelogindexcheck" VALUE="yes"> Make this the same as the main '.
-			'index template</span></td></tr>';
-	
-		$page .= '<tr><td colspan="2"> &#160; </td></tr>';
-	
-		$page .= '<tr><td valign=middle bgcolor="#c0c0c0" colspan=2><span class="info_title">Log Archive Entry '.
-			'Templates</span><br /><span class="info_text">These templates control how individual entries are '.
-			'listed in the body of your log; these work the same as the main index versions, except this controls '.
-			'how they appear in the log archives instead.  The left template is the format of standard entry '.
-			'listings, and the right template is the format of extended entry listings (entries that contain '.
-			'"more" text).</span></td></tr><tr><td bgcolor="#e0f0ff"><span class="info_title">Archive Entry '.
-			'Template: Standard Entries</span></td><td bgcolor="#e0f0ff"><span class="info_title">Archive '.
-			'Entry Template: Extended Entries</span></td></tr><tr><td width="50%">'.
-			'<TEXTAREA NAME="newarchiveentrytemplate" COLS=41 ROWS=10 class="inputfield">'.
-			$gmTemplates->{'gmarchiveentrytemplate'}.'</TEXTAREA></td><td>'.
-			'<TEXTAREA NAME="newmorearchiveentrytemplate" COLS=41 ROWS=10 class="inputfield">'.
-			$gmTemplates->{'gmmorearchiveentrytemplate'}.'</TEXTAREA></td></tr>'.
-			'<tr><td><span class="info_text"><INPUT TYPE=CHECKBOX NAME="archiveentrylistingcheck" VALUE="yes"> '.
-			'Make this the same as the main index version</span></td><td><span class="info_text">'.
-			'<INPUT TYPE=CHECKBOX NAME="archiveentrylistingmorecheck" VALUE="yes"> Make this the same as the '.
-			'main index version</span></td></tr>';
-			
-		$page .= '<tr><td colspan="2"> &#160; </td></tr>';
-		
-		$page .= '<tr><td valign=middle bgcolor="#c0c0c0" colspan=2><span class="info_title">Archive Entry '.
-			'Separator Template</span><br /><span class="info_text">If you wish, you can have your entry listings '.
-			'divided with a special separator when your log is generated.  This works the same as it does on the '.
-			'main index, except this is the separator for entries in your log archives.  Leave this blank if you '.
-			'don\'t want to include a separator.</span></td></tr>'.
-			'<tr><td colspan="2"><TEXTAREA NAME="newarchiveentryseparatortemplate" COLS=41 ROWS=10 class="inputfield">'.
-			$gmTemplates->{'gmarchiveentryseparatortemplate'}.'</TEXTAREA></td></tr><tr><td colspan="2"><span class="info_text">'.
-			'<INPUT TYPE=CHECKBOX NAME="archiveentryseparatorcheck" VALUE="yes"> Make this the same as the main '.
-			'index version</span></td></tr>';
-	
-		$page .= '<tr><td colspan="2"> &#160; </td></tr>';
-	
-		$page .= '<tr><td valign=middle bgcolor="#c0c0c0"><span class="info_title">Archive Date Grouping '.
-			'Header Template</span><br /><span class="info_text">When your log is generated, the entry listings '.
-			'for each day are prefaced with a date header; this controls how that date header appears.  This '.
-			'works the same as it does on the main index, except this is how the date header will appear in your '.
-			'log archives.  Leave this blank if you don\'t want to group your entry listings in this way.'.
-			'</span></td><td bgcolor="#c0c0c0"><span class="info_title">Archive Date Grouping Footer Template'.
-			'</span><br /><span class="info_text">This is the complement to the Date Grouping Template. if '.
-			'you open a tag in the Date Grouping Template (such as a div or td) you can place the closing tag '.
-			'here. That allows you to contain a date grouping inside an element. All date variables that are '.
-			'supported in the Date Grouping Header Template are supported here as well. This works the same as '.
-			'it does on the main index, except this is how the date header will appear in your log archives.'.
-			'</span></td></tr><tr><td><TEXTAREA NAME="newdatearchivetemplate" COLS=41 ROWS=10 class="inputfield">'.
-			$gmTemplates->{'gmdatearchivetemplate'}.'</TEXTAREA></td><td>'.
-			'<TEXTAREA NAME="newdategroupingfooterarchivetemplate" COLS=41 ROWS=10 class="inputfield">'.
-			$gmTemplates->{'gmdategroupingfooterarchivetemplate'}.'</TEXTAREA></span></td></tr><tr><td><span class="info_text">'.
-			'<INPUT TYPE=CHECKBOX NAME="archivedateheadercheck" VALUE="yes"> Make this the same as the main '.
-			'index version</td><td><INPUT TYPE=CHECKBOX NAME="archivedatefootercheck" VALUE="yes"> Make this '.
-			'the same as the main index version</span></td></tr>';
-			
-		$page .= '</table><br /></span></td></tr>';
-	
-	
-		## Entry Page Related Templates
-		$page .= '<tr class="section_head"><th>Entry Page-Related Templates</th><td>'.
-			_hiderCodeEntry('entryTempHidden', 'entryTempHider').
-			'</tr><tr><td colspan="2"><span id="entryTempHidden"><div class="info_text">These are the templates '.
-			'that affect the layout and appearance of the pages for your individual entries (as opposed to the '.
-			'Index Entry templates, in the Main Index and Archive template groups, which customise how entries '.
-			'appear in the body of your log). If you have "Generate pages for individual entries" disabled in '.
-			'Configuration, you can ignore these templates.</div><br /><table class="config_table">';
-			
-		$page .= '<tr><td valign=middle bgcolor="#c0c0c0" colspan=2><span class="info_title">Entry Page Template: '.
-			'Current Standard Entries</span><br /><span class="info_text">This template controls how the individual '.
-			'pages for your current regular entries (non-archived entries without "more" text) will be formatted.  '.
-			'The {{entrymainbody}} and {{entrymorebody}} variables specify where the body of your standard and '.
-			'extended text (if any) will respectively appear.</span></td></tr><tr><td colspan="2">'.
-			'<TEXTAREA NAME="newentrypagetemplate" COLS=86 ROWS=30 class="inputfield">'.
-			$gmTemplates->{'gmentrypagetemplate'}.'</TEXTAREA></td></tr>';
-	
-		$page .= '<tr><td colspan="2"> &#160; </td></tr>';
-		
-		$page .= '<tr><td valign=middle bgcolor="#c0c0c0" colspan=2><span class="info_title">Archive Log Index '.
-			'Template</span><br /><span class="info_text">Entry Page Template: Current Extended Entries</span>'.
-			'<br /><span class="info_text">Like the above, except this applies to current extended entries '.
-			'(non-archived entries *with* "more" text).</span></td></tr><tr><td colspan="2">'.
-			'<TEXTAREA NAME="newmoreentrypagetemplate" COLS=86 ROWS=30 class="inputfield">'.
-			$gmTemplates->{'gmmoreentrypagetemplate'}.'</TEXTAREA></td></tr><tr><td colspan="2"><span class="info_text">'.
-			'<INPUT TYPE=CHECKBOX NAME="entrymorepagecheck" VALUE="yes"> Make this the same as the above '.
-			'template (current standard entries)</span></td></tr>';
-	
-		$page .= '<tr><td colspan="2"> &#160; </td></tr>';
-		
-		$page .= '<tr><td valign=middle bgcolor="#c0c0c0" colspan=2><span class="info_title">Archive Log Index '.
-			'Template</span><br /><span class="info_text">Entry Page Template: Archived Standard Entries</span>'.
-			'<br /><span class="info_text">Like the above, except this applies to archived entries (entries '.
-			'too old to be listed on the main log) without "more" text.</span></td></tr><tr><td colspan="2">'.
-			'<TEXTAREA NAME="newarchiveentrypagetemplate" COLS=86 ROWS=30 class="inputfield">'.
-			$gmTemplates->{'gmarchiveentrypagetemplate'}.'</TEXTAREA></td></tr><tr><td colspan="2"><span class="info_text">'.
-			'<INPUT TYPE=CHECKBOX NAME="entryarchivepagecheck" VALUE="yes"> Make this the same as the top '.
-			'template (current standard entries)</span></td></tr>';
-	
-		$page .= '<tr><td colspan="2"> &#160; </td></tr>';
-		
-		$page .= '<tr><td valign=middle bgcolor="#c0c0c0" colspan=2><span class="info_title">Archive Log Index '.
-			'Template</span><br /><span class="info_text">Entry Page Template: Archived Extended Entries</span><br />'.
-			'<span class="info_text">Like the above, except this applies to archived entries (entries too old '.
-			'to be listed on the main log) *with* "more" text.</span></td></tr><tr><td colspan="2">'.
-			'<TEXTAREA NAME="newmorearchiveentrypagetemplate" COLS=86 ROWS=30 class="inputfield">'.
-			$gmTemplates->{'gmmorearchiveentrypagetemplate'}.'</TEXTAREA></TEXTAREA></td></tr><tr>'.
-			'<td colspan="2"><span class="info_text">'.
-			'<INPUT TYPE=CHECKBOX NAME="entrymorearchivepagecheck" VALUE="yes"> Make this the same as the '.
-			'previous template (archived standard entries)</span></td></tr>';
-			
-		$page .= '</table><br /></span></td></tr>';
-	
-	
-		## Karma & Comments Related Templates
-		$page .= '<tr class="section_head"><th>Karma & Comments-Related Templates</th><td>'.
-			_hiderCodeEntry('karmaCommentTempHidden', 'karmaCommentTempHider').
-			'</tr><tr><td colspan="2"><span id="karmaCommentTempHidden"><div class="info_text">These are the '.
-			'templates that affect all elements relating to karma voting and comment posting; if you have either '.
-			'or both of those disabled, you can ignore the templates relating to them. All these templates affect '.
-			'things that will not appear on entries for which karma voting and/or comment posting is disabled.</div>'.
-			'<br /><table class="config_table">';
-			
-		$page .= '<tr><td valign=middle bgcolor="#c0c0c0" colspan=2><span class="info_title">'.
-			'{{karmalink}} and {{commentslink}} Templates</span><br /><span class="info_text">These templates '.
-			'are what will appear wherever the {{karmalink}} and {{commentslink}} are used, but only when called '.
-			'for; the contents of {{commentslink}} will only appear on entries for which comments can be posted to, '.
-			'and the same with {{karmalink}}.  The default approach is to use {{karmalink}} to contain the links '.
-			'for voting on karma and {{commentslink}} for a link to your entry\'s comments, but you can use these '.
-			'templates to set anything that will appear, wherever you insert their respective variables, only '.
-			'for entries with karma or comments enabled respectively.</span></td></tr> <tr><td bgcolor="#e0f0ff">'.
-			'<span class="info_title">{{karmalink}} Template</span></td><td bgcolor="#e0f0ff"><span class="info_title">'.
-			'{{commentslink}} Template</span></td></tr><tr><td width="50%">'.
-			'<TEXTAREA NAME="newkarmalinktemplate" COLS=41 ROWS=10 class="inputfield">'.
-			$gmTemplates->{'gmkarmalinktemplate'}.'</TEXTAREA></td><td>'.
-			'<TEXTAREA NAME="newcommentslinktemplate" COLS=41 ROWS=10 class="inputfield">'.
-			$gmTemplates->{'gmcommentslinktemplate'}.'</TEXTAREA></td></tr>';
-	
-		$page .= '<tr><td colspan="2"> &#160; </td></tr>';
-		
-		$page .= '<tr><td valign=middle bgcolor="#c0c0c0"><span class="info_title">Comment Appearance '.
-			'Template</span><br /><span class="info_text">Whenever comments are added to your entries, this is '.
-			'the template which the comments will be formatted by.</span></td><td bgcolor="#c0c0c0"><span class="info_title">'.
-			'{{entrycommentsform}} Posting Form</span><br /><span class="info_text">This is the form  by which '.
-			'visitors can add comments (appearing whereever {{entrycommentsform}} is used).  You can change '.
-			'the form\'s design, but the "NAME", "VALUE" and "ACTION" values must remain the same.</span></td></tr>'.
-			'<tr><td><TEXTAREA NAME="newcommentstemplate" COLS=41 ROWS=10 class="inputfield">'.
-			$gmTemplates->{'gmcommentstemplate'}.'</TEXTAREA></td><td>'.
-			'<TEXTAREA NAME="newcommentsformtemplate" COLS=41 ROWS=10 class="inputfield">'.
-			$gmTemplates->{'gmcommentsformtemplate'}.'</TEXTAREA></span></td></tr>';
-	
-		$page .= '<tr><td colspan="2"> &#160; </td></tr>';
-		
-		$page .= '<tr><td valign=middle bgcolor="#c0c0c0"><span class="info_title">{{smartemoticonscode}} '.
-			'Template</span><br /><span class="info_text">The {{smartemoticonscode}} template (whatever you set '.
-			'below) will only appear if you have allowed emoticons to be posted in comments in your config settings.'.
-			'</span></td><td bgcolor="#c0c0c0"><span class="info_title">{{cookiescode}} Template</span><br />'.
-			'<span class="info_text">The {{cookiescode}} template allows you to define a Javascript that allows '.
-			'setting cookies on your commenters--this supports remembering the details that commenters provide '.
-			'on your site.</span></td></tr><tr><td>'.
-			'<TEXTAREA NAME="newsmartemoticonscodetemplate" COLS=41 ROWS=10 class="inputfield">'.
-			$gmTemplates->{'gmsmartemoticonscodetemplate'}.'</TEXTAREA></td><td>'.
-			'<TEXTAREA NAME="newcookiescodetemplate" COLS=41 ROWS=10 class="inputfield">'.
-			$gmTemplates->{'gmcookiescodetemplate'}.'</TEXTAREA></span></td></tr>';
-			
-		$page .= '<tr><td colspan="2"> &#160; </td></tr>';
-	
-		$page .= '<tr><td valign=middle bgcolor="#c0c0c0"><span class="info_title">{{commentdivider}} '.
-			'Template</span><br /><span class="info_text">The {{commentdivider}} variable (whatever you set '.
-			'below) will only appear if at least one comment has been posted to that entry; for example, if you '.
-			'want to have something that says "This entry has received X comments" in an entry, but don\'t want '.
-			'that to appear if there haven\'t been any comments posted to it yet.</span></td><td bgcolor="#c0c0c0">'.
-			'<span class="info_title">{{karmaform}} Template</span><br /><span class="info_text">Just like '.
-			'{{karmalink}} above, this will only appear on karma-enabled entries; this is intended to allow '.
-			'a handling of karma voting on individual entry pages distinct from the main log, if you wish to '.
-			'do that.</span></td></tr><tr><td>'.
-			'<TEXTAREA NAME="newcommentdividertemplate" COLS=41 ROWS=10 class="inputfield">'.
-			$gmTemplates->{'gmcommentdividertemplate'}.'</TEXTAREA></td><td>'.
-			'<TEXTAREA NAME="newkarmaformtemplate" COLS=41 ROWS=10 class="inputfield">'.
-			$gmTemplates->{'gmkarmaformtemplate'}.'</TEXTAREA></span></td></tr>';
-	
-		$page .= '<tr><td colspan="2"> &#160; </td></tr>';
-	
-		$page .= '<tr><td valign=middle bgcolor="#c0c0c0" colspan=2><span class="info_title">Comment Previewing '.
-			'Templates</span><br /><span class="info_text">If you allow visitors to preview their comments before '.
-			'posting them (to enable this, add a &lt;INPUT TYPE=SUBMIT NAME="gmpostpreview" VALUE="Preview Your '.
-			'Comment"&gt; button [the "value" text can be changed to whatever you wish, as long as you keep the '.
-			'NAME="gmpostpreview" part] to your entry comments form, if it\'s not there already), these templates '.
-			'control what special information will appear (the comment is shown to the user as it would appear in '.
-			'your entry\'s page).  The Preview Divider is what will appear in the preview where {{commentdivider}} '.
-			'(see above) is, and the Confirmation Form takes the place of {{entrycommentsform}} above.</span></td></tr>'.
-			'<tr><td bgcolor="#e0f0ff"><span class="info_title">Preview Divider Template</span></td><td bgcolor="#e0f0ff">'.
-			'<span class="info_title">Confirmation Form Template</span></td></tr><tr><td>'.
-			'<TEXTAREA NAME="newcommentpreviewdividertemplate" COLS=41 ROWS=10 class="inputfield">'.
-			$gmTemplates->{'gmcommentpreviewdividertemplate'}.'</TEXTAREA></td><td>'.
-			'<TEXTAREA NAME="newcommentpreviewformtemplate" COLS=41 ROWS=10 class="inputfield">'.
-			$gmTemplates->{'gmcommentpreviewformtemplate'}.'</TEXTAREA></td></tr>';
-	
-		$page .= '<tr><td colspan="2"> &#160; </td></tr>';
-	
-		$page .= '<tr><td valign=middle bgcolor="#c0c0c0" colspan=2><span class="info_title">{{commentstatussmart}} '.
-			'Templates</span><br /><span class="info_text">If you wish, you can '.
-			'customise the text or other output that {{commentstatussmart}} generates when there are no comments, '.
-			'only one comment, or more than one comment, respectively.</span></td></tr><tr><td bgcolor="#e0f0ff">'.
-			'<span class="info_title">Output for no comments</span></td><td bgcolor="#e0f0ff">'.
-			'<span class="info_title">Output for one comment</span></td></tr><tr><td>'.
-			'<TEXTAREA NAME="newsmartlinknocommentstemplate" COLS=26 ROWS=5 class="inputfield">'.
-			$gmTemplates->{'gmsmartlinknocommentstemplate'}.'</TEXTAREA></td><td>'.
-			'<TEXTAREA NAME="newsmartlinkonecommenttemplate" COLS=26 ROWS=5 class="inputfield">'.
-			$gmTemplates->{'gmsmartlinkonecommenttemplate'}.'</TEXTAREA></td></tr>'.
-			'<tr><td bgcolor="#e0f0ff"><span class="info_title">Output for two or more comments</span></td><td> &#160; </td></tr>'.
-			'<tr><td><TEXTAREA NAME="newsmartlinkmanycommentstemplate" COLS=26 ROWS=5 class="inputfield">'.
-			$gmTemplates->{'gmsmartlinkmanycommentstemplate'}.'</TEXTAREA></td><td> &#160; </td></tr>';
-	
-		$page .= '<tr><td colspan="2"> &#160; </td></tr>';
-	
-		$page .= '<tr><td valign=middle bgcolor="#c0c0c0" colspan=2><span class="info_title">{{commentauthoremail}} '.
-			'and {{commentauthorhomepage}} Templates</span><br /><span class="info_text">When used in the Comment '.
-			'Appearance template, these varibles are what will appear whenever an e-mail or homepage address, '.
-			'respectively, has been given by that author of that comment; this is useful, for example, if you '.
-			'want to set up little icons or somesuch that will appear with someone\'s comment when they give '.
-			'their e-mail or homepage address.  The simplest approach, though, is to ignore these altogether '.
-			'and use {{commentauthorsmartlink}} instead.</span></td></tr><tr><td bgcolor="#e0f0ff">'.
-			'<span class="info_title">{{commentauthoremail}} Template</span></td><td bgcolor="#e0f0ff">'.
-			'<span class="info_title">{{commentauthorhomepage}} Template</span></td></tr><tr><td>'.
-			'<TEXTAREA NAME="newcommentauthoremailtemplate" COLS=41 ROWS=10 class="inputfield">'.
-			$gmTemplates->{'gmcommentauthoremailtemplate'}.'</TEXTAREA></td><td>'.
-			'<TEXTAREA NAME="newcommentauthorhomepagetemplate" COLS=41 ROWS=10 class="inputfield">'.
-			$gmTemplates->{'gmcommentauthorhomepagetemplate'}.'</TEXTAREA></td></tr>';
-	
-		$page .= '</table><br /></span></td></tr>';
-	
-	}
-
-	if( $AUTHOR{'edittemplates'} eq Gm_Constants::O || $AUTHOR{'edittemplates'} eq Gm_Constants::Y ){
-	
-		## Header, Footer & Sidebar (& Custom) Templates Related Templates
-		$page .= '<tr class="section_head"><th>Header, Footer & Sidebar (& Custom) Templates</th><td>'.
-			_hiderCodeEntry('headerFooterTempHidden', 'headerFooterTempHider').
-			'</tr><tr><td colspan="2"><span id="headerFooterTempHidden"><div class="info_text">If you want to '.
-			'have something - certain text, graphics, formatting, etc. - that appears across all your pages, but '.
-			'you don\'t want to have to modify all the templates each time you change them, simply use the Header, '.
-			'Footer and Sidebar templates below, or any of the ten custom templates. Their contents will be inserted '.
-			'wherever the respective variables appear in your templates.</div><br /><table class="config_table">';
-			
-		$page .= '<tr><td valign=middle bgcolor="#c0c0c0" colspan=2><span class="info_title">Header Template'.
-			'</span><br /><span class="info_text">Whatever you put here will appear wherever {{header}} is '.
-			'used in your other templates.</span></td></tr><tr><td colspan="2">'.
-			'<TEXTAREA NAME="newheadertemplate" COLS=86 ROWS=30 class="inputfield">'.
-			$gmTemplates->{'gmheadertemplate'}.'</TEXTAREA></td></tr>';
-	
-		$page .= '<tr><td colspan="2"> &#160; </td></tr>';
-		
-		$page .= '<tr><td valign=middle bgcolor="#c0c0c0" colspan=2><span class="info_title">Footer Template'.
-			'</span><br /><span class="info_text">Whatever you put here will appear wherever {{footer}} is used '.
-			'in your other templates.</span></td></tr><tr><td colspan="2">'.
-			'<TEXTAREA NAME="newfootertemplate" COLS=86 ROWS=30 class="inputfield">'.
-			$gmTemplates->{'gmfootertemplate'}.'</TEXTAREA>'.
-			'</td></tr>';
-	
-		$page .= '<tr><td colspan="2"> &#160; </td></tr>';
-		
-		$page .= '<tr><td valign=middle bgcolor="#c0c0c0" colspan=2><span class="info_title">Sidebar Template'.
-			'</span><br /><span class="info_text">Whatever you put here will appear wherever {{sidebar}} is used '.
-			'in your other templates.</span></td></tr><tr><td colspan="2">'.
-			'<TEXTAREA NAME="newsidebartemplate" COLS=86 ROWS=30 class="inputfield">'.
-			$gmTemplates->{'gmsidebartemplate'}.'</TEXTAREA></td></tr>';
-	
-		$page .= '<tr><td colspan="2"> &#160; </td></tr>';
-	
-		$page .= '<tr><td valign=middle bgcolor="#c0c0c0" colspan=2><span class="info_title">Miscellaneous '.
-			'Custom Templates</span><br /><span class="info_text">Whatever you put in any of the templates '.
-			'below will appear wherever their respective variables are used.</span></td></tr>'.
-			'<tr><td bgcolor="#e0f0ff"><span class="info_title">{{customone}} Template</span></td><td bgcolor="#e0f0ff">'.
-			'<span class="info_title">{{customtwo}} Template</span></td></tr><tr><td width="50%">'.
-			'<TEXTAREA NAME="newcustomonetemplate" COLS=41 ROWS=20 class="inputfield">'.
-			$gmTemplates->{'gmcustomonetemplate'}.'</TEXTAREA></td><td>'.
-			'<TEXTAREA NAME="newcustomtwotemplate" COLS=41 ROWS=20 class="inputfield">'.
-			$gmTemplates->{'gmcustomtwotemplate'}.'</TEXTAREA></td></tr>';
-			
-		$page .= '<tr><td bgcolor="#e0f0ff"><span class="info_title">{{customthree}} Template</span></td>'.
-			'<td bgcolor="#e0f0ff"><span class="info_title">{{customfour}} Template</span></td></tr><tr><td>'.
-			'<TEXTAREA NAME="newcustomthreetemplate" COLS=41 ROWS=20 class="inputfield">'.
-			$gmTemplates->{'gmcustomthreetemplate'}.'</TEXTAREA></td><td>'.
-			'<TEXTAREA NAME="newcustomfourtemplate" COLS=41 ROWS=20 class="inputfield">'.
-			$gmTemplates->{'gmcustomfourtemplate'}.'</TEXTAREA></td></tr>';
-			
-		$page .= '<tr><td bgcolor="#e0f0ff"><span class="info_title">{{customfive}} Template</span></td>'.
-			'<td bgcolor="#e0f0ff"><span class="info_title">{{customsix}} Template</span></td></tr><tr><td>'.
-			'<TEXTAREA NAME="newcustomfivetemplate" COLS=41 ROWS=20 class="inputfield">'.
-			$gmTemplates->{'gmcustomfivetemplate'}.'</TEXTAREA></td><td>'.
-			'<TEXTAREA NAME="newcustomsixtemplate" COLS=41 ROWS=20 class="inputfield">'.
-			$gmTemplates->{'gmcustomsixtemplate'}.'</TEXTAREA></td></tr>';
-			
-		$page .= '<tr><td bgcolor="#e0f0ff"><span class="info_title">{{customseven}} Template</span></td>'.
-			'<td bgcolor="#e0f0ff"><span class="info_title">{{customeight}} Template</span></td></tr><tr><td>'.
-			'<TEXTAREA NAME="newcustomseventemplate" COLS=41 ROWS=20 class="inputfield">'.
-			$gmTemplates->{'gmcustomseventemplate'}.'</TEXTAREA></td><td>'.
-			'<TEXTAREA NAME="newcustomeighttemplate" COLS=41 ROWS=20 class="inputfield">'.
-			$gmTemplates->{'gmcustomeighttemplate'}.'</TEXTAREA></td></tr>';
-			
-		$page .= '<tr><td bgcolor="#e0f0ff"><span class="info_title">{{customnine}} Template</span></td>'.
-			'<td bgcolor="#e0f0ff"><span class="info_title">{{customten}} Template</span></td></tr><tr><td>'.
-			'<TEXTAREA NAME="newcustomninetemplate" COLS=41 ROWS=20 class="inputfield">'.
-			$gmTemplates->{'gmcustomninetemplate'}.'</TEXTAREA></td><td>'.
-			'<TEXTAREA NAME="newcustomtentemplate" COLS=41 ROWS=20 class="inputfield">'.
-			$gmTemplates->{'gmcustomtentemplate'}.'</TEXTAREA></td></tr>';
-	
-		$page .= '<tr><td colspan="2"> &#160; </td></tr>';
-		
-		$page .= '<tr><td valign=middle bgcolor="#c0c0c0" colspan=2><span class="info_title">User Error '.
-			'Header Template</span><br /><span class="info_text">Whatever you put here will appear whenever '.
-			'an error or alert is presented to the user (this will not change how the admin errors are displayed, '.
-			'just errors such as not entering a Name on the comment form). <b>Note</b> that no template tags '.
-			'will work withen this template (they will display as {{template}}).</span></td></tr><tr><td colspan="2">'.
-			'<TEXTAREA NAME="newgmusererrorheadertemplate" COLS=86 ROWS=30 class="inputfield">'.
-			$gmTemplates->{'gmusererrorheadertemplate'}.'</TEXTAREA></td></tr>';
-	
-		$page .= '<tr><td colspan="2"> &#160; </td></tr>';
-		
-		$page .= '<tr><td valign=middle bgcolor="#c0c0c0" colspan=2><span class="info_title">User Error '.
-			'Footer Template</span><br /><span class="info_text">Whatever you put here will appear whenever '.
-			'an error or alert is presented to the user (this will not change how the admin errors are displayed, '.
-			'just errors such as not entering a Name on the comment form).  Close any tags opened by the Error '.
-			'Header Template. <b>Note</b> that no template tags will work withen this template (they will display '.
-			'as {{template}}).</span></td></tr><tr><td colspan="2">'.
-			'<TEXTAREA NAME="newgmusererrorfootertemplate" COLS=86 ROWS=30 class="inputfield">'.
-			$gmTemplates->{'gmusererrorfootertemplate'}.'</TEXTAREA></td></tr>';
-	
-		$page .= '</table><br /></span></td></tr>';
-	}
+        $page .= '</table><br /></span></td></tr>';
+    }
 
 
-	if( $AUTHOR{'edittemplates'} eq Gm_Constants::Y ){
-		
-		## Misc Templates Related Templates
-		$page .= '<tr class="section_head"><th>Miscellaneous Templates</th><td>'.
-			_hiderCodeEntry('miscTempHidden', 'miscTempHider').
-			'</tr><tr><td colspan="2"><span id="miscTempHidden"><div class="info_text">All the templates '.
-			'affecting things that didn\'t fit into the other categories.</div><br /><table class="config_table">';
-			
-		$page .= '<tr><td valign=middle bgcolor="#c0c0c0" colspan=2><span class="info_title">{{previouslink}} '.
-			'And {{nextlink}} Templates</span><br /><span class="info_text">If there is a previous or next entry '.
-			'(ignoring closed entries, of course) preceding or following the given entry, these will appear; '.
-			'these variables are intended for use in the entry page templates, for including links to the previous '.
-			'or next entry (if applicable).  {{previousmorelink}} and {{nextmorelink}} work the same way, except '.
-			'that they link only to the previous or next extended entry (entries with "more" text).</span></td></tr>'.
-			'<tr><td bgcolor="#e0f0ff"><span class="info_title">{{previouslink}} Template</span></td><td bgcolor="#e0f0ff">'.
-			'<span class="info_title">{{nextlink}} Template</span></td></tr><tr><td width="50%">'.
-			'<TEXTAREA NAME="newpreviouslinktemplate" COLS=41 ROWS=10 class="inputfield">'.
-			$gmTemplates->{'gmpreviouslinktemplate'}.'</TEXTAREA></td><td>'.
-			'<TEXTAREA NAME="newnextlinktemplate" COLS=41 ROWS=10 class="inputfield">'.
-			$gmTemplates->{'gmnextlinktemplate'}.'</TEXTAREA></td></tr><tr><td bgcolor="#e0f0ff"><span class="info_title">'.
-			'{{previousmorelink}} Template</span></td><td bgcolor="#e0f0ff">'.
-			'<span class="info_title">{{nextmorelink}} Template</span></td></tr><tr><td>'.
-			'<TEXTAREA NAME="newpreviousmorelinktemplate" COLS=41 ROWS=10 class="inputfield">'.
-			$gmTemplates->{'gmpreviousmorelinktemplate'}.'</TEXTAREA></td><td>'.
-			'<TEXTAREA NAME="newnextmorelinktemplate" COLS=41 ROWS=10 class="inputfield">'.
-			$gmTemplates->{'gmnextmorelinktemplate'}.'</TEXTAREA></td></tr><tr><td><span class="info_text">'.
-			'<INPUT TYPE=CHECKBOX NAME="previousmorelinkcheck" VALUE="yes"> Make this the same as the '.
-			'{{previouslink}} template</span></td><td><span class="info_text">'.
-			'<INPUT TYPE=CHECKBOX NAME="nextmorelinkcheck" VALUE="yes"> Make this the same as the {{nextlink}} '.
-			'template</span></td></tr>';
+    if( $AUTHOR{'edittemplates'} eq Gm_Constants::Y ){
+        
+        ## Misc Templates Related Templates
+        $page .= '<tr class="section_head"><th>Miscellaneous Templates</th><td>'.
+            _hiderCodeEntry('miscTempHidden', 'miscTempHider').
+            '</tr><tr><td colspan="2"><span id="miscTempHidden"><div class="info_text">All the templates '.
+            'affecting things that didn\'t fit into the other categories.</div><br /><table class="config_table">';
+        
+        $page .= '<tr><td valign=middle bgcolor="#c0c0c0" colspan=2><span class="info_title">{{previouslink}} '.
+            'And {{nextlink}} Templates</span><br /><span class="info_text">If there is a previous or next entry '.
+            '(ignoring closed entries, of course) preceding or following the given entry, these will appear; '.
+                                                                                                                 'these variables are intended for use in the entry page templates, for including links to the previous '.
+                                                                                                                 'or next entry (if applicable).  {{previousmorelink}} and {{nextmorelink}} work the same way, except '.
+                                                                                                                 'that they link only to the previous or next extended entry (entries with "more" text).</span></td></tr>'.
+                                                                                                                 '<tr><td bgcolor="#e0f0ff"><span class="info_title">{{previouslink}} Template</span></td><td bgcolor="#e0f0ff">'.
+                                                                                                                 '<span class="info_title">{{nextlink}} Template</span></td></tr><tr><td width="50%">'.
+                                                                                                                 '<TEXTAREA NAME="newpreviouslinktemplate" COLS=41 ROWS=10 class="inputfield">'.
+                                                                                                                 $gmTemplates->{'gmpreviouslinktemplate'}.'</TEXTAREA></td><td>'.
+                                                                                                                 '<TEXTAREA NAME="newnextlinktemplate" COLS=41 ROWS=10 class="inputfield">'.
+                                                                                                                 $gmTemplates->{'gmnextlinktemplate'}.'</TEXTAREA></td></tr><tr><td bgcolor="#e0f0ff"><span class="info_title">'.
+                                                                                                                 '{{previousmorelink}} Template</span></td><td bgcolor="#e0f0ff">'.
+                                                                                                                 '<span class="info_title">{{nextmorelink}} Template</span></td></tr><tr><td>'.
+                                                                                                                 '<TEXTAREA NAME="newpreviousmorelinktemplate" COLS=41 ROWS=10 class="inputfield">'.
+                                                                                                                 $gmTemplates->{'gmpreviousmorelinktemplate'}.'</TEXTAREA></td><td>'.
+                                                                                                                 '<TEXTAREA NAME="newnextmorelinktemplate" COLS=41 ROWS=10 class="inputfield">'.
+                                                                                                                 $gmTemplates->{'gmnextmorelinktemplate'}.'</TEXTAREA></td></tr><tr><td><span class="info_text">'.
+                                                                                                                 '<INPUT TYPE=CHECKBOX NAME="previousmorelinkcheck" VALUE="yes"> Make this the same as the '.
+                                                                                                                 '{{previouslink}} template</span></td><td><span class="info_text">'.
+                                                                                                                 '<INPUT TYPE=CHECKBOX NAME="nextmorelinkcheck" VALUE="yes"> Make this the same as the {{nextlink}} '.
+                                                                                                                 'template</span></td></tr>';
 	
-		$page .= '<tr><td colspan="2"> &#160; </td></tr>';
-		
-		$page .= '<tr><td valign=middle bgcolor="#c0c0c0" colspan=2><span class="info_title">List Variable '.
-			'Templates</span><br /><span class="info_text">The variables {{logarchivelist}} and {{logentrylist}} '.
-			'(and the variants thereof; check the <a href="'.Gm_Constants::GM_FORUM.'" title="read the manual" '.
-			'target="_blank">manual</a> for more information) are used for automatically generating lists of '.
-			'links&#151;whether on your archive master index, or anywhere else&#151;to your log archives and your '.
-			'individual entry pages; these templates set the formatting of those links.  The first two templates '.
-			'apply to the {{logentrylist}} variable and its variants, formatting the links to standard and extended '.
-			'entries respectively; the Log Archive Links Templates apply to the {{logarchivelist}} variable, which '.
-			'generates links to the monthly/weekly log archive files (whichever of the two is used depends on whether '.
-			'you have weekly or monthly archiving enabled).</span></td></tr><tr><td bgcolor="#e0f0ff">'.
-			'<span class="info_title">Log Archives Link Template: Weekly</span></td><td bgcolor="#e0f0ff">'.
-			'<span class="info_title">Log Archives Link Template: Monthly</span></td></tr><tr><td width="50%">'.
-			'<TEXTAREA NAME="newlogarchiveslinkweeklytemplate" COLS=41 ROWS=10 class="inputfield">'.
-			$gmTemplates->{'gmlogarchiveslinkweeklytemplate'}.'</TEXTAREA></td><td>'.
-			'<TEXTAREA NAME="newlogarchiveslinktemplate" COLS=41 ROWS=10 class="inputfield">'.
-			$gmTemplates->{'gmlogarchiveslinktemplate'}.'</TEXTAREA></td></tr><tr><td bgcolor="#e0f0ff">'.
-			'<span class="info_title">Entry List Link Template: Standard</span></td><td bgcolor="#e0f0ff">'.
-			'<span class="info_title">Entry List Link Template: Extended</span></td></tr><tr><td>'.
-			'<TEXTAREA NAME="newentrypagelinktemplate" COLS=41 ROWS=10 class="inputfield">'.
-			$gmTemplates->{'gmentrypagelinktemplate'}.'</TEXTAREA></td><td>'.
-			'<TEXTAREA NAME="newmoreentrypagelinktemplate" COLS=41 ROWS=10 class="inputfield">'.
-			$gmTemplates->{'gmmoreentrypagelinktemplate'}.'</TEXTAREA></td></tr>'.
-			'<tr><td>&nbsp;</td><td><span class="info_text">'.
-			'<INPUT TYPE=CHECKBOX NAME="moreentrylistlinkcheck" VALUE="yes"> Make this the same as the template '.
-			'on the left</span></td></tr>';
+        $page .= '<tr><td colspan="2"> &#160; </td></tr>';
+        
+        $page .= '<tr><td valign=middle bgcolor="#c0c0c0" colspan=2><span class="info_title">List Variable '.
+            'Templates</span><br /><span class="info_text">The variables {{logarchivelist}} and {{logentrylist}} '.
+            '(and the variants thereof; check the <a href="'.Gm_Constants::GM_FORUM.'" title="read the manual" '.
+                                            'target="_blank">manual</a> for more information) are used for automatically generating lists of '.
+            'links&#151;whether on your archive master index, or anywhere else&#151;to your log archives and your '.
+                                                                                        'individual entry pages; these templates set the formatting of those links.  The first two templates '.
+                                                                                                                     'apply to the {{logentrylist}} variable and its variants, formatting the links to standard and extended '.
+                                                                                                                     'entries respectively; the Log Archive Links Templates apply to the {{logarchivelist}} variable, which '.
+                                                                                                                                                'generates links to the monthly/weekly log archive files (whichever of the two is used depends on whether '.
+                                                                                                                                                                                                          'you have weekly or monthly archiving enabled).</span></td></tr><tr><td bgcolor="#e0f0ff">'.
+                                                                                                                                                '<span class="info_title">Log Archives Link Template: Weekly</span></td><td bgcolor="#e0f0ff">'.
+                                                                                                                                                '<span class="info_title">Log Archives Link Template: Monthly</span></td></tr><tr><td width="50%">'.
+                                                                                                                                                '<TEXTAREA NAME="newlogarchiveslinkweeklytemplate" COLS=41 ROWS=10 class="inputfield">'.
+                                                                                                                                                $gmTemplates->{'gmlogarchiveslinkweeklytemplate'}.'</TEXTAREA></td><td>'.
+                                                                                                                                                '<TEXTAREA NAME="newlogarchiveslinktemplate" COLS=41 ROWS=10 class="inputfield">'.
+                                                                                                                                                $gmTemplates->{'gmlogarchiveslinktemplate'}.'</TEXTAREA></td></tr><tr><td bgcolor="#e0f0ff">'.
+                                                                                                                                                '<span class="info_title">Entry List Link Template: Standard</span></td><td bgcolor="#e0f0ff">'.
+                                                                                                                                                '<span class="info_title">Entry List Link Template: Extended</span></td></tr><tr><td>'.
+                                                                                                                                                '<TEXTAREA NAME="newentrypagelinktemplate" COLS=41 ROWS=10 class="inputfield">'.
+                                                                                                                                                $gmTemplates->{'gmentrypagelinktemplate'}.'</TEXTAREA></td><td>'.
+                                                                                                                                                '<TEXTAREA NAME="newmoreentrypagelinktemplate" COLS=41 ROWS=10 class="inputfield">'.
+                                                                                                                                                $gmTemplates->{'gmmoreentrypagelinktemplate'}.'</TEXTAREA></td></tr>'.
+                                                                                                                                                '<tr><td>&nbsp;</td><td><span class="info_text">'.
+                                                                                                                                                                   '<INPUT TYPE=CHECKBOX NAME="moreentrylistlinkcheck" VALUE="yes"> Make this the same as the template '.
+                                                                                                                                                                   'on the left</span></td></tr>';
 	
-		$page .= '<tr><td colspan="2"> &#160; </td></tr>';
-		
-		$page .= '<tr><td valign=middle bgcolor="#c0c0c0" colspan=2><span class="info_title">List Variable '.
-			'Templates: Link Separators</span><br /><span class="info_text">Going along with the list variable '.
-			'templates above, these specify how the links are to be separated when the lists are built for their '.
-			'respective variables.  Use the day, month, and year separators for entry lists if you wish to separate '.
-			'the listings for each individual day, month, or year; leave them blank to keep the entry lists continuous.'.
-			'</span></td></tr><tr><td bgcolor="#e0f0ff"><span class="info_title">Entry List Link Separator</span></td>'.
-			'<td bgcolor="#e0f0ff"><span class="info_title">Log Archives Link Separator</span></td></tr><tr><td>'.
-			'<TEXTAREA NAME="newentrypagelinkseparatortemplate" COLS=41 ROWS=5 class="inputfield">'.
-			$gmTemplates->{'gmentrypagelinkseparatortemplate'}.'</TEXTAREA></td><td>'.
-			'<TEXTAREA NAME="newlogarchiveslinkseparatortemplate" COLS=41 ROWS=5 class="inputfield">'.
-			$gmTemplates->{'gmlogarchiveslinkseparatortemplate'}.'</TEXTAREA></td></tr><tr><td bgcolor="#e0f0ff"><span class="info_title">'.
-			'Entry List: Day Separator</span></td><td bgcolor="#e0f0ff"><span class="info_title">Entry List: Month '.
-			'Separator</span></td></tr><tr><td>'.
-			'<TEXTAREA NAME="newentrypagelinkdayseparatortemplate" COLS=26 ROWS=5 class="inputfield">'.
-			$gmTemplates->{'gmentrypagelinkdayseparatortemplate'}.'</TEXTAREA></td><td>'.
-			'<TEXTAREA NAME="newentrypagelinkmonthseparatortemplate" COLS=26 ROWS=5 class="inputfield">'.
-			$gmTemplates->{'gmentrypagelinkmonthseparatortemplate'}.'</TEXTAREA></td></tr><tr><td bgcolor="#e0f0ff">'.
-			'<span class="info_title">Entry List: Year Separator</span></td><td> &#160; </td></tr><tr><td>'.
-			'<TEXTAREA NAME="newentrypagelinkyearseparatortemplate" COLS=26 ROWS=5 class="inputfield">'.
-			$gmTemplates->{'gmentrypagelinkyearseparatortemplate'}.'</TEXTAREA></td><td> &#160; </td></tr>';
+        $page .= '<tr><td colspan="2"> &#160; </td></tr>';
+        
+        $page .= '<tr><td valign=middle bgcolor="#c0c0c0" colspan=2><span class="info_title">List Variable '.
+            'Templates: Link Separators</span><br /><span class="info_text">Going along with the list variable '.
+            'templates above, these specify how the links are to be separated when the lists are built for their '.
+            'respective variables.  Use the day, month, and year separators for entry lists if you wish to separate '.
+            'the listings for each individual day, month, or year; leave them blank to keep the entry lists continuous.'.
+                                                                       '</span></td></tr><tr><td bgcolor="#e0f0ff"><span class="info_title">Entry List Link Separator</span></td>'.
+                                                                       '<td bgcolor="#e0f0ff"><span class="info_title">Log Archives Link Separator</span></td></tr><tr><td>'.
+                                                                       '<TEXTAREA NAME="newentrypagelinkseparatortemplate" COLS=41 ROWS=5 class="inputfield">'.
+                                                                       $gmTemplates->{'gmentrypagelinkseparatortemplate'}.'</TEXTAREA></td><td>'.
+                                                                       '<TEXTAREA NAME="newlogarchiveslinkseparatortemplate" COLS=41 ROWS=5 class="inputfield">'.
+                                                                       $gmTemplates->{'gmlogarchiveslinkseparatortemplate'}.'</TEXTAREA></td></tr><tr><td bgcolor="#e0f0ff"><span class="info_title">'.
+                                                                       'Entry List: Day Separator</span></td><td bgcolor="#e0f0ff"><span class="info_title">Entry List: Month '.
+                                                                       'Separator</span></td></tr><tr><td>'.
+                                                                       '<TEXTAREA NAME="newentrypagelinkdayseparatortemplate" COLS=26 ROWS=5 class="inputfield">'.
+                                                                       $gmTemplates->{'gmentrypagelinkdayseparatortemplate'}.'</TEXTAREA></td><td>'.
+                                                                       '<TEXTAREA NAME="newentrypagelinkmonthseparatortemplate" COLS=26 ROWS=5 class="inputfield">'.
+                                                                       $gmTemplates->{'gmentrypagelinkmonthseparatortemplate'}.'</TEXTAREA></td></tr><tr><td bgcolor="#e0f0ff">'.
+                                                                       '<span class="info_title">Entry List: Year Separator</span></td><td> &#160; </td></tr><tr><td>'.
+                                                                                                                                                       '<TEXTAREA NAME="newentrypagelinkyearseparatortemplate" COLS=26 ROWS=5 class="inputfield">'.
+                                                                                                                                                       $gmTemplates->{'gmentrypagelinkyearseparatortemplate'}.'</TEXTAREA></td><td> &#160; </td></tr>';
 	
-		$page .= '<tr><td colspan="2"> &#160; </td></tr>';
-		
-		$page .= '<tr><td valign=middle bgcolor="#c0c0c0" colspan=2><span class="info_title">Search Templates'.
-			'</span><br /><span class="info_text">These templates control the built-in ability for visitors to '.
-			'search through your site entries (just add {{searchform}} to a template to insert the search form '.
-			'there).  The Search Form template is the form by which visitors can perform the search; the Search '.
-			'Item Results template formats the appearance of each item returned by the search result; and finally, '.
-			'the Search Results Page template is for the full page that your visitors will see displaying all the '.
-			'search results.</span></td></tr><tr><td bgcolor="#e0f0ff"><span class="info_title">Search Form '.
-			'Template</span></td><td bgcolor="#e0f0ff"><span class="info_title">Search Item Results Template'.
-			'</span></td></tr><tr><td>'.
-			'<TEXTAREA NAME="newsearchformtemplate" COLS=41 ROWS=10 class="inputfield">'.
-			$gmTemplates->{'gmsearchformtemplate'}.'</TEXTAREA></td><td>'.
-			'<TEXTAREA NAME="newsearchresultsentrytemplate" COLS=41 ROWS=10 class="inputfield">'.
-			$gmTemplates->{'gmsearchresultsentrytemplate'}.'</TEXTAREA><tr><td bgcolor="#e0f0ff" colspan=2><span class="info_title">'.
-			'Search Results Page Template</span></td></tr><tr><td colspan=2>'.
-			'<TEXTAREA NAME="newsearchresultspagetemplate" COLS=86 ROWS=15 class="inputfield">'.
-			$gmTemplates->{'gmsearchresultspagetemplate'}.'</TEXTAREA></td></tr>';
+        $page .= '<tr><td colspan="2"> &#160; </td></tr>';
+        
+        $page .= '<tr><td valign=middle bgcolor="#c0c0c0" colspan=2><span class="info_title">Search Templates'.
+            '</span><br /><span class="info_text">These templates control the built-in ability for visitors to '.
+            'search through your site entries (just add {{searchform}} to a template to insert the search form '.
+                                               'there).  The Search Form template is the form by which visitors can perform the search; the Search '.
+                                                                                                                                            'Item Results template formats the appearance of each item returned by the search result; and finally, '.
+                                                                                                                                                                                                                                          'the Search Results Page template is for the full page that your visitors will see displaying all the '.
+                                                                                                                                                                                                                                          'search results.</span></td></tr><tr><td bgcolor="#e0f0ff"><span class="info_title">Search Form '.
+                                                                                                                                                                                                                                          'Template</span></td><td bgcolor="#e0f0ff"><span class="info_title">Search Item Results Template'.
+                                                                                                                                                                                                                                          '</span></td></tr><tr><td>'.
+                                                                                                                                                                                                                                          '<TEXTAREA NAME="newsearchformtemplate" COLS=41 ROWS=10 class="inputfield">'.
+                                                                                                                                                                                                                                          $gmTemplates->{'gmsearchformtemplate'}.'</TEXTAREA></td><td>'.
+                                                                                                                                                                                                                                          '<TEXTAREA NAME="newsearchresultsentrytemplate" COLS=41 ROWS=10 class="inputfield">'.
+                                                                                                                                                                                                                                          $gmTemplates->{'gmsearchresultsentrytemplate'}.'</TEXTAREA><tr><td bgcolor="#e0f0ff" colspan=2><span class="info_title">'.
+                                                                                                                                                                                                                                          'Search Results Page Template</span></td></tr><tr><td colspan=2>'.
+                                                                                                                                                                                                                                          '<TEXTAREA NAME="newsearchresultspagetemplate" COLS=86 ROWS=15 class="inputfield">'.
+                                                                                                                                                                                                                                          $gmTemplates->{'gmsearchresultspagetemplate'}.'</TEXTAREA></td></tr>';
 	
-		$page .= '<tr><td colspan="2"> &#160; </td></tr>';
-		
-		$page .= '<tr><td valign=middle bgcolor="#c0c0c0" colspan=2><span class="info_title">Calendar Templates'.
-			'</span><br /><span class="info_text">These control the layout and appearance of monthly or weekly '.
-			'calendars made with the {{calendar}} or {{calendarweek}} variables respectively.  The first five '.
-			'are for monthly calendars (with {{calendar}}); you can specify the formatting of the beginning and '.
-			'end of the table, and how each kind of cell (cells without a day, cells with an unlinked day, and '.
-			'cells with a linked day) will appear.  The last two are for weekly calendars ({{calendarweek}}) '.
-			'and their linked or unlinked days.</span></td></tr><tr><td bgcolor="#e0f0ff"><span class="info_title">'.
-			'{{calendar}}: Beginning of table</span></td><td bgcolor="#e0f0ff"><span class="info_title">{{calendar}}: '.
-			'Ending of table</span></td></tr><tr><td>'.
-			'<TEXTAREA NAME="newcalendartablebeginningtemplate" COLS=41 ROWS=5 class="inputfield">'.
-			$gmTemplates->{'gmcalendartablebeginningtemplate'}.'</TEXTAREA></td><td>'.
-			'<TEXTAREA NAME="newcalendartableendingtemplate" COLS=41 ROWS=5 class="inputfield">'.
-			$gmTemplates->{'gmcalendartableendingtemplate'}.'</TEXTAREA></td></tr>';
+        $page .= '<tr><td colspan="2"> &#160; </td></tr>';
+        
+        $page .= '<tr><td valign=middle bgcolor="#c0c0c0" colspan=2><span class="info_title">Calendar Templates'.
+            '</span><br /><span class="info_text">These control the layout and appearance of monthly or weekly '.
+            'calendars made with the {{calendar}} or {{calendarweek}} variables respectively.  The first five '.
+            'are for monthly calendars (with {{calendar}}); you can specify the formatting of the beginning and '.
+                                                                'end of the table, and how each kind of cell (cells without a day, cells with an unlinked day, and '.
+                                                                                                              'cells with a linked day) will appear.  The last two are for weekly calendars ({{calendarweek}}) '.
+                                                                'and their linked or unlinked days.</span></td></tr><tr><td bgcolor="#e0f0ff"><span class="info_title">'.
+                                                                '{{calendar}}: Beginning of table</span></td><td bgcolor="#e0f0ff"><span class="info_title">{{calendar}}: '.
+                                                                'Ending of table</span></td></tr><tr><td>'.
+                                                                '<TEXTAREA NAME="newcalendartablebeginningtemplate" COLS=41 ROWS=5 class="inputfield">'.
+                                                                $gmTemplates->{'gmcalendartablebeginningtemplate'}.'</TEXTAREA></td><td>'.
+                                                                '<TEXTAREA NAME="newcalendartableendingtemplate" COLS=41 ROWS=5 class="inputfield">'.
+                                                                $gmTemplates->{'gmcalendartableendingtemplate'}.'</TEXTAREA></td></tr>';
 	
-		$page .= '<tr><td bgcolor="#e0f0ff"><span class="info_title">{{calendar}}:<BR>Blank cell</span></td>'.
-			'<td bgcolor="#e0f0ff"><span class="info_title">{{calendar}}: Day cell without link</span></td></tr><tr><td>'.
-			'<TEXTAREA NAME="newcalendarblankcelltemplate" COLS=26 ROWS=5 class="inputfield">'.
-			$gmTemplates->{'gmcalendarblankcelltemplate'}.'</TEXTAREA></td><td>'.
-			'<TEXTAREA NAME="newcalendarfullcelltemplate" COLS=26 ROWS=5 class="inputfield">'.
-			$gmTemplates->{'gmcalendarfullcelltemplate'}.'</TEXTAREA></td></tr><tr><td bgcolor="#e0f0ff"><span class="info_title">'.
-			'{{calendar}}:<BR>Day cell with link</span></td><td>  &#160; </td></tr><tr><td>'.
-			'<TEXTAREA NAME="newcalendarfullcelllinktemplate" COLS=26 ROWS=5 class="inputfield">'.
-			$gmTemplates->{'gmcalendarfullcelllinktemplate'}.'</TEXTAREA><td>  &#160; </td></tr><tr><td bgcolor="#e0f0ff">'.
-			'<span class="info_title">{{calendarweek}}: Day without link</span></td><td bgcolor="#e0f0ff">'.
-			'<span class="info_title">{{calendarweek}}: Day with link</span></td></tr><tr><td>'.
-			'<TEXTAREA NAME="newcalendarweekfulldaytemplate" COLS=41 ROWS=5 class="inputfield">'.
-			$gmTemplates->{'gmcalendarweekfulldaytemplate'}.'</TEXTAREA></TEXTAREA></td><td>'.
-			'<TEXTAREA NAME="newcalendarweekfulldaylinktemplate" COLS=41 ROWS=5 class="inputfield">'.
-			$gmTemplates->{'gmcalendarweekfulldaylinktemplate'}.'</TEXTAREA></td></tr>';
+        $page .= '<tr><td bgcolor="#e0f0ff"><span class="info_title">{{calendar}}:<BR>Blank cell</span></td>'.
+            '<td bgcolor="#e0f0ff"><span class="info_title">{{calendar}}: Day cell without link</span></td></tr><tr><td>'.
+            '<TEXTAREA NAME="newcalendarblankcelltemplate" COLS=26 ROWS=5 class="inputfield">'.
+            $gmTemplates->{'gmcalendarblankcelltemplate'}.'</TEXTAREA></td><td>'.
+            '<TEXTAREA NAME="newcalendarfullcelltemplate" COLS=26 ROWS=5 class="inputfield">'.
+            $gmTemplates->{'gmcalendarfullcelltemplate'}.'</TEXTAREA></td></tr><tr><td bgcolor="#e0f0ff"><span class="info_title">'.
+            '{{calendar}}:<BR>Day cell with link</span></td><td>  &#160; </td></tr><tr><td>'.
+                                                                             '<TEXTAREA NAME="newcalendarfullcelllinktemplate" COLS=26 ROWS=5 class="inputfield">'.
+                                                                             $gmTemplates->{'gmcalendarfullcelllinktemplate'}.'</TEXTAREA><td>  &#160; </td></tr><tr><td bgcolor="#e0f0ff">'.
+                                                                                                                                                           '<span class="info_title">{{calendarweek}}: Day without link</span></td><td bgcolor="#e0f0ff">'.
+                                                                                                                                                           '<span class="info_title">{{calendarweek}}: Day with link</span></td></tr><tr><td>'.
+                                                                                                                                                           '<TEXTAREA NAME="newcalendarweekfulldaytemplate" COLS=41 ROWS=5 class="inputfield">'.
+                                                                                                                                                           $gmTemplates->{'gmcalendarweekfulldaytemplate'}.'</TEXTAREA></TEXTAREA></td><td>'.
+                                                                                                                                                           '<TEXTAREA NAME="newcalendarweekfulldaylinktemplate" COLS=41 ROWS=5 class="inputfield">'.
+                                                                                                                                                           $gmTemplates->{'gmcalendarweekfulldaylinktemplate'}.'</TEXTAREA></td></tr>';
 	
-		$page .= '<tr><td colspan="2"> &#160; </td></tr>';
-		
-		$page .= '<tr><td valign=middle bgcolor="#c0c0c0" colspan=2><span class="info_title">{{popup}} Templates'.
-			'</span><br /><span class="info_text">These templates control the code associated with the {{popup}} '.
-			'variable for making popup windows; the Popup Code template is for the code that calls the window, '.
-			'and the Popup Window template is for the HTML file to be generated for the window.  (The popup-related '.
-			'variables&#151;{{popuptitle}} etc.&#151;will only work in these two templates.)</span></td></tr><tr>'.
-			'<td bgcolor="#e0f0ff"><span class="info_title">Popup Code Template</span></td><td bgcolor="#e0f0ff">'.
-			'<span class="info_title">Popup Window Template</span></td></tr><tr><td>'.
-			'<TEXTAREA NAME="newpopupcodetemplate" COLS=41 ROWS=10 class="inputfield">'.
-			$gmTemplates->{'gmpopupcodetemplate'}.'</TEXTAREA></td><td>'.
-			'<TEXTAREA NAME="newpopuppagetemplate" COLS=41 ROWS=10 class="inputfield">'.
-			$gmTemplates->{'gmpopuppagetemplate'}.'</TEXTAREA></td></tr>';
+        $page .= '<tr><td colspan="2"> &#160; </td></tr>';
+        
+        $page .= '<tr><td valign=middle bgcolor="#c0c0c0" colspan=2><span class="info_title">{{popup}} Templates'.
+            '</span><br /><span class="info_text">These templates control the code associated with the {{popup}} '.
+            'variable for making popup windows; the Popup Code template is for the code that calls the window, '.
+                                                    'and the Popup Window template is for the HTML file to be generated for the window.  (The popup-related '.
+                                                                                                                                          'variables&#151;{{popuptitle}} etc.&#151;will only work in these two templates.)</span></td></tr><tr>'.
+                                                    '<td bgcolor="#e0f0ff"><span class="info_title">Popup Code Template</span></td><td bgcolor="#e0f0ff">'.
+                                                    '<span class="info_title">Popup Window Template</span></td></tr><tr><td>'.
+                                                    '<TEXTAREA NAME="newpopupcodetemplate" COLS=41 ROWS=10 class="inputfield">'.
+                                                    $gmTemplates->{'gmpopupcodetemplate'}.'</TEXTAREA></td><td>'.
+                                                    '<TEXTAREA NAME="newpopuppagetemplate" COLS=41 ROWS=10 class="inputfield">'.
+                                                    $gmTemplates->{'gmpopuppagetemplate'}.'</TEXTAREA></td></tr>';
 	
-		$page .= '<tr><td colspan="2"> &#160; </td></tr>';
-		
-		$page .= '<tr><td valign=middle bgcolor="#c0c0c0" colspan=2><span class="info_title">Line & Paragraph '.
-			'Separators</span><br /><span class="info_text">The line separator is whatever will be inserted whenever '.
-			'there\'s a line break in the body of an entry\'s text; the paragraph separator is used for a double-line '.
-			'break (a paragraph break).  These apply both to entries and to comments.</span></td></tr><tr><td bgcolor="#e0f0ff">'.
-			'<span class="info_title">Line Separator</span></td><td bgcolor="#e0f0ff"><span class="info_title">'.
-			'Paragraph Separator</span></td></tr><tr><td>'.
-			'<TEXTAREA NAME="newlinebreaktemplate" COLS=41 ROWS=3 class="inputfield">'.
-			$gmTemplates->{'gmlinebreaktemplate'}.'</TEXTAREA></td><td>'.
-			'<TEXTAREA NAME="newparaseparationtemplate" COLS=41 ROWS=3 class="inputfield">'.
-			$gmTemplates->{'gmparaseparationtemplate'}.'</TEXTAREA></td></tr>';
+        $page .= '<tr><td colspan="2"> &#160; </td></tr>';
+        
+        $page .= '<tr><td valign=middle bgcolor="#c0c0c0" colspan=2><span class="info_title">Line & Paragraph '.
+            'Separators</span><br /><span class="info_text">The line separator is whatever will be inserted whenever '.
+            'there\'s a line break in the body of an entry\'s text; the paragraph separator is used for a double-line '.
+                                                                        'break (a paragraph break).  These apply both to entries and to comments.</span></td></tr><tr><td bgcolor="#e0f0ff">'.
+                                                                        '<span class="info_title">Line Separator</span></td><td bgcolor="#e0f0ff"><span class="info_title">'.
+                                                                        'Paragraph Separator</span></td></tr><tr><td>'.
+                                                                        '<TEXTAREA NAME="newlinebreaktemplate" COLS=41 ROWS=3 class="inputfield">'.
+                                                                        $gmTemplates->{'gmlinebreaktemplate'}.'</TEXTAREA></td><td>'.
+                                                                        '<TEXTAREA NAME="newparaseparationtemplate" COLS=41 ROWS=3 class="inputfield">'.
+                                                                        $gmTemplates->{'gmparaseparationtemplate'}.'</TEXTAREA></td></tr>';
 	
-		$page .= '<tr><td colspan="2"> &#160; </td></tr>';
-		
-		$page .= '<tr><td valign=middle bgcolor="#c0c0c0" colspan=2><span class="info_title">{{smartentrymood}} '.
-			'and {{smartentrymusic}} templates</span><br /><span class="info_text">These templates allow you to '.
-			'define your own labels for the entry mood and entry music fields. If you leave music or mood field '.
-			'blank for an entry, this label will not be displayed.</span></td></tr><tr><td bgcolor="#e0f0ff">'.
-			'<span class="info_title">{{smartentrymood}} Template</span></td><td bgcolor="#e0f0ff">'.
-			'<span class="info_title">{{smartentrymusic}} Template</span></td></tr><tr><td>'.
-			'<TEXTAREA NAME="newsmartentrymoodtemplate" COLS=41 ROWS=3 class="inputfield">'.
-			$gmTemplates->{'gmsmartentrymoodtemplate'}.'</TEXTAREA></td><td>'.
-			'<TEXTAREA NAME="newsmartentrymusictemplate" COLS=41 ROWS=3 class="inputfield">'.
-			$gmTemplates->{'gmsmartentrymusictemplate'}.'</TEXTAREA></td></tr>';
+        $page .= '<tr><td colspan="2"> &#160; </td></tr>';
+        
+        $page .= '<tr><td valign=middle bgcolor="#c0c0c0" colspan=2><span class="info_title">{{smartentrymood}} '.
+            'and {{smartentrymusic}} templates</span><br /><span class="info_text">These templates allow you to '.
+            'define your own labels for the entry mood and entry music fields. If you leave music or mood field '.
+            'blank for an entry, this label will not be displayed.</span></td></tr><tr><td bgcolor="#e0f0ff">'.
+            '<span class="info_title">{{smartentrymood}} Template</span></td><td bgcolor="#e0f0ff">'.
+            '<span class="info_title">{{smartentrymusic}} Template</span></td></tr><tr><td>'.
+            '<TEXTAREA NAME="newsmartentrymoodtemplate" COLS=41 ROWS=3 class="inputfield">'.
+            $gmTemplates->{'gmsmartentrymoodtemplate'}.'</TEXTAREA></td><td>'.
+            '<TEXTAREA NAME="newsmartentrymusictemplate" COLS=41 ROWS=3 class="inputfield">'.
+            $gmTemplates->{'gmsmartentrymusictemplate'}.'</TEXTAREA></td></tr>';
 	
-		$page .= '<tr><td colspan="2"> &#160; </td></tr>';
-		
-		$page .= '<tr><td valign=middle bgcolor="#c0c0c0" colspan=2><span class="info_title">{{authorsmartlink}} '.
-			'target and {{commentauthorsmartlink}} target</span><br /><span class="info_text">if you\'d like commenter\'s '.
-			'homepages to open in a new window, you can set a target="_blank" in these templates, or you can use '.
-			'these to target those links into one of your other named frames.</span></td></tr><tr><td bgcolor="#e0f0ff">'.
-			'<span class="info_title">Author Smartlink Target Template</span></td><td bgcolor="#e0f0ff">'.
-			'<span class="info_title">Comment Smartlink Target Template</span></td></tr><tr><td>'.
-			'<TEXTAREA NAME="newlinktargettemplate" COLS=41 ROWS=3 class="inputfield">'.
-			$gmTemplates->{'gmlinktargettemplate'}.'</TEXTAREA></td><td>'.
-			'<TEXTAREA NAME="newcommentlinktargettemplate" COLS=41 ROWS=3 class="inputfield">'.
-			$gmTemplates->{'gmcommentlinktargettemplate'}.'</TEXTAREA></td></tr>';
+        $page .= '<tr><td colspan="2"> &#160; </td></tr>';
+        
+        $page .= '<tr><td valign=middle bgcolor="#c0c0c0" colspan=2><span class="info_title">{{authorsmartlink}} '.
+            'target and {{commentauthorsmartlink}} target</span><br /><span class="info_text">if you\'d like commenter\'s '.
+            'homepages to open in a new window, you can set a target="_blank" in these templates, or you can use '.
+            'these to target those links into one of your other named frames.</span></td></tr><tr><td bgcolor="#e0f0ff">'.
+            '<span class="info_title">Author Smartlink Target Template</span></td><td bgcolor="#e0f0ff">'.
+            '<span class="info_title">Comment Smartlink Target Template</span></td></tr><tr><td>'.
+            '<TEXTAREA NAME="newlinktargettemplate" COLS=41 ROWS=3 class="inputfield">'.
+            $gmTemplates->{'gmlinktargettemplate'}.'</TEXTAREA></td><td>'.
+            '<TEXTAREA NAME="newcommentlinktargettemplate" COLS=41 ROWS=3 class="inputfield">'.
+            $gmTemplates->{'gmcommentlinktargettemplate'}.'</TEXTAREA></td></tr>';
 	
-		$page .= '</table><br /></span>';
+        $page .= '</table><br /></span>';
 	
-	}	
-	
-	my $autorebuildcheckbox = Gm_Constants::EMPTY;
-	## TODO: Should this be an undecorated list?
-	if( $AUTHOR{'rebuild'} eq Gm_Constants::Y && Gm_Core::hasPosted() ){
+    }	
+    
+    my $autorebuildcheckbox = Gm_Constants::EMPTY;
+    ## TODO: Should this be an undecorated list?
+    if( $AUTHOR{'rebuild'} eq Gm_Constants::Y && Gm_Core::hasPosted() ){
 
-		$autorebuildcheckbox = '<input type=radio name="autorebuild" value="index" id="autorebuildindex"> '.
-			'<label for="autorebuildindex">Automatically rebuild main index after saving</label> <br /> '.
-			'<input type=radio name="autorebuild" value="archiveindexes" id="autorebuildarchiveindexes"> '.
-			'<label for="autorebuildarchiveindexes">Automatically rebuild archive master index and log indexes after saving</label> <br /> '.
-			'<input type=radio name="autorebuild" value="entrypages" id="autorebuildentrypages"> '.
-			'<label for="autorebuildentrypages">Automatically rebuild all entry pages after saving</label> <br /> '.
-			'<input type=radio name="autorebuild" value="everything" id="autorebuildeverything"';
-			
-		if( $gmConfigs->{'gmautomaticrebuilddefault'} eq Gm_Constants::YES ){
-			$autorebuildcheckbox .= ' CHECKED';
-		}
-		
-		$autorebuildcheckbox .= '><label for="autorebuildeverything">Automatically rebuild all files after saving</label> '.
-			'<br /><input type=radio name="autorebuild" value="none" id="autorebuildnone"';
-			
-		if( $gmConfigs->{'gmautomaticrebuilddefault'} ne Gm_Constants::YES ){
-			$autorebuildcheckbox .= ' CHECKED';
-		}
-		
-		$autorebuildcheckbox .= '> <label for="autorebuildnone">DO NOT rebuild after saving</label>'.
-			'<div class="info_text">After clicking Save, expect a wait of up to several minutes if '.
-			'leaving this box checked. DO NOT interrupt Greymatter while it\'s rebuilding!</div>';
-	}
-	
-	$page .= '</td></tr></table>'.$autorebuildcheckbox.'<p>'.
-		'<INPUT TYPE=RESET class="cancel_button button_hov" VALUE="Undo Changes Since Last Save"> '.
-		'<INPUT TYPE=SUBMIT class="accept_button button_hov" NAME="update" VALUE="Save Template Changes">'.
-		'</p></form>';
-	$page .= '<form action="gm.cgi" method="post">'.Gm_Security::getFormAuth( author=>\%AUTHOR ).
-		'<input type=SUBMIT class="button" name="menu" value="'.Gm_Core::text( Gm_Constants::RETURN_MAIN_MENU ).
-		'" style="background: #C0C0C0"></form>';
+        $autorebuildcheckbox = '<input type=radio name="autorebuild" value="index" id="autorebuildindex"> '.
+            '<label for="autorebuildindex">Automatically rebuild main index after saving</label> <br /> '.
+            '<input type=radio name="autorebuild" value="archiveindexes" id="autorebuildarchiveindexes"> '.
+            '<label for="autorebuildarchiveindexes">Automatically rebuild archive master index and log indexes after saving</label> <br /> '.
+            '<input type=radio name="autorebuild" value="entrypages" id="autorebuildentrypages"> '.
+            '<label for="autorebuildentrypages">Automatically rebuild all entry pages after saving</label> <br /> '.
+            '<input type=radio name="autorebuild" value="everything" id="autorebuildeverything"';
+        
+        if( $gmConfigs->{'gmautomaticrebuilddefault'} eq Gm_Constants::YES ){
+            $autorebuildcheckbox .= ' CHECKED';
+        }
+        
+        $autorebuildcheckbox .= '><label for="autorebuildeverything">Automatically rebuild all files after saving</label> '.
+            '<br /><input type=radio name="autorebuild" value="none" id="autorebuildnone"';
+        
+        if( $gmConfigs->{'gmautomaticrebuilddefault'} ne Gm_Constants::YES ){
+            $autorebuildcheckbox .= ' CHECKED';
+        }
+        
+        $autorebuildcheckbox .= '> <label for="autorebuildnone">DO NOT rebuild after saving</label>'.
+            '<div class="info_text">After clicking Save, expect a wait of up to several minutes if '.
+            'leaving this box checked. DO NOT interrupt Greymatter while it\'s rebuilding!</div>';
+    }
+    
+    $page .= '</td></tr></table>'.$autorebuildcheckbox.'<p>'.
+        '<INPUT TYPE=RESET class="cancel_button button_hov" VALUE="Undo Changes Since Last Save"> '.
+        '<INPUT TYPE=SUBMIT class="accept_button button_hov" NAME="update" VALUE="Save Template Changes">'.
+        '</p></form>';
+    $page .= '<form action="gm.cgi" method="post">'.Gm_Security::getFormAuth( author=>\%AUTHOR ).
+        '<input type=SUBMIT class="button" name="menu" value="'.Gm_Core::text( Gm_Constants::RETURN_MAIN_MENU ).
+                                             '" style="background: #C0C0C0"></form>';
 
 
-	Gm_Web::displayAdminPageExit( $page );
-	exit(0);
+    Gm_Web::displayAdminPageExit( $page );
+    exit(0);
 }
 
 
@@ -6146,266 +6146,266 @@ window.onload = init;
 ## NOTE: should part of this be generized and put in Core?  Something that doesn't presume where its being
 # called from so it can be reused with normal user self-registration?
 sub updateTemplates {
-	my $message = Gm_Constants::EMPTY;
-#&gm_validate;
+    my $message = Gm_Constants::EMPTY;
+    #&gm_validate;
 
-# if ($gmtemplateaccess eq Gm_Constants::NO) {
-# 	gm_writetocplog("$IN{'authorname'} attempted to edit the templates without authorization");
-# 	$statusnote = qq(<B><FONT COLOR="#FF0000">You don't have access to edit the templates.</FONT></B><P>);
-# 	&gm_frontpage;
-# }
+    # if ($gmtemplateaccess eq Gm_Constants::NO) {
+    # 	gm_writetocplog("$IN{'authorname'} attempted to edit the templates without authorization");
+    # 	$statusnote = qq(<B><FONT COLOR="#FF0000">You don't have access to edit the templates.</FONT></B><P>);
+    # 	&gm_frontpage;
+    # }
 
-	### TODO MAKE THE PARAM NAME SAME AS REAL TEMPLATE NAME, SO WE CAN LOOP THROUGH 
-	## HASH AND RELOUSE AND SET TEMPLATES
-	$IN{'newindextemplate'} = Gm_Utils::toStoreSafe($IN{'newindextemplate'});
-	$IN{'newentrypagetemplate'} = Gm_Utils::toStoreSafe($IN{'newentrypagetemplate'});
-	$IN{'newarchiveindextemplate'} = Gm_Utils::toStoreSafe($IN{'newarchiveindextemplate'});
-	$IN{'newarchiveentrypagetemplate'} = Gm_Utils::toStoreSafe($IN{'newarchiveentrypagetemplate'});
-	$IN{'newentrytemplate'} = Gm_Utils::toStoreSafe($IN{'newentrytemplate'});
-	$IN{'newarchiveentrytemplate'} = Gm_Utils::toStoreSafe($IN{'newarchiveentrytemplate'});
-	$IN{'newstayattoptemplate'} = Gm_Utils::toStoreSafe($IN{'newstayattoptemplate'});
-	$IN{'newdatetemplate'} = Gm_Utils::toStoreSafe($IN{'newdatetemplate'});
-	$IN{'newcommentstemplate'} = Gm_Utils::toStoreSafe($IN{'newcommentstemplate'});
-	$IN{'newcommentsformtemplate'} = Gm_Utils::toStoreSafe($IN{'newcommentsformtemplate'});
-	$IN{'newparaseparationtemplate'} = Gm_Utils::toStoreSafe($IN{'newparaseparationtemplate'});
-	$IN{'newkarmaformtemplate'} = Gm_Utils::toStoreSafe($IN{'newkarmaformtemplate'});
-	$IN{'newlinktargettemplate'} = Gm_Utils::toStoreSafe($IN{'newlinktargettemplate'});
-	$IN{'newdategroupingfootertemplate'} = Gm_Utils::toStoreSafe($IN{'newdategroupingfootertemplate'});
-	$IN{'newkarmalinktemplate'} = Gm_Utils::toStoreSafe($IN{'newkarmalinktemplate'});
-	$IN{'newcommentslinktemplate'} = Gm_Utils::toStoreSafe($IN{'newcommentslinktemplate'});
-	$IN{'newcommentauthoremailtemplate'} = Gm_Utils::toStoreSafe($IN{'newcommentauthoremailtemplate'});
-	$IN{'newcommentauthorhomepagetemplate'} = Gm_Utils::toStoreSafe($IN{'newcommentauthorhomepagetemplate'});
-	$IN{'newcommentdividertemplate'} = Gm_Utils::toStoreSafe($IN{'newcommentdividertemplate'});
-	$IN{'newmoreentrytemplate'} = Gm_Utils::toStoreSafe($IN{'newmoreentrytemplate'});
-	$IN{'newmoreentrypagetemplate'} = Gm_Utils::toStoreSafe($IN{'newmoreentrypagetemplate'});
-	$IN{'newmorearchiveentrypagetemplate'} = Gm_Utils::toStoreSafe($IN{'newmorearchiveentrypagetemplate'});
-	$IN{'newpreviouslinktemplate'} = Gm_Utils::toStoreSafe($IN{'newpreviouslinktemplate'});
-	$IN{'newnextlinktemplate'} = Gm_Utils::toStoreSafe($IN{'newnextlinktemplate'});
-	$IN{'newpreviousmorelinktemplate'} = Gm_Utils::toStoreSafe($IN{'newpreviousmorelinktemplate'});
-	$IN{'newnextmorelinktemplate'} = Gm_Utils::toStoreSafe($IN{'newnextmorelinktemplate'});
-	$IN{'newarchivemasterindextemplate'} = Gm_Utils::toStoreSafe($IN{'newarchivemasterindextemplate'});
-	$IN{'newlogarchiveslinktemplate'} = Gm_Utils::toStoreSafe($IN{'newlogarchiveslinktemplate'});
-	$IN{'newentrypagelinktemplate'} = Gm_Utils::toStoreSafe($IN{'newentrypagelinktemplate'});
-	$IN{'newmoreentrypagelinktemplate'} = Gm_Utils::toStoreSafe($IN{'newmoreentrypagelinktemplate'});
-	$IN{'newlogarchiveslinkseparatortemplate'} = Gm_Utils::toStoreSafe($IN{'newlogarchiveslinkseparatortemplate'});
-	$IN{'newentrypagelinkseparatortemplate'} = Gm_Utils::toStoreSafe($IN{'newentrypagelinkseparatortemplate'});
-	$IN{'newentrypagelinkmonthseparatortemplate'} = Gm_Utils::toStoreSafe($IN{'newentrypagelinkmonthseparatortemplate'});
-	$IN{'newentrypagelinkdayseparatortemplate'} = Gm_Utils::toStoreSafe($IN{'newentrypagelinkdayseparatortemplate'});
-	$IN{'newentrypagelinkyearseparatortemplate'} = Gm_Utils::toStoreSafe($IN{'newentrypagelinkyearseparatortemplate'});
-	$IN{'newheadertemplate'} = Gm_Utils::toStoreSafe($IN{'newheadertemplate'});
-	$IN{'newfootertemplate'} = Gm_Utils::toStoreSafe($IN{'newfootertemplate'});
-	$IN{'newsidebartemplate'} = Gm_Utils::toStoreSafe($IN{'newsidebartemplate'});
-	$IN{'newcustomlinktemplate'} = Gm_Constants::EMPTY;
-	$IN{'newentryseparatortemplate'} = Gm_Utils::toStoreSafe($IN{'newentryseparatortemplate'});
-	$IN{'newarchiveentryseparatortemplate'} = Gm_Utils::toStoreSafe($IN{'newarchiveentryseparatortemplate'});
-	$IN{'newmorearchiveentrytemplate'} = Gm_Utils::toStoreSafe($IN{'newmorearchiveentrytemplate'});
-	$IN{'newdatearchivetemplate'} = Gm_Utils::toStoreSafe($IN{'newdatearchivetemplate'});
-	$IN{'newlogarchiveslinkweeklytemplate'} = Gm_Utils::toStoreSafe($IN{'newlogarchiveslinkweeklytemplate'});
-	$IN{'newcustomonetemplate'} = Gm_Utils::toStoreSafe($IN{'newcustomonetemplate'});
-	$IN{'newcustomtwotemplate'} = Gm_Utils::toStoreSafe($IN{'newcustomtwotemplate'});
-	$IN{'newcustomthreetemplate'} = Gm_Utils::toStoreSafe($IN{'newcustomthreetemplate'});
-	$IN{'newcustomfourtemplate'} = Gm_Utils::toStoreSafe($IN{'newcustomfourtemplate'});
-	$IN{'newcustomfivetemplate'} = Gm_Utils::toStoreSafe($IN{'newcustomfivetemplate'});
-	$IN{'newcustomsixtemplate'} = Gm_Utils::toStoreSafe($IN{'newcustomsixtemplate'});
-	$IN{'newcustomseventemplate'} = Gm_Utils::toStoreSafe($IN{'newcustomseventemplate'});
-	$IN{'newcustomeighttemplate'} = Gm_Utils::toStoreSafe($IN{'newcustomeighttemplate'});
-	$IN{'newcustomninetemplate'} = Gm_Utils::toStoreSafe($IN{'newcustomninetemplate'});
-	$IN{'newcustomtentemplate'} = Gm_Utils::toStoreSafe($IN{'newcustomtentemplate'});
-	$IN{'newpopuppagetemplate'} = Gm_Utils::toStoreSafe($IN{'newpopuppagetemplate'});
-	$IN{'newpopupcodetemplate'} = Gm_Utils::toStoreSafe($IN{'newpopupcodetemplate'});
-	$IN{'newsearchformtemplate'} = Gm_Utils::toStoreSafe($IN{'newsearchformtemplate'});
-	$IN{'newsearchresultspagetemplate'} = Gm_Utils::toStoreSafe($IN{'newsearchresultspagetemplate'});
-	$IN{'newsearchresultsentrytemplate'} = Gm_Utils::toStoreSafe($IN{'newsearchresultsentrytemplate'});
-	$IN{'newcalendartablebeginningtemplate'} = Gm_Utils::toStoreSafe($IN{'newcalendartablebeginningtemplate'});
-	$IN{'newcalendartableendingtemplate'} = Gm_Utils::toStoreSafe($IN{'newcalendartableendingtemplate'});
-	$IN{'newcalendarblankcelltemplate'} = Gm_Utils::toStoreSafe($IN{'newcalendarblankcelltemplate'});
-	$IN{'newcalendarfullcelltemplate'} = Gm_Utils::toStoreSafe($IN{'newcalendarfullcelltemplate'});
-	$IN{'newcalendarfullcelllinktemplate'} = Gm_Utils::toStoreSafe($IN{'newcalendarfullcelllinktemplate'});
-	$IN{'newcalendarweekblankdaytemplate'} = Gm_Constants::EMPTY;
-	$IN{'newcalendarweekfulldaytemplate'} = Gm_Utils::toStoreSafe($IN{'newcalendarweekfulldaytemplate'});
-	$IN{'newcalendarweekfulldaylinktemplate'} = Gm_Utils::toStoreSafe($IN{'newcalendarweekfulldaylinktemplate'});
-	$IN{'newcommentpreviewdividertemplate'} = Gm_Utils::toStoreSafe($IN{'newcommentpreviewdividertemplate'});
-	$IN{'newcommentpreviewformtemplate'} = Gm_Utils::toStoreSafe($IN{'newcommentpreviewformtemplate'});
-	$IN{'newsmartlinknocommentstemplate'} = Gm_Utils::toStoreSafe($IN{'newsmartlinknocommentstemplate'});
-	$IN{'newsmartlinkonecommenttemplate'} = Gm_Utils::toStoreSafe($IN{'newsmartlinkonecommenttemplate'});
-	$IN{'newsmartlinkmanycommentstemplate'} = Gm_Utils::toStoreSafe($IN{'newsmartlinkmanycommentstemplate'});
-	$IN{'newlinebreaktemplate'} = Gm_Utils::toStoreSafe($IN{'newlinebreaktemplate'});
-	$IN{'newcommentlinktargettemplate'} = Gm_Utils::toStoreSafe($IN{'newcommentlinktargettemplate'});
-	$IN{'newsmartentrymoodtemplate'} = Gm_Utils::toStoreSafe($IN{'newsmartentrymoodtemplate'});
-	$IN{'newsmartentrymusictemplate'} = Gm_Utils::toStoreSafe($IN{'newsmartentrymusictemplate'});
-	$IN{'newdategroupingfooterarchivetemplate'} = Gm_Utils::toStoreSafe($IN{'newdategroupingfooterarchivetemplate'});
-	$IN{'newcookiescodetemplate'} = Gm_Utils::toStoreSafe($IN{'newcookiescodetemplate'});
-	$IN{'newsmartemoticonscodetemplate'} = Gm_Utils::toStoreSafe($IN{'newsmartemoticonscodetemplate'});	
-	$IN{'newgmusererrorheadertemplate'} = Gm_Utils::toStoreSafe($IN{'newgmusererrorheadertemplate'});
-	$IN{'newgmusererrorfootertemplate'} = Gm_Utils::toStoreSafe($IN{'newgmusererrorfootertemplate'});
+    ### TODO MAKE THE PARAM NAME SAME AS REAL TEMPLATE NAME, SO WE CAN LOOP THROUGH 
+    ## HASH AND RELOUSE AND SET TEMPLATES
+    $IN{'newindextemplate'} = Gm_Utils::toStoreSafe($IN{'newindextemplate'});
+    $IN{'newentrypagetemplate'} = Gm_Utils::toStoreSafe($IN{'newentrypagetemplate'});
+    $IN{'newarchiveindextemplate'} = Gm_Utils::toStoreSafe($IN{'newarchiveindextemplate'});
+    $IN{'newarchiveentrypagetemplate'} = Gm_Utils::toStoreSafe($IN{'newarchiveentrypagetemplate'});
+    $IN{'newentrytemplate'} = Gm_Utils::toStoreSafe($IN{'newentrytemplate'});
+    $IN{'newarchiveentrytemplate'} = Gm_Utils::toStoreSafe($IN{'newarchiveentrytemplate'});
+    $IN{'newstayattoptemplate'} = Gm_Utils::toStoreSafe($IN{'newstayattoptemplate'});
+    $IN{'newdatetemplate'} = Gm_Utils::toStoreSafe($IN{'newdatetemplate'});
+    $IN{'newcommentstemplate'} = Gm_Utils::toStoreSafe($IN{'newcommentstemplate'});
+    $IN{'newcommentsformtemplate'} = Gm_Utils::toStoreSafe($IN{'newcommentsformtemplate'});
+    $IN{'newparaseparationtemplate'} = Gm_Utils::toStoreSafe($IN{'newparaseparationtemplate'});
+    $IN{'newkarmaformtemplate'} = Gm_Utils::toStoreSafe($IN{'newkarmaformtemplate'});
+    $IN{'newlinktargettemplate'} = Gm_Utils::toStoreSafe($IN{'newlinktargettemplate'});
+    $IN{'newdategroupingfootertemplate'} = Gm_Utils::toStoreSafe($IN{'newdategroupingfootertemplate'});
+    $IN{'newkarmalinktemplate'} = Gm_Utils::toStoreSafe($IN{'newkarmalinktemplate'});
+    $IN{'newcommentslinktemplate'} = Gm_Utils::toStoreSafe($IN{'newcommentslinktemplate'});
+    $IN{'newcommentauthoremailtemplate'} = Gm_Utils::toStoreSafe($IN{'newcommentauthoremailtemplate'});
+    $IN{'newcommentauthorhomepagetemplate'} = Gm_Utils::toStoreSafe($IN{'newcommentauthorhomepagetemplate'});
+    $IN{'newcommentdividertemplate'} = Gm_Utils::toStoreSafe($IN{'newcommentdividertemplate'});
+    $IN{'newmoreentrytemplate'} = Gm_Utils::toStoreSafe($IN{'newmoreentrytemplate'});
+    $IN{'newmoreentrypagetemplate'} = Gm_Utils::toStoreSafe($IN{'newmoreentrypagetemplate'});
+    $IN{'newmorearchiveentrypagetemplate'} = Gm_Utils::toStoreSafe($IN{'newmorearchiveentrypagetemplate'});
+    $IN{'newpreviouslinktemplate'} = Gm_Utils::toStoreSafe($IN{'newpreviouslinktemplate'});
+    $IN{'newnextlinktemplate'} = Gm_Utils::toStoreSafe($IN{'newnextlinktemplate'});
+    $IN{'newpreviousmorelinktemplate'} = Gm_Utils::toStoreSafe($IN{'newpreviousmorelinktemplate'});
+    $IN{'newnextmorelinktemplate'} = Gm_Utils::toStoreSafe($IN{'newnextmorelinktemplate'});
+    $IN{'newarchivemasterindextemplate'} = Gm_Utils::toStoreSafe($IN{'newarchivemasterindextemplate'});
+    $IN{'newlogarchiveslinktemplate'} = Gm_Utils::toStoreSafe($IN{'newlogarchiveslinktemplate'});
+    $IN{'newentrypagelinktemplate'} = Gm_Utils::toStoreSafe($IN{'newentrypagelinktemplate'});
+    $IN{'newmoreentrypagelinktemplate'} = Gm_Utils::toStoreSafe($IN{'newmoreentrypagelinktemplate'});
+    $IN{'newlogarchiveslinkseparatortemplate'} = Gm_Utils::toStoreSafe($IN{'newlogarchiveslinkseparatortemplate'});
+    $IN{'newentrypagelinkseparatortemplate'} = Gm_Utils::toStoreSafe($IN{'newentrypagelinkseparatortemplate'});
+    $IN{'newentrypagelinkmonthseparatortemplate'} = Gm_Utils::toStoreSafe($IN{'newentrypagelinkmonthseparatortemplate'});
+    $IN{'newentrypagelinkdayseparatortemplate'} = Gm_Utils::toStoreSafe($IN{'newentrypagelinkdayseparatortemplate'});
+    $IN{'newentrypagelinkyearseparatortemplate'} = Gm_Utils::toStoreSafe($IN{'newentrypagelinkyearseparatortemplate'});
+    $IN{'newheadertemplate'} = Gm_Utils::toStoreSafe($IN{'newheadertemplate'});
+    $IN{'newfootertemplate'} = Gm_Utils::toStoreSafe($IN{'newfootertemplate'});
+    $IN{'newsidebartemplate'} = Gm_Utils::toStoreSafe($IN{'newsidebartemplate'});
+    $IN{'newcustomlinktemplate'} = Gm_Constants::EMPTY;
+    $IN{'newentryseparatortemplate'} = Gm_Utils::toStoreSafe($IN{'newentryseparatortemplate'});
+    $IN{'newarchiveentryseparatortemplate'} = Gm_Utils::toStoreSafe($IN{'newarchiveentryseparatortemplate'});
+    $IN{'newmorearchiveentrytemplate'} = Gm_Utils::toStoreSafe($IN{'newmorearchiveentrytemplate'});
+    $IN{'newdatearchivetemplate'} = Gm_Utils::toStoreSafe($IN{'newdatearchivetemplate'});
+    $IN{'newlogarchiveslinkweeklytemplate'} = Gm_Utils::toStoreSafe($IN{'newlogarchiveslinkweeklytemplate'});
+    $IN{'newcustomonetemplate'} = Gm_Utils::toStoreSafe($IN{'newcustomonetemplate'});
+    $IN{'newcustomtwotemplate'} = Gm_Utils::toStoreSafe($IN{'newcustomtwotemplate'});
+    $IN{'newcustomthreetemplate'} = Gm_Utils::toStoreSafe($IN{'newcustomthreetemplate'});
+    $IN{'newcustomfourtemplate'} = Gm_Utils::toStoreSafe($IN{'newcustomfourtemplate'});
+    $IN{'newcustomfivetemplate'} = Gm_Utils::toStoreSafe($IN{'newcustomfivetemplate'});
+    $IN{'newcustomsixtemplate'} = Gm_Utils::toStoreSafe($IN{'newcustomsixtemplate'});
+    $IN{'newcustomseventemplate'} = Gm_Utils::toStoreSafe($IN{'newcustomseventemplate'});
+    $IN{'newcustomeighttemplate'} = Gm_Utils::toStoreSafe($IN{'newcustomeighttemplate'});
+    $IN{'newcustomninetemplate'} = Gm_Utils::toStoreSafe($IN{'newcustomninetemplate'});
+    $IN{'newcustomtentemplate'} = Gm_Utils::toStoreSafe($IN{'newcustomtentemplate'});
+    $IN{'newpopuppagetemplate'} = Gm_Utils::toStoreSafe($IN{'newpopuppagetemplate'});
+    $IN{'newpopupcodetemplate'} = Gm_Utils::toStoreSafe($IN{'newpopupcodetemplate'});
+    $IN{'newsearchformtemplate'} = Gm_Utils::toStoreSafe($IN{'newsearchformtemplate'});
+    $IN{'newsearchresultspagetemplate'} = Gm_Utils::toStoreSafe($IN{'newsearchresultspagetemplate'});
+    $IN{'newsearchresultsentrytemplate'} = Gm_Utils::toStoreSafe($IN{'newsearchresultsentrytemplate'});
+    $IN{'newcalendartablebeginningtemplate'} = Gm_Utils::toStoreSafe($IN{'newcalendartablebeginningtemplate'});
+    $IN{'newcalendartableendingtemplate'} = Gm_Utils::toStoreSafe($IN{'newcalendartableendingtemplate'});
+    $IN{'newcalendarblankcelltemplate'} = Gm_Utils::toStoreSafe($IN{'newcalendarblankcelltemplate'});
+    $IN{'newcalendarfullcelltemplate'} = Gm_Utils::toStoreSafe($IN{'newcalendarfullcelltemplate'});
+    $IN{'newcalendarfullcelllinktemplate'} = Gm_Utils::toStoreSafe($IN{'newcalendarfullcelllinktemplate'});
+    $IN{'newcalendarweekblankdaytemplate'} = Gm_Constants::EMPTY;
+    $IN{'newcalendarweekfulldaytemplate'} = Gm_Utils::toStoreSafe($IN{'newcalendarweekfulldaytemplate'});
+    $IN{'newcalendarweekfulldaylinktemplate'} = Gm_Utils::toStoreSafe($IN{'newcalendarweekfulldaylinktemplate'});
+    $IN{'newcommentpreviewdividertemplate'} = Gm_Utils::toStoreSafe($IN{'newcommentpreviewdividertemplate'});
+    $IN{'newcommentpreviewformtemplate'} = Gm_Utils::toStoreSafe($IN{'newcommentpreviewformtemplate'});
+    $IN{'newsmartlinknocommentstemplate'} = Gm_Utils::toStoreSafe($IN{'newsmartlinknocommentstemplate'});
+    $IN{'newsmartlinkonecommenttemplate'} = Gm_Utils::toStoreSafe($IN{'newsmartlinkonecommenttemplate'});
+    $IN{'newsmartlinkmanycommentstemplate'} = Gm_Utils::toStoreSafe($IN{'newsmartlinkmanycommentstemplate'});
+    $IN{'newlinebreaktemplate'} = Gm_Utils::toStoreSafe($IN{'newlinebreaktemplate'});
+    $IN{'newcommentlinktargettemplate'} = Gm_Utils::toStoreSafe($IN{'newcommentlinktargettemplate'});
+    $IN{'newsmartentrymoodtemplate'} = Gm_Utils::toStoreSafe($IN{'newsmartentrymoodtemplate'});
+    $IN{'newsmartentrymusictemplate'} = Gm_Utils::toStoreSafe($IN{'newsmartentrymusictemplate'});
+    $IN{'newdategroupingfooterarchivetemplate'} = Gm_Utils::toStoreSafe($IN{'newdategroupingfooterarchivetemplate'});
+    $IN{'newcookiescodetemplate'} = Gm_Utils::toStoreSafe($IN{'newcookiescodetemplate'});
+    $IN{'newsmartemoticonscodetemplate'} = Gm_Utils::toStoreSafe($IN{'newsmartemoticonscodetemplate'});	
+    $IN{'newgmusererrorheadertemplate'} = Gm_Utils::toStoreSafe($IN{'newgmusererrorheadertemplate'});
+    $IN{'newgmusererrorfootertemplate'} = Gm_Utils::toStoreSafe($IN{'newgmusererrorfootertemplate'});
 
-	## this seems like something the user can do for themselves
-	if (($IN{'newcustomlinktemplate'} ne Gm_Constants::EMPTY) && ((substr($IN{'newcustomlinktemplate'}, 0, 1)) ne " ")) {
-		$IN{'newcustomlinktemplate'} = " $IN{'newcustomlinktemplate'}";
-	}
+    ## this seems like something the user can do for themselves
+    if (($IN{'newcustomlinktemplate'} ne Gm_Constants::EMPTY) && ((substr($IN{'newcustomlinktemplate'}, 0, 1)) ne " ")) {
+        $IN{'newcustomlinktemplate'} = " $IN{'newcustomlinktemplate'}";
+    }
 
-	## Checking checkboxes to see if should make certain templates same as others
-	if( $IN{'entrylistingmorecheck'} eq Gm_Constants::YES ){ 
-		$IN{'newmoreentrytemplate'} = $IN{'newentrytemplate'}; 
-	}
-	if( $IN{'entrylistingstayattopcheck'} eq Gm_Constants::YES ){  
-		$IN{'newstayattoptemplate'} = $IN{'newentrytemplate'}; 
-	}
-	if( $IN{'archivelogindexcheck'} eq Gm_Constants::YES ){  
-		$IN{'newarchiveindextemplate'} = $IN{'newindextemplate'}; 
-	}
-	if( $IN{'archiveentrylistingcheck'} eq Gm_Constants::YES ){  
-		$IN{'newarchiveentrytemplate'} = $IN{'newentrytemplate'}; 
-	}
-	if( $IN{'archiveentrylistingmorecheck'} eq Gm_Constants::YES ){  
-		$IN{'newmorearchiveentrytemplate'} = $IN{'newmoreentrytemplate'}; 
-	}
-	if( $IN{'archivedateheadercheck'} eq Gm_Constants::YES ){  
-		$IN{'newdatearchivetemplate'} = $IN{'newdatetemplate'}; 
-	}
-	if( $IN{'archivedatefootercheck'} eq Gm_Constants::YES ){  
-		$IN{'newdategroupingfooterarchivetemplate'} = $IN{'newdategroupingfootertemplate'}; 
-	}
-	if( $IN{'archiveentryseparatorcheck'} eq Gm_Constants::YES ){  
-		$IN{'newarchiveentryseparatortemplate'} = $IN{'newentryseparatortemplate'}; 
-	}
-	if( $IN{'entrymorepagecheck'} eq Gm_Constants::YES ){  
-		$IN{'newmoreentrypagetemplate'} = $IN{'newentrypagetemplate'}; 
-	}
-	if( $IN{'entryarchivepagecheck'} eq Gm_Constants::YES ){  
-		$IN{'newarchiveentrypagetemplate'} = $IN{'newentrypagetemplate'}; 
-	}
-	if( $IN{'entrymorearchivepagecheck'} eq Gm_Constants::YES ){  
-		$IN{'newmorearchiveentrypagetemplate'} = $IN{'newarchiveentrypagetemplate'}; 
-	}
-	if( $IN{'previousmorelinkcheck'} eq Gm_Constants::YES ){  
-		$IN{'newpreviousmorelinktemplate'} = $IN{'newpreviouslinktemplate'}; 
-	}
-	if( $IN{'nextmorelinkcheck'} eq Gm_Constants::YES ){  
-		$IN{'newnextmorelinktemplate'} = $IN{'newnextlinktemplate'}; 
-	}
-	if( $IN{'moreentrylistlinkcheck'} eq Gm_Constants::YES ){  
-		$IN{'newmoreentrypagelinktemplate'} = $IN{'newentrypagelinktemplate'}; 
-	}
-
-
-	## Putting into hash to save - BUT starting with total templates, since we don't have an updateTemplates
-	## TODO: create an updateTemplates function so we don't have to load them up here...
-	## TODO: change this to work off of reference, otherwise we are incurring a memory overhead here...
-	my %templs = %{Gm_Storage::getTemplates( errHandler=>\&Gm_Web::displayAdminErrorExit )};
-
-	## If the author only has own access, no touchy the other templates... 
-	if( $AUTHOR{'edittemplates'} eq Gm_Constants::Y ){
-		$templs{'gmindextemplate'} = $IN{'newindextemplate'};
-		$templs{'gmentrypagetemplate'} = $IN{'newentrypagetemplate'};
-		$templs{'gmarchiveindextemplate'} = $IN{'newarchiveindextemplate'};
-		$templs{'gmarchiveentrypagetemplate'} = $IN{'newarchiveentrypagetemplate'};
-		$templs{'gmentrytemplate'} = $IN{'newentrytemplate'};
-		$templs{'gmarchiveentrytemplate'} = $IN{'newarchiveentrytemplate'};
-		$templs{'gmstayattoptemplate'} = $IN{'newstayattoptemplate'};
-		$templs{'gmdatetemplate'} = $IN{'newdatetemplate'};
-		$templs{'gmcommentstemplate'} = $IN{'newcommentstemplate'};
-		$templs{'gmcommentsformtemplate'} = $IN{'newcommentsformtemplate'};
-		$templs{'gmparaseparationtemplate'} = $IN{'newparaseparationtemplate'};
-		$templs{'gmkarmaformtemplate'} = $IN{'newkarmaformtemplate'};
-		$templs{'gmlinktargettemplate'} = $IN{'newlinktargettemplate'};
-		$templs{'gmdategroupingfootertemplate'} = $IN{'newdategroupingfootertemplate'};
-		$templs{'gmkarmalinktemplate'} = $IN{'newkarmalinktemplate'};
-		$templs{'gmcommentslinktemplate'} = $IN{'newcommentslinktemplate'};
-		$templs{'gmcommentauthoremailtemplate'} = $IN{'newcommentauthoremailtemplate'};
-		$templs{'gmcommentauthorhomepagetemplate'} = $IN{'newcommentauthorhomepagetemplate'};
-		$templs{'gmcommentdividertemplate'} = $IN{'newcommentdividertemplate'};
-		$templs{'gmmoreentrytemplate'} = $IN{'newmoreentrytemplate'};
-		$templs{'gmmoreentrypagetemplate'} = $IN{'newmoreentrypagetemplate'};
-		$templs{'gmmorearchiveentrypagetemplate'} = $IN{'newmorearchiveentrypagetemplate'};
-		$templs{'gmpreviouslinktemplate'} = $IN{'newpreviouslinktemplate'};
-		$templs{'gmnextlinktemplate'} = $IN{'newnextlinktemplate'};
-		$templs{'gmpreviousmorelinktemplate'} = $IN{'newpreviousmorelinktemplate'};
-		$templs{'gmnextmorelinktemplate'} = $IN{'newnextmorelinktemplate'};
-		$templs{'gmarchivemasterindextemplate'} = $IN{'newarchivemasterindextemplate'};
-		$templs{'gmlogarchiveslinktemplate'} = $IN{'newlogarchiveslinktemplate'};
-		$templs{'gmentrypagelinktemplate'} = $IN{'newentrypagelinktemplate'};
-		$templs{'gmmoreentrypagelinktemplate'} = $IN{'newmoreentrypagelinktemplate'};
-		$templs{'gmlogarchiveslinkseparatortemplate'} = $IN{'newlogarchiveslinkseparatortemplate'};
-		$templs{'gmentrypagelinkseparatortemplate'} = $IN{'newentrypagelinkseparatortemplate'};
-		$templs{'gmentrypagelinkmonthseparatortemplate'} = $IN{'newentrypagelinkmonthseparatortemplate'};
-		$templs{'gmentrypagelinkdayseparatortemplate'} = $IN{'newentrypagelinkdayseparatortemplate'};
-		$templs{'gmentrypagelinkyearseparatortemplate'} = $IN{'newentrypagelinkyearseparatortemplate'};	
-		$templs{'gmentryseparatortemplate'} = $IN{'newentryseparatortemplate'};
-		$templs{'gmarchiveentryseparatortemplate'} = $IN{'newarchiveentryseparatortemplate'};
-		$templs{'gmmorearchiveentrytemplate'} = $IN{'newmorearchiveentrytemplate'};
-		$templs{'gmdatearchivetemplate'} = $IN{'newdatearchivetemplate'};
-		$templs{'gmlogarchiveslinkweeklytemplate'} = $IN{'newlogarchiveslinkweeklytemplate'};
-		$templs{'gmpopuppagetemplate'} = $IN{'newpopuppagetemplate'};
-		$templs{'gmpopupcodetemplate'} = $IN{'newpopupcodetemplate'};
-		$templs{'gmsearchformtemplate'} = $IN{'newsearchformtemplate'};
-		$templs{'gmsearchresultspagetemplate'} = $IN{'newsearchresultspagetemplate'};
-		$templs{'gmsearchresultsentrytemplate'} = $IN{'newsearchresultsentrytemplate'};
-		$templs{'gmcalendartablebeginningtemplate'} = $IN{'newcalendartablebeginningtemplate'};
-		$templs{'gmcalendartableendingtemplate'} = $IN{'newcalendartableendingtemplate'};
-		$templs{'gmcalendarblankcelltemplate'} = $IN{'newcalendarblankcelltemplate'};
-		$templs{'gmcalendarfullcelltemplate'} = $IN{'newcalendarfullcelltemplate'};
-		$templs{'gmcalendarfullcelllinktemplate'} = $IN{'newcalendarfullcelllinktemplate'};
-		$templs{'gmcalendarweekfulldaytemplate'} = $IN{'newcalendarweekfulldaytemplate'};
-		$templs{'gmcalendarweekfulldaylinktemplate'} = $IN{'newcalendarweekfulldaylinktemplate'};
-		$templs{'gmcommentpreviewdividertemplate'} = $IN{'newcommentpreviewdividertemplate'};
-		$templs{'gmcommentpreviewformtemplate'} = $IN{'newcommentpreviewformtemplate'};
-		$templs{'gmsmartlinknocommentstemplate'} = $IN{'newsmartlinknocommentstemplate'};
-		$templs{'gmsmartlinkonecommenttemplate'} = $IN{'newsmartlinkonecommenttemplate'};
-		$templs{'gmsmartlinkmanycommentstemplate'} = $IN{'newsmartlinkmanycommentstemplate'};
-		$templs{'gmlinebreaktemplate'} = $IN{'newlinebreaktemplate'};
-		$templs{'gmcommentlinktargettemplate'} = $IN{'newcommentlinktargettemplate'};
-		$templs{'gmsmartentrymoodtemplate'} = $IN{'newsmartentrymoodtemplate'};
-		$templs{'gmsmartentrymusictemplate'} = $IN{'newsmartentrymusictemplate'};
-		$templs{'gmdategroupingfooterarchivetemplate'} = $IN{'newdategroupingfooterarchivetemplate'};
-		$templs{'gmsmartemoticonscodetemplate'} = $IN{'newsmartemoticonscodetemplate'};
-		$templs{'gmcookiescodetemplate'} = $IN{'newcookiescodetemplate'};
-	}
-
-	$templs{'gmheadertemplate'} = $IN{'newheadertemplate'};
-	$templs{'gmfootertemplate'} = $IN{'newfootertemplate'};
-	$templs{'gmsidebartemplate'} = $IN{'newsidebartemplate'};
-	$templs{'gmcustomonetemplate'} = $IN{'newcustomonetemplate'};
-	$templs{'gmcustomtwotemplate'} = $IN{'newcustomtwotemplate'};
-	$templs{'gmcustomthreetemplate'} = $IN{'newcustomthreetemplate'};
-	$templs{'gmcustomfourtemplate'} = $IN{'newcustomfourtemplate'};
-	$templs{'gmcustomfivetemplate'} = $IN{'newcustomfivetemplate'};
-	$templs{'gmcustomsixtemplate'} = $IN{'newcustomsixtemplate'};
-	$templs{'gmcustomseventemplate'} = $IN{'newcustomseventemplate'};
-	$templs{'gmcustomeighttemplate'} = $IN{'newcustomeighttemplate'};
-	$templs{'gmcustomninetemplate'} = $IN{'newcustomninetemplate'};
-	$templs{'gmcustomtentemplate'} = $IN{'newcustomtentemplate'};	
-	$templs{'gmusererrorheadertemplate'} = $IN{'newgmusererrorheadertemplate'};
-	$templs{'gmusererrorfootertemplate'} = $IN{'newgmusererrorfootertemplate'};	
-
-	Gm_Storage::setTemplates( templates =>\%templs, errHandler=>\&Gm_Web::displayAdminErrorExit );
+    ## Checking checkboxes to see if should make certain templates same as others
+    if( $IN{'entrylistingmorecheck'} eq Gm_Constants::YES ){ 
+        $IN{'newmoreentrytemplate'} = $IN{'newentrytemplate'}; 
+    }
+    if( $IN{'entrylistingstayattopcheck'} eq Gm_Constants::YES ){  
+        $IN{'newstayattoptemplate'} = $IN{'newentrytemplate'}; 
+    }
+    if( $IN{'archivelogindexcheck'} eq Gm_Constants::YES ){  
+        $IN{'newarchiveindextemplate'} = $IN{'newindextemplate'}; 
+    }
+    if( $IN{'archiveentrylistingcheck'} eq Gm_Constants::YES ){  
+        $IN{'newarchiveentrytemplate'} = $IN{'newentrytemplate'}; 
+    }
+    if( $IN{'archiveentrylistingmorecheck'} eq Gm_Constants::YES ){  
+        $IN{'newmorearchiveentrytemplate'} = $IN{'newmoreentrytemplate'}; 
+    }
+    if( $IN{'archivedateheadercheck'} eq Gm_Constants::YES ){  
+        $IN{'newdatearchivetemplate'} = $IN{'newdatetemplate'}; 
+    }
+    if( $IN{'archivedatefootercheck'} eq Gm_Constants::YES ){  
+        $IN{'newdategroupingfooterarchivetemplate'} = $IN{'newdategroupingfootertemplate'}; 
+    }
+    if( $IN{'archiveentryseparatorcheck'} eq Gm_Constants::YES ){  
+        $IN{'newarchiveentryseparatortemplate'} = $IN{'newentryseparatortemplate'}; 
+    }
+    if( $IN{'entrymorepagecheck'} eq Gm_Constants::YES ){  
+        $IN{'newmoreentrypagetemplate'} = $IN{'newentrypagetemplate'}; 
+    }
+    if( $IN{'entryarchivepagecheck'} eq Gm_Constants::YES ){  
+        $IN{'newarchiveentrypagetemplate'} = $IN{'newentrypagetemplate'}; 
+    }
+    if( $IN{'entrymorearchivepagecheck'} eq Gm_Constants::YES ){  
+        $IN{'newmorearchiveentrypagetemplate'} = $IN{'newarchiveentrypagetemplate'}; 
+    }
+    if( $IN{'previousmorelinkcheck'} eq Gm_Constants::YES ){  
+        $IN{'newpreviousmorelinktemplate'} = $IN{'newpreviouslinktemplate'}; 
+    }
+    if( $IN{'nextmorelinkcheck'} eq Gm_Constants::YES ){  
+        $IN{'newnextmorelinktemplate'} = $IN{'newnextlinktemplate'}; 
+    }
+    if( $IN{'moreentrylistlinkcheck'} eq Gm_Constants::YES ){  
+        $IN{'newmoreentrypagelinktemplate'} = $IN{'newentrypagelinktemplate'}; 
+    }
 
 
-	$message = '<span class="status_msg">The templates have been modified.  Be sure to rebuild your '.
-		'files to make these changes take effect throughout your site.</span>';
+    ## Putting into hash to save - BUT starting with total templates, since we don't have an updateTemplates
+    ## TODO: create an updateTemplates function so we don't have to load them up here...
+    ## TODO: change this to work off of reference, otherwise we are incurring a memory overhead here...
+    my %templs = %{Gm_Storage::getTemplates( errHandler=>\&Gm_Web::displayAdminErrorExit )};
 
-	Gm_Core::writeToCplog( $AUTHOR{'author'}.' modified the templates' );
+    ## If the author only has own access, no touchy the other templates... 
+    if( $AUTHOR{'edittemplates'} eq Gm_Constants::Y ){
+        $templs{'gmindextemplate'} = $IN{'newindextemplate'};
+        $templs{'gmentrypagetemplate'} = $IN{'newentrypagetemplate'};
+        $templs{'gmarchiveindextemplate'} = $IN{'newarchiveindextemplate'};
+        $templs{'gmarchiveentrypagetemplate'} = $IN{'newarchiveentrypagetemplate'};
+        $templs{'gmentrytemplate'} = $IN{'newentrytemplate'};
+        $templs{'gmarchiveentrytemplate'} = $IN{'newarchiveentrytemplate'};
+        $templs{'gmstayattoptemplate'} = $IN{'newstayattoptemplate'};
+        $templs{'gmdatetemplate'} = $IN{'newdatetemplate'};
+        $templs{'gmcommentstemplate'} = $IN{'newcommentstemplate'};
+        $templs{'gmcommentsformtemplate'} = $IN{'newcommentsformtemplate'};
+        $templs{'gmparaseparationtemplate'} = $IN{'newparaseparationtemplate'};
+        $templs{'gmkarmaformtemplate'} = $IN{'newkarmaformtemplate'};
+        $templs{'gmlinktargettemplate'} = $IN{'newlinktargettemplate'};
+        $templs{'gmdategroupingfootertemplate'} = $IN{'newdategroupingfootertemplate'};
+        $templs{'gmkarmalinktemplate'} = $IN{'newkarmalinktemplate'};
+        $templs{'gmcommentslinktemplate'} = $IN{'newcommentslinktemplate'};
+        $templs{'gmcommentauthoremailtemplate'} = $IN{'newcommentauthoremailtemplate'};
+        $templs{'gmcommentauthorhomepagetemplate'} = $IN{'newcommentauthorhomepagetemplate'};
+        $templs{'gmcommentdividertemplate'} = $IN{'newcommentdividertemplate'};
+        $templs{'gmmoreentrytemplate'} = $IN{'newmoreentrytemplate'};
+        $templs{'gmmoreentrypagetemplate'} = $IN{'newmoreentrypagetemplate'};
+        $templs{'gmmorearchiveentrypagetemplate'} = $IN{'newmorearchiveentrypagetemplate'};
+        $templs{'gmpreviouslinktemplate'} = $IN{'newpreviouslinktemplate'};
+        $templs{'gmnextlinktemplate'} = $IN{'newnextlinktemplate'};
+        $templs{'gmpreviousmorelinktemplate'} = $IN{'newpreviousmorelinktemplate'};
+        $templs{'gmnextmorelinktemplate'} = $IN{'newnextmorelinktemplate'};
+        $templs{'gmarchivemasterindextemplate'} = $IN{'newarchivemasterindextemplate'};
+        $templs{'gmlogarchiveslinktemplate'} = $IN{'newlogarchiveslinktemplate'};
+        $templs{'gmentrypagelinktemplate'} = $IN{'newentrypagelinktemplate'};
+        $templs{'gmmoreentrypagelinktemplate'} = $IN{'newmoreentrypagelinktemplate'};
+        $templs{'gmlogarchiveslinkseparatortemplate'} = $IN{'newlogarchiveslinkseparatortemplate'};
+        $templs{'gmentrypagelinkseparatortemplate'} = $IN{'newentrypagelinkseparatortemplate'};
+        $templs{'gmentrypagelinkmonthseparatortemplate'} = $IN{'newentrypagelinkmonthseparatortemplate'};
+        $templs{'gmentrypagelinkdayseparatortemplate'} = $IN{'newentrypagelinkdayseparatortemplate'};
+        $templs{'gmentrypagelinkyearseparatortemplate'} = $IN{'newentrypagelinkyearseparatortemplate'};	
+        $templs{'gmentryseparatortemplate'} = $IN{'newentryseparatortemplate'};
+        $templs{'gmarchiveentryseparatortemplate'} = $IN{'newarchiveentryseparatortemplate'};
+        $templs{'gmmorearchiveentrytemplate'} = $IN{'newmorearchiveentrytemplate'};
+        $templs{'gmdatearchivetemplate'} = $IN{'newdatearchivetemplate'};
+        $templs{'gmlogarchiveslinkweeklytemplate'} = $IN{'newlogarchiveslinkweeklytemplate'};
+        $templs{'gmpopuppagetemplate'} = $IN{'newpopuppagetemplate'};
+        $templs{'gmpopupcodetemplate'} = $IN{'newpopupcodetemplate'};
+        $templs{'gmsearchformtemplate'} = $IN{'newsearchformtemplate'};
+        $templs{'gmsearchresultspagetemplate'} = $IN{'newsearchresultspagetemplate'};
+        $templs{'gmsearchresultsentrytemplate'} = $IN{'newsearchresultsentrytemplate'};
+        $templs{'gmcalendartablebeginningtemplate'} = $IN{'newcalendartablebeginningtemplate'};
+        $templs{'gmcalendartableendingtemplate'} = $IN{'newcalendartableendingtemplate'};
+        $templs{'gmcalendarblankcelltemplate'} = $IN{'newcalendarblankcelltemplate'};
+        $templs{'gmcalendarfullcelltemplate'} = $IN{'newcalendarfullcelltemplate'};
+        $templs{'gmcalendarfullcelllinktemplate'} = $IN{'newcalendarfullcelllinktemplate'};
+        $templs{'gmcalendarweekfulldaytemplate'} = $IN{'newcalendarweekfulldaytemplate'};
+        $templs{'gmcalendarweekfulldaylinktemplate'} = $IN{'newcalendarweekfulldaylinktemplate'};
+        $templs{'gmcommentpreviewdividertemplate'} = $IN{'newcommentpreviewdividertemplate'};
+        $templs{'gmcommentpreviewformtemplate'} = $IN{'newcommentpreviewformtemplate'};
+        $templs{'gmsmartlinknocommentstemplate'} = $IN{'newsmartlinknocommentstemplate'};
+        $templs{'gmsmartlinkonecommenttemplate'} = $IN{'newsmartlinkonecommenttemplate'};
+        $templs{'gmsmartlinkmanycommentstemplate'} = $IN{'newsmartlinkmanycommentstemplate'};
+        $templs{'gmlinebreaktemplate'} = $IN{'newlinebreaktemplate'};
+        $templs{'gmcommentlinktargettemplate'} = $IN{'newcommentlinktargettemplate'};
+        $templs{'gmsmartentrymoodtemplate'} = $IN{'newsmartentrymoodtemplate'};
+        $templs{'gmsmartentrymusictemplate'} = $IN{'newsmartentrymusictemplate'};
+        $templs{'gmdategroupingfooterarchivetemplate'} = $IN{'newdategroupingfooterarchivetemplate'};
+        $templs{'gmsmartemoticonscodetemplate'} = $IN{'newsmartemoticonscodetemplate'};
+        $templs{'gmcookiescodetemplate'} = $IN{'newcookiescodetemplate'};
+    }
 
-	# Rebuilding
-	if( $IN{'autorebuild'} eq 'index' ){ 
-#		&gm_rebuildmainindexfile; 
-		rebuildMainIndex();
-	}
-	if( $IN{'autorebuild'} eq 'archiveindexes' ){ 
-#		&gm_rebuildarchivelogindexes; 
-		rebuildArchiveLogs();
-	}
-	if( $IN{'autorebuild'} eq 'entrypages' ){ 
-#		&gm_rebuildallentrypages; 
-		rebuildAllEntries();
-	}
-	if( $IN{'autorebuild'} eq 'everything' ){ 
-#		&gm_rebuildeverything; 
-		rebuildEverything();
-	}
+    $templs{'gmheadertemplate'} = $IN{'newheadertemplate'};
+    $templs{'gmfootertemplate'} = $IN{'newfootertemplate'};
+    $templs{'gmsidebartemplate'} = $IN{'newsidebartemplate'};
+    $templs{'gmcustomonetemplate'} = $IN{'newcustomonetemplate'};
+    $templs{'gmcustomtwotemplate'} = $IN{'newcustomtwotemplate'};
+    $templs{'gmcustomthreetemplate'} = $IN{'newcustomthreetemplate'};
+    $templs{'gmcustomfourtemplate'} = $IN{'newcustomfourtemplate'};
+    $templs{'gmcustomfivetemplate'} = $IN{'newcustomfivetemplate'};
+    $templs{'gmcustomsixtemplate'} = $IN{'newcustomsixtemplate'};
+    $templs{'gmcustomseventemplate'} = $IN{'newcustomseventemplate'};
+    $templs{'gmcustomeighttemplate'} = $IN{'newcustomeighttemplate'};
+    $templs{'gmcustomninetemplate'} = $IN{'newcustomninetemplate'};
+    $templs{'gmcustomtentemplate'} = $IN{'newcustomtentemplate'};	
+    $templs{'gmusererrorheadertemplate'} = $IN{'newgmusererrorheadertemplate'};
+    $templs{'gmusererrorfootertemplate'} = $IN{'newgmusererrorfootertemplate'};	
 
-#&gm_edittemplates;
-	return( $message );
+    Gm_Storage::setTemplates( templates =>\%templs, errHandler=>\&Gm_Web::displayAdminErrorExit );
+
+
+    $message = '<span class="status_msg">The templates have been modified.  Be sure to rebuild your '.
+        'files to make these changes take effect throughout your site.</span>';
+
+    Gm_Core::writeToCplog( $AUTHOR{'author'}.' modified the templates' );
+
+    # Rebuilding
+    if( $IN{'autorebuild'} eq 'index' ){ 
+        #		&gm_rebuildmainindexfile; 
+        rebuildMainIndex();
+    }
+    if( $IN{'autorebuild'} eq 'archiveindexes' ){ 
+        #		&gm_rebuildarchivelogindexes; 
+        rebuildArchiveLogs();
+    }
+    if( $IN{'autorebuild'} eq 'entrypages' ){ 
+        #		&gm_rebuildallentrypages; 
+        rebuildAllEntries();
+    }
+    if( $IN{'autorebuild'} eq 'everything' ){ 
+        #		&gm_rebuildeverything; 
+        rebuildEverything();
+    }
+
+    #&gm_edittemplates;
+    return( $message );
 }
 
 
@@ -6415,52 +6415,52 @@ sub updateTemplates {
 ## and verify that rebuilders can access this section
 sub doRebuild {
 
-	### TODO: CALL AUTH WITH FLAG TO WORK ON Banip, OR CHECK AUTHOR PERMS
-	## TODO: Move this to auth, auth should return users perms, or it should take a flag to 
-	# indicate which perms to check with this being handed off to a generic permDenied func
-	if( $AUTHOR{'rebuild'} ne Gm_Constants::Y ){
-		Gm_Core::writeToCplog( '<span class="error_msg">'.Gm_Core::text( 
-			Gm_Constants::SECTION_NO_ACCESS, { AUTHOR=>$AUTHOR{'author'} }).'</span>' );
-		my $statusnote = '<span class="error_msg">'.Gm_Core::text( Gm_Constants::SECTION_ACCESS_DENY ).
-			'</span><br />';
-		frontPage( $statusnote );
-	}
-	
-	my $status = Gm_Constants::EMPTY;
-# TODO, SHOULD THESE BE USING CONSTANTS?
-	if( $IN{'lastentry'} ){
-		$status = rebuildLastEntry();
-		
-	} elsif( $IN{'mainindex'} ){
-		$status = rebuildMainIndex();
-		
-	} elsif( $IN{'mainentries'} ){
-		$status = rebuildMainEntries();
-		
-	} elsif( $IN{'archiveindex'} ){
-		$status = rebuildArchiveIndex();
-		
-	} elsif( $IN{'archivelogs'} ){
-		$status = rebuildArchiveLogs();
-		
-	} elsif( $IN{'archiveentries'} ){
-		$status = rebuildArchiveEntries();
-		
-	} elsif( $IN{'allentries'} ){
-		$status = rebuildAllEntries();
-		
-	}  elsif( $IN{'connected'} ){
-		$status = rebuildConnected();
-		
-	}  elsif( $IN{'everything'} ){
-		$status = rebuildEverything();
-		
-	} elsif( $IN{'rebuilding'} ){
-		$status = rebuildUpdate();
-		
-	}
+    ### TODO: CALL AUTH WITH FLAG TO WORK ON Banip, OR CHECK AUTHOR PERMS
+    ## TODO: Move this to auth, auth should return users perms, or it should take a flag to 
+    # indicate which perms to check with this being handed off to a generic permDenied func
+    if( $AUTHOR{'rebuild'} ne Gm_Constants::Y ){
+        Gm_Core::writeToCplog( '<span class="error_msg">'.Gm_Core::text( 
+                                   Gm_Constants::SECTION_NO_ACCESS, { AUTHOR=>$AUTHOR{'author'} }).'</span>' );
+        my $statusnote = '<span class="error_msg">'.Gm_Core::text( Gm_Constants::SECTION_ACCESS_DENY ).
+            '</span><br />';
+        frontPage( $statusnote );
+    }
+    
+    my $status = Gm_Constants::EMPTY;
+    # TODO, SHOULD THESE BE USING CONSTANTS?
+    if( $IN{'lastentry'} ){
+        $status = rebuildLastEntry();
+        
+    } elsif( $IN{'mainindex'} ){
+        $status = rebuildMainIndex();
+        
+    } elsif( $IN{'mainentries'} ){
+        $status = rebuildMainEntries();
+        
+    } elsif( $IN{'archiveindex'} ){
+        $status = rebuildArchiveIndex();
+        
+    } elsif( $IN{'archivelogs'} ){
+        $status = rebuildArchiveLogs();
+        
+    } elsif( $IN{'archiveentries'} ){
+        $status = rebuildArchiveEntries();
+        
+    } elsif( $IN{'allentries'} ){
+        $status = rebuildAllEntries();
+        
+    }  elsif( $IN{'connected'} ){
+        $status = rebuildConnected();
+        
+    }  elsif( $IN{'everything'} ){
+        $status = rebuildEverything();
+        
+    } elsif( $IN{'rebuilding'} ){
+        $status = rebuildUpdate();
+        
+    }
 
-	viewRebuild( $status );
+    viewRebuild( $status );
 }
 
 
@@ -6468,63 +6468,63 @@ sub doRebuild {
 # View the site rebuild menu
 # (opt) ARG1: Message to display to user, could be error or confirmation of action
 sub viewRebuild {
-	my $message = shift( @_ ) || Gm_Constants::EMPTY;
+    my $message = shift( @_ ) || Gm_Constants::EMPTY;
 
-	unless( Gm_Core::hasPosted() ){
-		$message = '<span class="error_msg">There are no entries yet!</span>';
-		frontPage( $message );
-	}
+    unless( Gm_Core::hasPosted() ){
+        $message = '<span class="error_msg">There are no entries yet!</span>';
+        frontPage( $message );
+    }
 
-	my $page = '<span class="section_title">Rebuild Files</span><br /><p><span class="info_text">'.
-		'If you\'ve made any changes '.
-		'that will have a visible impact on your site (such as changing the templates, closing/reopening '.
-		'an entry, etc), you may want to rebuild the relevant files so that the changes will be immediately '.
-		'visible&#151;note that whenever you add a new entry, Greymatter automatically updates the relevant '.
-		'files.</span></p><p>'.$message.'</p>';
+    my $page = '<span class="section_title">Rebuild Files</span><br /><p><span class="info_text">'.
+        'If you\'ve made any changes '.
+        'that will have a visible impact on your site (such as changing the templates, closing/reopening '.
+                                                       'an entry, etc), you may want to rebuild the relevant files so that the changes will be immediately '.
+        'visible&#151;note that whenever you add a new entry, Greymatter automatically updates the relevant '.
+                          'files.</span></p><p>'.$message.'</p>';
 
-	my $rebuildconnectedfilesbutton = Gm_Constants::EMPTY;
-	if( $gmConfigs->{'gmotherfilelist'} ne Gm_Constants::EMPTY ){
-		$rebuildconnectedfilesbutton = '<INPUT TYPE=SUBMIT CLASS="button" NAME="thomas" '.
-			'VALUE="Rebuild Connected Files" STYLE="width: 320"><P>';
-	}
+    my $rebuildconnectedfilesbutton = Gm_Constants::EMPTY;
+    if( $gmConfigs->{'gmotherfilelist'} ne Gm_Constants::EMPTY ){
+        $rebuildconnectedfilesbutton = '<INPUT TYPE=SUBMIT CLASS="button" NAME="thomas" '.
+            'VALUE="Rebuild Connected Files" STYLE="width: 320"><P>';
+    }
 
-	## Make this so if there are no entries, then Only connected and everything shows...
-	## TODO: Currently we are hiding options based on configurations, but should we print something that
-	# indicates an option is disabled because of the configs?  This could help new users, but seems like
-	# it would get annoying for experienced users who will never turn on certain options...
-	$page .= '<form action="gm.cgi" method="post">'.Gm_Security::getFormAuth( author=>\%AUTHOR ).
-		'<input type="hidden" name="section" value="'.$IN{'section'}.'">'.
-		'<INPUT TYPE=SUBMIT CLASS="button" NAME="lastentry" VALUE="Rebuild Last Entry Page Only" STYLE="width: 320"><P>'.
-		'<INPUT TYPE=SUBMIT CLASS="button" NAME="mainindex" VALUE="Rebuild Main Index File" STYLE="width: 320"><P>';
-	
-	if( $gmConfigs->{'gmgenerateentrypages'} eq Gm_Constants::YES ){
-		$page .= '<INPUT TYPE=SUBMIT CLASS="button" NAME="mainentries" VALUE="Rebuild Main Entry Pages" STYLE="width: 320"><P>';
-	}	
-	if( $gmConfigs->{'gmkeeparchivemasterindex'} eq Gm_Constants::YES ){
-		$page .= '<INPUT TYPE=SUBMIT CLASS="button" NAME="archiveindex" VALUE="Rebuild Archive Master Index" STYLE="width: 320"><P>';
-	}
-	if( $gmConfigs->{'gmkeepmonthlyarchives'} eq Gm_Constants::YES ){
-		$page .= '<INPUT TYPE=SUBMIT CLASS="button" NAME="archivelogs" VALUE="Rebuild Archive Log Indexes" STYLE="width: 320"><P>';
-	}
-	if( $gmConfigs->{'gmgenerateentrypages'} eq Gm_Constants::YES ){
-		$page .= '<INPUT TYPE=SUBMIT CLASS="button" NAME="archiveentries" VALUE="Rebuild Archive Entry Pages" STYLE="width: 320"><P>'.
-			'<INPUT TYPE=SUBMIT CLASS="button" NAME="allentries" VALUE="Rebuild All Entry Pages" STYLE="width: 320"><P>';
-	}	
-	if( $gmConfigs->{'gmotherfilelist'} ne Gm_Constants::EMPTY ){
-		$page .= '<INPUT TYPE=SUBMIT CLASS="button" NAME="connected" VALUE="Rebuild Connected Files" STYLE="width: 320"><P>';
-	}
-		
-	$page .= '<INPUT TYPE=SUBMIT CLASS="button" NAME="everything" STYLE="background: #D0FFD0" VALUE="Rebuild Everything" STYLE="width: 320"><P>'.
-		'<span class="info_text">After clicking, expect a wait of up to several minutes, depending on how much '.
-		'is being rebuilt.<br /><B>DO NOT INTERRUPT GREYMATTER</B><br />while it\'s rebuilding, or you could damage '.
-		'your files.</span><p></form>';
-		
-	$page .= "\n\n".'<p><form action="gm.cgi" method="post"> '.Gm_Security::getFormAuth( author=>\%AUTHOR ).
-		'<input type=submit class="button" name="menu" VALUE="'.Gm_Core::text( Gm_Constants::RETURN_MAIN_MENU ).
-		'" STYLE="background: #C0C0C0"></form></p>';
+    ## Make this so if there are no entries, then Only connected and everything shows...
+    ## TODO: Currently we are hiding options based on configurations, but should we print something that
+    # indicates an option is disabled because of the configs?  This could help new users, but seems like
+    # it would get annoying for experienced users who will never turn on certain options...
+    $page .= '<form action="gm.cgi" method="post">'.Gm_Security::getFormAuth( author=>\%AUTHOR ).
+        '<input type="hidden" name="section" value="'.$IN{'section'}.'">'.
+        '<INPUT TYPE=SUBMIT CLASS="button" NAME="lastentry" VALUE="Rebuild Last Entry Page Only" STYLE="width: 320"><P>'.
+        '<INPUT TYPE=SUBMIT CLASS="button" NAME="mainindex" VALUE="Rebuild Main Index File" STYLE="width: 320"><P>';
+    
+    if( $gmConfigs->{'gmgenerateentrypages'} eq Gm_Constants::YES ){
+        $page .= '<INPUT TYPE=SUBMIT CLASS="button" NAME="mainentries" VALUE="Rebuild Main Entry Pages" STYLE="width: 320"><P>';
+    }	
+    if( $gmConfigs->{'gmkeeparchivemasterindex'} eq Gm_Constants::YES ){
+        $page .= '<INPUT TYPE=SUBMIT CLASS="button" NAME="archiveindex" VALUE="Rebuild Archive Master Index" STYLE="width: 320"><P>';
+    }
+    if( $gmConfigs->{'gmkeepmonthlyarchives'} eq Gm_Constants::YES ){
+        $page .= '<INPUT TYPE=SUBMIT CLASS="button" NAME="archivelogs" VALUE="Rebuild Archive Log Indexes" STYLE="width: 320"><P>';
+    }
+    if( $gmConfigs->{'gmgenerateentrypages'} eq Gm_Constants::YES ){
+        $page .= '<INPUT TYPE=SUBMIT CLASS="button" NAME="archiveentries" VALUE="Rebuild Archive Entry Pages" STYLE="width: 320"><P>'.
+            '<INPUT TYPE=SUBMIT CLASS="button" NAME="allentries" VALUE="Rebuild All Entry Pages" STYLE="width: 320"><P>';
+    }	
+    if( $gmConfigs->{'gmotherfilelist'} ne Gm_Constants::EMPTY ){
+        $page .= '<INPUT TYPE=SUBMIT CLASS="button" NAME="connected" VALUE="Rebuild Connected Files" STYLE="width: 320"><P>';
+    }
+    
+    $page .= '<INPUT TYPE=SUBMIT CLASS="button" NAME="everything" STYLE="background: #D0FFD0" VALUE="Rebuild Everything" STYLE="width: 320"><P>'.
+        '<span class="info_text">After clicking, expect a wait of up to several minutes, depending on how much '.
+        'is being rebuilt.<br /><B>DO NOT INTERRUPT GREYMATTER</B><br />while it\'s rebuilding, or you could damage '.
+        'your files.</span><p></form>';
+    
+    $page .= "\n\n".'<p><form action="gm.cgi" method="post"> '.Gm_Security::getFormAuth( author=>\%AUTHOR ).
+        '<input type=submit class="button" name="menu" VALUE="'.Gm_Core::text( Gm_Constants::RETURN_MAIN_MENU ).
+                                             '" STYLE="background: #C0C0C0"></form></p>';
 
-	Gm_Web::displayAdminPageExit( $page );
-	exit(0);
+    Gm_Web::displayAdminPageExit( $page );
+    exit(0);
 }
 
 
@@ -6534,25 +6534,25 @@ sub viewRebuild {
 ## NOTE: should part of this be generized and put in Core?  Something that doesn't presume where its being
 # called from so it can be reused with normal user self-registration? 
 sub rebuildLastEntry {
-	my $message = Gm_Constants::EMPTY;
+    my $message = Gm_Constants::EMPTY;
 
-#	&gm_readcounter;
-	my $gmCounters = Gm_Storage::getCounters( errHandler=>\&Gm_Web::displayAdminErrorExit );
-	
-	if( $gmConfigs->{'gmgenerateentrypages'} ne Gm_Constants::YES ){
-		$message = '<span class="error_msg">Entry page generation is currently disabled.</span>';
-		return( $message );
-	}
+    #	&gm_readcounter;
+    my $gmCounters = Gm_Storage::getCounters( errHandler=>\&Gm_Web::displayAdminErrorExit );
+    
+    if( $gmConfigs->{'gmgenerateentrypages'} ne Gm_Constants::YES ){
+        $message = '<span class="error_msg">Entry page generation is currently disabled.</span>';
+        return( $message );
+    }
 
-	$IN{'rebuilding'} = 'entryfiles';
-	$IN{'rebuildfrom'} = $gmCounters->{'entrytotal'};
-	
-	rebuildUpdate();
+    $IN{'rebuilding'} = 'entryfiles';
+    $IN{'rebuildfrom'} = $gmCounters->{'entrytotal'};
+    
+    rebuildUpdate();
 
-	Gm_Core::writeToCplog("$AUTHOR{'author'} rebuilt the last entry page");
-	$message = '<span class="status_msg">The last entry page has been rebuilt.</span>';
+    Gm_Core::writeToCplog("$AUTHOR{'author'} rebuilt the last entry page");
+    $message = '<span class="status_msg">The last entry page has been rebuilt.</span>';
 
-	return( $message );
+    return( $message );
 }
 
 
@@ -6562,14 +6562,14 @@ sub rebuildLastEntry {
 ## NOTE: should part of this be generized and put in Core?  Something that doesn't presume where its being
 # called from so it can be reused with normal user self-registration?
 sub rebuildMainIndex {
-	my $message = Gm_Constants::EMPTY;
+    my $message = Gm_Constants::EMPTY;
 
-	$IN{'rebuilding'} = 'mainindex';
-	$IN{'rebuildfrom'} = 'index';
+    $IN{'rebuilding'} = 'mainindex';
+    $IN{'rebuildfrom'} = 'index';
 
-	$message = rebuildUpdate();
-	
-	return( $message );
+    $message = rebuildUpdate();
+    
+    return( $message );
 }
 
 
@@ -6579,21 +6579,21 @@ sub rebuildMainIndex {
 ## NOTE: should part of this be generized and put in Core?  Something that doesn't presume where its being
 # called from so it can be reused with normal user self-registration?
 sub rebuildMainEntries {
-	my $message = Gm_Constants::EMPTY;
+    my $message = Gm_Constants::EMPTY;
 
-	my $gmCounters = Gm_Storage::getCounters( errHandler=>\&Gm_Web::displayAdminErrorExit );
+    my $gmCounters = Gm_Storage::getCounters( errHandler=>\&Gm_Web::displayAdminErrorExit );
 
-	if( $gmConfigs->{'gmgenerateentrypages'} ne Gm_Constants::YES ){
-		$message = '<span class="error_msg">Entry page generation is currently disabled.</span>';
-		return( $message );
-	}
+    if( $gmConfigs->{'gmgenerateentrypages'} ne Gm_Constants::YES ){
+        $message = '<span class="error_msg">Entry page generation is currently disabled.</span>';
+        return( $message );
+    }
 
-	$IN{'rebuilding'} = 'mainentries';
-	$IN{'rebuildfrom'} = $gmCounters->{'archivetotal'} + 1;
-	
-	$message = rebuildUpdate();
-	
-	return( $message );
+    $IN{'rebuilding'} = 'mainentries';
+    $IN{'rebuildfrom'} = $gmCounters->{'archivetotal'} + 1;
+    
+    $message = rebuildUpdate();
+    
+    return( $message );
 }
 
 
@@ -6604,19 +6604,19 @@ sub rebuildMainEntries {
 # called from so it can be reused with normal user self-registration?
 ### TODO: WHY NOT USEING REBUILDUPDATE???
 sub rebuildArchiveIndex {
-	my $message = Gm_Constants::EMPTY;
-	
-	if( $gmConfigs->{'gmkeeparchivemasterindex'} eq Gm_Constants::NO ){
-		$message = '<span class="error_msg">"Keep archive master index" is currently disabled.</span>';
-		frontPage( $message );
-	}
+    my $message = Gm_Constants::EMPTY;
+    
+    if( $gmConfigs->{'gmkeeparchivemasterindex'} eq Gm_Constants::NO ){
+        $message = '<span class="error_msg">"Keep archive master index" is currently disabled.</span>';
+        frontPage( $message );
+    }
 
-	$IN{'rebuilding'} = 'archiveindex';
-	$IN{'rebuildfrom'} = 'masterindex';
-	
-	$message = rebuildUpdate();
-	
-	return( $message );
+    $IN{'rebuilding'} = 'archiveindex';
+    $IN{'rebuildfrom'} = 'masterindex';
+    
+    $message = rebuildUpdate();
+    
+    return( $message );
 }
 
 
@@ -6626,39 +6626,39 @@ sub rebuildArchiveIndex {
 ## NOTE: should part of this be generized and put in Core?  Something that doesn't presume where its being
 # called from so it can be reused with normal user self-registration?
 sub rebuildArchiveLogs {
-	my $message = Gm_Constants::EMPTY;
+    my $message = Gm_Constants::EMPTY;
 
-#	&gm_readconfig;
-# 	&gm_readcounter;
-# 	&gm_readtemplates;
-	## When templates rebuilt do log indicies and master index
-	if( ($IN{'autorebuild'} eq 'archiveindexes') && ($gmConfigs->{'gmkeeparchivemasterindex'} ne Gm_Constants::NO) ){
-		$IN{'rebuilding'} = 'archiveindex';
-		$IN{'rebuildfrom'} = 'masterindex';
+    #	&gm_readconfig;
+    # 	&gm_readcounter;
+    # 	&gm_readtemplates;
+    ## When templates rebuilt do log indicies and master index
+    if( ($IN{'autorebuild'} eq 'archiveindexes') && ($gmConfigs->{'gmkeeparchivemasterindex'} ne Gm_Constants::NO) ){
+        $IN{'rebuilding'} = 'archiveindex';
+        $IN{'rebuildfrom'} = 'masterindex';
 	
-		$message = rebuildUpdate();
-	}
+        $message = rebuildUpdate();
+    }
+    
+    my $gmCounters = Gm_Storage::getCounters( errHandler=>\&Gm_Web::displayAdminErrorExit );
+    if( $gmCounters->{'archivetotal'} < 1 && $gmConfigs->{'gmconcurrentmainandarchives'} ne Gm_Constants::YES ){
+        $message = '<span class="error_msg">There are no archive log indexes yet.</span>';
+        
+        if( $IN{'autorebuild'} eq 'archiveindexes' ){
+            $message .= "<br /><span class=\"status_msg\">The $IN{'modifiedtemplategroup'} templates have been modified.</span>";
+        }
+    } else {
 	
-	my $gmCounters = Gm_Storage::getCounters( errHandler=>\&Gm_Web::displayAdminErrorExit );
-	if( $gmCounters->{'archivetotal'} < 1 && $gmConfigs->{'gmconcurrentmainandarchives'} ne Gm_Constants::YES ){
-		$message = '<span class="error_msg">There are no archive log indexes yet.</span>';
-		
-		if( $IN{'autorebuild'} eq 'archiveindexes' ){
-			$message .= "<br /><span class=\"status_msg\">The $IN{'modifiedtemplategroup'} templates have been modified.</span>";
-		}
-	} else {
-	
-		unlink glob("$gmConfigs->{'gmentriespath'}/archive-*.$gmConfigs->{'gmentrysuffix'}");
-		unlink glob("$gmConfigs->{'gmentriespath'}/archive-*.$gmConfigs->{'gmlogarchivesuffix'}");
+        unlink glob("$gmConfigs->{'gmentriespath'}/archive-*.$gmConfigs->{'gmentrysuffix'}");
+        unlink glob("$gmConfigs->{'gmentriespath'}/archive-*.$gmConfigs->{'gmlogarchivesuffix'}");
 
 	
-		$IN{'rebuilding'} = 'archivelogs';
-		$IN{'rebuildfrom'} = 'logarchives';
-		
-		$message .= "<br />".rebuildUpdate(); ## may not come back from this
-	}
-	
-	return( $message );
+        $IN{'rebuilding'} = 'archivelogs';
+        $IN{'rebuildfrom'} = 'logarchives';
+        
+        $message .= "<br />".rebuildUpdate(); ## may not come back from this
+    }
+    
+    return( $message );
 }
 
 
@@ -6668,22 +6668,22 @@ sub rebuildArchiveLogs {
 ## NOTE: should part of this be generized and put in Core?  Something that doesn't presume where its being
 # called from so it can be reused with normal user self-registration? 
 sub rebuildArchiveEntries {
-	my $message = Gm_Constants::EMPTY;
+    my $message = Gm_Constants::EMPTY;
 
-#	&gm_readconfig;
-	
-	if( $gmConfigs->{'gmgenerateentrypages'} eq Gm_Constants::NO ){
-		$message = '<span class="error_msg">Entry page generation is currently disabled.</span>';
-		return( $message );
-	}
-	
-	## TODO: these should be parameters?
-	$IN{'rebuilding'} = 'archivefiles';
-	$IN{'rebuildfrom'} = '1';
-	
-	$message = rebuildUpdate();
-	
-	return( $message );
+    #	&gm_readconfig;
+    
+    if( $gmConfigs->{'gmgenerateentrypages'} eq Gm_Constants::NO ){
+        $message = '<span class="error_msg">Entry page generation is currently disabled.</span>';
+        return( $message );
+    }
+    
+    ## TODO: these should be parameters?
+    $IN{'rebuilding'} = 'archivefiles';
+    $IN{'rebuildfrom'} = '1';
+    
+    $message = rebuildUpdate();
+    
+    return( $message );
 }
 
 
@@ -6693,26 +6693,26 @@ sub rebuildArchiveEntries {
 ## NOTE: should part of this be generized and put in Core?  Something that doesn't presume where its being
 # called from so it can be reused with normal user self-registration?
 sub rebuildAllEntries {
-	my $message = Gm_Constants::EMPTY;
+    my $message = Gm_Constants::EMPTY;
 
-#	&gm_readconfig;
-	
-	if( $gmConfigs->{'gmgenerateentrypages'} ne Gm_Constants::YES ){
-		$message = '<span class="error_msg">Entry page generation is currently disabled.</span>';
-		return( $message );
-	}
+    #	&gm_readconfig;
+    
+    if( $gmConfigs->{'gmgenerateentrypages'} ne Gm_Constants::YES ){
+        $message = '<span class="error_msg">Entry page generation is currently disabled.</span>';
+        return( $message );
+    }
 
-	# Commenting out this for now, since if we aren't rebuilding these files, why delete?  Particularly since
-	# they don't directly impact the entries - I THINK this may be cleanup before they switched to using 
-	# $archiveentrysuffix and that its cleaning up files that it doesn't even generate anymore
-#	unlink glob("$EntriesPath/archive-*.$entrysuffix");
-	
-	$IN{'rebuilding'} = 'entryfiles';
-	$IN{'rebuildfrom'} = '1';
-	
-	$message = rebuildUpdate();
-	
-	return( $message );
+    # Commenting out this for now, since if we aren't rebuilding these files, why delete?  Particularly since
+    # they don't directly impact the entries - I THINK this may be cleanup before they switched to using 
+    # $archiveentrysuffix and that its cleaning up files that it doesn't even generate anymore
+    #	unlink glob("$EntriesPath/archive-*.$entrysuffix");
+    
+    $IN{'rebuilding'} = 'entryfiles';
+    $IN{'rebuildfrom'} = '1';
+    
+    $message = rebuildUpdate();
+    
+    return( $message );
 }
 
 
@@ -6722,21 +6722,21 @@ sub rebuildAllEntries {
 ## NOTE: should part of this be generized and put in Core?  Something that doesn't presume where its being
 # called from so it can be reused with normal user self-registration?
 sub rebuildConnected {
-	my $message = Gm_Constants::EMPTY;
+    my $message = Gm_Constants::EMPTY;
 
-#	&gm_readconfig;	
-	
-	if ($gmConfigs->{'gmgenerateentrypages'} eq Gm_Constants::EMPTY) {
-		$message = '<span class="error_msg">There are no connected files to rebuild.</span>';
-		return( $message );
-	}
+    #	&gm_readconfig;	
+    
+    if ($gmConfigs->{'gmgenerateentrypages'} eq Gm_Constants::EMPTY) {
+        $message = '<span class="error_msg">There are no connected files to rebuild.</span>';
+        return( $message );
+    }
 
-	$IN{'rebuilding'} = 'connected';
-	$IN{'rebuildfrom'} = 'connected';
-	
-	$message = rebuildUpdate();
-	
-	return( $message );
+    $IN{'rebuilding'} = 'connected';
+    $IN{'rebuildfrom'} = 'connected';
+    
+    $message = rebuildUpdate();
+    
+    return( $message );
 }
 
 
@@ -6746,18 +6746,18 @@ sub rebuildConnected {
 ## NOTE: should part of this be generized and put in Core?  Something that doesn't presume where its being
 # called from so it can be reused with normal user self-registration?
 sub rebuildEverything {
-	my $message = Gm_Constants::EMPTY;
+    my $message = Gm_Constants::EMPTY;
 
-	## No error checking needed as rebuildUpdate will take care of it
+    ## No error checking needed as rebuildUpdate will take care of it
 
-	unlink glob("$gmConfigs->{'gmentriespath'}/*.reg");
-	unlink glob("$gmConfigs->{'gmentriespath'}/archive-*.$gmConfigs->{'gmentrysuffix'}");
-	unlink glob("$gmConfigs->{'gmentriespath'}/archive-*.$gmConfigs->{'gmlogarchivesuffix'}");
-	
-	$IN{'rebuilding'} = 'everything';
-	$IN{'rebuildfrom'} = 'index';
-	
-	rebuildUpdate();
+    unlink glob("$gmConfigs->{'gmentriespath'}/*.reg");
+    unlink glob("$gmConfigs->{'gmentriespath'}/archive-*.$gmConfigs->{'gmentrysuffix'}");
+    unlink glob("$gmConfigs->{'gmentriespath'}/archive-*.$gmConfigs->{'gmlogarchivesuffix'}");
+    
+    $IN{'rebuilding'} = 'everything';
+    $IN{'rebuildfrom'} = 'index';
+    
+    rebuildUpdate();
 
 }
 
@@ -6767,290 +6767,290 @@ sub rebuildEverything {
 ## NOTE: should part of this be generized and put in Core?  Something that doesn't presume where its being
 # called from so it can be reused with normal user self-registration? 
 sub rebuildUpdate {
-	my $message = Gm_Constants::EMPTY;
+    my $message = Gm_Constants::EMPTY;
 
-# $usethisauthorname = $IN{'authorname'};
-# $usethisauthorpassword = $IN{'authorpassword'};
-# $usethisauthorname =~ s/ /\+/g;
-# $usethisauthorpassword =~ s/ /\+/g;
+    # $usethisauthorname = $IN{'authorname'};
+    # $usethisauthorpassword = $IN{'authorpassword'};
+    # $usethisauthorname =~ s/ /\+/g;
+    # $usethisauthorpassword =~ s/ /\+/g;
 
-	my $nowrebuild = Gm_Constants::EMPTY;
-	my $whatimdoing = 'Error';
+    my $nowrebuild = Gm_Constants::EMPTY;
+    my $whatimdoing = 'Error';
 
-#&gm_readconfig;
-#	&gm_readcounter; ## TODO: refactor out
-	my $gmCounters = Gm_Storage::getCounters( errHandler=>\&Gm_Web::displayAdminErrorExit );
-	my $stoppednumber = $gmCounters->{'archivetotal'};
-	my $connectpercentdone = 0;
-#	&gm_readtemplates; ## TODO: refactor out
-	my $gmTemplates = Gm_Storage::getTemplates( errHandler=>\&Gm_Web::displayAdminErrorExit );
+    #&gm_readconfig;
+    #	&gm_readcounter; ## TODO: refactor out
+    my $gmCounters = Gm_Storage::getCounters( errHandler=>\&Gm_Web::displayAdminErrorExit );
+    my $stoppednumber = $gmCounters->{'archivetotal'};
+    my $connectpercentdone = 0;
+    #	&gm_readtemplates; ## TODO: refactor out
+    my $gmTemplates = Gm_Storage::getTemplates( errHandler=>\&Gm_Web::displayAdminErrorExit );
 
-	## Here is our process tree...
-	if( $IN{'rebuildfrom'} eq 'index' ){
+    ## Here is our process tree...
+    if( $IN{'rebuildfrom'} eq 'index' ){
 	
-#		&gm_generatemainindex;
-		Gm_Core::constructMainIndex( errHandler=>\&Gm_Web::displayAdminErrorExit );
+        #		&gm_generatemainindex;
+        Gm_Core::constructMainIndex( errHandler=>\&Gm_Web::displayAdminErrorExit );
 
-		if( $IN{'rebuilding'} eq 'mainindex' ){
-			$nowrebuild = 'done';
-		} else {		
-			$whatimdoing = 'Rebuilt main index.  Now rebuilding log archives...';
-			$nowrebuild = 'logarchives';
-		}
+        if( $IN{'rebuilding'} eq 'mainindex' ){
+            $nowrebuild = 'done';
+        } else {		
+            $whatimdoing = 'Rebuilt main index.  Now rebuilding log archives...';
+            $nowrebuild = 'logarchives';
+        }
 	
-	} elsif( $IN{'rebuildfrom'} eq 'logarchives' ){
-		##  using newentrynumber, but could we switch to Gm_Core::hasPosted() since it won't be 0 if entrytotal isn't 0
-		if( ($gmCounters->{'archivetotal'} ne '0') || ($gmConfigs->{'gmconcurrentmainandarchives'} eq Gm_Constants::YES) ){
-			if( $gmConfigs->{'gmkeepmonthlyarchives'} ne Gm_Constants::NO ){
-			
-				if( $gmConfigs->{'gmconcurrentmainandarchives'} eq Gm_Constants::YES ){ 
-					$stoppednumber = $gmCounters->{'entrytotal'}; 
-				}
-				
-				## must use passed entry number & set it = nowrebuild
-				if( $IN{'rebuildfrom'} && $IN{'connectednumber'} ){
-					$stoppednumber = $IN{'connectednumber'};
-				} 				
-				$stoppednumber = Gm_Core::constructArchives( startnum=>$stoppednumber, buildnum=>10, 
-					errHandler=>\&Gm_Web::displayAdminErrorExit );				 			
-			}
-		}
+    } elsif( $IN{'rebuildfrom'} eq 'logarchives' ){
+        ##  using newentrynumber, but could we switch to Gm_Core::hasPosted() since it won't be 0 if entrytotal isn't 0
+        if( ($gmCounters->{'archivetotal'} ne '0') || ($gmConfigs->{'gmconcurrentmainandarchives'} eq Gm_Constants::YES) ){
+            if( $gmConfigs->{'gmkeepmonthlyarchives'} ne Gm_Constants::NO ){
+                
+                if( $gmConfigs->{'gmconcurrentmainandarchives'} eq Gm_Constants::YES ){ 
+                    $stoppednumber = $gmCounters->{'entrytotal'}; 
+                }
+                
+                ## must use passed entry number & set it = nowrebuild
+                if( $IN{'rebuildfrom'} && $IN{'connectednumber'} ){
+                    $stoppednumber = $IN{'connectednumber'};
+                } 				
+                $stoppednumber = Gm_Core::constructArchives( startnum=>$stoppednumber, buildnum=>10, 
+                                                            errHandler=>\&Gm_Web::displayAdminErrorExit );				 			
+            }
+        }
 
 	
-		if( $IN{'rebuilding'} eq 'archivefiles' ){
-			$nowrebuild = 'done';
-		} else {	
-			if( $stoppednumber < 2 ){
-				$whatimdoing = 'Rebuilt log archives.  Now rebuilding archive master index...';
-				$nowrebuild = 'masterindex';
-				$IN{'connectednumber'} = '';
-				if( $IN{'rebuilding'} eq 'archivelogs' ){
-					$nowrebuild = 'done';
-				}
-			} else {
-				$connectpercentdone = int( (($gmCounters->{'entrytotal'} - $stoppednumber) / $gmCounters->{'entrytotal'}) * 100 );
-				$whatimdoing = "Rebuilding archive log files ($connectpercentdone% done)...";
-				$nowrebuild = 'logarchives';
-				$IN{'connectednumber'} = $stoppednumber;
-			}
-		}
-		
-	} elsif ($IN{'rebuildfrom'} eq 'masterindex') {
+        if( $IN{'rebuilding'} eq 'archivefiles' ){
+            $nowrebuild = 'done';
+        } else {	
+            if( $stoppednumber < 2 ){
+                $whatimdoing = 'Rebuilt log archives.  Now rebuilding archive master index...';
+                $nowrebuild = 'masterindex';
+                $IN{'connectednumber'} = '';
+                if( $IN{'rebuilding'} eq 'archivelogs' ){
+                    $nowrebuild = 'done';
+                }
+            } else {
+                $connectpercentdone = int( (($gmCounters->{'entrytotal'} - $stoppednumber) / $gmCounters->{'entrytotal'}) * 100 );
+                $whatimdoing = "Rebuilding archive log files ($connectpercentdone% done)...";
+                $nowrebuild = 'logarchives';
+                $IN{'connectednumber'} = $stoppednumber;
+            }
+        }
+        
+    } elsif ($IN{'rebuildfrom'} eq 'masterindex') {
 
-		Gm_Core::constructArchiveIndex( errHandler=>\&Gm_Web::displayAdminErrorExit );
+        Gm_Core::constructArchiveIndex( errHandler=>\&Gm_Web::displayAdminErrorExit );
 	
-		if( $IN{'rebuilding'} eq 'archiveindex' ){
-			$nowrebuild = 'done';
-		} else {
-			if( $gmConfigs->{'gmgenerateentrypages'} ne Gm_Constants::EMPTY ){
-				$whatimdoing = 'Rebuilt archive master index.  Now rebuilding connected files...';
-				$nowrebuild = 'connected';
-			} else {
-				$whatimdoing = 'Rebuilt archive master index.  Now rebuilding entry files...';
-				$nowrebuild = '1';
-			}
-		}
+        if( $IN{'rebuilding'} eq 'archiveindex' ){
+            $nowrebuild = 'done';
+        } else {
+            if( $gmConfigs->{'gmgenerateentrypages'} ne Gm_Constants::EMPTY ){
+                $whatimdoing = 'Rebuilt archive master index.  Now rebuilding connected files...';
+                $nowrebuild = 'connected';
+            } else {
+                $whatimdoing = 'Rebuilt archive master index.  Now rebuilding entry files...';
+                $nowrebuild = '1';
+            }
+        }
 	
-	} elsif( $IN{'rebuildfrom'} eq 'connected' ){
+    } elsif( $IN{'rebuildfrom'} eq 'connected' ){
 
-		if( $gmConfigs->{'gmgenerateentrypages'} ne Gm_Constants::EMPTY ){
-				## can this looping code be generisized? cause would need to loop for connected, entries, and archive logs
-				my $connectedfilesdone = Gm_Constants::NO;
-				my @connectedfilelist = split ('\\n', $gmConfigs->{'gmotherfilelist'} );
-				my $connectstartfromhere = $IN{'connectednumber'} || 0;
-				my $connectendhere = $connectstartfromhere + 9;
-				if( $connectendhere > $#connectedfilelist || $connectendhere eq $#connectedfilelist ){
-					$connectendhere = $#connectedfilelist;
-					$connectedfilesdone = Gm_Constants::YES;
-				}
-				$IN{'connectednumber'} = $connectendhere + 1;
-		
-			#&gm_rebuildconnectedfiles;
-				Gm_Core::constructConnectedFiles( connectedstart=>$connectstartfromhere, 
-					connectedend=>$connectendhere, errHandler=>\&Gm_Web::displayAdminErrorExit );
-				
-			if( $connectedfilesdone eq Gm_Constants::YES ){
-				$whatimdoing = 'Rebuilt connected files.  Now rebuilding entry files...';
-				$nowrebuild = '1';
-				if (($IN{'rebuilding'} eq 'connected') || ($IN{'rebuilding'} eq 'connectedaftersave')) {
-					$nowrebuild = 'done';
-				}
-			} else {
-				$connectpercentdone = int( ($IN{'connectednumber'} / $#connectedfilelist) * 100 );
-				$whatimdoing = "Rebuilding connected files ($connectpercentdone% done)...";
-				$nowrebuild = 'connected';
-			}
-		} else {
-			$whatimdoing = 'Now rebuilding entry files...';
-			$nowrebuild = '1';
-		}
+        if( $gmConfigs->{'gmgenerateentrypages'} ne Gm_Constants::EMPTY ){
+            ## can this looping code be generisized? cause would need to loop for connected, entries, and archive logs
+            my $connectedfilesdone = Gm_Constants::NO;
+            my @connectedfilelist = split ('\\n', $gmConfigs->{'gmotherfilelist'} );
+            my $connectstartfromhere = $IN{'connectednumber'} || 0;
+            my $connectendhere = $connectstartfromhere + 9;
+            if( $connectendhere > $#connectedfilelist || $connectendhere eq $#connectedfilelist ){
+                $connectendhere = $#connectedfilelist;
+                $connectedfilesdone = Gm_Constants::YES;
+            }
+            $IN{'connectednumber'} = $connectendhere + 1;
+            
+            #&gm_rebuildconnectedfiles;
+            Gm_Core::constructConnectedFiles( connectedstart=>$connectstartfromhere, 
+                                              connectedend=>$connectendhere, errHandler=>\&Gm_Web::displayAdminErrorExit );
+            
+            if( $connectedfilesdone eq Gm_Constants::YES ){
+                $whatimdoing = 'Rebuilt connected files.  Now rebuilding entry files...';
+                $nowrebuild = '1';
+                if (($IN{'rebuilding'} eq 'connected') || ($IN{'rebuilding'} eq 'connectedaftersave')) {
+                    $nowrebuild = 'done';
+                }
+            } else {
+                $connectpercentdone = int( ($IN{'connectednumber'} / $#connectedfilelist) * 100 );
+                $whatimdoing = "Rebuilding connected files ($connectpercentdone% done)...";
+                $nowrebuild = 'connected';
+            }
+        } else {
+            $whatimdoing = 'Now rebuilding entry files...';
+            $nowrebuild = '1';
+        }
 
-	} else {
+    } else {
 	
-		unless( ($IN{'rebuilding'} eq 'connected') || ($IN{'rebuilding'} eq 'connectedaftersave') ){
-		##  using newentrynumber, but could we switch to Gm_Core::hasPosted() since it won't be 0 if entrytotal isn't 0
-			if( ($gmConfigs->{'gmgenerateentrypages'} eq Gm_Constants::YES) && ($gmCounters->{'entrytotal'} ne '0') ){
-				my $currentcount = $IN{'rebuildfrom'};
-				my $counttohere = $currentcount + 10;
-				if( $IN{'rebuildfrom'} eq 'archivefiles' ){
-					if( $counttohere > $gmCounters->{'archivetotal'} ){ 
-						$counttohere = $gmCounters->{'archivetotal'}; 
-					}
-				} else {
-					if( $counttohere > $gmCounters->{'entrytotal'} ){ 
-						$counttohere = $gmCounters->{'entrytotal'}; 
-					}
-				}
-				my $entryVars = ();
-				do {
-					$entryVars = Gm_Core::getEntryVariables( entryid=>$currentcount);
-	### REFACTOR this into CORE				
-					if ($entryVars->{'thisentryopenstatus'} eq Gm_Constants::OPEN) {
-						my $entryreturn = '';
-					
-						if ($currentcount <= $gmCounters->{'archivetotal'}) {
-							if ($entryVars->{'thisentrymorebody'} ne Gm_Constants::EMPTY) {
-								$entryreturn = Gm_Core::translateEntryTemplates( entryVars=>$entryVars,
-									template=>$gmTemplates->{'gmmorearchiveentrypagetemplate'}, errHandler=>\&Gm_Web::displayAdminErrorExit );
-							} else {
-								$entryreturn = Gm_Core::translateEntryTemplates( entryVars=>$entryVars,
-									template=>$gmTemplates->{'gmarchiveentrypagetemplate'}, errHandler=>\&Gm_Web::displayAdminErrorExit );
-							}
-						} else {
-							if ($entryVars->{'thisentrymorebody'} ne Gm_Constants::EMPTY) {
-								$entryreturn = Gm_Core::translateEntryTemplates( entryVars=>$entryVars,
-									template=>$gmTemplates->{'gmmoreentrypagetemplate'}, errHandler=>\&Gm_Web::displayAdminErrorExit );
-							} else {
-								$entryreturn = Gm_Core::translateEntryTemplates( entryVars=>$entryVars,
-									template=>$gmTemplates->{'gmentrypagetemplate'}, errHandler=>\&Gm_Web::displayAdminErrorExit );
-							}
-						}
+        unless( ($IN{'rebuilding'} eq 'connected') || ($IN{'rebuilding'} eq 'connectedaftersave') ){
+            ##  using newentrynumber, but could we switch to Gm_Core::hasPosted() since it won't be 0 if entrytotal isn't 0
+            if( ($gmConfigs->{'gmgenerateentrypages'} eq Gm_Constants::YES) && ($gmCounters->{'entrytotal'} ne '0') ){
+                my $currentcount = $IN{'rebuildfrom'};
+                my $counttohere = $currentcount + 10;
+                if( $IN{'rebuildfrom'} eq 'archivefiles' ){
+                    if( $counttohere > $gmCounters->{'archivetotal'} ){ 
+                        $counttohere = $gmCounters->{'archivetotal'}; 
+                    }
+                } else {
+                    if( $counttohere > $gmCounters->{'entrytotal'} ){ 
+                        $counttohere = $gmCounters->{'entrytotal'}; 
+                    }
+                }
+                my $entryVars = ();
+                do {
+                    $entryVars = Gm_Core::getEntryVariables( entryid=>$currentcount);
+                    ### REFACTOR this into CORE				
+                    if ($entryVars->{'thisentryopenstatus'} eq Gm_Constants::OPEN) {
+                        my $entryreturn = '';
+                        
+                        if ($currentcount <= $gmCounters->{'archivetotal'}) {
+                            if ($entryVars->{'thisentrymorebody'} ne Gm_Constants::EMPTY) {
+                                $entryreturn = Gm_Core::translateEntryTemplates( entryVars=>$entryVars,
+                                                                                template=>$gmTemplates->{'gmmorearchiveentrypagetemplate'}, errHandler=>\&Gm_Web::displayAdminErrorExit );
+                            } else {
+                                $entryreturn = Gm_Core::translateEntryTemplates( entryVars=>$entryVars,
+                                                                                template=>$gmTemplates->{'gmarchiveentrypagetemplate'}, errHandler=>\&Gm_Web::displayAdminErrorExit );
+                            }
+                        } else {
+                            if ($entryVars->{'thisentrymorebody'} ne Gm_Constants::EMPTY) {
+                                $entryreturn = Gm_Core::translateEntryTemplates( entryVars=>$entryVars,
+                                                                                template=>$gmTemplates->{'gmmoreentrypagetemplate'}, errHandler=>\&Gm_Web::displayAdminErrorExit );
+                            } else {
+                                $entryreturn = Gm_Core::translateEntryTemplates( entryVars=>$entryVars,
+                                                                                template=>$gmTemplates->{'gmentrypagetemplate'}, errHandler=>\&Gm_Web::displayAdminErrorExit );
+                            }
+                        }
+                        
+                        Gm_Storage::saveFile( loc=>"$gmConfigs->{'gmentriespath'}/$entryVars->{'thisentrynumberpadded'}.$gmConfigs->{'gmentrysuffix'}", 
+                                             content=>[$entryreturn], ch_mod=>'0666', 'new'=>1, errHandler=>\&Gm_Web::displayAdminErrorExit );
+                        
+                    } else {
+                        unlink ("$gmConfigs->{'gmentriespath'}/$entryVars->{'thisentrynumberpadded'}.$gmConfigs->{'gmentrysuffix'}");  ## this should be a Storage function
+                    }
+                    
+                    unless( $currentcount eq $counttohere ){ 
+                        $currentcount++; 
+                    }		
+                } until $currentcount >= $counttohere; 
+                my $percentdone = int( ($counttohere / $gmCounters->{'entrytotal'}) * 100 );
+                $whatimdoing = "Rebuilt entry pages: $IN{'rebuildfrom'} to $counttohere ($percentdone% done)...";
+                if ($counttohere eq $gmCounters->{'entrytotal'}) {
+                    my $entryVars = Gm_Core::getEntryVariables( entryid=>$gmCounters->{'entrytotal'});		
+                    ### SAME AS ABOVE REFACTOR?? REFACTOR into Core					
+                    if ($entryVars->{'thisentryopenstatus'} eq Gm_Constants::OPEN) {
+                        my $entryreturn = '';
+                        if ($entryVars->{'thisentrymorebody'} ne Gm_Constants::EMPTY) {
+                            $entryreturn = Gm_Core::translateEntryTemplates( entryVars=>$entryVars,
+                                                                             template=>$gmTemplates->{'gmmoreentrypagetemplate'}, errHandler=>\&Gm_Web::displayAdminErrorExit );
+                        } else {
+                            $entryreturn = Gm_Core::translateEntryTemplates( entryVars=>$entryVars,
+                                                                             template=>$gmTemplates->{'gmentrypagetemplate'}, errHandler=>\&Gm_Web::displayAdminErrorExit );
+                        }
+                        
+                        Gm_Storage::saveFile( loc=>"$gmConfigs->{'gmentriespath'}/$entryVars->{'thisentrynumberpadded'}.$gmConfigs->{'gmentrysuffix'}", 
+                                              content=>[$entryreturn], ch_mod=>'0666', 'new'=>1, errHandler=>\&Gm_Web::displayAdminErrorExit );
+                    } else {
+                        unlink ("$gmConfigs->{'gmentriespath'}/$entryVars->{'thisentrynumberpadded'}.$gmConfigs->{'gmentrysuffix'}");
+                    }
+                    $nowrebuild = 'done';
+                } else {
+                    $nowrebuild = $counttohere;
+                }
+            } else {
+                $nowrebuild = 'done';
+            }
+        }
 	
-						Gm_Storage::saveFile( loc=>"$gmConfigs->{'gmentriespath'}/$entryVars->{'thisentrynumberpadded'}.$gmConfigs->{'gmentrysuffix'}", 
-							content=>[$entryreturn], ch_mod=>'0666', 'new'=>1, errHandler=>\&Gm_Web::displayAdminErrorExit );
-	
-					} else {
-						unlink ("$gmConfigs->{'gmentriespath'}/$entryVars->{'thisentrynumberpadded'}.$gmConfigs->{'gmentrysuffix'}");  ## this should be a Storage function
-					}
-					
-					unless( $currentcount eq $counttohere ){ 
-						$currentcount++; 
-					}		
-				} until $currentcount >= $counttohere; 
-					my $percentdone = int( ($counttohere / $gmCounters->{'entrytotal'}) * 100 );
-					$whatimdoing = "Rebuilt entry pages: $IN{'rebuildfrom'} to $counttohere ($percentdone% done)...";
-					if ($counttohere eq $gmCounters->{'entrytotal'}) {
-						my $entryVars = Gm_Core::getEntryVariables( entryid=>$gmCounters->{'entrytotal'});		
-	### SAME AS ABOVE REFACTOR?? REFACTOR into Core					
-						if ($entryVars->{'thisentryopenstatus'} eq Gm_Constants::OPEN) {
-							my $entryreturn = '';
-							if ($entryVars->{'thisentrymorebody'} ne Gm_Constants::EMPTY) {
-								$entryreturn = Gm_Core::translateEntryTemplates( entryVars=>$entryVars,
-									template=>$gmTemplates->{'gmmoreentrypagetemplate'}, errHandler=>\&Gm_Web::displayAdminErrorExit );
-							} else {
-								$entryreturn = Gm_Core::translateEntryTemplates( entryVars=>$entryVars,
-									template=>$gmTemplates->{'gmentrypagetemplate'}, errHandler=>\&Gm_Web::displayAdminErrorExit );
-							}
-		
-							Gm_Storage::saveFile( loc=>"$gmConfigs->{'gmentriespath'}/$entryVars->{'thisentrynumberpadded'}.$gmConfigs->{'gmentrysuffix'}", 
-								content=>[$entryreturn], ch_mod=>'0666', 'new'=>1, errHandler=>\&Gm_Web::displayAdminErrorExit );
-					} else {
-						unlink ("$gmConfigs->{'gmentriespath'}/$entryVars->{'thisentrynumberpadded'}.$gmConfigs->{'gmentrysuffix'}");
-					}
-					$nowrebuild = 'done';
-				} else {
-					$nowrebuild = $counttohere;
-				}
-			} else {
-				$nowrebuild = 'done';
-			}
-		}
-	
-	}
+    }
 
-	## crafting refresh url
-	my $refreshUrl = 'gm.cgi?'.Gm_Security::getUrlAuth( author=>\%AUTHOR ).
-		'&section=rebuild&rebuilding='.$IN{'rebuilding'}.'&autorebuild='.$IN{'autorebuild'}.
-		'&rebuildfrom='.$nowrebuild.'&connectednumber='.$IN{'connectednumber'}; ## rename connectednumber to startnumber
-		
-	my $metarefreshtag = '<META http-equiv="REFRESH" content="1; URL='.$refreshUrl.'">';
+    ## crafting refresh url
+    my $refreshUrl = 'gm.cgi?'.Gm_Security::getUrlAuth( author=>\%AUTHOR ).
+        '&section=rebuild&rebuilding='.$IN{'rebuilding'}.'&autorebuild='.$IN{'autorebuild'}.
+        '&rebuildfrom='.$nowrebuild.'&connectednumber='.$IN{'connectednumber'}; ## rename connectednumber to startnumber
+    
+    my $metarefreshtag = '<META http-equiv="REFRESH" content="1; URL='.$refreshUrl.'">';
 
-	if( ($nowrebuild eq Gm_Constants::EMPTY) || ($nowrebuild eq 'done') ){
-		unlink ("$gmConfigs->{'gmentriespath'}/gm-token.cgi");  ## TODO: get rid of this, eventually, like after 1.8.3
-		
-		if( $IN{'rebuilding'} eq 'everything' ){
-			$message = '<span class="status_msg">All the files have been rebuilt.</span>';
-			Gm_Core::writeToCplog( "$AUTHOR{'author'} rebuilt all the files" );
-			
-		} elsif ($IN{'rebuilding'} eq 'entryfiles') {
-			$message = '<span class="status_msg">All the entry pages have been rebuilt.</span>';
-			Gm_Core::writeToCplog( "$AUTHOR{'author'} rebuilt all the entry pages" );
-			
-		} elsif ($IN{'rebuilding'} eq 'archiveindex') {
-			$message = '<span class="status_msg">The archive master index has been rebuilt.</span>';
-			Gm_Core::writeToCplog( "$AUTHOR{'author'} rebuilt the archive index page" );
-			
-		} elsif ($IN{'rebuilding'} eq 'archivelogs') {
-			$message = '<span class="status_msg">';
-			if( $IN{'autorebuild'} eq 'archiveindexes' && $gmConfigs->{'gmkeeparchivemasterindex'} ne Gm_Constants::NO ){
-				$message .= 'The archive master index has been rebuilt.<br />';
-			}
-			$message .= 'All the archive log files have been rebuilt.</span>';
-			Gm_Core::writeToCplog( "$AUTHOR{'author'} rebuilt all the archive log pages" );
-			
-		} elsif ($IN{'rebuilding'} eq 'archivefiles') {
-			$message = '<span class="status_msg">All the archive entry pages have been rebuilt.</span>';
-			Gm_Core::writeToCplog( "$AUTHOR{'author'} rebuilt all the archive entry pages" );
-			
-		} elsif ($IN{'rebuilding'} eq 'mainindex') {
-			$message = '<span class="status_msg">The main index file has been rebuilt.</span>';
-			Gm_Core::writeToCplog( "$AUTHOR{'author'} rebuilt the main index page" );
-			
-		} elsif ($IN{'rebuilding'} eq 'mainentries') {
-			$message = '<span class="status_msg">All the main entry pages have been rebuilt.</span>';
-			Gm_Core::writeToCplog( "$AUTHOR{'author'} rebuilt all the main entry pages" );
-			
-		} elsif ($IN{'rebuilding'} eq 'connected') {
-			$message = '<span class="status_msg">All the connected files have been rebuilt.</span>';
-			Gm_Core::writeToCplog( "$AUTHOR{'author'} rebuilt all the connected files" );
-			
-		} elsif ($IN{'rebuilding'} eq 'connectedaftersave') {
-			$message = '<span class="status_msg">Your new entry has been added.</span>';
-		} else {
-			$message = '<span class="status_msg">All relevant files have been rebuilt.</span>';
-			Gm_Core::writeToCplog( "$AUTHOR{'author'} rebuilt unknown files");
-			
-		}
+    if( ($nowrebuild eq Gm_Constants::EMPTY) || ($nowrebuild eq 'done') ){
+        unlink ("$gmConfigs->{'gmentriespath'}/gm-token.cgi");  ## TODO: get rid of this, eventually, like after 1.8.3
+        
+        if( $IN{'rebuilding'} eq 'everything' ){
+            $message = '<span class="status_msg">All the files have been rebuilt.</span>';
+            Gm_Core::writeToCplog( "$AUTHOR{'author'} rebuilt all the files" );
+            
+        } elsif ($IN{'rebuilding'} eq 'entryfiles') {
+            $message = '<span class="status_msg">All the entry pages have been rebuilt.</span>';
+            Gm_Core::writeToCplog( "$AUTHOR{'author'} rebuilt all the entry pages" );
+            
+        } elsif ($IN{'rebuilding'} eq 'archiveindex') {
+            $message = '<span class="status_msg">The archive master index has been rebuilt.</span>';
+            Gm_Core::writeToCplog( "$AUTHOR{'author'} rebuilt the archive index page" );
+            
+        } elsif ($IN{'rebuilding'} eq 'archivelogs') {
+            $message = '<span class="status_msg">';
+            if( $IN{'autorebuild'} eq 'archiveindexes' && $gmConfigs->{'gmkeeparchivemasterindex'} ne Gm_Constants::NO ){
+                $message .= 'The archive master index has been rebuilt.<br />';
+            }
+            $message .= 'All the archive log files have been rebuilt.</span>';
+            Gm_Core::writeToCplog( "$AUTHOR{'author'} rebuilt all the archive log pages" );
+            
+        } elsif ($IN{'rebuilding'} eq 'archivefiles') {
+            $message = '<span class="status_msg">All the archive entry pages have been rebuilt.</span>';
+            Gm_Core::writeToCplog( "$AUTHOR{'author'} rebuilt all the archive entry pages" );
+            
+        } elsif ($IN{'rebuilding'} eq 'mainindex') {
+            $message = '<span class="status_msg">The main index file has been rebuilt.</span>';
+            Gm_Core::writeToCplog( "$AUTHOR{'author'} rebuilt the main index page" );
+            
+        } elsif ($IN{'rebuilding'} eq 'mainentries') {
+            $message = '<span class="status_msg">All the main entry pages have been rebuilt.</span>';
+            Gm_Core::writeToCplog( "$AUTHOR{'author'} rebuilt all the main entry pages" );
+            
+        } elsif ($IN{'rebuilding'} eq 'connected') {
+            $message = '<span class="status_msg">All the connected files have been rebuilt.</span>';
+            Gm_Core::writeToCplog( "$AUTHOR{'author'} rebuilt all the connected files" );
+            
+        } elsif ($IN{'rebuilding'} eq 'connectedaftersave') {
+            $message = '<span class="status_msg">Your new entry has been added.</span>';
+        } else {
+            $message = '<span class="status_msg">All relevant files have been rebuilt.</span>';
+            Gm_Core::writeToCplog( "$AUTHOR{'author'} rebuilt unknown files");
+            
+        }
 
-		## RETURNING!
-		return( $message ); ## TODO: FIX THIS, multiple exits in a complicated function are bad!!!
-	}
+        ## RETURNING!
+        return( $message ); ## TODO: FIX THIS, multiple exits in a complicated function are bad!!!
+    }
 
-	if( $IN{'rebuilding'} eq 'everything' ){
-		$message = '<span class="info_title">Rebuilding Everything</span>';
-	} elsif( $IN{'rebuilding'} eq 'entryfiles' ){
-		$message = '<span class="info_title">Rebuilding Entry Pages</span>';
-	} elsif( $IN{'rebuilding'} eq 'archivefiles' ){
-		$message = '<span class="info_title">Rebuilding Archive Entry Pages</span>';
-	} elsif( $IN{'rebuilding'} eq 'mainentries' ){
-		$message = '<span class="info_title">Rebuilding Main Entry Pages</span>';
-	} elsif( $IN{'rebuilding'} eq 'connected' ){
-		$message = '<span class="info_title">Rebuilding Connected Files</span>';
-	} elsif( $IN{'rebuilding'} eq 'connectedaftersave' ){
-		$message = '<span class="info_title">Rebuilding Connected Files</span>';
-	} else {
-		$message = '<span class="info_title">Rebuilding Files</FONT></span>';
-	}
+    if( $IN{'rebuilding'} eq 'everything' ){
+        $message = '<span class="info_title">Rebuilding Everything</span>';
+    } elsif( $IN{'rebuilding'} eq 'entryfiles' ){
+        $message = '<span class="info_title">Rebuilding Entry Pages</span>';
+    } elsif( $IN{'rebuilding'} eq 'archivefiles' ){
+        $message = '<span class="info_title">Rebuilding Archive Entry Pages</span>';
+    } elsif( $IN{'rebuilding'} eq 'mainentries' ){
+        $message = '<span class="info_title">Rebuilding Main Entry Pages</span>';
+    } elsif( $IN{'rebuilding'} eq 'connected' ){
+        $message = '<span class="info_title">Rebuilding Connected Files</span>';
+    } elsif( $IN{'rebuilding'} eq 'connectedaftersave' ){
+        $message = '<span class="info_title">Rebuilding Connected Files</span>';
+    } else {
+        $message = '<span class="info_title">Rebuilding Files</FONT></span>';
+    }
 
 
-	my $page = "$message\n<p>$whatimdoing</p>";
-	if( $refreshUrl ){
-		Gm_Web::displayAdminRedirectExit( $page, $refreshUrl );
-	} else {
-		Gm_Web::displayAdminPageExit( $page );
-	}
+    my $page = "$message\n<p>$whatimdoing</p>";
+    if( $refreshUrl ){
+        Gm_Web::displayAdminRedirectExit( $page, $refreshUrl );
+    } else {
+        Gm_Web::displayAdminPageExit( $page );
+    }
 
-	exit(0); ## will never get here, in theory
+    exit(0); ## will never get here, in theory
 }
 
 
@@ -7059,26 +7059,26 @@ sub rebuildUpdate {
 ## and verify that author can access this section
 sub doUpload {
 
-	## Access to Upload is global, no need for granularity
-	### TODO: CALL AUTH WITH FLAG TO WORK ON Banip, OR CHECK AUTHOR PERMS
-	## TODO: Move this to auth, auth should return users perms, or it should take a flag to 
-	# indicate which perms to check with this being handed off to a generic permDenied func
-	if( $AUTHOR{'upload'} ne Gm_Constants::Y ){
-		Gm_Core::writeToCplog( '<span class="error_msg">'.Gm_Core::text( 
-			Gm_Constants::SECTION_NO_ACCESS, { AUTHOR=>$AUTHOR{'author'} }).'</span>' );
-		my $statusnote = '<span class="error_msg">'.Gm_Core::text( Gm_Constants::SECTION_ACCESS_DENY ).
-			'</span><br />';
-		frontPage( $statusnote );
-	}
-	
-	my $status = Gm_Constants::EMPTY;
-# TODO, SHOULD THESE BE USING CONSTANTS?
-	if( $IN{'update'} ){
-		$status = uploadFile();
-		
-	}
+    ## Access to Upload is global, no need for granularity
+    ### TODO: CALL AUTH WITH FLAG TO WORK ON Banip, OR CHECK AUTHOR PERMS
+    ## TODO: Move this to auth, auth should return users perms, or it should take a flag to 
+    # indicate which perms to check with this being handed off to a generic permDenied func
+    if( $AUTHOR{'upload'} ne Gm_Constants::Y ){
+        Gm_Core::writeToCplog( '<span class="error_msg">'.Gm_Core::text( 
+                                   Gm_Constants::SECTION_NO_ACCESS, { AUTHOR=>$AUTHOR{'author'} }).'</span>' );
+        my $statusnote = '<span class="error_msg">'.Gm_Core::text( Gm_Constants::SECTION_ACCESS_DENY ).
+            '</span><br />';
+        frontPage( $statusnote );
+    }
+    
+    my $status = Gm_Constants::EMPTY;
+    # TODO, SHOULD THESE BE USING CONSTANTS?
+    if( $IN{'update'} ){
+        $status = uploadFile();
+        
+    }
 
-	viewUploads( $status );
+    viewUploads( $status );
 
 }
 
@@ -7087,93 +7087,93 @@ sub doUpload {
 # View Upload screen, with list of uploads coming as future enhancement
 # (opt) ARG1: Message to display to user, could be error or confirmation of action
 sub viewUploads {
-	my $message = shift( @_ ) || Gm_Constants::EMPTY;
+    my $message = shift( @_ ) || Gm_Constants::EMPTY;
 
-#&gm_validate;
+    #&gm_validate;
 
-# if ($gmuploadaccess ne Gm_Constants::YES) {
-# 	gm_writetocplog("$IN{'authorname'} attempted to upload files without authorization");
-# 	$statusnote = qq(<B><FONT COLOR="#FF0000">You don't have access to upload files.</FONT></B><P>);
-# 	&gm_frontpage;
-# }
+    # if ($gmuploadaccess ne Gm_Constants::YES) {
+    # 	gm_writetocplog("$IN{'authorname'} attempted to upload files without authorization");
+    # 	$statusnote = qq(<B><FONT COLOR="#FF0000">You don't have access to upload files.</FONT></B><P>);
+    # 	&gm_frontpage;
+    # }
 
-#&gm_readcounter; #?
+    #&gm_readcounter; #?
 
-#	if( $newentrynumber eq "0" ){
-	unless( Gm_Core::hasPosted() ){
-		unless( Gm_Core::hasDiagRun() ){
-			frontPage( '<span class="error_msg">Please run "Diagnostics & Repair" '.
-				'in the Configuration screen before uploading files.</span><P>');
-		}
-	}
+    #	if( $newentrynumber eq "0" ){
+    unless( Gm_Core::hasPosted() ){
+        unless( Gm_Core::hasDiagRun() ){
+            frontPage( '<span class="error_msg">Please run "Diagnostics & Repair" '.
+                       'in the Configuration screen before uploading files.</span><P>');
+        }
+    }
 
-	my $allowthesefiletypes = '';
-	if( $gmConfigs->{'gmuploadfilesallowed'} ne Gm_Constants::EMPTY ){
-#		$howmanyfiletypes = 0; #not used
-		my @uploadfiletypesallowed = split( /;/, $gmConfigs->{'gmuploadfilesallowed'} );
-		foreach my $thisfiletype ( @uploadfiletypesallowed ){
-			$allowthesefiletypes .= ".$thisfiletype, ";
-		}
-		$allowthesefiletypes =~ s/, .(\w+), $/ and .$1/;
-		$allowthesefiletypes =~ s/, $//;
-	}
+    my $allowthesefiletypes = '';
+    if( $gmConfigs->{'gmuploadfilesallowed'} ne Gm_Constants::EMPTY ){
+        #		$howmanyfiletypes = 0; #not used
+        my @uploadfiletypesallowed = split( /;/, $gmConfigs->{'gmuploadfilesallowed'} );
+        foreach my $thisfiletype ( @uploadfiletypesallowed ){
+            $allowthesefiletypes .= ".$thisfiletype, ";
+        }
+        $allowthesefiletypes =~ s/, .(\w+), $/ and .$1/;
+        $allowthesefiletypes =~ s/, $//;
+    }
 
-	my $specialuploadtext = '';
-	if( $gmConfigs->{'gmuploadfilesallowed'} ne Gm_Constants::EMPTY && $gmConfigs->{'gmuploadfilesizelimit'} ne '0' ){
-		$specialuploadtext = "Only $allowthesefiletypes files may currently be uploaded,<BR>and no file larger ".
-			"than $gmConfigs->{'gmuploadfilesizelimit'}\\k may be uploaded.<P>";
-	} elsif ($gmConfigs->{'gmuploadfilesallowed'} ne Gm_Constants::EMPTY) {
-		$specialuploadtext = "Only $allowthesefiletypes files may currently be uploaded.<P>";
-	} elsif ($gmConfigs->{'gmuploadfilesizelimit'} ne "0") {
-		$specialuploadtext = "No file larger than $gmConfigs->{'gmuploadfilesizelimit'}\\k may currently be uploaded.<P>";
-	} else {
-		$specialuploadtext = Gm_Constants::EMPTY;
-	}
+    my $specialuploadtext = '';
+    if( $gmConfigs->{'gmuploadfilesallowed'} ne Gm_Constants::EMPTY && $gmConfigs->{'gmuploadfilesizelimit'} ne '0' ){
+        $specialuploadtext = "Only $allowthesefiletypes files may currently be uploaded,<BR>and no file larger ".
+            "than $gmConfigs->{'gmuploadfilesizelimit'}\\k may be uploaded.<P>";
+    } elsif ($gmConfigs->{'gmuploadfilesallowed'} ne Gm_Constants::EMPTY) {
+        $specialuploadtext = "Only $allowthesefiletypes files may currently be uploaded.<P>";
+    } elsif ($gmConfigs->{'gmuploadfilesizelimit'} ne "0") {
+        $specialuploadtext = "No file larger than $gmConfigs->{'gmuploadfilesizelimit'}\\k may currently be uploaded.<P>";
+    } else {
+        $specialuploadtext = Gm_Constants::EMPTY;
+    }
 
-	if( $message eq Gm_Constants::EMPTY ){ 
-		$message = '<span class="info_text">Use the prompt below to browse your computer for a file to '.
-			'upload directly to your account. (If you don\'t see the prompt, then your browser doesn\'t '.
-			'support this feature.)  All files will be uploaded to your entries/archives directory; '.
-			'after uploading, you can then have a link to download the file or display the image in a '.
-			'new entry if you wish.</p><p>'.$specialuploadtext; 
-	}
+    if( $message eq Gm_Constants::EMPTY ){ 
+        $message = '<span class="info_text">Use the prompt below to browse your computer for a file to '.
+            'upload directly to your account. (If you don\'t see the prompt, then your browser doesn\'t '.
+                                               'support this feature.)  All files will be uploaded to your entries/archives directory; '.
+                                                                                                                                           'after uploading, you can then have a link to download the file or display the image in a '.
+                                                                                                                                           'new entry if you wish.</p><p>'.$specialuploadtext; 
+    }
 
-#&gm_readconfig;
+    #&gm_readconfig;
 
-# $insertauthorname = $IN{'authorname'};
-# $insertauthorpassword = $IN{'authorpassword'};
+    # $insertauthorname = $IN{'authorname'};
+    # $insertauthorpassword = $IN{'authorpassword'};
 
-# print<<GMUPLOADFILES;
-# 
-# $gmheadtag
-# 
-# $gmframetop
-# $statusnote
+    # print<<GMUPLOADFILES;
+    # 
+    # $gmheadtag
+    # 
+    # $gmframetop
+    # $statusnote
 
-	my $page = '<span class="section_title">Upload Files</span><br /><p>'.$message."</p><br />\n";	
-	$page .= '<FORM ENCTYPE="multipart/form-data" ACTION="gm.cgi" METHOD=POST>'.
-		'<input type="hidden" name="section" value="'.$IN{'section'}.'">'.
-		Gm_Security::getFormAuth( author=>\%AUTHOR ).
-		'<INPUT TYPE=FILE CLASS="" NAME="uploadfile-01" SIZE="40"><P>'.
-		'<INPUT TYPE=SUBMIT CLASS="button" NAME="update" VALUE="Upload This File"></FORM><P>';
+    my $page = '<span class="section_title">Upload Files</span><br /><p>'.$message."</p><br />\n";	
+    $page .= '<FORM ENCTYPE="multipart/form-data" ACTION="gm.cgi" METHOD=POST>'.
+        '<input type="hidden" name="section" value="'.$IN{'section'}.'">'.
+        Gm_Security::getFormAuth( author=>\%AUTHOR ).
+        '<INPUT TYPE=FILE CLASS="" NAME="uploadfile-01" SIZE="40"><P>'.
+        '<INPUT TYPE=SUBMIT CLASS="button" NAME="update" VALUE="Upload This File"></FORM><P>';
 
-# <FORM ACTION="gm.cgi" METHOD=POST>
-# <INPUT TYPE=HIDDEN NAME="authorname" VALUE="$IN{'authorname'}">
-# <INPUT TYPE=HIDDEN NAME="authorpassword" VALUE="$IN{'authorpassword'}">
-# <INPUT TYPE=SUBMIT CLASS="button" NAME="thomas" VALUE="Return To Main Menu" STYLE="background: #C0C0C0">
-# </FORM>
-# $gmframebottom
-# </BODY>
-# </HTML>
-# 
-# GMUPLOADFILES
+    # <FORM ACTION="gm.cgi" METHOD=POST>
+    # <INPUT TYPE=HIDDEN NAME="authorname" VALUE="$IN{'authorname'}">
+    # <INPUT TYPE=HIDDEN NAME="authorpassword" VALUE="$IN{'authorpassword'}">
+    # <INPUT TYPE=SUBMIT CLASS="button" NAME="thomas" VALUE="Return To Main Menu" STYLE="background: #C0C0C0">
+    # </FORM>
+    # $gmframebottom
+    # </BODY>
+    # </HTML>
+    # 
+    # GMUPLOADFILES
 
-	$page .= "\n\n".'<P><FORM ACTION="gm.cgi" METHOD="post"> '.Gm_Security::getFormAuth( author=>\%AUTHOR ).
-		'<INPUT TYPE=SUBMIT CLASS="button" NAME="menu" VALUE="'.Gm_Core::text( Gm_Constants::RETURN_MAIN_MENU ).
-		'" STYLE="background: #C0C0C0"></form></p>';
+    $page .= "\n\n".'<P><FORM ACTION="gm.cgi" METHOD="post"> '.Gm_Security::getFormAuth( author=>\%AUTHOR ).
+        '<INPUT TYPE=SUBMIT CLASS="button" NAME="menu" VALUE="'.Gm_Core::text( Gm_Constants::RETURN_MAIN_MENU ).
+                                                                     '" STYLE="background: #C0C0C0"></form></p>';
 
-	Gm_Web::displayAdminPageExit( $page );
-	exit(0);
+    Gm_Web::displayAdminPageExit( $page );
+    exit(0);
 }
 
 
@@ -7181,223 +7181,223 @@ sub viewUploads {
 # uploads a given file
 # RETURNS: nothing, shows finished screen
 sub uploadFile {
-	my $message = shift( @_ ) || Gm_Constants::EMPTY;
+    my $message = shift( @_ ) || Gm_Constants::EMPTY;
 
 
 
-#&gm_readconfig;
+    #&gm_readconfig;
 
-	my $key = 'uploadfile-01';
+    my $key = 'uploadfile-01';
 
-	my $uploadfilename = '';
-	my $uploadfilenamehandle = '';
-	if ($IN{$key} =~ /([^\/\\]+)$/) {
-		$uploadfilename = $1;
-		$uploadfilename =~ s/^\.+//;
-		$uploadfilenamehandle = Gm_Web::getParam( $key );
-		if ($uploadfilename =~ m/\ /) { 
-			Gm_Web::displayAdminErrorExit('Your filename cannot contain spaces.  '.
-				'Please rename your file, go back, and try again.'); 
-		}
-	} else {
-		Gm_Web::displayAdminErrorExit('Your filename cannot contain backslashes, '.
-		'or have a period at the beginning of its name.  Please rename your file, go back, and try again.');
-	}
+    my $uploadfilename = '';
+    my $uploadfilenamehandle = '';
+    if ($IN{$key} =~ /([^\/\\]+)$/) {
+        $uploadfilename = $1;
+        $uploadfilename =~ s/^\.+//;
+        $uploadfilenamehandle = Gm_Web::getParam( $key );
+        if ($uploadfilename =~ m/\ /) { 
+            Gm_Web::displayAdminErrorExit('Your filename cannot contain spaces.  '.
+                                          'Please rename your file, go back, and try again.'); 
+        }
+    } else {
+        Gm_Web::displayAdminErrorExit('Your filename cannot contain backslashes, '.
+                                      'or have a period at the beginning of its name.  Please rename your file, go back, and try again.');
+    }
 
-	if ($uploadfilename =~ /'/) { 
-		Gm_Web::displayAdminErrorExit('Your filename cannot contain apostrophes.  '.
-			'Please rename your file, go back, and try again.'); 
-	}
-	
-	if ($uploadfilename =~ m/\.cgi$|\.pl$|\.php$/gi ) { 
-		Gm_Web::displayAdminErrorExit('You cannot upload script files.  '.
-			'Please rename your file, go back, and try again.'); 
-	}
-	
-	my $thisfileisokay = Gm_Constants::YES;
-	if ($gmConfigs->{'gmuploadfilesallowed'} ne "") {
-		$thisfileisokay = Gm_Constants::NO;
-		my @uploadfiletypecheck = split (/;/, $gmConfigs->{'gmuploadfilesallowed'});
-		foreach my $checkagainstthis (@uploadfiletypecheck) {
-			if( $uploadfilename =~ /\.$checkagainstthis$/i ){ 
-				$thisfileisokay = Gm_Constants::YES; 
-			}
-		}
-		if ($thisfileisokay eq Gm_Constants::NO) {
-			Gm_Web::displayAdminErrorExit('Uploading files of that type is currently '.
-				'not permitted.  Please go back and try a different file.');
-		}
-	}
+    if ($uploadfilename =~ /'/) { 
+        Gm_Web::displayAdminErrorExit('Your filename cannot contain apostrophes.  '.
+                                      'Please rename your file, go back, and try again.'); 
+    }
+    
+    if ($uploadfilename =~ m/\.cgi$|\.pl$|\.php$/gi ) { 
+        Gm_Web::displayAdminErrorExit('You cannot upload script files.  '.
+                                      'Please rename your file, go back, and try again.'); 
+    }
+    
+    my $thisfileisokay = Gm_Constants::YES;
+    if ($gmConfigs->{'gmuploadfilesallowed'} ne "") {
+        $thisfileisokay = Gm_Constants::NO;
+        my @uploadfiletypecheck = split (/;/, $gmConfigs->{'gmuploadfilesallowed'});
+        foreach my $checkagainstthis (@uploadfiletypecheck) {
+            if( $uploadfilename =~ /\.$checkagainstthis$/i ){ 
+                $thisfileisokay = Gm_Constants::YES; 
+            }
+        }
+        if ($thisfileisokay eq Gm_Constants::NO) {
+            Gm_Web::displayAdminErrorExit('Uploading files of that type is currently '.
+                                          'not permitted.  Please go back and try a different file.');
+        }
+    }
 
-	if (-e "$gmConfigs->{'gmentriespath'}/$uploadfilename") { 
-		Gm_Web::displayAdminErrorExit('A file with that name already exists in your '.
-			'entries/archives directory.  Please go back and try a file with a different name.'); 
-	}
+    if (-e "$gmConfigs->{'gmentriespath'}/$uploadfilename") { 
+        Gm_Web::displayAdminErrorExit('A file with that name already exists in your '.
+                                      'entries/archives directory.  Please go back and try a file with a different name.'); 
+    }
 
-# 	undef $bytesread;
-# 	undef $buffer;
-	my $bytesread = undef;
-	my $buffer = undef;
-	my $bytes = '';
+    # 	undef $bytesread;
+    # 	undef $buffer;
+    my $bytesread = undef;
+    my $buffer = undef;
+    my $bytes = '';
 
-	## leaving this because of the binmode call.  Gotta deal with this cleanly somehow, just not sure how yet...
-	open(OUTFILE, ">$gmConfigs->{'gmentriespath'}/$uploadfilename") || Gm_Web::displayAdminErrorExit("Can't write to $gmConfigs->{'gmentriespath'}/$uploadfilename.  Make sure that $gmConfigs->{'gmentriespath'} is your correct entries/archives directory, and that this directory is CHMODed to 777.");
-	while ($bytes = read($uploadfilenamehandle, $buffer, 2096)) {
-		$bytesread += $bytes;
-		binmode OUTFILE;
-		print OUTFILE $buffer;
-	}
+    ## leaving this because of the binmode call.  Gotta deal with this cleanly somehow, just not sure how yet...
+    open(OUTFILE, ">$gmConfigs->{'gmentriespath'}/$uploadfilename") || Gm_Web::displayAdminErrorExit("Can't write to $gmConfigs->{'gmentriespath'}/$uploadfilename.  Make sure that $gmConfigs->{'gmentriespath'} is your correct entries/archives directory, and that this directory is CHMODed to 777.");
+    while ($bytes = read($uploadfilenamehandle, $buffer, 2096)) {
+        $bytesread += $bytes;
+        binmode OUTFILE;
+        print OUTFILE $buffer;
+    }
 
-	## from this code, it appears that you used to be able to upload more than 1 file at a time... lost pre 1.3.1
-	# Perhaps should this be restored
-	my @fileswritten = ();
-	push (@fileswritten, "$gmConfigs->{'gmentriespath'}\/$uploadfilename");
-	my $totalbytes += $bytesread;
-	my %uploadconfirm = ();
-	$uploadconfirm{$uploadfilenamehandle} = $bytesread;
-	close($uploadfilenamehandle);
-	close(OUTFILE);
+    ## from this code, it appears that you used to be able to upload more than 1 file at a time... lost pre 1.3.1
+    # Perhaps should this be restored
+    my @fileswritten = ();
+    push (@fileswritten, "$gmConfigs->{'gmentriespath'}\/$uploadfilename");
+    my $totalbytes += $bytesread;
+    my %uploadconfirm = ();
+    $uploadconfirm{$uploadfilenamehandle} = $bytesread;
+    close($uploadfilenamehandle);
+    close(OUTFILE);
 
-#}
+    #}
 
-	my $filesuploaded = scalar(keys(%uploadconfirm));
-	
-	if( $totalbytes eq undef || $totalbytes == 0 ){ 
-		unlink "$gmConfigs->{'gmentriespath'}/$uploadfilename" if( -e "$gmConfigs->{'gmentriespath'}/$uploadfilename" );
-		Gm_Web::displayAdminErrorExit('You didn\'t enter a filename, or you attempted to upload an empty file.  '.
-			'Please go back and try again.'); 
-	}
+    my $filesuploaded = scalar(keys(%uploadconfirm));
+    
+    if( $totalbytes eq undef || $totalbytes == 0 ){ 
+        unlink "$gmConfigs->{'gmentriespath'}/$uploadfilename" if( -e "$gmConfigs->{'gmentriespath'}/$uploadfilename" );
+        Gm_Web::displayAdminErrorExit('You didn\'t enter a filename, or you attempted to upload an empty file.  '.
+                                      'Please go back and try again.'); 
+    }
 
-	my $totalkbytes = $totalbytes / 1024;
-	$totalkbytes = sprintf("%.0f", $totalkbytes);
-	
-	if (($gmConfigs->{'gmuploadfilesizelimit'} ne "0") && ($totalkbytes > $gmConfigs->{'gmuploadfilesizelimit'})) {
-		foreach my $filetemp (@fileswritten) { unlink $filetemp; }
-		my $overthelimitby = $totalkbytes - $gmConfigs->{'gmuploadfilesizelimit'};
-		Gm_Web::displayAdminErrorExit("The file you attempted to upload was too large ".
-			"($overthelimitby\\k over the $gmConfigs->{'gmuploadfilesizelimit'}\\k filesize limit).  Please ".
-			"go back and try a smaller file.");
-	}
-	
-	Gm_Core::writeToCplog("$AUTHOR{'author'} uploaded a file ($uploadfilename, $totalkbytes\\k)");
+    my $totalkbytes = $totalbytes / 1024;
+    $totalkbytes = sprintf("%.0f", $totalkbytes);
+    
+    if (($gmConfigs->{'gmuploadfilesizelimit'} ne "0") && ($totalkbytes > $gmConfigs->{'gmuploadfilesizelimit'})) {
+        foreach my $filetemp (@fileswritten) { unlink $filetemp; }
+        my $overthelimitby = $totalkbytes - $gmConfigs->{'gmuploadfilesizelimit'};
+        Gm_Web::displayAdminErrorExit("The file you attempted to upload was too large ".
+                                     "($overthelimitby\\k over the $gmConfigs->{'gmuploadfilesizelimit'}\\k filesize limit).  Please ".
+                                     "go back and try a smaller file.");
+    }
+    
+    Gm_Core::writeToCplog("$AUTHOR{'author'} uploaded a file ($uploadfilename, $totalkbytes\\k)");
 
-	## todo, merge these so that simply have it image checks to show diff stuff.
-	my $isImage = Gm_Constants::FALSE;
-	if( ($uploadfilename =~ /\.jpg$/i) || ($uploadfilename =~ /\.gif$/i) || ($uploadfilename =~ /\.png$/i) ){
-		$isImage = Gm_Constants::TRUE;
-	}
+    ## todo, merge these so that simply have it image checks to show diff stuff.
+    my $isImage = Gm_Constants::FALSE;
+    if( ($uploadfilename =~ /\.jpg$/i) || ($uploadfilename =~ /\.gif$/i) || ($uploadfilename =~ /\.png$/i) ){
+        $isImage = Gm_Constants::TRUE;
+    }
 
-# 		$usethisauthorname = $IN{'authorname'};
-# 		$usethisauthorpassword = $IN{'authorpassword'};
-	my $filenameprefix = $uploadfilename;
-	$filenameprefix =~ s/\.(...)$//;
+    # 		$usethisauthorname = $IN{'authorname'};
+    # 		$usethisauthorpassword = $IN{'authorpassword'};
+    my $filenameprefix = $uploadfilename;
+    $filenameprefix =~ s/\.(...)$//;
 
-## TODO FIX THIS LOOK AND FEEL.  WHY USE JAVASCRIPT HERE?  OTHERWISE WE CAN USE
-# STANDARD ADMIN SCREEN.  NOTE THAT USED TO USE GM.CSS WHICH IS NO LONGER HERE.
-## NOTE, probably using javascript to get image size, hieght, width, must be a pure perl way!
- 
-	if( $message eq Gm_Constants::EMPTY ){ 
-		$message = '<span class="status_msg">Upload Complete</span>'; 
-	}
+    ## TODO FIX THIS LOOK AND FEEL.  WHY USE JAVASCRIPT HERE?  OTHERWISE WE CAN USE
+    # STANDARD ADMIN SCREEN.  NOTE THAT USED TO USE GM.CSS WHICH IS NO LONGER HERE.
+    ## NOTE, probably using javascript to get image size, hieght, width, must be a pure perl way!
+    
+    if( $message eq Gm_Constants::EMPTY ){ 
+        $message = '<span class="status_msg">Upload Complete</span>'; 
+    }
 
-	my $page = "$message</br><span class=\"info_text\">Your file ($totalkbytes\\k) was successfully uploaded.</br>";
+    my $page = "$message</br><span class=\"info_text\">Your file ($totalkbytes\\k) was successfully uploaded.</br>";
 
-## NOTE: there is an all perl way to handle this, using module Image::Size, put into Gm_Other.pm
-## NOTE: Research on the CPAN site shows that the earliest version of perl of that works consistantly is 5.8
-## Only MacOSX supports 5.6 and that isn't using the latest version of Image::Size even
-	my $localPath = $gmConfigs->{'gmentrieswebpath'};
-	my $uploadfilenamelink =  qq(&lt;A HREF=&quot;$localPath/$uploadfilename&quot;&gt;$uploadfilename ($totalkbytes\\k file)&lt;/A&gt;);
-	if( $isImage ){
-		$page .= '<img name="thisimage" src="'.$localPath.'/'.$uploadfilename.'" />';
-			
-		$uploadfilenamelink = '<span id="imageinfo">&lt;img border="0" src="'.$localPath.'/'.$uploadfilename.'" alt="'.
-			$filenameprefix.' ('.$totalkbytes.'\\k image)" height="200" width="200" /&gt; </br > {{popup '.
-			$uploadfilename.' '.$filenameprefix.' 200x200}}'.$filenameprefix.'&lt;/a&gt;</span>';
-	}
+    ## NOTE: there is an all perl way to handle this, using module Image::Size, put into Gm_Other.pm
+    ## NOTE: Research on the CPAN site shows that the earliest version of perl of that works consistantly is 5.8
+    ## Only MacOSX supports 5.6 and that isn't using the latest version of Image::Size even
+    my $localPath = $gmConfigs->{'gmentrieswebpath'};
+    my $uploadfilenamelink =  qq(&lt;A HREF=&quot;$localPath/$uploadfilename&quot;&gt;$uploadfilename ($totalkbytes\\k file)&lt;/A&gt;);
+    if( $isImage ){
+        $page .= '<img name="thisimage" src="'.$localPath.'/'.$uploadfilename.'" />';
+        
+        $uploadfilenamelink = '<span id="imageinfo">&lt;img border="0" src="'.$localPath.'/'.$uploadfilename.'" alt="'.
+                                                                     $filenameprefix.' ('.$totalkbytes.'\\k image)" height="200" width="200" /&gt; </br > {{popup '.
+                                                                                                                                                                $uploadfilename.' '.$filenameprefix.' 200x200}}'.$filenameprefix.'&lt;/a&gt;</span>';
+    }
 
-	$page .= "<p>$uploadfilenamelink<p><span>";
+    $page .= "<p>$uploadfilenamelink<p><span>";
 
 
-	if( $isImage ){
+    if( $isImage ){
 
-		## Using the paradigm of Javascript as a usability enhancement, what this page does is prints out
-		# an html version with a default of 200x200, and then using javascript, replaces those text elements
-		# with the actual image size after it has loaded
-		$page .= '<script language="JavaScript">
-<!--//
-// Function to setup the image size information using javascript, if present
-// Otherwise the current html page assumes 200x200
-function setImageInfo(){
+        ## Using the paradigm of Javascript as a usability enhancement, what this page does is prints out
+        # an html version with a default of 200x200, and then using javascript, replaces those text elements
+        # with the actual image size after it has loaded
+        $page .= '<script language="JavaScript">
+            <!--//
+            // Function to setup the image size information using javascript, if present
+            // Otherwise the current html page assumes 200x200
+            function setImageInfo(){
 
 	thisheight = document.thisimage.height;
 	thiswidth = document.thisimage.width;
 
 	var textInfo = \'imageinfo\';
 	if( document.getElementById && document.getElementById(textInfo) != null ){
-		var subject = document.getElementById( textInfo ); 
-		
-		while( subject.hasChildNodes() ){
-			subject.removeChild( subject.firstChild );
-		}
-		
-		subject.appendChild(document.createTextNode( \'<img border="0" src="'.$localPath.'/'.$uploadfilename.
-'" alt="'.$filenameprefix.' ('.$totalkbytes.'\\k image)" height="\' + 
-			thisheight + \'" width="\' + thiswidth + \'" />\' ));
-		subject.appendChild( document.createElement( \'br\' ));
-		subject.appendChild( document.createTextNode( \'{{popup foo bar\' + thiswidth + \'x\' + thisheight + \'}}'.
-$filenameprefix.'<\/a>\' ));
- }		
- 
+        var subject = document.getElementById( textInfo ); 
+        
+        while( subject.hasChildNodes() ){
+        subject.removeChild( subject.firstChild );
+        }
+        
+        subject.appendChild(document.createTextNode( \'<img border="0" src="'.$localPath.'/'.$uploadfilename.
+                                                                     '" alt="'.$filenameprefix.' ('.$totalkbytes.'\\k image)" height="\' + 
+                                                                     thisheight + \'" width="\' + thiswidth + \'" />\' ));
+        subject.appendChild( document.createElement( \'br\' ));
+        subject.appendChild( document.createTextNode( \'{{popup foo bar\' + thiswidth + \'x\' + thisheight + \'}}'.
+                                                      $filenameprefix.'<\/a>\' ));
+        }		
+        
  	textInfo = \'newentryrmt\';
 	if( document.getElementById && document.getElementById(textInfo) != null ){
-		var subject = document.getElementById( textInfo ); 
-		
-		subject.value = \'<img border="0" src="'.$localPath.'/'.$uploadfilename.
-'" alt="'.$filenameprefix.' ('.$totalkbytes.'\\k image)" height="\' + thisheight + \'" width="\' + thiswidth + \'" />\';
- }	
- 
-  textInfo = \'newpoprmt\';
+        var subject = document.getElementById( textInfo ); 
+        
+        subject.value = \'<img border="0" src="'.$localPath.'/'.$uploadfilename.
+                                                                     '" alt="'.$filenameprefix.' ('.$totalkbytes.'\\k image)" height="\' + thisheight + \'" width="\' + thiswidth + \'" />\';
+        }	
+        
+        textInfo = \'newpoprmt\';
 	if( document.getElementById && document.getElementById(textInfo) != null ){
-		var subject = document.getElementById( textInfo ); 
-		
-		subject.value = \'{{popup '.$uploadfilename.' '.$filenameprefix.' \' + thiswidth + \'x\' + thisheight'.
-'+ \'}}'.$filenameprefix.'<\/a>\';
- }
- 
-}
-window.onload = setImageInfo;
+        var subject = document.getElementById( textInfo ); 
+        
+        subject.value = \'{{popup '.$uploadfilename.' '.$filenameprefix.' \' + thiswidth + \'x\' + thisheight'.
+                                '+ \'}}'.$filenameprefix.'<\/a>\';
+        }
+        
+        }
+        window.onload = setImageInfo;
 
-//-->
-</script>
-';		
-		$page .= '<FORM ACTION="gm.cgi" METHOD=POST>'.Gm_Security::getFormAuth( author=>\%AUTHOR ).
-			'<INPUT TYPE=HIDDEN NAME="revisedentrymaintext" id="newentryrmt" VALUE="&lt;img border=&quot;0&quot; src=&quot;'.
-			$localPath.'/'.$uploadfilename.'&quot; alt=&quot;'.$filenameprefix.' ('.$totalkbytes.
-			'\\k image)&quot; height=&quot;200&quot; width=&quot;200&quot; /&gt;"><P>'.
-			'<input type="hidden" name="section" value="entries">'.
-			'<INPUT TYPE=SUBMIT CLASS="accept_button" NAME="new" VALUE="Include This Image In A New Entry" '.
-			'style="background: #D0FFD0;"><P></form>';
-			
-		$page .= '<FORM ACTION="gm.cgi" METHOD=POST>'.Gm_Security::getFormAuth( author=>\%AUTHOR ).
-			'<input type="hidden" name="section" value="entries"><INPUT TYPE=HIDDEN '.
-			'NAME="revisedentrymaintext" id="newpoprmt" VALUE="{{popup '.$uploadfilename.' '.$filenameprefix.' 200x200}}'.
-			$filenameprefix.'&lt;/A&gt;"><INPUT TYPE=SUBMIT CLASS="accept_button" NAME="new" VALUE="Include In '.
-			'Entry As A Popup Window" style="background: #D0FFD0;"></FORM>';
-	}	else {
-		$page .= '<form action="gm.cgi" method="post"> '.Gm_Security::getFormAuth( author=>\%AUTHOR ).
-			'<input type="hidden" name="revisedentrymaintext" value="'.$uploadfilenamelink.'" />'.
-			'<input type="hidden" name="section" value="entries">'.
-			'<input type="submit" class="accept_button" name="new" value="Include This Link In A New Entry" '.
-			'style="background: #D0FFD0" /></form>';
-	}
-		
-	$page .= '<FORM ACTION="gm.cgi" METHOD=POST> '.Gm_Security::getFormAuth( author=>\%AUTHOR ).
-		'<p><INPUT TYPE=SUBMIT CLASS="button" NAME="menu" VALUE="'.
-		Gm_Core::text( Gm_Constants::RETURN_MAIN_MENU ).'" STYLE="background: #C0C0C0"></p></FORM><br />';
-	## NAVIGATION SHOULD BE DE-BUTTONED
-	
-	Gm_Web::displayAdminPageExit( $page );
-	exit(0);
+        //-->
+            </script>
+            ';		
+        $page .= '<FORM ACTION="gm.cgi" METHOD=POST>'.Gm_Security::getFormAuth( author=>\%AUTHOR ).
+            '<INPUT TYPE=HIDDEN NAME="revisedentrymaintext" id="newentryrmt" VALUE="&lt;img border=&quot;0&quot; src=&quot;'.
+                                                                                                                               $localPath.'/'.$uploadfilename.'&quot; alt=&quot;'.$filenameprefix.' ('.$totalkbytes.
+                                                                                                                                                                                                     '\\k image)&quot; height=&quot;200&quot; width=&quot;200&quot; /&gt;"><P>'.
+            '<input type="hidden" name="section" value="entries">'.
+            '<INPUT TYPE=SUBMIT CLASS="accept_button" NAME="new" VALUE="Include This Image In A New Entry" '.
+            'style="background: #D0FFD0;"><P></form>';
+        
+        $page .= '<FORM ACTION="gm.cgi" METHOD=POST>'.Gm_Security::getFormAuth( author=>\%AUTHOR ).
+            '<input type="hidden" name="section" value="entries"><INPUT TYPE=HIDDEN '.
+            'NAME="revisedentrymaintext" id="newpoprmt" VALUE="{{popup '.$uploadfilename.' '.$filenameprefix.' 200x200}}'.
+                                            $filenameprefix.'&lt;/A&gt;"><INPUT TYPE=SUBMIT CLASS="accept_button" NAME="new" VALUE="Include In '.
+                                                                           'Entry As A Popup Window" style="background: #D0FFD0;"></FORM>';
+    }	else {
+        $page .= '<form action="gm.cgi" method="post"> '.Gm_Security::getFormAuth( author=>\%AUTHOR ).
+            '<input type="hidden" name="revisedentrymaintext" value="'.$uploadfilenamelink.'" />'.
+            '<input type="hidden" name="section" value="entries">'.
+            '<input type="submit" class="accept_button" name="new" value="Include This Link In A New Entry" '.
+            'style="background: #D0FFD0" /></form>';
+    }
+    
+    $page .= '<FORM ACTION="gm.cgi" METHOD=POST> '.Gm_Security::getFormAuth( author=>\%AUTHOR ).
+        '<p><INPUT TYPE=SUBMIT CLASS="button" NAME="menu" VALUE="'.
+                                                                                                                                    Gm_Core::text( Gm_Constants::RETURN_MAIN_MENU ).'" STYLE="background: #C0C0C0"></p></FORM><br />';
+    ## NAVIGATION SHOULD BE DE-BUTTONED
+    
+    Gm_Web::displayAdminPageExit( $page );
+    exit(0);
 }
 
 #########################################
@@ -7409,16 +7409,16 @@ window.onload = setImageInfo;
 # RETURN 2: the emoticon javascript for the extended entry
 sub _emoticonsCode {
 
-#   gm_readconfig();
-   my $emoticonsmaincode = Gm_Constants::EMPTY;
-   my $emoticonsmorecode = Gm_Constants::EMPTY;
+    #   gm_readconfig();
+    my $emoticonsmaincode = Gm_Constants::EMPTY;
+    my $emoticonsmorecode = Gm_Constants::EMPTY;
 
-   if( $gmConfigs->{'gmemoticonsallowed'} eq Gm_Constants::BOTH 
-			|| $gmConfigs->{'gmemoticonsallowed'} eq Gm_Constants::ENTRIES ){
-       $emoticonsmaincode = _emoticons_html( 'commentEmoticonMain', $gmConfigs->{'gmemoticonspath'} );
-       $emoticonsmorecode = _emoticons_html( 'commentEmoticonMore', $gmConfigs->{'gmemoticonspath'} );
-   }
-   return( $emoticonsmaincode, $emoticonsmorecode );
+    if( $gmConfigs->{'gmemoticonsallowed'} eq Gm_Constants::BOTH 
+        || $gmConfigs->{'gmemoticonsallowed'} eq Gm_Constants::ENTRIES ){
+        $emoticonsmaincode = _emoticons_html( 'commentEmoticonMain', $gmConfigs->{'gmemoticonspath'} );
+        $emoticonsmorecode = _emoticons_html( 'commentEmoticonMore', $gmConfigs->{'gmemoticonspath'} );
+    }
+    return( $emoticonsmaincode, $emoticonsmorecode );
 }
 
 ## Helper subroutine to create emoticon code
@@ -7426,70 +7426,70 @@ sub _emoticonsCode {
 # ARG 2: the emoticonspath of the website
 # RETURNS: table of emoticon images with onclick javascript calls
 sub _emoticons_html {
-   my $text_window = shift( @_ ) || '';
-   my $path = shift( @_ ) || '';
-   my $size = 'width="19" height="14"';
+    my $text_window = shift( @_ ) || '';
+    my $path = shift( @_ ) || '';
+    my $size = 'width="19" height="14"';
 
-   return <<"EOP";
-<table>
-<tr>
-<td><img alt=":)" onclick="$text_window(':)')" src="$path/smile.gif" title=":)" $size /></td>
-<td><img alt=":O" onclick="$text_window(':O')" src="$path/shocked.gif" title=":O" $size /></td>
-<td><img alt=":(" onclick="$text_window(':(')" src="$path/sad.gif" title=":(" $size /></td>
-</tr>
-<tr>
-<td><img alt=":D" onclick="$text_window(':D')" src="$path/biggrin.gif" title=":D" $size /></td>
-<td><img alt=":P" onclick="$text_window(':P')" src="$path/tongue.gif" title=":P" $size /></td>
-<td><img alt=";)" onclick="$text_window(';)')" src="$path/wink.gif" title=";)" $size /></td>
-</tr>
-<tr>
-<td><img alt=":angry:" onclick="$text_window(':angry:')" src="$path/angry.gif" title=":angry:" $size /></td>
-<td><img alt=":blush:" onclick="$text_window(':blush:')" src="$path/blush.gif" title=":blush:" $size /></td>
-<td><img alt=":confused:" onclick="$text_window(':confused:')" src="$path/confused.gif" title=":confused:" $size /></td>
-</tr>
-<tr>
-<td><img alt=":cool:" onclick="$text_window(':cool:')" src="$path/cool.gif" title=":cool:" $size /></td>
-<td><img alt=":crazy:" onclick="$text_window(':crazy:')" src="$path/crazy.gif" title=":crazy:" $size /></td>
-<td><img alt=":cry:" onclick="$text_window(':cry:')" src="$path/cry.gif" title=":cry:" $size /></td>
-</tr>
-<tr>
-<td><img alt=":doze:" onclick="$text_window(':doze:')" src="$path/doze.gif" title=":doze:" $size /></td>
-<td><img alt=":hehe:" onclick="$text_window(':hehe:')" src="$path/hehe.gif" title=":hehe:" $size /></td>
-<td><img alt=":laugh:" onclick="$text_window(':laugh:')" src="$path/laugh.gif" title=":laugh:" $size /></td>
-</tr>
-<tr>
-<td><img alt=":plain:" onclick="$text_window(':plain:')" src="$path/plain.gif" title=":plain:" $size /></td>
-<td><img alt=":rolleyes:" onclick="$text_window(':rolleyes:')" src="$path/rolleyes.gif" title=":rollseyes:" $size /></td>
-<td><img alt=":satisfied:" onclick="$text_window(':satisfied:')" src="$path/satisfied.gif" title="satisfied:" $size /></td>
-</tr>
-</table>
-EOP
+    return <<"EOP";
+    <table>
+    <tr>
+    <td><img alt=":)" onclick="$text_window(':)')" src="$path/smile.gif" title=":)" $size /></td>
+    <td><img alt=":O" onclick="$text_window(':O')" src="$path/shocked.gif" title=":O" $size /></td>
+    <td><img alt=":(" onclick="$text_window(':(')" src="$path/sad.gif" title=":(" $size /></td>
+    </tr>
+    <tr>
+    <td><img alt=":D" onclick="$text_window(':D')" src="$path/biggrin.gif" title=":D" $size /></td>
+    <td><img alt=":P" onclick="$text_window(':P')" src="$path/tongue.gif" title=":P" $size /></td>
+    <td><img alt=";)" onclick="$text_window(';)')" src="$path/wink.gif" title=";)" $size /></td>
+    </tr>
+    <tr>
+    <td><img alt=":angry:" onclick="$text_window(':angry:')" src="$path/angry.gif" title=":angry:" $size /></td>
+    <td><img alt=":blush:" onclick="$text_window(':blush:')" src="$path/blush.gif" title=":blush:" $size /></td>
+    <td><img alt=":confused:" onclick="$text_window(':confused:')" src="$path/confused.gif" title=":confused:" $size /></td>
+    </tr>
+    <tr>
+    <td><img alt=":cool:" onclick="$text_window(':cool:')" src="$path/cool.gif" title=":cool:" $size /></td>
+    <td><img alt=":crazy:" onclick="$text_window(':crazy:')" src="$path/crazy.gif" title=":crazy:" $size /></td>
+    <td><img alt=":cry:" onclick="$text_window(':cry:')" src="$path/cry.gif" title=":cry:" $size /></td>
+    </tr>
+    <tr>
+    <td><img alt=":doze:" onclick="$text_window(':doze:')" src="$path/doze.gif" title=":doze:" $size /></td>
+    <td><img alt=":hehe:" onclick="$text_window(':hehe:')" src="$path/hehe.gif" title=":hehe:" $size /></td>
+    <td><img alt=":laugh:" onclick="$text_window(':laugh:')" src="$path/laugh.gif" title=":laugh:" $size /></td>
+    </tr>
+    <tr>
+    <td><img alt=":plain:" onclick="$text_window(':plain:')" src="$path/plain.gif" title=":plain:" $size /></td>
+    <td><img alt=":rolleyes:" onclick="$text_window(':rolleyes:')" src="$path/rolleyes.gif" title=":rollseyes:" $size /></td>
+    <td><img alt=":satisfied:" onclick="$text_window(':satisfied:')" src="$path/satisfied.gif" title="satisfied:" $size /></td>
+    </tr>
+    </table>
+    EOP
 
 }
 
-## Hider Code Entry
-# ARGS 1: The name of the 'id' to hide
-# ARGS 2: The name of the hiding control element
-# RETURN: the javascript code to control the hider
-sub _hiderCodeEntry {
-	my $toHide = shift( @_ ) || '';
-	my $doesHide = shift( @_ ) || '';
-	
-	my $s = '<div class="text_right" id="'.$doesHide.'"><a href="javascript:hider(\''.
-		$toHide.'\', \''.$doesHide.'\');">Hide</a>';
+    ## Hider Code Entry
+    # ARGS 1: The name of the 'id' to hide
+    # ARGS 2: The name of the hiding control element
+    # RETURN: the javascript code to control the hider
+    sub _hiderCodeEntry {
+    my $toHide = shift( @_ ) || '';
+    my $doesHide = shift( @_ ) || '';
+    
+    my $s = '<div class="text_right" id="'.$doesHide.'"><a href="javascript:hider(\''.
+                                                                                  $toHide.'\', \''.$doesHide.'\');">Hide</a>';
 
-	return( $s );
+    return( $s );
 }
 
-## Sizer Code Entry
-# ARGS 1: The name of the 'id' to resize
-# RETURN: the javascript code to control the element resizing
-sub _sizerCodeEntry {
-	my $toSize = shift( @_ ) || '';
-	
-	my $s = '<div class=\'text_right\'>(<a href="javascript:sizer(\''.$toSize.'\', \'s\' );">-</a> '. 
-		'<a href="javascript:sizer(\''.$toSize.'\', \'l\' );">+</a>)</div>';
+    ## Sizer Code Entry
+    # ARGS 1: The name of the 'id' to resize
+    # RETURN: the javascript code to control the element resizing
+    sub _sizerCodeEntry {
+    my $toSize = shift( @_ ) || '';
+    
+    my $s = '<div class=\'text_right\'>(<a href="javascript:sizer(\''.$toSize.'\', \'s\' );">-</a> '. 
+                                        '<a href="javascript:sizer(\''.$toSize.'\', \'l\' );">+</a>)</div>';
 
-	return( $s );
+    return( $s );
 }
 
