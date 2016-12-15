@@ -19,6 +19,14 @@ package Gm_Constants;
 use strict;
 use warnings;
 
+# ---------------------------------------------------------------------
+# PF 1.8.3
+# Updated to version 1.8.3 to add bug fix for logentryindex
+# and to allow posts to have hand chosen filenames. i.e.
+# http://www.petefinnigan.com/weblog/entries/This_is_a_post.htm instead
+# of http://www.petefinnigan.com/weblog/entries/00001287.htm
+# ---------------------------------------------------------------------
+
 use constant GM_VERSION => '1.8.2'; # first release of 2008
 use constant GM_FORUM => 'http://greymatterforum.proboards82.com';
 

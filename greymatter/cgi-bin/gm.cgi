@@ -1679,7 +1679,12 @@ sub searchEntryList {
 	foreach my $elkey ( @sortedKeys ){
 		my $addEntry = Gm_Constants::EMPTY;
 		my $entry = $entriesList->{$elkey};
-	
+
+		# ---------------------------------------------------------------------
+		# PF 1.8.3
+		# before setEntry
+		# ----------------------------------------------------------------------
+#		&Gm_Trace::Trace(level => 3, msg => "before getEntryVariables[searchEntryList]");	
 		my $entryVars = Gm_Core::getEntryVariables( entryid=>$entry->{'id'}, 
 			errHandler=>\&Gm_Web::displayAdminErrorExit );
 		if( ($entryVars->{'thisentryauthor'} =~ m/$IN{'entrysearch'}/i) || 
@@ -1941,6 +1946,13 @@ sub changeEntryStatus {
 	Gm_Storage::setCounters( list=>$gmCounters, errHandler=>\&Gm_Web::displayAdminErrorExit );
 
 	$gmEntry->{'entryinfo'}{'status'} = $thisentryopenstatus;
+
+	# ---------------------------------------------------------------------
+	# PF 1.8.3
+	# before setEntry
+	# ----------------------------------------------------------------------
+#	&Gm_Trace::Trace(level => 3, msg => "before setEntry[changeEntryStatus]");	
+
 	Gm_Storage::setEntry( entry=>$gmEntry, errHandler=>\&Gm_Web::displayAdminErrorExit );
 	
 	## Updating entry list with new status, but all we know is that we are flipping it
@@ -2166,6 +2178,13 @@ sub entrySearchAndReplace {
 		}
 	
 		if( $resaveentry eq Gm_Constants::YES ){
+		
+			# ---------------------------------------------------------------------
+			# PF 1.8.3
+			# before setEntry
+			# ----------------------------------------------------------------------
+#			&Gm_Trace::Trace(level => 3, msg => "before setEntry[entrySearchAndReplace]");	
+
 			Gm_Storage::setEntry( entry=>$gmEntry, errHandler=>\&Gm_Web::displayAdminErrorExit );
 			$entriesaffected++;
 
@@ -2250,7 +2269,11 @@ sub newEntry {
 		}
 		$newEntry{'maintext'} = $popupincludetext;
 	}
-
+# ---------------------------------------------------------------------
+# PF 1.8.3
+# modify for link mod
+# ----------------------------------------------------------------------
+#	&Gm_Trace::Trace(level => 3, msg => "before viewEntry in newEntry");	
 	## calling view entry with empty entry, message of explanation, 1 for new entry
 	viewEntry( \%newEntry, $message, 1  );	
 }
@@ -2314,7 +2337,11 @@ sub editEntry {
 			'/'.$thisentryyearyear.' '.$thisentryhourhour.':'.$thisentryminuteminute.':'.
 			$thisentrysecondsecond.' '.$thisentryampm.'</span>'; 
 	}
-
+# ---------------------------------------------------------------------
+# PF 1.8.3
+# modify for link mod
+# ----------------------------------------------------------------------
+#	&Gm_Trace::Trace(level => 3, msg => "before viewEntry in editEntry");	
 	viewEntry( $gmEntry, $message );
 }
 
@@ -2350,6 +2377,18 @@ sub viewEntry {
 		$IN{'revisedentrymusic'} : $gmEntry->{'entryinfo'}{'music'};
 	my $thisentrymood = defined( $IN{'revisedentrymood'} ) ? 
 		$IN{'revisedentrymood'} : $gmEntry->{'entryinfo'}{'mood'};
+		
+# ---------------------------------------------------------------------
+# PF 1.8.3
+# modify here for fixed post links
+#
+# This should be where it "comes in" to the screen.
+# ----------------------------------------------------------------------
+#	&Gm_Trace::Trace(level => 3, msg => "IN{'linklink'}=[1.3][$IN{'linklink'}]");	
+	my $thisentrylink = defined( $IN{'linklink'} ) ?
+		$IN{'linklink'} : $gmEntry->{'entryinfo'}{'linklink'};
+#	&Gm_Trace::Trace(level => 3, msg => "thisentrylink=[1.4][$thisentrylink]");		
+	
 	my $thisentryweekdaynumber = $gmEntry->{'entryinfo'}{'weekday'};
 	my $thisentrymonth = $gmEntry->{'entryinfo'}{'month'};
 	my $thisentryday = $gmEntry->{'entryinfo'}{'day'};
@@ -2401,6 +2440,14 @@ sub viewEntry {
 	$thisentrymusic = Gm_Utils::toWebSafe($thisentrymusic);
 	$thisentrymood = Gm_Utils::toWebSafe($thisentrymood);
 
+# ---------------------------------------------------------------------
+# PF 1.8.3
+# modify here for fixed post links
+#
+# make the field websafe
+# ----------------------------------------------------------------------
+
+	$thisentrylink = Gm_Utils::toWebSafe($thisentrylink);	
 
 	# emoticons code display added
 	my ( $emoticonsmaincode, $emoticonsmorecode ) = _emoticonsCode();
@@ -2645,11 +2692,19 @@ window.onload = init;
 	}	
 	
 	$page .= '</script>';
+	
+# ---------------------------------------------------------------------
+# PF 1.8.3
+# add link here?
+# ----------------------------------------------------------------------
+#	&Gm_Trace::Trace(level => 3, msg => "thisentrylink=[1.1][$thisentrylink]");	
 
 	$page .= '<FORM ACTION="gm.cgi" method="post" name="editentry">'.
 		Gm_Security::getFormAuth( author=>\%AUTHOR ).
 		'<input type="hidden" name="section" value="'.$IN{'section'}.'">'.
 		'<input type=hidden name="entryid" value="'.$thisentrynumber.'">'.
+	# PF 1.8.3 this stopped the duplicate file name
+	#	'<input type=hidden name="linklink" value="'.$thisentrylink.'">'.
 		'<input type=hidden name="entryselectionview" value="'.$IN{'entryselectionview'}.'">'; 
 
 	$page .= "\n".'<table width="95%" class="form_table"><tr>'.
@@ -2666,6 +2721,17 @@ window.onload = init;
 		'<label for="mood">Mood:</label></th><td><input type=text '.
 		'name="revisedentrymood" value="'.$thisentrymood.
 		'" class="inputfield" id="mood"></td></tr>'."\n";
+
+# ---------------------------------------------------------------------
+# PF 1.8.3
+# modify here to add a new field to hold he link
+# ----------------------------------------------------------------------
+#	&Gm_Trace::Trace(level => 3, msg => "thisentrylink=[1.2][$thisentrylink]");	
+	$page .= "\n".'<tr><th>'.
+		'<label for="linklink">Link:</label></th><td><input type=text '.
+		'name="linklink" value="'.$thisentrylink.
+		'" class="inputfield" id="linklink"></td></tr>'."\n";
+#	&Gm_Trace::Trace(level => 3, msg => "IN{'linklink'}=[1.5][$IN{'linklink'}]");	
 
 	$page .= "\n".'<tr class="section_head"><th><label for="main_text">Main Entry Text'.
 		'</label></th><td>&nbsp;</td></tr>'.
@@ -3032,7 +3098,18 @@ sub viewPreview {
 	my $newentrymoretext = Gm_Utils::toStoreSafe( $IN{'revisedentrymoretext'} );
 	my $newentrymusic = Gm_Utils::toStoreSafe( $IN{'revisedentrymusic'} );
 	my $newentrymood = Gm_Utils::toStoreSafe( $IN{'revisedentrymood'} );
+	
+# ---------------------------------------------------------------------
+# PF 1.8.3
+# modify here for fixed post links
+#
+# copy the linklink to the variable
+# ----------------------------------------------------------------------
 
+	my $newentrylink = Gm_Utils::toStoreSafe($IN{'linklink'});
+	my $newentrylinkdeloused = Gm_Utils::toWebSafe($newentrylink);
+	$newentrylinkdeloused=~ s/\n/\|\*\|/g;
+	
 	my $newentrysubjectdeloused = Gm_Utils::toWebSafe( $newentrysubject );
 	my $newentrymaintextdeloused = Gm_Utils::toWebSafe( $newentrymaintext );
 	my $newentrymoretextdeloused = Gm_Utils::toWebSafe( $newentrymoretext );
@@ -3096,6 +3173,14 @@ sub viewPreview {
 		}
 	}
 
+# ---------------------------------------------------------------------
+# PF 1.8.3
+# modify here for fixed post links
+#
+# Add to the new page
+# ----------------------------------------------------------------------
+
+
 	my $page = "<p>$message</p>\n";	
 	$page .= "<p class=\"text_left\">$newentrymaintext $showmoretext</p>\n";
 	$page .= '<p class="text_left"><form action="gm.cgi" method=post>'.
@@ -3111,6 +3196,7 @@ sub viewPreview {
 		'<input type=hidden name="revisedentrystayattop" value="'.$IN{'revisedentrystayattop'}.'">'."\n".
 		'<input type=hidden name="revisedentrymusic" value="'.$IN{'revisedentrymusic'}.'">'."\n".
 		'<input type=hidden name="revisedentrymood" value="'.$IN{'revisedentrymood'}.'">'."\n".
+		'<input type=hidden name="linklink" value="'.$IN{'linklink'}.'">'."\n".
 		'<input type=hidden name="autorebuild" value="'.$IN{'autorebuild'}.'">'."\n".
 		'<input type=hidden name="revisedentryopenstatus" value="'.$IN{'revisedentryopenstatus'}.'">'."\n".
 		'<input type=hidden name="gmbm" value="'.$IN{'gmbm'}.'">'."\n". ## bookmarklet or maybe ajax?
@@ -3214,6 +3300,15 @@ sub updateEntry {
 	
 	#	my %gmEntry = ();
 		$gmEntry->{'entryinfo'}{'id'} = $gmCounters->{'entrytotal'};
+	
+# ---------------------------------------------------------------------
+# PF 1.8.3
+# add the link here - initialise to empty
+# ----------------------------------------------------------------------
+		
+		$gmEntry->{'entryinfo'}{'linklink'} = Gm_Constants::EMPTY;
+#		&Gm_Trace::Trace(level => 3, msg => "linklink=[1][$gmEntry->{'entryinfo'}{'linklink'}]");
+	
 		$gmEntry->{'entryinfo'}{'author'} = $AUTHOR{'author'};
 		$gmEntry->{'entryinfo'}{'weekday'} = $wday;
 		$gmEntry->{'entryinfo'}{'month'} = $mon;
@@ -3237,6 +3332,16 @@ sub updateEntry {
 
 	# ($thisentrynumber, $thisentryauthor, $thisentrysubject, $thisentryweekdaynumber, $thisentrymonth, $thisentryday, $thisentryyearyear, $thisentryhour, $thisentryminute, $thisentrysecond, $thisentryampm, $thisentrypositivekarma, $thisentrynegativekarma, $thisentrycommentsnumber, $thisentryallowkarma, $thisentryallowcomments, $thisentryopenstatus, $thisentrymusic, $thisentrymood, $thisentryemoticonsallowed) = split (/\|/, $entrylines[0]);
 	my $thisentrynumber = $gmEntry->{'entryinfo'}{'id'};
+	
+# ---------------------------------------------------------------------
+# PF 1.8.3
+# Add the link here
+# ----------------------------------------------------------------------
+	
+	my $thisentrylink = $gmEntry->{'entryinfo'}{'linklink'};
+#	&Gm_Trace::Trace(level => 3, msg => "linklink=[2][$gmEntry->{'entryinfo'}{'linklink'}]");
+#	&Gm_Trace::Trace(level => 3, msg => "thisentrylink=[2][$thisentrylink]");
+	
 	my $thisentryauthor = $gmEntry->{'entryinfo'}{'author'};
 	my $thisentrysubject = $gmEntry->{'entryinfo'}{'subject'};
 	my $thisentryweekdaynumber = $gmEntry->{'entryinfo'}{'weekday'};
@@ -3318,8 +3423,27 @@ sub updateEntry {
 	$IN{'revisedentrymusic'} = Gm_Utils::sanitizeInput($IN{'revisedentrymusic'});
 	$IN{'revisedentrymood'} = Gm_Utils::sanitizeInput($IN{'revisedentrymood'});
 
+# ---------------------------------------------------------------------
+# PF 1.8.3
+# possibly modify here to store in web variable
+# what does toStoreSafe and toConfigSafe do?
+# ----------------------------------------------------------------------
+#	&Gm_Trace::Trace(level => 3, msg => "IN{linklink}=[3.1][$IN{'linklink'}]");
+	$IN{'linklink'} = Gm_Utils::toConfigSafe($IN{'linklink'});
+#	&Gm_Trace::Trace(level => 3, msg => "IN{linklink}=[3][$IN{'linklink'}]");
+	
 	## TODO: MAKE STUFF WORK DIRECTLY OFF OF THE GMENTRY INSTEAD OF USING TEMP VARS
 	$gmEntry->{'entryinfo'}{'id'} = $thisentrynumber;
+
+# ---------------------------------------------------------------------
+# PF 1.8.3
+# add the link here?
+# ----------------------------------------------------------------------
+
+
+	$gmEntry->{'entryinfo'}{'linklink'} = $IN{'linklink'};
+#	&Gm_Trace::Trace(level => 3, msg => "entryinfo{linklink}=[4][$gmEntry->{'entryinfo'}{'linklink'}]");
+
 	$gmEntry->{'entryinfo'}{'author'} = $thisentryauthor;
 	$gmEntry->{'entryinfo'}{'subject'} = $IN{'revisedentrysubject'};
 	$gmEntry->{'entryinfo'}{'weekday'} = $thisentryweekdaynumber;
@@ -3345,6 +3469,12 @@ sub updateEntry {
 	
 	$gmEntry->{'maintext'} = $IN{'revisedentrymaintext'};
 	$gmEntry->{'extendedtext'} = $IN{'revisedentrymoretext'};
+
+	# ---------------------------------------------------------------------
+	# PF 1.8.3
+	# before setEntry
+	# ----------------------------------------------------------------------
+#	&Gm_Trace::Trace(level => 3, msg => "before setEntry[updateEntry]");	
 
 	Gm_Storage::setEntry( entry=>$gmEntry, 'new'=>$newEntry, 
 		errHandler=>\&Gm_Web::displayAdminErrorExit );
@@ -3418,7 +3548,8 @@ sub updateEntry {
 		#&gm_readtemplates;
 		#&gm_generatemainindex;
 		Gm_Core::constructMainIndex( errHandler=>\&Gm_Web::displayAdminErrorExit );
-	#	&gm_getentryvariables($IN{'revisedentrynumber'});	
+	#	&gm_getentryvariables($IN{'revisedentrynumber'});
+#		&Gm_Trace::Trace(level => 3, msg => "call Gm_Core::getEntryVariables[2.41][$IN{'entryid'}]");
 		$entryVars = Gm_Core::getEntryVariables( entryid=>$IN{'entryid'}, 
 			errHandler=>\&Gm_Web::displayAdminErrorExit );
 	
@@ -3433,8 +3564,18 @@ sub updateEntry {
 				$entryreturn = Gm_Core::translateEntryTemplates( entryVars=>$entryVars,
 					template=>$gmTemplates->{'gmentrypagetemplate'}, errHandler=>\&Gm_Web::displayAdminErrorExit);
 			}
-
-			Gm_Storage::saveFile( loc=>"$gmConfigs->{'gmentriespath'}/$entryVars->{'thisentrynumberpadded'}".
+			# ---------------------------------------------------------------------
+			# PF 1.8.3
+			# Just use the filename stored in the hash
+			# This is currently not saving the actual file but saves ".htm"
+			# ----------------------------------------------------------------------
+#			&Gm_Trace::Trace(level => 3, msg => "saveFile[2.1]");	
+#			&Gm_Trace::Trace(level => 3, msg => "thisentrylink=[2.1][$entryVars->{'thisentrylink'}]");
+#			&Gm_Trace::Trace(level => 3, msg => "thisentrypagelink=[2.1][$entryVars->{'thisentrypagelink'}]");
+#			&Gm_Trace::Trace(level => 3, msg => "linklink=[2.1][$entryVars->{'linklink'}]");
+#			&Gm_Trace::Trace(level => 3, msg => "thisentrynumber=[2.1][$entryVars->{'thisentrynumber'}]");
+#			&Gm_Trace::Trace(level => 3, msg => "thisentrynumberpadded=[2.1][$entryVars->{'thisentrynumberpadded'}]");
+			Gm_Storage::saveFile( loc=>"$gmConfigs->{'gmentriespath'}/$entryVars->{'thisentrylink'}".
 				".$gmConfigs->{'gmentrysuffix'}", 
 				content=>[$entryreturn], ch_mod=>'0666', errHandler=>\&Gm_Web::displayAdminErrorExit,
 				'new'=>1 );		
@@ -3510,8 +3651,12 @@ sub updateEntry {
 								template=>$gmTemplates->{'gmentrypagetemplate'}, errHandler=>\&Gm_Web::displayAdminErrorExit);
 						}
 					}
-
-					Gm_Storage::saveFile( loc=>"$gmConfigs->{'gmentriespath'}/$entryVars->{'thisentrynumberpadded'}.$gmConfigs->{'gmentrysuffix'}", 
+					# ---------------------------------------------------------------------
+					# PF 1.8.3
+					# Just use the filename stored in the hash
+					# ----------------------------------------------------------------------
+#					&Gm_Trace::Trace(level => 3, msg => "saveFile[2.2]");
+					Gm_Storage::saveFile( loc=>"$gmConfigs->{'gmentriespath'}/$entryVars->{'thisentrylink'}.$gmConfigs->{'gmentrysuffix'}", 
 						content=>[$entryreturn], ch_mod=>'0666', 
 						errHandler=>\&Gm_Web::displayAdminErrorExit );			
 				} else {
@@ -3547,8 +3692,12 @@ sub updateEntry {
 								template=>$gmTemplates->{'gmarchiveentrypagetemplate'}, 
 								errHandler=>\&Gm_Web::displayAdminErrorExit);
 						}
-
-						Gm_Storage::saveFile( loc=>"$gmConfigs->{'gmentriespath'}/$entryVars->{'thisentrynumberpadded'}.$gmConfigs->{'gmentrysuffix'}", 
+						# ---------------------------------------------------------------------
+						# PF 1.8.3
+						# Just use the filename stored in the hash
+						# ----------------------------------------------------------------------
+#						&Gm_Trace::Trace(level => 3, msg => "saveFile[2.3]");
+						Gm_Storage::saveFile( loc=>"$gmConfigs->{'gmentriespath'}/$entryVars->{'thisentrylink'}.$gmConfigs->{'gmentrysuffix'}", 
 							content=>[$entryreturn], ch_mod=>'0666', 
 							errHandler=>\&Gm_Web::displayAdminErrorExit );	
 					} else {
@@ -3591,7 +3740,7 @@ sub updateEntry {
 		# 	&gm_formatentry($gmarchivemasterindextemplate);
 			$entryreturn = Gm_Core::translateEntryTemplates( entryVars=>$entryVars,
 				template=>$gmTemplates->{'gmarchivemasterindextemplate'}, errHandler=>\&Gm_Web::displayAdminErrorExit);	
-
+#			&Gm_Trace::Trace(level => 3, msg => "saveFile[2.4]");
 			Gm_Storage::saveFile( loc=>"$gmConfigs->{'gmentriespath'}/$gmConfigs->{'gmindexfilename'}", 
 				content=>[$entryreturn], ch_mod=>'0666', 
 				errHandler=>\&Gm_Web::displayAdminErrorExit );
@@ -3658,6 +3807,15 @@ sub deleteEntryComments {
 
 	## TODO: refactor out usage of variables, make work directly off of entry
 	my $thisentrynumber = $gmEntry->{'entryinfo'}{'id'};
+
+# ---------------------------------------------------------------------
+# PF 1.8.3
+# add link here?
+# ----------------------------------------------------------------------
+
+	my $thisentrylink = $gmEntry->{'entryinfo'}{'linklink'};
+#	&Gm_Trace::Trace(level => 3, msg => "thisentrylink:=[5][$thisentrylink");	
+
 	my $thisentryauthor = $gmEntry->{'entryinfo'}{'author'};
 	my $thisentrysubject = $gmEntry->{'entryinfo'}{'subject'};
 	my $thisentryweekdaynumber = $gmEntry->{'entryinfo'}{'weekday'};
@@ -3709,7 +3867,13 @@ sub deleteEntryComments {
 	## Setting comments to new list
 	$gmEntry->{'comments'} = \@new_comments;
 
+	# ---------------------------------------------------------------------
+	# PF 1.8.3
+	# before setEntry
+	# ----------------------------------------------------------------------
+#	&Gm_Trace::Trace(level => 3, msg => "before setEntry[deleteEntryComments]");	
 	Gm_Storage::setEntry( entry=>$gmEntry, errHandler=>\&Gm_Web::displayAdminErrorExit );
+
 
 	## Updating counter TODO: USE STORAGE DIRECTLY
 	#&gm_readcounter;
@@ -3797,6 +3961,11 @@ sub viewEntryComment {
 			"$thiscommentminuteminute\:$thiscommentsecondsecond $thiscommentampm<P>";
 	}
 
+# ---------------------------------------------------------------------
+# PF 1.8.3
+# add link here?
+# ----------------------------------------------------------------------
+
 
 	my $page = "<p>$message</p>\n<form action=\"gm.cgi\" method=post>".
 		Gm_Security::getFormAuth( author=>\%AUTHOR ).
@@ -3804,6 +3973,7 @@ sub viewEntryComment {
 		'<input type=hidden name="revisedentrycommentselection" value="'.
 		$IN{'revisedentrycommentselection'}.'">'.
 		'<input type=hidden name="entryid" value="'.$IN{'entryid'}.'">'.
+		'<input type=hidden name="linklink" value="'.$IN{'linklink'}.'">'.
 		'<input type=hidden name="entryselectionview" value="'.$IN{'entryselectionview'}.'">';
 
 	$page .= '<table width="95%" class="form_table"><tr><th width="20%">Author:</th>'.
@@ -3884,6 +4054,11 @@ sub updateEntryComment {
 	$gmEntry->{'comments'}[$comm_index]{'homepage'} = $IN{'revisedentrycommentauthorhomepage'};
 	$gmEntry->{'comments'}[$comm_index]{'comment'} = $IN{'revisedentrycommenttext'};
 
+	# ---------------------------------------------------------------------
+	# PF 1.8.3
+	# before setEntry
+	# ----------------------------------------------------------------------
+#	&Gm_Trace::Trace(level => 3, msg => "before setEntry[updateEntryComment]");	
 	Gm_Storage::setEntry( entry=>$gmEntry, errHandler=>\&Gm_Web::displayAdminErrorExit );
 
 	Gm_Core::writeToCplog( "$AUTHOR{'author'} edited comment ".
@@ -4855,6 +5030,7 @@ sub doDiagnosticRepair {
 	# print NOWHEREMAN "test";
 	# close (NOWHEREMAN);
 	#  IS THIS NECESCARY?  CAN WE TEST WITH FLAGS SOMEHOW?
+#	&Gm_Trace::Trace(level => 3, msg => "saveFile[2.5]");
 	Gm_Storage::saveFile( loc=>"$gmConfigs->{'gmentriespath'}/gm-testfile.txt", content=>['test'],
 		'new'=>1, ch_mod=>'0666', errHandler=>\&Gm_Web::displayAdminErrorExit );
 	
@@ -5028,6 +5204,14 @@ sub doDiagnosticRepair {
 				}			
 	
 				$gmEntry->{'entryinfo'}{'id'} = $checkentrycounter;
+# ---------------------------------------------------------------------
+# PF 1.8.3
+# add link here 
+# ----------------------------------------------------------------------
+
+				$gmEntry->{'entryinfo'}{'linklink'} = Gm_Constants::EMPTY;
+	
+	
 				$gmEntry->{'entryinfo'}{'author'} = 'Greymatter';
 				$gmEntry->{'entryinfo'}{'subject'} = '*Repaired*';
 				$gmEntry->{'entryinfo'}{'weekday'} = $thisnewwday;
@@ -5047,7 +5231,12 @@ sub doDiagnosticRepair {
 				
 				$gmEntry->{'maintext'} = 'This entry was detected by Greymatter during Diagnostics '.
 					'& Repair as being missing or corrupt.  This is a dummy entry only.  DO NOT reopen this entry.';
-	
+
+				# ---------------------------------------------------------------------
+				# PF 1.8.3
+				# before setEntry
+				# ----------------------------------------------------------------------
+#				&Gm_Trace::Trace(level => 3, msg => "before setEntry[doDiagnosticRepair]");	
 				Gm_Storage::setEntry( entry=>$gmEntry, 'new'=>1, errHandler=>\&Gm_Web::displayAdminErrorExit );
 	
 				$docreportentryappend = Gm_Constants::YES;
@@ -6925,8 +7114,15 @@ sub rebuildUpdate {
 									template=>$gmTemplates->{'gmentrypagetemplate'}, errHandler=>\&Gm_Web::displayAdminErrorExit );
 							}
 						}
-	
-						Gm_Storage::saveFile( loc=>"$gmConfigs->{'gmentriespath'}/$entryVars->{'thisentrynumberpadded'}.$gmConfigs->{'gmentrysuffix'}", 
+
+						# ---------------------------------------------------------------------
+						# PF 1.8.3
+						# modify here for fixed post links
+						# ----------------------------------------------------------------------
+#						&Gm_Trace::Trace(level => 3, msg => "saveFile[2.6]");
+#						&Gm_Trace::Trace(level => 3, msg => "thisentrylink[2.6][$entryVars->{'thisentrylink'}]");
+#						&Gm_Trace::Trace(level => 3, msg => "thisentrylink[2.6][$entryVars->{'thisentrylink'}]");
+						Gm_Storage::saveFile( loc=>"$gmConfigs->{'gmentriespath'}/$entryVars->{'thisentrylink'}.$gmConfigs->{'gmentrysuffix'}", 
 							content=>[$entryreturn], ch_mod=>'0666', 'new'=>1, errHandler=>\&Gm_Web::displayAdminErrorExit );
 	
 					} else {
@@ -6951,8 +7147,14 @@ sub rebuildUpdate {
 								$entryreturn = Gm_Core::translateEntryTemplates( entryVars=>$entryVars,
 									template=>$gmTemplates->{'gmentrypagetemplate'}, errHandler=>\&Gm_Web::displayAdminErrorExit );
 							}
-		
-							Gm_Storage::saveFile( loc=>"$gmConfigs->{'gmentriespath'}/$entryVars->{'thisentrynumberpadded'}.$gmConfigs->{'gmentrysuffix'}", 
+							# ---------------------------------------------------------------------
+							# PF 1.8.3
+							# Just use the filename stored in the hash
+							# ----------------------------------------------------------------------
+#							&Gm_Trace::Trace(level => 3, msg => "saveFile[2.7]");
+#							&Gm_Trace::Trace(level => 3, msg => "thisentrylink[2.7][$entryVars->{'thisentrylink'}]");
+#							&Gm_Trace::Trace(level => 3, msg => "thisentrylink[2.7][$entryVars->{'thisentrylink'}]");
+							Gm_Storage::saveFile( loc=>"$gmConfigs->{'gmentriespath'}/$entryVars->{'thisentrylink'}.$gmConfigs->{'gmentrysuffix'}", 
 								content=>[$entryreturn], ch_mod=>'0666', 'new'=>1, errHandler=>\&Gm_Web::displayAdminErrorExit );
 					} else {
 						unlink ("$gmConfigs->{'gmentriespath'}/$entryVars->{'thisentrynumberpadded'}.$gmConfigs->{'gmentrysuffix'}");

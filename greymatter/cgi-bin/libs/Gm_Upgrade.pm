@@ -140,6 +140,23 @@ sub upgradeGm {
 		_saveVersion( version=>$current_version, errHandler=>$errorHandler );
 	}
 
+	# ------------------------------------------------------------------------
+	# PF 1.8.3
+	# Add an upgrade for 1.8.3 to rework the entries
+	# ------------------------------------------------------------------------
+	
+#	if( $current_version eq '1.8.2' ){
+#		$worked = _upgradeToOneEightThree( %params );
+#	
+#		# Would use constant here, but it would have to change next upgrade
+#		if( $worked ){
+#			$current_version = '1.8.3';
+#			_saveVersion( version=>$current_version, errHandler=>$errorHandler );
+#		} else {
+#			&$errorHandler( 'Did not upgrade to GreyMatter 1.8.3, errors encountered.' );
+#		}
+#	}
+	
 	
 	## TACK ON MORE UPGRADES HERE
 	#############################
@@ -451,6 +468,12 @@ sub _upgradeToOneSevenFour {
 	return $worked;
 }
 
+# ---------------------------------------------------------------------
+# PF 1.8.3
+# Upgrade to 1.8.3.
+#
+# 
+# ---------------------------------------------------------------------
 
 
 ## Compare Versions

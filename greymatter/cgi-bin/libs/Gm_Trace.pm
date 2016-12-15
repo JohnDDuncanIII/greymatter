@@ -72,7 +72,7 @@ use POSIX qw(strftime);
 # -----------------------------------------------------------------------------
 
 my %trace = (
-	trace_file_name  => '/xxxxxxx/trace.trc',
+	trace_file_name  => '/home/htdocs/hosted/plsql/trace/trace.trc',
 	trace_on         => 1,
 	trace_file_level => 5,
 );
@@ -159,7 +159,7 @@ sub Trace
 sub _SetTrace
 {
 	my (%params) = (
-		trace_file_name  => '/xxxxxxxx/trace.trc',
+		trace_file_name  => '/home/htdocs/hosted/plsql/trace/trace.trc',
 		trace_on         => 1,
 		trace_file_level => 5,
 		@_,	
@@ -172,7 +172,7 @@ sub _SetTrace
 	{
 		$trace{trace_on} = 0;	
 	}
-	if ($params{trace_file_name} !~ '/xxxxxxxxxxx/trace.trc')
+	if ($params{trace_file_name} !~ '/home/htdocs/hosted/plsql/trace/trace.trc')
 	{
 		$trace{trace_file_name} = $params{trace_file_name};
 	}

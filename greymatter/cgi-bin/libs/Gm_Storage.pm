@@ -334,25 +334,36 @@ sub getEntry {
 			# 1. Dealing with entry info
 			my (@info) = split ( "\\$DATA_DELIM", $lines->[0]);
 			$gmentry{'entryinfo'}{'id'} = $info[0];
-			$gmentry{'entryinfo'}{'author'} = $info[1];
-			$gmentry{'entryinfo'}{'subject'} = $info[2];
-			$gmentry{'entryinfo'}{'weekday'} = $info[3];
-			$gmentry{'entryinfo'}{'month'} = $info[4];
-			$gmentry{'entryinfo'}{'day'} = $info[5];
-			$gmentry{'entryinfo'}{'year'} = $info[6];
-			$gmentry{'entryinfo'}{'hour'} = $info[7];
-			$gmentry{'entryinfo'}{'minute'} = $info[8];
-			$gmentry{'entryinfo'}{'second'} = $info[9];
-			$gmentry{'entryinfo'}{'ampm'} = $info[10];
-			$gmentry{'entryinfo'}{'karmapos'} = $info[11];
-			$gmentry{'entryinfo'}{'karmaneg'} = $info[12];
-			$gmentry{'entryinfo'}{'commenttotal'} = $info[13];
-			$gmentry{'entryinfo'}{'karma'} = $info[14];
-			$gmentry{'entryinfo'}{'comments'} = $info[15];
-			$gmentry{'entryinfo'}{'status'} = defined( $info[16] ) ? $info[16] : 'O';
-			$gmentry{'entryinfo'}{'music'} = defined( $info[17] ) ? $info[17] : Gm_Constants::EMPTY;
-			$gmentry{'entryinfo'}{'mood'} = defined( $info[18] ) ? $info[18] : Gm_Constants::EMPTY;
-			$gmentry{'entryinfo'}{'emoticons'} = defined( $info[19] ) ? $info[19] : Gm_Constants::NO;			
+			
+# ---------------------------------------------------------------------
+# PF 1.8.3
+# modify here for fixed post links
+# Add extra entry to the .cgi file for the link name {if its set}
+# Also need to modify all entries files to add the extra parameter
+# ----------------------------------------------------------------------
+
+			$gmentry{'entryinfo'}{'linklink'} = $info[1];
+			
+			
+			$gmentry{'entryinfo'}{'author'} = $info[2];
+			$gmentry{'entryinfo'}{'subject'} = $info[3];
+			$gmentry{'entryinfo'}{'weekday'} = $info[4];
+			$gmentry{'entryinfo'}{'month'} = $info[5];
+			$gmentry{'entryinfo'}{'day'} = $info[6];
+			$gmentry{'entryinfo'}{'year'} = $info[7];
+			$gmentry{'entryinfo'}{'hour'} = $info[8];
+			$gmentry{'entryinfo'}{'minute'} = $info[9];
+			$gmentry{'entryinfo'}{'second'} = $info[10];
+			$gmentry{'entryinfo'}{'ampm'} = $info[11];
+			$gmentry{'entryinfo'}{'karmapos'} = $info[12];
+			$gmentry{'entryinfo'}{'karmaneg'} = $info[13];
+			$gmentry{'entryinfo'}{'commenttotal'} = $info[14];
+			$gmentry{'entryinfo'}{'karma'} = $info[15];
+			$gmentry{'entryinfo'}{'comments'} = $info[16];
+			$gmentry{'entryinfo'}{'status'} = defined( $info[17] ) ? $info[17] : 'O';
+			$gmentry{'entryinfo'}{'music'} = defined( $info[18] ) ? $info[18] : Gm_Constants::EMPTY;
+			$gmentry{'entryinfo'}{'mood'} = defined( $info[19] ) ? $info[19] : Gm_Constants::EMPTY;
+			$gmentry{'entryinfo'}{'emoticons'} = defined( $info[20] ) ? $info[20] : Gm_Constants::NO;			
 			
 			# 2. dealing with karma releated information, ip =>P/N
 			my %karma = split ( "\\$DATA_DELIM", $lines->[1]);
@@ -542,6 +553,16 @@ sub setEntry {
 	
 			# 1. The entry information			
 			my $author = $entryinfo->{'author'};
+			
+# ---------------------------------------------------------------------
+# PF 1.8.3
+# modify here for fixed post links
+# Add extra entry to the .cgi file for the link name {if its set}
+# Also need to modify all entries files to add the extra parameter
+# ----------------------------------------------------------------------
+			
+			my $linklink = $entryinfo->{'linklink'};
+			
 			my $subject = $entryinfo->{'subject'};
 			my $weekday = $entryinfo->{'weekday'};
 			my $month = $entryinfo->{'month'};
@@ -560,8 +581,13 @@ sub setEntry {
 			my $music = $entryinfo->{'music'};
 			my $mood = $entryinfo->{'mood'};
 			my $emoticons = $entryinfo->{'emoticons'};
+
+# ---------------------------------------------------------------------
+# PF 1.8.3
+# modify to add the new link to the line
+# ----------------------------------------------------------------------
 	
-			$lines->[0] = $id.$DATA_DELIM.$author.$DATA_DELIM.$subject.$DATA_DELIM.
+			$lines->[0] = $id.$DATA_DELIM.$linklink.$DATA_DELIM.$author.$DATA_DELIM.$subject.$DATA_DELIM.
 				$weekday.$DATA_DELIM.$month.$DATA_DELIM.$day.$DATA_DELIM.$year.$DATA_DELIM.
 				$hour.$DATA_DELIM.$minute.$DATA_DELIM.$second.$DATA_DELIM.$ampm.$DATA_DELIM.
 				$karmapos.$DATA_DELIM.$karmaneg.$DATA_DELIM.$commenttotal.$DATA_DELIM.
@@ -1605,6 +1631,7 @@ sub saveFile {
 	my $errHandler = $params{'errHandler'} || \&Gm_Utils::gmWarn;
 	my $file_location = $params{'loc'} || 
 		&$errHandler('Invalid loc parameter passed to saveFile');
+#	&Gm_Trace::Trace(level => 3, msg => "inside saveFile[4.3][$file_location]");
 	my $lines = $params{'content'} || 
 		&$errHandler('Invalid content parameter passed to saveFile');
 	my $change_mode = $params{'ch_mod'} || Gm_Constants::EMPTY;

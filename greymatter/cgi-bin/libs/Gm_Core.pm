@@ -55,6 +55,13 @@ use Gm_Utils;
 use Gm_Web;
 use Gm_Security;
 
+# ---------------------------------------------------------------------
+# PF 1.8.3
+# trace for fixed links mod
+# ----------------------------------------------------------------------
+
+#use Gm_Trace;
+
 # Global vars that are highly used, maybe make local sometime
 my $CONFIGS = Gm_Storage::getConfigs( errHandler=>\&Gm_Web::displayAdminErrorExit );
 my $TEMPLATES = Gm_Storage::getTemplates( errHandler=>\&Gm_Web::displayAdminErrorExit );
@@ -268,7 +275,7 @@ sub reconstructEntrylist {
 			emoticons=>$entryVars->{'thisentryemoticonsallowed'} };
 		$checkentrycounter--;
 	} until $checkentrycounter < 1;
-	
+
 	Gm_Storage::setEntrylist( list=>\%rebuiltentrylist, errHandler=>$errHandler );
 }	
 
@@ -290,6 +297,7 @@ sub translateArchiveTemplates {
 	my $archiveVars = $params{'archiveVars'} || 
 		&$errHandler('Invalid archiveVars parameter passed to translateArchiveTemplates');
 
+#	&Gm_Trace::Trace(level => 3, msg => "inside translateArchiveTemplates[5.1]");
 	####
 	## TODO REFACTOR THIS INTO A LOOP, SIMPLY DO /{{$KEY}}/$A->{$KEY}/GI
 	### VARIABLES HAVE TO BE RENAMED TO TEMPLATE NAMES FOR SOME
@@ -1024,7 +1032,11 @@ sub translateEntryTemplates {
 	
 			my $listsubsub = translateArchiveTemplates( template=>$popuppage, 
 				archiveVars=>$gmLogListVars, errHandler=>$errHandler );
-	
+			# ---------------------------------------------------------------------
+			# PF 1.8.3
+			# ****TODO: Need to make a change here?
+			# ----------------------------------------------------------------------
+#			&Gm_Trace::Trace(level => 3, msg => "saveFile[2.11]");
 			Gm_Storage::saveFile( loc=>"$CONFIGS->{'gmentriespath'}/$popuphtmlfile", content=>[$listsubsub],
 				'new'=>1, errHandler=>$errHandler );
 	
@@ -1059,12 +1071,16 @@ sub translateEntryTemplates {
 					if( ($loglistnumber < $entryVars->{'thisentrynumber'}) && 
 						($foundregular eq Gm_Constants::NO) && ($loglistopenstatus ne 'C') ){
 						$entryreturn =~ s/{{previouslink}}/$TEMPLATES->{'gmpreviouslinktemplate'}/isg;
+#						&Gm_Trace::Trace(level => 3, msg => "before getArchiveVariables[5.1]");
 						my $gmLogListVars = getArchiveVariables( listEntry=>$gmEntrylist->{$entry}, 
 							errHandler=>$errHandler );
+#						&Gm_Trace::Trace(level => 3, msg => "after getArchiveVariables[5.1]");
 						my $listsubsub = $entryreturn;
 						$listsubsub =~ s/{{previous/{{/isg;
+#						&Gm_Trace::Trace(level => 3, msg => "before translateArchiveTemplates[5.1]");
 						$listsubsub = translateArchiveTemplates( template=>$listsubsub,
 							archiveVars=>$gmLogListVars, errHandler=>$errHandler );
+						&Gm_Trace::Trace(level => 3, msg => "before translateArchiveTemplates[5.1]");
 						$entryreturn = $listsubsub;
 						$foundregular = Gm_Constants::YES;
 					}
@@ -1073,6 +1089,7 @@ sub translateEntryTemplates {
 						($loglistopenstatus ne 'C') ){
 						$entryreturn =~ s/{{morepreviouslink}}/$TEMPLATES->{'gmpreviousmorelinktemplate'}/isg;
 						$entryreturn =~ s/{{previousmore/{{moreprevious/isg;
+#						&Gm_Trace::Trace(level => 3, msg => "gmEntrylist->{$entry}[7.11][$gmEntrylist->{$entry}]");
 						my $gmLogListVars = getArchiveVariables( listEntry=>$gmEntrylist->{$entry}, 
 							errHandler=>$errHandler );
 						my $listsubsub = $entryreturn;
@@ -1140,7 +1157,7 @@ sub translateEntryTemplates {
 					}
 				}
 		}
-	
+#		&Gm_Trace::Trace(level => 3, msg => "entryVars->{'thisentrypagesmartindexlink'}[5.1][$entryVars->{'thisentrypagesmartindexlink'}]");
 		$entryreturn =~ s/{{previouspagelink}}/$entryVars->{'thisentrypagesmartindexlink'}/isg;
 		$entryreturn =~ s/{{nextpagelink}}/$entryVars->{'thisentrypagesmartindexlink'}/isg;
 		$entryreturn =~ s/{{previousmorepagelink}}/$entryVars->{'thisentrypagesmartindexlink'}/isg;
@@ -1430,6 +1447,14 @@ sub getArchiveVariables {
 
 	my $gmEntry = Gm_Storage::getEntry( id=>$listEntry->{'id'}, errHandler=>$errHandler );
 
+# ----------------------------------------------------
+# PF 1.8.3
+# If the entry has linklink set then its a hard coded
+# page so set page
+# ----------------------------------------------------
+#	&Gm_Trace::Trace(level => 3, msg => "gmEntry->{'entryinfo'}{'linklink'}[5.1][$gmEntry->{'entryinfo'}{'linklink'}]");
+	my $loglistentrylinklink = $gmEntry->{'entryinfo'}{'linklink'};
+
 	my $loglistentrynumber = $gmEntry->{'entryinfo'}{'id'}; 
 	my $loglistentryauthor = $gmEntry->{'entryinfo'}{'author'};
 	my $loglistentrysubject = $gmEntry->{'entryinfo'}{'subject'};
@@ -1562,8 +1587,23 @@ sub getArchiveVariables {
 	my $loglistweekendingmonthwordlowershort = lc($loglistweekendingmonthwordshort);
 
 # $loglistpagelink = "$EntriesWebPath\/$loglistnumberpadded\.$entrysuffix";
-	my $loglistpagelink = $CONFIGS->{'gmentrieswebpath'}.'/'.
-		$loglistnumberpadded.'.'.$CONFIGS->{'gmentrysuffix'};
+
+# --------------------------------------------------------
+# PF 1.8.3
+# set to the hard coded link if it exists
+# --------------------------------------------------------
+	my $loglistpagelink='';
+	if ($loglistentrylinklink ne Gm_Constants::EMPTY)
+	{
+		$loglistpagelink = $CONFIGS->{'gmentrieswebpath'}.'/'.
+			$loglistentrylinklink.'.'.$CONFIGS->{'gmentrysuffix'};
+	}
+	else
+	{
+		$loglistpagelink = $CONFIGS->{'gmentrieswebpath'}.'/'.
+			$loglistnumberpadded.'.'.$CONFIGS->{'gmentrysuffix'};
+	}
+#	&Gm_Trace::Trace(level => 3, msg => "loglistpagelink[5.1][$loglistpagelink]");
 
 	## TODO: THIS IS FOCUSING HEAVILY ON THE ASSUMPTION THAT THE FILES ARE GOING TO BE
   # PREGENERATED, WHICH IS FINE, BUT IF THIS IS REFACTORED TO BE DYNAMIC, NOTE THIS AREA! 
@@ -1757,7 +1797,13 @@ sub getArchiveVariables {
 	$logVars{'loglistweekendingmonthworduppershort'} = $loglistweekendingmonthworduppershort;
 	$logVars{'loglistweekendingweekdaylowershort'} = $loglistweekendingweekdaylowershort;
 	$logVars{'loglistweekendingmonthwordlowershort'} = $loglistweekendingmonthwordlowershort;
-	
+
+# --------------------------------------------------
+# PF 1.8.3
+# This variable should now contain the hard link if 
+# its set
+# --------------------------------------------------
+#	&Gm_Trace::Trace(level => 3, msg => "loglistpagelink[5.2][$loglistpagelink]");
 	$logVars{'loglistpagelink'} = $loglistpagelink;
 	$logVars{'loglistpagearchivelogindexlink'} = $loglistpagearchivelogindexlink;
 	$logVars{'loglistmainbody'} = $loglistmainbody;
@@ -1923,6 +1969,15 @@ sub getEntryVariables {
 
 ## TODO: refactor out usage of variables, make work directly off of entry
 	my $thisentrynumber = $gmEntry->{'entryinfo'}{'id'};
+	
+# ---------------------------------------------------------------------
+# PF 1.8.3
+# read in the link
+# ----------------------------------------------------------------------
+	
+	my $thisentrylink = $gmEntry->{'entryinfo'}{'linklink'};
+#	&Gm_Trace::Trace(level => 3, msg => "id:=[[$gmEntry->{'entryinfo'}{'id'}]] - thisentrylink:=[[$thisentrylink]]");	
+
 	my $thisentryauthor = $gmEntry->{'entryinfo'}{'author'};
 	my $thisentrysubject = $gmEntry->{'entryinfo'}{'subject'};
 	my $thisentryweekdaynumber = $gmEntry->{'entryinfo'}{'weekday'};
@@ -2088,9 +2143,28 @@ sub getEntryVariables {
 		$thisentryauthorentrycount = $selectedauthor->{'posttotal'};
 	}
 
-	my $thisentryfilename = $CONFIGS->{'gmentrieswebpath'}.'/'.
-		$thisentrynumberpadded.'.'.$CONFIGS->{'gmentrysuffix'};
+# ---------------------------------------------------------------------
+# PF 1.8.3
+# modify here for fixed post links
+# if the link is set then use it else use padded number
+# ----------------------------------------------------------------------
 
+	my $thisentryfilename='';
+
+	if($thisentrylink ne Gm_Constants::EMPTY)
+	{
+#		&Gm_Trace::Trace(level => 3, msg => "setting the filename");	
+		$thisentryfilename = $CONFIGS->{'gmentrieswebpath'}.'/'.
+			$thisentrylink.'.'.$CONFIGS->{'gmentrysuffix'};
+#		&Gm_Trace::Trace(level => 3, msg => "thisentryfilename=[1.7][$thisentryfilename]");
+	}
+	else
+	{
+#		&Gm_Trace::Trace(level => 3, msg => "using the padded name");	
+		$thisentryfilename = $CONFIGS->{'gmentrieswebpath'}.'/'.
+			$thisentrynumberpadded.'.'.$CONFIGS->{'gmentrysuffix'};
+	}
+	
 	my $thisentrycommentspostlink = "$thisentryfilename\#comments";
 
 	## Init to many commentss
@@ -2337,6 +2411,21 @@ sub getEntryVariables {
 ## TODO: UPDATE WHAT THIS METHOD DOES !!!
 
 	## returning for format entry to work off of
+	
+	# -------------------------------------------------------
+	# PF 1.8.3 
+	# Added the new filename return var
+	# -------------------------------------------------------
+	if($thisentrylink eq Gm_Constants::EMPTY)
+	{
+		$entryVars{'thisentrylink'}=$thisentrynumberpadded;
+		$entryVars{'linklink'}=Gm_Constants::EMPTY;
+	}
+	else
+	{
+		$entryVars{'thisentrylink'} = $thisentrylink;
+		$entryVars{'linklink'} = $thisentrylink;
+	}
 	$entryVars{'thisentrynumber'} = $thisentrynumber;
 	$entryVars{'thisentrynumberpadded'} = $thisentrynumberpadded;
 	$entryVars{'thisentryauthor'} = $thisentryauthor;
@@ -2433,7 +2522,16 @@ sub getEntryVariables {
 	$entryVars{'thisentrycommentstatussmart'} = $thisentrycommentstatussmart;
 	$entryVars{'thisentrycommentstatussmartupper'} = $thisentrycommentstatussmartupper;
 	$entryVars{'thisentrycommentstatussmartlower'} = $thisentrycommentstatussmartlower;
+
+	# ---------------------------------------------------------------------
+	# PF 1.8.3
+	# This is the sorted file name, its either the padded number or a 
+	# home made filename
+	# ----------------------------------------------------------------------
+
+	
 	$entryVars{'thisentrypagelink'} = $thisentrypagelink;
+#	&Gm_Trace::Trace(level => 3, msg => "save thisentrypagelink[4.2][$entryVars{'thisentrypagelink'}]");	
 
 	$entryVars{'thisentrypageindexlink'} = $thisentrypageindexlink;
 	$entryVars{'thisentrypagearchiveindexlink'} = $thisentrypagearchiveindexlink;
@@ -4261,7 +4359,12 @@ sub constructMainIndex {
 
 	my $entryreturn = Gm_Core::translateEntryTemplates( entryVars=>$entryVars,
 		template=>$newindexfile, errHandler=>$errHandler );
-
+#	&Gm_Trace::Trace(level => 3, msg => "saveFile[2.12]");
+#	&Gm_Trace::Trace(level => 3, msg => "This is the index file[2.12]");
+	#
+	# PF 1.8.3 
+	# This is the index file generation
+	# 
 	Gm_Storage::saveFile( loc=>"$CONFIGS->{'gmlogpath'}/$CONFIGS->{'gmindexfilename'}", content=>[$entryreturn],
 		'new'=>1, ch_mod=>'0666', errHandler=>$errHandler );
 
@@ -4296,7 +4399,7 @@ sub constructArchiveIndex {
 	
 		my $entryreturn = Gm_Core::translateEntryTemplates( entryVars=>$entryVars,
 			template=>$TEMPLATES->{'gmarchivemasterindextemplate'}, errHandler=>$errHandler );
-	
+#		&Gm_Trace::Trace(level => 3, msg => "saveFile[2.13]");
 		Gm_Storage::saveFile( loc=>"$CONFIGS->{'gmentriespath'}/$CONFIGS->{'gmindexfilename'}", content=>[$entryreturn],
 			'new'=>1, ch_mod=>'0666', errHandler=>$errHandler );
 	}
@@ -4355,7 +4458,8 @@ sub constructArchives {
 	
 					$entryreturn = Gm_Core::translateEntryTemplates( entryVars=>$entryVars,
 						template=>$TEMPLATES->{'gmarchiveentrypagetemplate'}, errHandler=>$errHandler );
-					Gm_Storage::saveFile( loc=>"$CONFIGS->{'gmentriespath'}/$entryVars->{'thisentrynumberpadded'}.$CONFIGS->{'gmentrysuffix'}", 
+#					&Gm_Trace::Trace(level => 3, msg => "saveFile[2.14]");
+					Gm_Storage::saveFile( loc=>"$CONFIGS->{'gmentriespath'}/$entryVars->{'thisentrylink'}.$CONFIGS->{'gmentrysuffix'}", 
 						content=>[$entryreturn], 'new'=>1, errHandler=>$errHandler );
 				} else {
 					unlink ("$CONFIGS->{'gmentriespath'}/$entryVars->{'thisentrynumberpadded'}.$CONFIGS->{'gmentrysuffix'}");
@@ -4573,6 +4677,11 @@ sub constructArchives {
 	
 		$entryreturn = Gm_Core::translateEntryTemplates( entryVars=>$entryVars,
 			template=>$newarchivefile, errHandler=>$errHandler );
+		# ---------------------------------------------------------------------
+		# PF 1.8.3
+		# *** TODO: Unsure if change is required here - NO
+		# ----------------------------------------------------------------------
+#		&Gm_Trace::Trace(level => 3, msg => "saveFile[2.15]");
 		Gm_Storage::saveFile( loc=>"$usethisarchivefilename", content=>[$entryreturn],
 			'new'=>1, ch_mod=>'0666', errHandler=>$errHandler );
 		$savedNum++;
@@ -4680,10 +4789,15 @@ sub constructConnectedFiles {
 			## TODO: making assumptions about how to store, CHANGE THIS!
 			$entryreturn =~ s/\|\*\|/\n/g;
 			$newfilebodypattern =~ s/\|\*\|/\n/g;
-		
+			# ---------------------------------------------------------------------
+			# PF 1.8.3
+			# *** TODO: Unsure if change is required here, this seems to be 
+			# connected files. Not changed at moment
+			# ----------------------------------------------------------------------
+#			&Gm_Trace::Trace(level => 3, msg => "saveFile[2.16]");		
 			Gm_Storage::saveFile( loc=>"$usethisfilename", content=>[$entryreturn], rel=>'1',
 				errHandler=>$errHandler );
-		
+#			&Gm_Trace::Trace(level => 3, msg => "saveFile[2.17]");
 			Gm_Storage::saveFile( loc=>$CONFIGS->{'gmentriespath'}."/$usethisfilenamestripped.cgi", 
 				content=>[$newfilebodypattern], 'new'=>1, ch_mod=>'0666', rel=>'1', 
 				errHandler=>$errHandler );

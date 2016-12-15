@@ -222,6 +222,11 @@ if ($IN{'vote'} eq 'negative') {
 $gmEntry->{'entryinfo'}{'karmapos'} = $thisentrypositivekarma;
 $gmEntry->{'entryinfo'}{'karmaneg'} = $thisentrynegativekarma;
 
+# ---------------------------------------------------------------------
+# PF 1.8.3
+# before setEntry
+# ----------------------------------------------------------------------
+#&Gm_Trace::Trace(level => 3, msg => "before setEntry[gm_addkarma]");	
 Gm_Storage::setEntry( entry=>$gmEntry, errHandler=>\&Gm_Web::displayAdminErrorExit );
 
 }
@@ -255,10 +260,24 @@ if ($generateentrypages eq Gm_Constants::YES) {
 			template=>$gmentrypagetemplate, errHandler=>\&Gm_Web::displayAdminErrorExit);		
 	}
 ## TODO: USE NON-PADDED NUMBER AND USE PAD ENTRY HERE
-
-		Gm_Storage::saveFile( loc=>"$EntriesPath/$newcommententrynumberpadded.$entrysuffix", 
-			content=>[$entryreturn],'new'=>1, ch_mod=>'0666', 
-			errHandler=>\&Gm_Web::displayAdminErrorExit );
+		# ---------------------------------------------------------------------
+		# PF 1.8.3
+		# Use the fixed link if it exists
+		# ----------------------------------------------------------------------
+		if($entryVars->{'thisentrylink'} ne Gm_Constants::EMPTY)
+		{
+#			&Gm_Trace::Trace(level => 3, msg => "saveFile[2.9]");
+			Gm_Storage::saveFile( loc=>"$EntriesPath/$entryVars->{'thisentrylink'}.$entrysuffix", 
+				content=>[$entryreturn],'new'=>1, ch_mod=>'0666', 
+				errHandler=>\&Gm_Web::displayAdminErrorExit );
+		}
+		else
+		{
+#			&Gm_Trace::Trace(level => 3, msg => "saveFile[2.10]");
+			Gm_Storage::saveFile( loc=>"$EntriesPath/$newcommententrynumberpadded.$entrysuffix", 
+				content=>[$entryreturn],'new'=>1, ch_mod=>'0666', 
+				errHandler=>\&Gm_Web::displayAdminErrorExit );
+		}
 }
 
 if ( $entryVars->{'thisentryisanarchive'} eq Gm_Constants::NO) {

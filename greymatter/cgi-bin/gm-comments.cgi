@@ -141,6 +141,11 @@ my $gmEntry = Gm_Storage::getEntry( id=>$IN{'newcommententrynumber'},
 	errHandler=>\&Gm_Web::displayUserErrorExit );
 
 ## TODO: refactor out usage of variables, make work directly off of entry
+# ------------------------------------------------------
+# PF 1.8.3
+# This is to set up the post comment link
+# ------------------------------------------------------
+
 $thisentrynumber = $gmEntry->{'entryinfo'}{'id'};
 $thisentryauthor = $gmEntry->{'entryinfo'}{'author'};
 $thisentrysubject = $gmEntry->{'entryinfo'}{'subject'};
@@ -563,9 +568,21 @@ my $entryreturn = '';
 $newalltimecommentstotalnumber++;
 &gm_writecounter;
 
-$aftermath = "$EntriesWebPath/$newcommententrynumberpadded.$entrysuffix#comments";
+# -------------------------------------------
+# PF 1.8.3 
+# use the built in comment link
+# -------------------------------------------
+#$aftermath = "$EntriesWebPath/$newcommententrynumberpadded.$entrysuffix#comments";
+
 
 my $entryVars = Gm_Core::getEntryVariables( entryid=>$IN{'newcommententrynumber'}, errHandler=>\&Gm_Web::displayUserErrorExit );
+
+# -------------------------------------------
+# PF 1.8.3 
+# use the built in comment link
+# -------------------------------------------
+
+$aftermath = $entryVars->{'thisentrycommentspostlink'};
 
 if ($entryVars->{'thisentrymorebody'} ne Gm_Constants::EMPTY ) {
 	if ($entryVars->{'thisentrynumber'} <= $newarchivenumber) {
@@ -588,8 +605,12 @@ if ($entryVars->{'thisentrymorebody'} ne Gm_Constants::EMPTY ) {
  			template=>$gmentrypagetemplate, errHandler=>\&Gm_Web::displayUserErrorExit );
 	}
 }
-
-Gm_Storage::saveFile( loc=>"$EntriesPath/$entryVars->{'thisentrynumberpadded'}.$entrysuffix", 
+# ---------------------------------------------------------------------
+# PF 1.8.3
+# Just use the filename stored in the hash
+# ----------------------------------------------------------------------
+#&Gm_Trace::Trace(level => 3, msg => "saveFile[2.8]");
+Gm_Storage::saveFile( loc=>"$EntriesPath/$entryVars->{'thisentrylink'}.$entrysuffix", 
 	content=>[$entryreturn], errHandler=>\&Gm_Web::displayUserErrorExit );
 
 if ($entryVars->{'thisentrynumber'} <= $newarchivenumber) {
