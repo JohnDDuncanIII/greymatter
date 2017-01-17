@@ -62,7 +62,7 @@ body {
 #contentheader { background:#fff; }
 
 p,h1,h2,h3,pre {
-    margin:0px 10px 10px 10px;
+    /*margin:0px 10px 10px 10px;*/
     padding-top: 0px;
 }
 
@@ -126,4 +126,8 @@ table.calendar { margin-left: 10px; }
 
 .searchform {
     margin-right: 7px;
+}
+
+.content {
+    margin-left: 10px;
 }
