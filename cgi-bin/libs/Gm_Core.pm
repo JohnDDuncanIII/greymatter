@@ -1080,7 +1080,7 @@ sub translateEntryTemplates {
 #						&Gm_Trace::Trace(level => 3, msg => "before translateArchiveTemplates[5.1]");
 						$listsubsub = translateArchiveTemplates( template=>$listsubsub,
 							archiveVars=>$gmLogListVars, errHandler=>$errHandler );
-						&Gm_Trace::Trace(level => 3, msg => "before translateArchiveTemplates[5.1]");
+#						&Gm_Trace::Trace(level => 3, msg => "before translateArchiveTemplates[5.1]");
 						$entryreturn = $listsubsub;
 						$foundregular = Gm_Constants::YES;
 					}
