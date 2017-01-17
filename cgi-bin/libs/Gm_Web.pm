@@ -2,7 +2,7 @@ package Gm_Web;
 
 ###############################################################################
 # Greymatter 1.8.2                             
-# Copyright (c)2000-2008, The Greymatter team 
+# Copyright (c)2000-2017, The Greymatter team 
 # http://greymatterforum.proboards82.com/     
 # By possessing this software, you agree not to hold the author responsible for 
 # any problems that may arise from your installation or usage of Greymatter 
@@ -83,7 +83,7 @@ $gmframetop = '<table border=0 cellpadding=0 cellspacing=0 width=100% height=100
 ## TODO:  CONVERT THIS TO DIVS AND STYLE!
 $gmframebottom = '</div><div id="admin_footer">'.
 	'<a href="'.Gm_Constants::GM_FORUM.'" class="copynotice" target="_blank">'.
-	'v'.Gm_Constants::GM_VERSION.' &#183; &copy;2000-2008 The Greymatter Team</a></div></TD></TR></TABLE>';
+	'v'.Gm_Constants::GM_VERSION.' &#183; &copy;2000-2017 The Greymatter Team</a></div></TD></TR></TABLE>';
 
 
 ## TODO, make this stuff POD, at least its a standard ...

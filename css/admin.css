@@ -17,7 +17,7 @@
     font-size: 13px;
     background-color: #EEEEFF;
     border: 1px solid #000;
-    width: 200px;
+    width: 200px !important;
 }
 
 .selectlist {

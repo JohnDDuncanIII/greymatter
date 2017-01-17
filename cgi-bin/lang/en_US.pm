@@ -2,7 +2,7 @@ package en_US;
 
 ###############################################################################
 # Greymatter
-# Copyright (c)2000-2008, The Greymatter team 
+# Copyright (c)2000-2017, The Greymatter team 
 # http://greymatterforum.proboards82.com/     
 # By possessing this software, you agree not to hold the author responsible for 
 # any problems that may arise from your installation or usage of Greymatter 
