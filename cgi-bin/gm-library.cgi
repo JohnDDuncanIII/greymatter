@@ -704,7 +704,7 @@ unless (! -e "$LogPath/$indexfilename"  ){
 		$indexfilenamesmartcheck = "/$indexfilename";
 		$indexfilenameprefix = substr($indexfilename, 0, 6);
 		if ($indexfilenameprefix eq "index.") { $indexfilenamesmartcheck = "/"; }
-		$visityoursitelink = qq(<FORM ACTION="$LogWebPath$indexfilenamesmartcheck" TARGET="NEW">\n<TR><TD VALIGN=TOP ALIGN=CENTER COLSPAN=2>$gmfonttag<FONT SIZE=1><INPUT TYPE=SUBMIT CLASS="button" VALUE="Visit Your Site" STYLE="background: #D0FFD0; width: 500"><BR>Open your weblog/journal in a new browser window.</FONT></FONT></TD></TR>\n</FORM>);
+		$visityoursitelink = qq(<FORM ACTION="$LogWebPath$indexfilenamesmartcheck" TARGET="NEW">\n<TR><TD VALIGN=TOP ALIGN=CENTER COLSPAN=2>$gmfonttag<FONT SIZE=1><INPUT TYPE=SUBMIT CLASS="button" VALUE="Visit Your Site" STYLE="background: #D0FFD0; width: 500"><BR>Open your weblog/journal in a new browser window.</TD></TR>\n</FORM>);
 	}
 }
 # close(CHECKMATE);
@@ -728,7 +728,7 @@ $gmfonttag<FONT SIZE=1>
 <INPUT type="hidden" name="section" value="entries">
 <INPUT TYPE=SUBMIT CLASS="button" NAME="new" VALUE="Add A New Entry" STYLE="background: #D0FFD0; width: 500">
 </form>
-<BR>Post a new entry to your weblog/journal.</FONT></FONT></TD></TR>
+<BR>Post a new entry to your weblog/journal.</TD></TR>
 
 <TR><TD VALIGN=TOP ALIGN=CENTER WIDTH=50%>$gmfonttag
 <FONT SIZE=1>
@@ -736,38 +736,38 @@ $gmfonttag<FONT SIZE=1>
 <INPUT TYPE=HIDDEN NAME="authorname" VALUE="$IN{'authorname'}">
 <INPUT TYPE=HIDDEN NAME="authorpassword" VALUE="$IN{'authorpassword'}">
 <INPUT TYPE=SUBMIT CLASS="button" NAME="configs" VALUE="Configuration"><BR>
-Your site's settings and options.</FONT></FONT></TD>
+Your site's settings and options.</TD>
 <TD VALIGN=TOP ALIGN=CENTER WIDTH=50%>$gmfonttag<FONT SIZE=1>
 <INPUT TYPE=SUBMIT CLASS="button" NAME="entries" VALUE="Edit An Entry"><BR>
-Edit entries and edit/delete comments.</FONT></FONT></TD></TR>
+Edit entries and edit/delete comments.</TD></TR>
 
 <TR><TD VALIGN=TOP ALIGN=CENTER WIDTH=50%>$gmfonttag
 <FONT SIZE=1><INPUT TYPE=SUBMIT CLASS="button" NAME="templates" VALUE="Edit Templates"><BR>
-Change your site's layout and appearance.</FONT></FONT></TD>
+Change your site's layout and appearance.</TD>
 <TD VALIGN=TOP ALIGN=CENTER WIDTH=50%>$gmfonttag<FONT SIZE=1>
 <INPUT TYPE=SUBMIT CLASS="button" NAME="authors" VALUE="Edit Authors"><BR>
-Edit or add authors to post to your site.</FONT></FONT></TD></TR>
+Edit or add authors to post to your site.</TD></TR>
 
 <TR><TD VALIGN=TOP ALIGN=CENTER WIDTH=50%>$gmfonttag<FONT SIZE=1>
 <INPUT TYPE=SUBMIT CLASS="button" NAME="rebuild" VALUE="Rebuild Files"><BR>
-Regenerate part or all of your site.</FONT></FONT></TD>
+Regenerate part or all of your site.</TD>
 <TD VALIGN=TOP ALIGN=CENTER WIDTH=50%>$gmfonttag<FONT SIZE=1>
 <INPUT TYPE=SUBMIT CLASS="button" NAME="cplog" VALUE="View Control Panel Log"><BR>
-A record of how your site's been used.</FONT></FONT></TD></TR>
+A record of how your site's been used.</TD></TR>
 
 <TR><TD VALIGN=TOP ALIGN=CENTER WIDTH=50%>$gmfonttag<FONT SIZE=1>
 <INPUT TYPE=SUBMIT CLASS="button" NAME="bookmarklet" VALUE="Add Bookmarklets"><BR>
-Post entries with one click.</FONT></FONT></TD>
+Post entries with one click.</TD>
 <TD VALIGN=TOP ALIGN=CENTER WIDTH=50%>$gmfonttag<FONT SIZE=1>
 <INPUT TYPE=SUBMIT CLASS="button" NAME="upload" VALUE="Upload Files"><BR>
-Upload images or other files to your site.</FONT></FONT></TD></TR>
+Upload images or other files to your site.</TD></TR>
 
 <TR><TD VALIGN=TOP ALIGN=CENTER WIDTH=50%>$gmfonttag<FONT SIZE=1>
 <INPUT TYPE=SUBMIT CLASS="button" NAME="banip" VALUE="Edit Banned IP List"><BR>
-Ban someone from using your site.</FONT></FONT></TD>
+Ban someone from using your site.</TD>
 <TD VALIGN=TOP ALIGN=CENTER WIDTH=50%>$gmfonttag<FONT SIZE=1>
 <INPUT TYPE=SUBMIT CLASS="button" NAME="relogin" VALUE="Re-Login"><BR>
-Re-enter as another author.</FONT></FONT></TD></TR>
+Re-enter as another author.</TD></TR>
 
 </FORM>
 

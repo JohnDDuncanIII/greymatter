@@ -328,7 +328,7 @@ sub frontPage {
 
 	$item = '<INPUT TYPE=SUBMIT CLASS="button" NAME="relogin" '.
 		'VALUE="'.Gm_Core::text( Gm_Constants::FRONTPAGE_RELOGIN ).'"><BR>'.
-		Gm_Core::text( Gm_Constants::FRONTPAGE_RELOGIN_DESC ).'</FONT></FONT>';
+		Gm_Core::text( Gm_Constants::FRONTPAGE_RELOGIN_DESC ).'';
 	push( @actions, $item );
 	
 	$page .= '<table border="0" cellpadding="10" cellspacing="0" width="80%">';
@@ -336,10 +336,10 @@ sub frontPage {
 		my $actOne = shift( @actions );
 		my $actTwo = shift( @actions );
 		
-		$page .= '<tr><td style="font-size: smaller; margin: 5px;" valign="top" width="50%">'.
+		$page .= '<tr><td style="font-size: smaller; ">'.
 			'<form action="gm.cgi" method=post>'.Gm_Security::getFormAuth( author=>\%AUTHOR ).
 			$actOne.'</form>'.
-			'</td>'."\n".'<td style="font-size: smaller; margin: 5px;" valign="top" width="50%">';
+			'</td>'."\n".'<td style="font-size: smaller; ">';
 		if( $actTwo ){
 			$page .= '<form action="gm.cgi" method=post>'.Gm_Security::getFormAuth( author=>\%AUTHOR ).
 				$actTwo.'</form>';
@@ -349,8 +349,8 @@ sub frontPage {
 		$page .= "</td></tr>\n";
 	
 	}
-	$page .= '</FORM></table></p>';
-
+	##$page .= '</FORM></table></p>';
+	$page .= '</table>';
 	Gm_Web::displayAdminPageExit( $page );
 	## NAVIGATION SHOULD BE DE-BUTTONED
 	exit(0); ## will never get here, in theory
@@ -642,13 +642,13 @@ sub viewBanList {
 	}
 	
 	my $page = '<span class="section_title">'.Gm_Core::text( Gm_Constants::BANIP_TITLE ).
-		"</span><br /><p>$message</p><p class=\"text_left\">\n";	
+		"</span><br /><p>$message<p class=\"text_left\">\n";	
 	$page .= '<FORM ACTION="gm.cgi" METHOD="post"> '.
 		Gm_Security::getFormAuth( author=>\%AUTHOR ).
 		'<table class="info_table"><tr><th>'.Gm_Core::text( Gm_Constants::BANIP_IP ).
 		'</th><th>'.Gm_Core::text( Gm_Constants::BANIP_HOST ).'</th><th>'.
 		Gm_Core::text( Gm_Constants::NAME ).'</th><th width="20%">'.
-		Gm_Core::text( Gm_Constants::ACTION ).'</td></tr>';
+		Gm_Core::text( Gm_Constants::ACTION ).'</th></tr>';
 
 	my $gmbanlist = Gm_Storage::getBanlist( errHandler=>\&Gm_Web::displayAdminErrorExit );
 
@@ -673,10 +673,10 @@ sub viewBanList {
 		if ($gmbannedperson ne Gm_Constants::EMPTY) { 
 			$page .= " $gmbannedperson"; 
 		}
-		$page .= '&nbsp</td><td>'.
-		'<a href="'.$ENV{SCRIPT_NAME}.'?section='.$IN{'section'}.'&delete=1&'.
+		$page .= '&nbsp;</td><td>'.
+		'<a href="'.$ENV{SCRIPT_NAME}.'?section='.$IN{'section'}.'&amp;delete=1&amp;'.
 		'editedbanlist='.$gmbannedip.
-		'&'.Gm_Security::getUrlAuth( author=>\%AUTHOR ).
+		'&amp;'.Gm_Security::getUrlAuth( author=>\%AUTHOR ).
 		'" class="link_button" STYLE="background: #FFD0D0">'.
 		Gm_Core::text( Gm_Constants::DELETE ).'</a>'.
 		'</td></tr>'."\n";
@@ -688,12 +688,12 @@ sub viewBanList {
 	$page .= '<div class="info_box"><span class="info_title">'.Gm_Core::text( Gm_Constants::BANIP_ADD_TITLE ).
 		'</span><br /><table width="80%" class="form_table">'.
 		'<tr><th><label for="banip">'.Gm_Core::text( Gm_Constants::BANIP_IP ).
-		':</label></th><td><input type="text" value="'.$IN{'editednewbannedip'}.'"'.
+		':</label></th><td><input type="text" value="'.$IN{'editednewbannedip'}.'" '.
 		'class="inputfield" maxlength="15" name="editednewbannedip" size="15" id="banip"></td></tr>';
 	$page .= '<tr><th><label for="banname">'.Gm_Core::text( Gm_Constants::BANIP_ADD_NAME ).':</label></th><td>'.
 		'<input type=TEXT class="inputfield" maxlength="15" name="editednewbannedperson" '.
 		'size="15" id="banname" value="'.$IN{'editednewbannedperson'}.'"></td></tr>';
-	$page .= '<tr><th>&nbsp</th><td> <INPUT TYPE=HIDDEN NAME="section" VALUE="'.$IN{'section'}.'">'.
+	$page .= '<tr><th>&nbsp;</th><td> <INPUT TYPE=HIDDEN NAME="section" VALUE="'.$IN{'section'}.'">'.
 		'<input type=SUBMIT class="button" name="add" '.
 		'STYLE="background: #D0FFD0" value="'.Gm_Core::text( Gm_Constants::ADD ).
 		'"></td></tr></table></div></form>';
@@ -859,7 +859,7 @@ sub viewAuthorList {
 		Gm_Core::text( Gm_Constants::AUTHORS_EMAIL ).'</th><th>'.
 		Gm_Core::text( Gm_Constants::AUTHORS_HOMEPAGE ).'</th><th>'.
 		Gm_Core::text( Gm_Constants::AUTHORS_PRIVS ).'</th><th width="30%">'.
-		Gm_Core::text( Gm_Constants::ACTION ).'</td></tr>';
+		Gm_Core::text( Gm_Constants::ACTION ).'</th></tr>';
 
 	my $gmauthors = Gm_Storage::getAuthors( errHandler=>\&Gm_Web::displayAdminErrorExit );
 
@@ -922,15 +922,15 @@ sub viewAuthorList {
 		$page .= "<td>$privs</td><td>\n";
 		
 		## Edit, Delete buttons
-		$page .= '<a href="'.$ENV{SCRIPT_NAME}.'?section='.$IN{'section'}.'&delete=1&'.
+		$page .= '<a href="'.$ENV{SCRIPT_NAME}.'?section='.$IN{'section'}.'&amp;delete=1&amp;'.
 		'selectedauthor='.$author.
-		'&'.Gm_Security::getUrlAuth( author=>\%AUTHOR ).
+		'&amp;'.Gm_Security::getUrlAuth( author=>\%AUTHOR ).
 		'" class="link_button" STYLE="background: #FFD0D0">'.
 		Gm_Core::text( Gm_Constants::DELETE ).'</a>';
 		
-		$page .= ' &#160; <a href="'.$ENV{SCRIPT_NAME}.'?section='.$IN{'section'}.'&view=1&'.
+		$page .= ' &#160; <a href="'.$ENV{SCRIPT_NAME}.'?section='.$IN{'section'}.'&amp;view=1&amp;'.
 		'selectedauthor='.$author.
-		'&'.Gm_Security::getUrlAuth( author=>\%AUTHOR ).
+		'&amp;'.Gm_Security::getUrlAuth( author=>\%AUTHOR ).
 		'" class="link_button" STYLE="background: #D0FFD0">'.
 		Gm_Core::text( Gm_Constants::EDIT ).'</a>';
 		
@@ -978,7 +978,7 @@ sub viewAuthorList {
 		'<label for="own_access">'.Gm_Core::text( Gm_Constants::AUTHORS_OWN_ACCESS ).'</label>'.
 		'</td></tr>';		
 		
-	$page .= '<tr><th>&nbsp</th><td><INPUT TYPE=HIDDEN NAME="section" VALUE="'.$IN{'section'}.'">'.
+	$page .= '<tr><th>&nbsp;</th><td><INPUT TYPE=HIDDEN NAME="section" VALUE="'.$IN{'section'}.'">'.
 		'<input type=SUBMIT class="button" name="add" '.
 		'STYLE="background: #D0FFD0" value="'.Gm_Core::text( Gm_Constants::ADD ).
 		'"></td></tr></table></div></form>';
@@ -1348,7 +1348,7 @@ sub viewAuthor {
 		'<label for="view_admin_no">'.Gm_Core::text( Gm_Constants::NO ).'</label>'.
 		'</td></tr>';
 
-	$page .= '<tr><th>&nbsp</th><td><INPUT TYPE=HIDDEN NAME="section" VALUE="'.$IN{'section'}.'">'.
+	$page .= '<tr><th>&nbsp;</th><td><INPUT TYPE=HIDDEN NAME="section" VALUE="'.$IN{'section'}.'">'.
 		'<input type="submit" class="button" name="update" '.
 		'style="background: #D0FFD0" value="'.Gm_Core::text( Gm_Constants::AUTHORS_SAVE_CHANGES ).
 		'"></td></tr></table><br /></form>';
@@ -1877,7 +1877,7 @@ sub viewEntries {
 	$page .= "\n\n".'<p><form action="gm.cgi" METHOD="post"> '.Gm_Security::getFormAuth( author=>\%AUTHOR ).
 		'<input type="hidden" name="section" value="'.$IN{'section'}.'">'.
 		'<INPUT TYPE=SUBMIT CLASS="button" NAME="viewsearchreplace" STYLE="background: #D0FFD0; '.
-		'width: 485;" VALUE="Search And Replace Across All Entries"></form></p>'."\n";
+		'width: 485px;" VALUE="Search And Replace Across All Entries"></form></p>'."\n";
 	## de-button	
 	$page .= "\n\n".'<p><form action="gm.cgi" METHOD="post"> '.Gm_Security::getFormAuth( author=>\%AUTHOR ).
 		'<input type="hidden" name="section" value="'.$IN{'section'}.'">'.
@@ -1885,7 +1885,7 @@ sub viewEntries {
 		'value="'.Gm_Core::text( Gm_Constants::FRONTPAGE_ADDNEW ).'"></form></p>'."\n";
 	$page .= "\n\n".'<P><FORM ACTION="gm.cgi" METHOD="post"> '.Gm_Security::getFormAuth( author=>\%AUTHOR ).
 		'<INPUT TYPE=SUBMIT CLASS="button" NAME="menu" VALUE="'.Gm_Core::text( Gm_Constants::RETURN_MAIN_MENU ).
-		'" STYLE="background: #C0C0C0"></form></p>';
+		'" STYLE="background: #C0C0C0"></form>';
 
 #	$statusnote = Gm_Constants::EMPTY;
 
@@ -2015,13 +2015,13 @@ sub viewSearchAndReplace {
 		'<input type="text" class="inputfield" name="srreplaceterm" id="replace" value="'.$IN{'srreplaceterm'}.'">'.
 		'</td></tr>';
 
-	$page .= '<tr><th>&nbsp</th><td><input type="checkbox" id="ignorecase" name="srcaseinsensitive" value="yes"';
+	$page .= '<tr><th>&nbsp;</th><td><input type="checkbox" id="ignorecase" name="srcaseinsensitive" value="yes"';
 	if( $IN{'srcaseinsensitive'} ){
 		$page .= ' CHECKED';
 	}
 	$page .= '><label for="ignorecase">Make "Search For" term case-insensitive?</label></td></tr>';
 
-	$page .= '<tr><th>&nbsp</th><td><INPUT TYPE=SUBMIT CLASS="button" NAME="searchreplace" '.
+	$page .= '<tr><th>&nbsp;</th><td><INPUT TYPE=SUBMIT CLASS="button" NAME="searchreplace" '.
 		'STYLE="background: #D0FFD0;" VALUE="Perform Search And Replace"></td></tr></table><br />'.
 #		'<INPUT TYPE=SUBMIT CLASS="button" NAME="thomas" VALUE="Return To Entry Selection"> '.
 		'<INPUT TYPE=SUBMIT CLASS="button" NAME="entries" VALUE="Return To Entry Selection"> '.
@@ -2452,7 +2452,7 @@ sub viewEntry {
 	# emoticons code display added
 	my ( $emoticonsmaincode, $emoticonsmorecode ) = _emoticonsCode();
 
-	my $page = "<p>$message</p>\n";	
+	my $page = "<p>$message\n";	
 
 	$page .= '<script language="JavaScript">
 function commentEmoticonMain(code){
@@ -2713,7 +2713,7 @@ window.onload = init;
 		'value="'.$thisentrysubject.'" class="inputfield" id="subject"></td></tr>';
 		
 	$page .= "\n".'<tr><th>'.
-		'<label for="music">Music:</label></th><td></font><input type=text '.
+		'<label for="music">Music:</label></th><td><input type=text '.
 		'name="revisedentrymusic" value="'.$thisentrymusic.
 		'" class="inputfield" id="music"></td></tr>'."\n";
 		
@@ -2752,7 +2752,7 @@ window.onload = init;
 		' value="Link" style="font-size: small;" />';
 
 	$page .= ' </th><td><textarea name="revisedentrymaintext" id="main_text"'.
-		'cols="60" rows="8" class="inputfield">'.$thisentrymainbody.'</textarea><br />';
+		' cols="60" rows="8" class="inputfield">'.$thisentrymainbody.'</textarea><br />';
 	
 	## TODO: THIS SHOULD BE A JAVASCRIPT PRINT STATEMENT, SO THAT if js no enabled, no problem
 	$page .= _sizerCodeEntry('main_text').'</td></tr></table></td></tr>';
@@ -2760,7 +2760,7 @@ window.onload = init;
 
 	$page .= "\n".'<tr class="section_head"><th><label for="more_text">Extended Text</label></th><td>'.
 		_hiderCodeEntry('moreHidden', 'moreHider').
-		'</td></tr><tr><td colspan="2">'.
+		'</div></td></tr><tr><td colspan="2">'.
 		'<span id="moreHidden"><table class="form_table" width="100%">'.
 		'<tr><th width="12%">'.$emoticonsmorecode;
 	if( $gmConfigs->{'gminlineformatting'} eq Gm_Constants::ENTRIES || 
@@ -2778,7 +2778,7 @@ window.onload = init;
 		' value="Link" style="font-size: small;" />';
 
 	$page .= '</th><td><textarea id="more_text"'.
-		'name="revisedentrymoretext" cols="60" rows="8" class="inputfield">'.
+		' name="revisedentrymoretext" cols="60" rows="8" class="inputfield">'.
 		$thisentrymorebody.'</textarea>'.
 		_sizerCodeEntry('more_text').'</td></tr></table></span>'.
 		'</td></tr>';
@@ -2953,7 +2953,7 @@ window.onload = init;
 	## The Options	
 	$page .= "\n".'<tr class="section_head"><th>Options</th><td>'.
 		_hiderCodeEntry('optionsHidden', 'optionsHider').
-		'</td></tr><tr><td colspan="2"><span id="optionsHidden">';
+		'</div></td></tr><tr><td colspan="2"><span id="optionsHidden">';
 	$page .= '<table  style="font-size:small; width: 92%;">';
 	
 	
@@ -3054,7 +3054,7 @@ window.onload = init;
 	
 	$page .= "\n".'<tr><th>&nbsp;</th><td>'.
 		"<p>$autorebuildcheckbox </p></td></tr>";
-	$page .= "\n".'<tr><td></td>&nbsp;<td><input type=reset class="cancel_button button_hov" '.
+	$page .= "\n".'<tr><td>&nbsp;</td><td><input type=reset class="cancel_button button_hov" '.
 		'value="Undo Changes" name="entries"> '.
 		'<input type=submit class="other_button button_hov" name="preview" value="Preview Before Posting"> '.
 		'<input type=submit class="accept_button button_hov" name="update" '.
@@ -3068,7 +3068,7 @@ window.onload = init;
 	unless( $IN{'gmbm'}	){
 		$page .= "\n\n".'<p><form action="gm.cgi" method="post"> '.Gm_Security::getFormAuth( author=>\%AUTHOR ).
 			'<input type=submit class="button" name="menu" VALUE="'.Gm_Core::text( Gm_Constants::RETURN_MAIN_MENU ).
-			'" STYLE="background: #C0C0C0"></form></p>';
+			'" STYLE="background: #C0C0C0"></form>';
 	}
 
 	Gm_Web::displayAdminPageExit( $page );
@@ -3207,7 +3207,7 @@ sub viewPreview {
 	unless( $IN{'gmbm'}	){
 		$page .= "\n\n".'<p><form action="gm.cgi" method="post"> '.Gm_Security::getFormAuth( author=>\%AUTHOR ).
 			'<input type=submit class="button" name="menu" VALUE="'.Gm_Core::text( Gm_Constants::RETURN_MAIN_MENU ).
-			'" STYLE="background: #C0C0C0"></form></p>';
+			'" STYLE="background: #C0C0C0"></form>';
 	}
 		
 	Gm_Web::displayAdminPageExit( $page );
@@ -3987,7 +3987,7 @@ sub viewEntryComment {
 		'value="'.$thiscommentauthorhomepageabsolute.'" size="45"></td></tr>';
 	$page .= '<tr><th>Comment Text:</th><td><textarea name="revisedentrycommenttext" cols=86 '.
 		'rows=10  class="inputfield">'.$thiscommenttext.'</textarea></td></tr>';
-	$page .= '<tr><th>&nbsp</th><td><INPUT TYPE=RESET CLASS="button" '.
+	$page .= '<tr><th>&nbsp;</th><td><INPUT TYPE=RESET CLASS="button" '.
 		'STYLE="background: #FFD0D0" VALUE="Undo Changes Since Last Save"> '.
 		'<input type=submit class="button" name="updatecomment" style="background: #D0FFD0" '.
 		'value="Save Changes To This Comment"></td></th></table>'."\n";
@@ -4117,12 +4117,12 @@ sub viewBookmarklet {
 		'<li>just drag the following link to your browser\'s menu or toolbar</li>'.
 		'<li>right click the link and select "bookmark this link"</li>'.
 		'<li>right click the link and select "copy this link location" then paste the '.
-		'url into a new bookmark in your browser</li></ul></p>'."\n";
+		'url into a new bookmark in your browser</li></ul>'."\n";
 	$page .= '<p><B><A HREF="javascript:var lt;if(window.getSelection){lt=window.getSelection();}'.
 		'else if(document.selection){lt=document.selection.createRange();}if(lt.text){lt=userSelection.text;}'.
-		'void(gmwindow=window.open(\''.$gmConfigs->{'gmcgiwebpath'}.'/gm.cgi?gmbm=1&'.
-		Gm_Security::getUrlAuth(  author=>\%AUTHOR ).'&section=entries&new=1&logtext=\'+escape(lt)+\'&'.
-		'loglink=\'+escape(location.href)+\'&loglinktitle=\'+escape(document.title),'.
+		'void(gmwindow=window.open(\''.$gmConfigs->{'gmcgiwebpath'}.'/gm.cgi?gmbm=1&amp;'.
+		Gm_Security::getUrlAuth(  author=>\%AUTHOR ).'&amp;section=entries&amp;new=1&amp;logtext=\'+escape(lt)+\'&amp;'.
+		'loglink=\'+escape(location.href)+\'&amp;loglinktitle=\'+escape(document.title),'.
 		'\'gmwindow\',\'scrollbars=yes,width=750,height=460,left=75,top=75,resizable=yes,'.
 		'status=yes\'));gmwindow.focus();">Post To Greymatter (bookmarklet)</A></B></p>';
 		
@@ -4132,7 +4132,7 @@ sub viewBookmarklet {
 		
 	$page .= "\n\n".'<p><form action="gm.cgi" method="post"> '.Gm_Security::getFormAuth( author=>\%AUTHOR ).
 		'<input type=submit class="button" name="menu" VALUE="'.Gm_Core::text( Gm_Constants::RETURN_MAIN_MENU ).
-		'" STYLE="background: #C0C0C0"></form></p>';
+		'" STYLE="background: #C0C0C0"></form>';
 
 	Gm_Web::displayAdminPageExit( $page );
 	## NAVIGATION SHOULD BE DE-BUTTONED
@@ -4201,60 +4201,15 @@ sub viewConfigs {
 	my $page = '<span class="section_title">Configuration Options</span> ('.
 		'<a href="javascript:init();">Expand All</a>)<br /><p>'.$message.'</p>';
 	
-	$page .= '<script language="JavaScript">
-/* Will change the size of the given element 
-  ARG1: id of span to hide
-  ARG2: id of span that is the controller, the hide/show link
-*/
-function hider( toFlip, toLink ){
-	if( document.getElementById && document.getElementById(toFlip) != null ){
-		var subject = document.getElementById( toFlip );
-		var controller = document.getElementById( toLink ); 
-		if( subject.className != "hidden" ){
-			_hideShow( "hidden", "Show", subject, controller );
-
-	} else {
-			_hideShow( "", "Hide", subject, controller );
-		}
-	}
-	
-	function _hideShow( className, theText, sub, con ){
-		sub.className=className;
-		var link = document.createElement("a");
-		link.href = \'javascript:hider(\\\'\'+ toFlip +\'\\\', \\\'\'+ toLink +\'\\\');\';
-		link.appendChild( document.createTextNode( theText ));
-		
-		while( con.hasChildNodes() ){
-			con.removeChild( con.firstChild );
-		}
-		con.appendChild( link );
-	}
-}
-
-function init(){
-	var cookieStrings = ["pathConfigHidden|pathConfigHider", "indexArchiveHidden|indexArchiveHider",
-		"emailOptionHidden|emailOptionHider", "emoticonOptionHidden|emoticonOptionHider",
-		"karmaCommentHidden|karmaCommentHider","dateTimeHidden|dateTimeHider",
-		"fileUploadHidden|fileUploadHider","censorOptionHidden|censorOptionHider",
-		"connectFilesHidden|connectFilesHider", "miscOptionHidden|miscOptionHider"];
-	for( var i=0;i< cookieStrings.length;i++ ){
-		var cookieParts = cookieStrings[i].split("|");
-		// should be calling a function to hide, not the toggle function
-		hider( cookieParts[0], cookieParts[1] );
-	}
-}
-
-window.onload = init;
-</script>
-';
-	
+	$page .= "\n" . '<script type="text/javascript" src="../js/hider.js"></script>';
+	$page .= "\n" . '<script type="text/javascript" src="../js/init_config.js"></script>' . "\n";
 	$page .= '<form action="gm.cgi" method=post>'.Gm_Security::getFormAuth( author=>\%AUTHOR ).
 		'<input type="hidden" name="section" value="'.$IN{'section'}.'">'.
 		'<table style="font-size: small; width: 100%">';
 	
 	$page .= '<tr class="section_head"><th>Path Configuration</th><td>'.
 		_hiderCodeEntry('pathConfigHidden', 'pathConfigHider').
-		'</tr><tr><td colspan="2"><span id="pathConfigHidden"><table class="config_table">'.
+		'</div></tr><tr><td colspan="2"><span id="pathConfigHidden"><table class="config_table">'.
 		'<tr><td valign=middle bgcolor="#FFFFD0" colspan=2>'.
 		'<span class="info_text">Your paths tell Greymatter where to look for things on your site; local paths are relative to '.
 		'your server, and the website paths are their respective pointers on the web.  Each of these paths MUST be correctly set for '.
@@ -4264,93 +4219,93 @@ window.onload = init;
 
 	$page .= '<tr '.$rowcolor.'><th width="40%"><span class="info_title"><label for="logpath">Local Log '.
 		'Path:</label></span><br /><span class="info_text">The main weblog/journal directory on your account, '.
-		'where your main index file is.</span></td><td>'.
+		'where your main index file is.</span></th><td>'.
 		'<input type=text class="inputfield" name="editedlogpath" value="'.$gmConfigs->{'gmlogpath'}.
 		'" id="logpath"></td></tr>';
 	$rowcolor = Gm_Web::altRowColor( $rowcolor );
 	
 	$page .= '<tr '.$rowcolor.'><th><span class="info_title"><label for="entriespath">Local Entries/Archives '.
 		'Path:</label></span><br /><span class="info_text">The directory on your account where your entry '.
-		'files (current and archived) are to be stored.</span></td><td>'.
+		'files (current and archived) are to be stored.</span></th><td>'.
 		'<input type=text class="inputfield" name="editedentriespath" value="'.$gmConfigs->{'gmentriespath'}.
 		'" id="entriespath"></td></tr>';
 	$rowcolor = Gm_Web::altRowColor( $rowcolor );
 	
 	$page .= '<tr '.$rowcolor.'><th><span class="info_title"><label for="cgilocalpath">Local CGI Path:'.
 		'</label></span><br /><span class="info_text">The place on your account where you keep all your '.
-		'Greymatter CGI files ("gm*.cgi").</span></td><td>'.
+		'Greymatter CGI files ("gm*.cgi").</span></th><td>'.
 		'<INPUT TYPE=TEXT CLASS="inputfield" NAME="editedcgilocalpath" VALUE="'.$gmConfigs->{'gmcgilocalpath'}.
 		'" id="cgilocalpath"></td></tr>';
 	$rowcolor = Gm_Web::altRowColor( $rowcolor );
 	
 	$page .= '<tr '.$rowcolor.'><th><span class="info_title"><label for="logwebpath">Website Log Path:'.
 		'</label></span><br /><span class="info_text">The website address of the directory where your main '.
-		'index file is.</span></td><td>'.
+		'index file is.</span></th><td>'.
 		'<INPUT TYPE=TEXT CLASS="inputfield" NAME="editedlogwebpath" VALUE="'.$gmConfigs->{'gmlogwebpath'}.
 		'" id="logwebpath"></td></tr>';
 	$rowcolor = Gm_Web::altRowColor( $rowcolor );
 	
 	$page .= '<tr '.$rowcolor.'><th><span class="info_title"><label for="entrieswebpath">Website Entries Path:'.
 		'</label></span><br /><span class="info_text">The website address of the directory where all your '.
-		'entries are to be stored.</span></td><td>'.
+		'entries are to be stored.</span></th><td>'.
 		'<INPUT TYPE=TEXT CLASS="inputfield" NAME="editedentrieswebpath" VALUE="'.$gmConfigs->{'gmentrieswebpath'}.
 		'" id="entrieswebpath"></td></tr>';
 	$rowcolor = Gm_Web::altRowColor( $rowcolor );
 	
 	$page .= '<tr '.$rowcolor.'><th><span class="info_title"><label for="cgiwebpath">Website CGI Path:'.
 		'</label></span><br /><span class="info_text">The website address of the directory where all your '.
-		'Greymatter CGI files are kept.</span></td><td>'.
+		'Greymatter CGI files are kept.</span></th><td>'.
 		'<INPUT TYPE=TEXT CLASS="inputfield" NAME="editedcgiwebpath" VALUE="'.$gmConfigs->{'gmcgiwebpath'}.
 		'" id="cgiwebpath"></td></tr>';
 	$rowcolor = Gm_Web::altRowColor( $rowcolor );
 	
 	$page .= '<tr '.$rowcolor.'><th><span class="info_title"><label for="emoticonspath">Website Emoticons '.
 		'Path:</label></span><br /><span class="info_text">The path for the emoticon images. either a '.
-		'website path (like http://) or a local path (like /emoticons). no slash ("/") at the end.</span></td><td>'.
+		'website path (like http://) or a local path (like /emoticons). no slash ("/") at the end.</span></th><td>'.
 		'<INPUT TYPE=TEXT CLASS="inputfield" NAME="editedemoticonspath" VALUE="'.$gmConfigs->{'gmemoticonspath'}.
 		'" id="emoticonspath"></td></tr>';
 	$rowcolor = Gm_Web::altRowColor( $rowcolor );
-	$page .= '</table></td></tr>';
+	$page .= '</table></span></td></tr>';
 
 
 	$page .= '<tr class="section_head"><th>Index & Archive Options</th><td>'.
 		_hiderCodeEntry('indexArchiveHidden', 'indexArchiveHider').
-		'</tr><tr><td colspan="2"><span id="indexArchiveHidden"><table class="config_table">';
+		'</div></tr><tr><td colspan="2"><span id="indexArchiveHidden"><table class="config_table">';
 	$page .= '<tr><td valign=middle bgcolor="#C0C0C0" COLSPAN=2><span class="info_text">'.
 		'Options relating to your main index and your archives.</span></td></tr>';
 
 	$page .= '<tr '.$rowcolor.'><th width="40%"><span class="info_title"><label for="indexfilename">'.
 		'Index filename:</label></span><br /><span class="info_text">The filename of your log/journal\'s '.
 		'main index.  If you enable "Keep archive master index", Greymatter will create that file in the '.
-		'archives directory with the same filename.</span></td><td>'.
+		'archives directory with the same filename.</span></th><td>'.
 		'<INPUT TYPE=TEXT CLASS="inputfield" NAME="editedindexfilename" id="indexfilename" VALUE="'.
 		$gmConfigs->{'gmindexfilename'}.'"></td></tr>';
 	$rowcolor = Gm_Web::altRowColor( $rowcolor );
 
 	$page .= '<tr '.$rowcolor.'><th><span class="info_title"><label for="entrysuffix">.suffix to entry '.
 		'files:</label></span><br /><span class="info_text">If you have "Generate pages for individual '.
-		'entries" enabled, this is the suffix those pages will have.</span></td><td>'.
+		'entries" enabled, this is the suffix those pages will have.</span></th><td>'.
 		'<INPUT TYPE=TEXT CLASS="inputfield" NAME="editedentrysuffix" id="entrysuffix" VALUE="'.
 		$gmConfigs->{'gmentrysuffix'}.'"></td></tr>';
 	$rowcolor = Gm_Web::altRowColor( $rowcolor );
 
 	$page .= '<tr '.$rowcolor.'><th><span class="info_title"><label for="logarchivesuffix">.suffix to log '.
-		'archives:</span><br /><span class="info_text">If you have "Keep monthly/weekly log archives" '.
-		'enabled, this is the suffix those log archive files will have.</span></td><td>'.
+		'archives:</label></span><br /><span class="info_text">If you have "Keep monthly/weekly log archives" '.
+		'enabled, this is the suffix those log archive files will have.</span></th><td>'.
 		'<INPUT TYPE=TEXT CLASS="inputfield" NAME="editedlogarchivesuffix" id="logarchivesuffix" VALUE="'.
 		$gmConfigs->{'gmlogarchivesuffix'}.'"></td></tr>';
 	$rowcolor = Gm_Web::altRowColor( $rowcolor );
 
 	$page .= '<tr '.$rowcolor.'><th><span class="info_title"><label for="indexdays">Days to keep '.
-		'on main index:</span><br /><span class="info_text">The number of days worth of entries Greymatter '.
-		'will list on your main index before scrolling them off.</span></td><td>'.
+		'on main index:</label></span><br /><span class="info_text">The number of days worth of entries Greymatter '.
+		'will list on your main index before scrolling them off.</span></th><td>'.
 		'<INPUT TYPE=TEXT CLASS="inputfield" NAME="editedindexdays" id="indexdays" VALUE="'.
 		$gmConfigs->{'gmindexdays'}.'"></td></tr>';
 	$rowcolor = Gm_Web::altRowColor( $rowcolor );
 
 	$page .= '<tr '.$rowcolor.'><th><span class="info_title">Generate pages for individual entries?</span><br />'.
 		'<span class="info_text">Specifies whether you want individual entries to have their own pages.  Comments '.
-		'are disabled if this is turned off.</span></td><td>'.
+		'are disabled if this is turned off.</span></th><td>'.
 		Gm_Web::createRadioButton( name=>'editedgenerateentrypages', value=>Gm_Constants::YES,
  		checked=>$gmConfigs->{'gmgenerateentrypages'}, id=>'generateentrypagesyes', label=>'Yes' ).
  		'&#160; '.Gm_Web::createRadioButton( name=>'editedgenerateentrypages', value=>Gm_Constants::NO,
@@ -4360,7 +4315,7 @@ window.onload = init;
 
 	$page .= '<tr '.$rowcolor.'><th><span class="info_title">Keep archive master index?</span><br />'.
 		'<span class="info_text">If enabled, Greymatter will keep an index (with the same filename as above) '.
-		'in your entries/archives directory, intended to be an overview of all your archives.</span></td><td>'.
+		'in your entries/archives directory, intended to be an overview of all your archives.</span></th><td>'.
 		Gm_Web::createRadioButton( name=>'editedkeeparchivemasterindex', value=>Gm_Constants::YES,
  		checked=>$gmConfigs->{'gmkeeparchivemasterindex'}, id=>'keeparchivemasterindexyes', label=>'Yes' ).
  		' &#160; '.Gm_Web::createRadioButton( name=>'editedkeeparchivemasterindex', value=>Gm_Constants::NO,
@@ -4370,7 +4325,7 @@ window.onload = init;
 
 	$page .= '<tr '.$rowcolor.'><th><span class="info_title">Keep monthly/weekly log archives?</span><br />'.
 		'<span class="info_text">If enabled, Greymatter will keep archive files of your log in monthly or weekly '.
-		'installments in your entries/archives directory.</span></td><td>'.
+		'installments in your entries/archives directory.</span></th><td>'.
 		Gm_Web::createRadioButton( name=>'editedkeepmonthlyarchives', value=>Gm_Constants::YES,
  		checked=>$gmConfigs->{'gmkeepmonthlyarchives'}, id=>'gmkeepmonthlyarchivesyes', label=>'Yes' ).
  		' &#160; '.Gm_Web::createRadioButton( name=>'editedkeepmonthlyarchives', value=>Gm_Constants::NO,
@@ -4382,7 +4337,7 @@ window.onload = init;
 		'concurrent with each other?</span><br /><span class="info_text">If enabled, both new and archived '.
 		'entries will be listed in the monthly/weekly archives; if disabled, Greymatter won\'t list entries '.
 		'there until they\'ve scrolled off the main index.  For simplicity\'s sake, it\'s a good idea leave '.
-		'this on.</span></td><td>'.
+		'this on.</span></th><td>'.
 		Gm_Web::createRadioButton( name=>'editedconcurrentmainandarchives', value=>Gm_Constants::YES,
  		checked=>$gmConfigs->{'gmconcurrentmainandarchives'}, id=>'concurrentmainandarchivesyes', label=>'Yes' ).
  		' &#160; '.Gm_Web::createRadioButton( name=>'editedconcurrentmainandarchives', value=>Gm_Constants::NO,
@@ -4392,39 +4347,39 @@ window.onload = init;
 
 	$page .= '<tr '.$rowcolor.'><th><span class="info_title">Archive by month or week?</span><br />'.
 		'<span class="info_text">If "Keep monthly/weekly log archives" is enabled, this specifies whether '.
-		'the log archives will be generated by the month or by the week.</span></td><td>'.
+		'the log archives will be generated by the month or by the week.</span></th><td>'.
 		Gm_Web::createRadioButton( name=>'editedarchiveformat', value=>Gm_Constants::MONTH,
  		checked=>$gmConfigs->{'gmarchiveformat'}, id=>'archiveformatmonth', label=>'Monthly' ).
  		' &#160; '.Gm_Web::createRadioButton( name=>'editedarchiveformat', value=>Gm_Constants::WEEK,
  		checked=>$gmConfigs->{'gmarchiveformat'}, id=>'archiveformatweek', label=>'Weekly'  ).
  		' </td></tr>';
 	$rowcolor = Gm_Web::altRowColor( $rowcolor );
-	$page .= '</table></td></tr>';
+	$page .= '</table></span></td></tr>';
 	
 	
 	$page .= '<tr class="section_head"><th>E-Mail Options</th><td>'.
 		_hiderCodeEntry('emailOptionHidden', 'emailOptionHider').
-		'</tr><tr><td colspan="2"><span id="emailOptionHidden"><table class="config_table">';
+		'</div></tr><tr><td colspan="2"><span id="emailOptionHidden"><table class="config_table">';
 	$page .= '<tr><td valign=middle bgcolor="#C0C0C0" COLSPAN=2>'.
 		'<span class="info_text">Options relating to e-mail setup and notification.  If you don\'t plan to have '.
 		'Greymatter send you e-mails, you can safely ignore the "E-Mail Program Location" and "E-Mail(s) to send '.
 		'notices to" fields.</span></td></tr>';
 
 	$page .= '<tr '.$rowcolor.'><th width="40%"><span class="info_title">E-Mail Program Location:</span><br />'.
-		'<span class="info_text">The pointer to the mail program (usually Sendmail) on your account.</span></td><td>'.
+		'<span class="info_text">The pointer to the mail program (usually Sendmail) on your account.</span></th><td>'.
 		'<INPUT TYPE=TEXT CLASS="inputfield" NAME="editedmailprog" VALUE="'.$gmConfigs->{'gmmailprog'}.'"></td></tr>';
 	$rowcolor = Gm_Web::altRowColor( $rowcolor );
 
 	$page .= '<tr '.$rowcolor.'><th><span class="info_title">E-Mail(s) to send notices to:</span><br />'.
 		'<span class="info_text">The e-mail addresses you want all notifications (if any) to be sent to.  '.
-		'Separate multiple e-mail addresses with semicolons.</span></td><td>'.
+		'Separate multiple e-mail addresses with semicolons.</span></th><td>'.
 		'<INPUT TYPE=TEXT CLASS="inputfield" NAME="editednotifyemail" VALUE="'.$gmConfigs->{'gmnotifyemail'}.'"></td></tr>';
 	$rowcolor = Gm_Web::altRowColor( $rowcolor );
 	
 	$page .= '<tr '.$rowcolor.'><th><span class="info_title">Send e-mail notifications for:</span><br />'.
 		'<span class="info_text">Indicates whether you want Greymatter to send e-mails notifying you of new '.
 		'karma votes, new comment postings, both karma and comments, or to disable e-mail notification '.
-		'altogether.</span></td><td>'.Gm_Web::createRadioButton( name=>'editednotifyforstatus', 
+		'altogether.</span></th><td>'.Gm_Web::createRadioButton( name=>'editednotifyforstatus', 
 		value=>Gm_Constants::KARMA, checked=>$gmConfigs->{'gmnotifyforstatus'} ).' New karma votes &#160;'.
 		Gm_Web::createRadioButton( name=>'editednotifyforstatus', value=>Gm_Constants::COMMENTS,
 		checked=>$gmConfigs->{'gmnotifyforstatus'} ).' New comments<BR>'.
@@ -4433,18 +4388,18 @@ window.onload = init;
 		Gm_Web::createRadioButton( name=>'editednotifyforstatus', value=>Gm_Constants::NEITHER,
 		checked=>$gmConfigs->{'gmnotifyforstatus'} ).' Neither </td></tr>';
 	$rowcolor = Gm_Web::altRowColor( $rowcolor );
-	$page .= '</table></td></tr>';
+	$page .= '</table></span></td></tr>';
 
 
 	$page .= '<tr class="section_head"><th>Emoticon Options</th><td>'.
 		_hiderCodeEntry('emoticonOptionHidden', 'emoticonOptionHider').
-		'</tr><tr><td colspan="2"><span id="emoticonOptionHidden"><table class="config_table">';
+		'</div></tr><tr><td colspan="2"><span id="emoticonOptionHidden"><table class="config_table">';
 	$page .= '<tr><td valign=middle bgcolor="#C0C0C0" COLSPAN=2><span class="info_text">'.
 		'Options relating to using emoticons in entries and comments.</span></td></tr>';
 
 	$page .= '<tr '.$rowcolor.'><th width="40%"><span class="info_title">Allow emoticons?</span><br />'.
 		'<span class="info_text">Specifies if you want to allow emoticons in the entries and/or the comments.'.
-		'</span></td><td>'.Gm_Web::createRadioButton( name=>'editedemoticonsallowed', value=>Gm_Constants::ENTRIES,
+		'</span></th><td>'.Gm_Web::createRadioButton( name=>'editedemoticonsallowed', value=>Gm_Constants::ENTRIES,
 		checked=>$gmConfigs->{'gmemoticonsallowed'} ).' Entries only &#160; '.
 		Gm_Web::createRadioButton( name=>'editedemoticonsallowed', value=>Gm_Constants::COMMENTS,
 		checked=>$gmConfigs->{'gmemoticonsallowed'} ).' Comments only<BR> '.
@@ -4452,12 +4407,12 @@ window.onload = init;
 		checked=>$gmConfigs->{'gmemoticonsallowed'} ).' Both &#160; '.Gm_Web::createRadioButton( name=>'editedemoticonsallowed', 
 		value=>Gm_Constants::NEITHER, checked=>$gmConfigs->{'gmemoticonsallowed'} ).' Neither </td></tr>';
 	$rowcolor = Gm_Web::altRowColor( $rowcolor );
-	$page .= '</table></td></tr>';
+	$page .= '</table></span></td></tr>';
 
 	
 	$page .= '<tr class="section_head"><th>Karma & Comments Options</th><td>'.
 		_hiderCodeEntry('karmaCommentHidden', 'karmaCommentHider').
-		'</tr><tr><td colspan="2"><span id="karmaCommentHidden"><table class="config_table">';
+		'</div></tr><tr><td colspan="2"><span id="karmaCommentHidden"><table class="config_table">';
 	$page .= '<tr><td valign=middle bgcolor="#C0C0C0" COLSPAN=2>'.
 		'<span class="info_text">Options relating to karma voting and comment '.
 		'posting.  Obviously, certain options can be ignored if you have their respective functions disabled '.
@@ -4468,7 +4423,7 @@ window.onload = init;
 		'posting?</span><br /><span class="info_text">Specifies whether you want to permit voting on karma, '.
 		'posting comments, both, or neither, on your site.  You can leave them enabled and still turn karma or '.
 		'comments on or off for individual entries; to disable either or both will override that for ALL entries.'.
-		'</span></td><td>'.Gm_Web::createRadioButton( name=>'editedallowkarmaorcomments', value=>Gm_Constants::KARMA,
+		'</span></th><td>'.Gm_Web::createRadioButton( name=>'editedallowkarmaorcomments', value=>Gm_Constants::KARMA,
 		checked=>$gmConfigs->{'gmallowkarmaorcomments'} ).' Karma only &#160; '.
 		Gm_Web::createRadioButton( name=>'editedallowkarmaorcomments', value=>Gm_Constants::COMMENTS,
 		checked=>$gmConfigs->{'gmallowkarmaorcomments'} ).'Comments only<BR> '.
@@ -4481,7 +4436,7 @@ window.onload = init;
 	$page .= '<tr '.$rowcolor.'><th><span class="info_title">Order of comments on entry pages:</span><br />'.
 		'<span class="info_text">The order in which you want comments displayed.  If "ascending", they\'ll be '.
 		'listed from newest to oldest, with the newest comment at the top; if "descending", from first to '.
-		'last, with the first comment at the top.</span></td><td>'.
+		'last, with the first comment at the top.</span></th><td>'.
 		Gm_Web::createRadioButton( name=>'editedcommentsorder', value=>Gm_Constants::ASCENDING,
 		checked=>$gmConfigs->{'gmcommentsorder'} ).' Ascending &#160; '.
 		Gm_Web::createRadioButton( name=>'editedcommentsorder', value=>Gm_Constants::DESCENDING,
@@ -4492,7 +4447,7 @@ window.onload = init;
 	$page .= '<tr '.$rowcolor.'><th><span class="info_title">Can post comments and vote on karma in archives?</span><br />'.
 		'<span class="info_text">If enabled, visitors can cast karma votes or post comments (if applicable) '.
 		'on entries no longer listed on the main index.  Enabling this may slow down your site over time.'.
-		'</span></td><td>'.Gm_Web::createRadioButton( name=>'editedposttoarchives', value=>Gm_Constants::YES,
+		'</span></th><td>'.Gm_Web::createRadioButton( name=>'editedposttoarchives', value=>Gm_Constants::YES,
 		checked=>$gmConfigs->{'gmposttoarchives'} ).' Yes &#160; '.
 		Gm_Web::createRadioButton( name=>'editedposttoarchives', value=>Gm_Constants::NO,
 		checked=>$gmConfigs->{'gmposttoarchives'} ).' No </td></tr>';
@@ -4500,7 +4455,7 @@ window.onload = init;
 
 	$page .= '<tr '.$rowcolor.'><th><span class="info_title">Karma voting on by default?</span><br />'.
 		'<span class="info_text">Specifies whether "Allow karma voting on this entry" is preselected to '.
-		'"Yes" or "No" by default on the "Add a new entry" screen.</span></td><td>'.
+		'"Yes" or "No" by default on the "Add a new entry" screen.</span></th><td>'.
 		Gm_Web::createRadioButton( name=>'editedallowkarmadefault', value=>Gm_Constants::YES,
 		checked=>$gmConfigs->{'gmallowkarmadefault'} ).' Yes &#160; '.
 		Gm_Web::createRadioButton( name=>'editedallowkarmadefault', value=>Gm_Constants::NO,
@@ -4509,7 +4464,7 @@ window.onload = init;
 
 	$page .= '<tr '.$rowcolor.'><th><span class="info_title">Comment posting on by default?</span><br />'.
 		'<span class="info_text">Specifies whether "Allow comments to be posted to this entry" is preselected '.
-		'to "Yes" or "No" by default on the "Add a new entry" screen.</span></td><td>'.
+		'to "Yes" or "No" by default on the "Add a new entry" screen.</span></th><td>'.
 		Gm_Web::createRadioButton( name=>'editedallowcommentsdefault', value=>Gm_Constants::YES,
 		checked=>$gmConfigs->{'gmallowcommentsdefault'} ).' Yes &#160; '.
 		Gm_Web::createRadioButton( name=>'editedallowcommentsdefault', value=>Gm_Constants::NO,
@@ -4520,7 +4475,7 @@ window.onload = init;
 	$page .= '<tr '.$rowcolor.'><th><span class="info_title">HTML allowed in comments?</span><br />'.
 		'<span class="info_text">Indicates whether you want to allow visitors to include HTML codes '.
 		'in their comments, or to have Greymatter strip them out.  You can also specify whether only the '.
-		'codes for links, bold and italics can be included, or just the codes for links.</span></td><td>'.
+		'codes for links, bold and italics can be included, or just the codes for links.</span></th><td>'.
 		Gm_Web::createRadioButton( name=>'editedallowhtmlincomments', value=>Gm_Constants::YES,
 		checked=>$gmConfigs->{'gmallowhtmlincomments'} ).' All HTML allowed &#160; '.
 		Gm_Web::createRadioButton( name=>'editedallowhtmlincomments', value=>Gm_Constants::NO,
@@ -4535,7 +4490,7 @@ window.onload = init;
 	$page .= '<tr '.$rowcolor.'><th><span class="info_title">Auto-link URLs in comments?</span><br />'.
 		'<span class="info_text">If enabled, Greymatter will automatically link to any website or e-mail '.
 		'addresses that users post in their comments (unless you\'ve enabled linking above and they\'ve '.
-		'already linked the website/e-mail address themselves).</span></td><td>'.
+		'already linked the website/e-mail address themselves).</span></th><td>'.
 		Gm_Web::createRadioButton( name=>'editedautolinkurls', value=>Gm_Constants::YES,
 		checked=>$gmConfigs->{'gmautolinkurls'} ).' Yes &#160; '.
 		Gm_Web::createRadioButton( name=>'editedautolinkurls', value=>Gm_Constants::NO,
@@ -4546,7 +4501,7 @@ window.onload = init;
 	$page .= '<tr '.$rowcolor.'><th><span class="info_title">Strip new lines from comments?</span><br />'.
 		'<span class="info_text">If enabled, all line and paragraph breaks are stripped when displaying '.
 		'visitors\' comments, turning them into unbroken blocks of text; if disabled, Greymatter preserves '.
-		'the visitors\' original formatting.</span></td><td>'.
+		'the visitors\' original formatting.</span></th><td>'.
 		Gm_Web::createRadioButton( name=>'editedstriplinesfromcomments', value=>Gm_Constants::YES,
 		checked=>$gmConfigs->{'gmstriplinesfromcomments'} ).' Yes &#160; '.
 		Gm_Web::createRadioButton( name=>'editedstriplinesfromcomments', value=>Gm_Constants::NO,
@@ -4556,7 +4511,7 @@ window.onload = init;
 
 	$page .= '<tr '.$rowcolor.'><th><span class="info_title">Allow multiple karma votes from same IP?</span><br />'.
 		'<span class="info_text">If enabled, the same visitor could cast multiple karma votes on the same entry; if '.
-		'disabled, only one vote per visitor is allowed.</span></td><td>'.
+		'disabled, only one vote per visitor is allowed.</span></th><td>'.
 		Gm_Web::createRadioButton( name=>'editedallowmultiplekarmavotes', value=>Gm_Constants::YES,
 		checked=>$gmConfigs->{'gmallowmultiplekarmavotes'} ).' Yes &#160; '.
 		Gm_Web::createRadioButton( name=>'editedallowmultiplekarmavotes', value=>Gm_Constants::NO,
@@ -4566,7 +4521,7 @@ window.onload = init;
 
 	$page .= '<tr '.$rowcolor.'><th><span class="info_title">Mention it in the control panel log when comments '.
 		'and karma votes are added?</span><br /><span class="info_text">Enable this if you want Greymatter to '.
-		'mention all new comments and karma votes in the control panel log.</span></td><td>'.
+		'mention all new comments and karma votes in the control panel log.</span></th><td>'.
 		Gm_Web::createRadioButton( name=>'editedlogkarmaandcomments', value=>Gm_Constants::YES,
 		checked=>$gmConfigs->{'gmlogkarmaandcomments'} ).' Yes &#160; '.
 		Gm_Web::createRadioButton( name=>'editedlogkarmaandcomments', value=>Gm_Constants::NO,
@@ -4576,7 +4531,7 @@ window.onload = init;
 	$page .= '<tr '.$rowcolor.'><th><span class="info_title">Mention it in the control panel log when '.
 		'PHP hack attempts are detected?</span><br /><span class="info_text">Enable this if you want '.
 		'Greymatter to log all attempts at hacking in the control panel log. Particularly useful for those '.
-		'who have set their file .suffix to .php.</span></td><td>'.
+		'who have set their file .suffix to .php.</span></th><td>'.
 		Gm_Web::createRadioButton( name=>'editedkeepphphacklog', value=>Gm_Constants::YES,
 		checked=>$gmConfigs->{'gmkeepphphacklog'} ).' Yes &#160; '.
 		Gm_Web::createRadioButton( name=>'editedkeepphphacklog', value=>Gm_Constants::NO,
@@ -4585,7 +4540,7 @@ window.onload = init;
 
 	$page .= '<tr '.$rowcolor.'><th><span class="info_title">Send e-mail notifications when PHP hack attempts '.
 		'are detected?</span><br /><span class="info_text">Enable this if you want to receive mail when PHP hack '.
-		'attempts are logged. Particularly useful for those who have set their file .suffix to .php.</span></td><td>'.
+		'attempts are logged. Particularly useful for those who have set their file .suffix to .php.</span></th><td>'.
 		Gm_Web::createRadioButton( name=>'editedmailhacknotice', value=>Gm_Constants::YES,
 		checked=>$gmConfigs->{'gmmailhacknotice'} ).' Yes &#160; '.
 		Gm_Web::createRadioButton( name=>'editedmailhacknotice', value=>Gm_Constants::NO,
@@ -4598,7 +4553,7 @@ window.onload = init;
 		'wish to post comments they must enter their author name, the "_", and their '.
 		'password.  In other words as AUTHORNAME_PASSWORD (using proper case for the '.
 		'username and password).  Exact means that the commenter name must match the '.
-		'author\'s name exactly.</span></td><td>'.
+		'author\'s name exactly.</span></th><td>'.
 		Gm_Web::createRadioButton( name=>'editedprotectauthorname', value=>'LOOSE',
 		checked=>$gmConfigs->{'gmprotectauthorname'} ).' Loose &#160; '.
 		Gm_Web::createRadioButton( name=>'editedprotectauthorname', value=>'STRICT',
@@ -4609,7 +4564,7 @@ window.onload = init;
 
 	$page .= '<tr '.$rowcolor.'><th><span class="info_title">Limit Links in Comments?</span><br />'.
 		'<span class="info_text">If enabled comments that contain more than the specified allowed amount '.
-		'of comments will be automatically block and/or banned.</span></td><td>'.
+		'of comments will be automatically block and/or banned.</span></th><td>'.
 		Gm_Web::createRadioButton( name=>'editedcommentlinklimit', value=>'blockban',
 		checked=>$gmConfigs->{'gmcommentlinklimit'} ).' Block and Ban &#160; '.
 		Gm_Web::createRadioButton( name=>'editedcommentlinklimit', value=>'block',
@@ -4630,7 +4585,7 @@ window.onload = init;
 		'<br />Note: If you choose "Random", a random phrase will be hidden on the preview form, '.
 		'ensuring that comments cannot be posted directly, they must be Previewed.  This is recommended '.
 		'but requires that the line "&lt;input type=hidden name=previewrand value={{previewrand}} /&gt;" be put '.
-		'just before the submit button in the Comment Confirmation templates.</span></td><td>'.
+		'just before the submit button in the Comment Confirmation templates.</span></th><td>'.
 		Gm_Web::createRadioButton( name=>'editedcommentforcepreview', value=>'rand',
 		checked=>$gmConfigs->{'gmcommentforcepreview'} ).' Random '.
 		Gm_Web::createRadioButton( name=>'editedcommentforcepreview', value=>Gm_Constants::YES,
@@ -4643,7 +4598,7 @@ window.onload = init;
 		'<span class="info_text">If enabled when a comment is submitted, the commenter will be '.
 		'prompted to retype a "pass-phrase" withen 3 minutes, to cut down on automated spam.  '.
 		'You can provide a static pass-phrase that users will '.
-		'be prompted, or the pass-phrase will be used to create a random 7 character string.</span></td><td>'.
+		'be prompted, or the pass-phrase will be used to create a random 7 character string.</span></th><td>'.
 		Gm_Web::createRadioButton( name=>'editedcommentverify', value=>'random',
 		checked=>$gmConfigs->{'gmcommentverify'} ).' Random Phrase &#160; '.
 		Gm_Web::createRadioButton( name=>'editedcommentverify', value=>'static',
@@ -4659,7 +4614,7 @@ window.onload = init;
 		'from matches the site listed in Website Path variables.  '.
 		'Spammers can fake where the form is posted from, but some do not.  This will block their '.
 		'comments/ karma votes with an error message.  May not work with some path configurations.'.
-		'</span></td><td>'.
+		'</span></th><td>'.
 		Gm_Web::createRadioButton( name=>'editedcommentverifyreferer', value=>Gm_Constants::YES,
 		checked=>$gmConfigs->{'gmcommentverifyreferer'} ).' Yes &#160; '.
 		Gm_Web::createRadioButton( name=>'editedcommentverifyreferer', value=>Gm_Constants::NO,
@@ -4672,7 +4627,7 @@ window.onload = init;
 		'(assuming that the user\'s IP is the same) in a given day.  Static will allow the user '.
 		'to comment every X minutes, while Exponential will allow the second comment after 1 minute, '.
 		'the third after 4, fourth after 9, and so on.'.
-		'</span></td><td>'.
+		'</span></th><td>'.
 		Gm_Web::createRadioButton( name=>'editedcommentthrottle', value=>Gm_Constants::YES,
 		checked=>$gmConfigs->{'gmcommentthrottle'} ).' Exponential &#160; '.
 		Gm_Web::createRadioButton( name=>'editedcommentthrottle', value=>'static',
@@ -4682,12 +4637,12 @@ window.onload = init;
 		'<INPUT TYPE=TEXT CLASS="inputfield" NAME="editedcommentthrottlemin" VALUE="'.
 		$gmConfigs->{'gmcommentthrottlemin'}.'" style="width: 80%;"> minutes </td></tr>';
 	$rowcolor = Gm_Web::altRowColor( $rowcolor );
-	$page .= '</table></td></tr>';
+	$page .= '</table></span></td></tr>';
  
  
 	$page .= '<tr class="section_head"><th>Date & Time Options</th><td>'.
 		_hiderCodeEntry('dateTimeHidden', 'dateTimeHider').
-		'</tr><tr><td colspan="2"><span id="dateTimeHidden"><table class="config_table">';
+		'</div></tr><tr><td colspan="2"><span id="dateTimeHidden"><table class="config_table">';
 	$page .= '<tr><td valign=middle bgcolor="#C0C0C0" COLSPAN=2>'.
 		'<span class="info_text">Miscellaneous options regarding to dates & times.  Use the wide '.
 		'variety date and time variables in your templates to fine-tune how you want the date and time to '.
@@ -4696,22 +4651,22 @@ window.onload = init;
 	$page .= '<tr '.$rowcolor.'><th width="40%"><span class="info_title">Server Offset Time:</span><br />'.
 		'<span class="info_text">As of this moment, Greymatter reads your time as <B>'.$hour.':'.$mintwo.' '.$AMPM.
 		'</B>.  If this is incorrect, specify the number of hours to add or subtract from this time (to subtract, '.
-		'make it a negative number, with a minus in front of it).</span></td><td>'.
+		'make it a negative number, with a minus in front of it).</span></th><td>'.
 		'<INPUT TYPE=TEXT CLASS="inputfield" NAME="editedoffsettime" VALUE="'.$gmConfigs->{'gmserveroffset'}.
 		'"></td></tr>';
 	$rowcolor = Gm_Web::altRowColor( $rowcolor );
 
 	$page .= '<tr '.$rowcolor.'><th><span class="info_title">Your Time Zone:</span><br />'.
 		'<span class="info_text">The time zone you live in.  This is what will appear wherever you use the '.
-		'{{timezone}} variable in your templates.</span></td><td>'.
+		'{{timezone}} variable in your templates.</span></th><td>'.
 		'<INPUT TYPE=TEXT CLASS="inputfield" NAME="editedtimezone" VALUE="'.$gmConfigs->{'gmtimezone'}.'"></td></tr>';
 	$rowcolor = Gm_Web::altRowColor( $rowcolor );
-	$page .= '</table></td></tr>';
+	$page .= '</table></span></td></tr>';
 	
 	
 	$page .= '<tr class="section_head"><th>File Uploading Options</th><td>'.
 		_hiderCodeEntry('fileUploadHidden', 'fileUploadHider').
-		'</tr><tr><td colspan="2"><span id="fileUploadHidden"><table class="config_table">';
+		'</div></tr><tr><td colspan="2"><span id="fileUploadHidden"><table class="config_table">';
 	$page .= '<tr><td valign=middle bgcolor="#C0C0C0" COLSPAN=2>'.
 		'<span class="info_text">Options relating to uploading files from within Greymatter.</span>'.
 		'</td></tr>';
@@ -4719,7 +4674,7 @@ window.onload = init;
 	$page .= '<tr '.$rowcolor.'><th width="40%"><span class="info_title">Allowed File Types:</span><br />'.
 		'<span class="info_text">If you only wish to allow certain types of files to be uploaded, enter their '.
 		'file suffixes here.  Separate allowed file types by semicolons (for example, "jpg;gif;zip").  Leave '.
-		'this blank to allow any type of file to be uploaded.</span></td><td>'.
+		'this blank to allow any type of file to be uploaded.</span></th><td>'.
 		'<INPUT TYPE=TEXT CLASS="inputfield" NAME="editeduploadfilesallowed" VALUE="'.
 		$gmConfigs->{'gmuploadfilesallowed'}.'"></td></tr>';
 	$rowcolor = Gm_Web::altRowColor( $rowcolor );
@@ -4727,25 +4682,25 @@ window.onload = init;
 	$page .= '<tr '.$rowcolor.'><th><span class="info_title">Maximum Filesize Allowed:</span><br />'.
 		'<span class="info_text">If you don\'t wish to allow files larger than a certain size to be uploaded, '.
 		'specify that limit here (in KB/kilobytes).  Leave this on "0" to allow files of any size to be '.
-		'uploaded.</span></td><td>'.
+		'uploaded.</span></th><td>'.
 		'<INPUT TYPE=TEXT CLASS="inputfield" NAME="editeduploadfilesizelimit" VALUE="'.
 		$gmConfigs->{'gmuploadfilesizelimit'}.'"></td></tr>';
 	$rowcolor = Gm_Web::altRowColor( $rowcolor );
-	$page .= '</table></td></tr>';
+	$page .= '</table></span></td></tr>';
 	
  
 	$page .= '<tr class="section_head"><th>Censoring Options</th><td>'.
 		_hiderCodeEntry('censorOptionHidden', 'censorOptionHider').
-		'</tr><tr><td colspan="2"><span id="censorOptionHidden"><table class="config_table">';
+		'</div></tr><tr><td colspan="2"><span id="censorOptionHidden"><table class="config_table">';
 	$page .= '<tr><td valign=middle bgcolor="#C0C0C0" COLSPAN=2>'.
 		'<span class="info_text">Words or phrases you want to censor on your site (if any), and where to '.
 		'censor them.<BR>Censored terms will be turned into "*" asterisks.</span></td></tr>';
 
 	$page .= '<tr '.$rowcolor.'><th width="40%"><span class="info_title">Enable censoring?</span><br />'.
 		'<span class="info_text">Specifies whether you want any words or phrases in your censor list to appear '.
-		'censored for entries, comments, or both.  Leave it on "Neither" to disable censorship.</span></td><td>'.
+		'censored for entries, comments, or both.  Leave it on "Neither" to disable censorship.</span></th><td>'.
 		Gm_Web::createRadioButton( name=>'editedcensorenabled', value=>Gm_Constants::ENTRIES,
-		checked=>$gmConfigs->{'gmcensorenabled'} ).' Entries only &#160 '.
+		checked=>$gmConfigs->{'gmcensorenabled'} ).' Entries only &#160; '.
 		Gm_Web::createRadioButton( name=>'editedcensorenabled', value=>Gm_Constants::COMMENTS,
 		checked=>$gmConfigs->{'gmcensorenabled'} ).' Comments only <br /> '.
 		Gm_Web::createRadioButton( name=>'editedcensorenabled', value=>Gm_Constants::BOTH,
@@ -4759,16 +4714,16 @@ window.onload = init;
 		'return after each word/phrase).  Use [brackets] around words/phrases to censor the term only if '.
 		'it\'s not part of another word/phrase; for example, censoring the word hell would render hell '.
 		'as **** and shell as s****, but censoring [hell] would only turn hell by itself into asterisks, '.
-		'and leave the word shell alone.</span></td><td>'.
+		'and leave the word shell alone.</span></th><td>'.
 		'<TEXTAREA NAME="editedcensorlist" COLS=25 ROWS=6 class="inputfield">'.$gmConfigs->{'gmcensorlist'}.
 		'</TEXTAREA></td></tr>';
 	$rowcolor = Gm_Web::altRowColor( $rowcolor );
-	$page .= '</table></td></tr>';
+	$page .= '</table></span></td></tr>';
 	
 	
 	$page .= '<tr class="section_head"><th>Connect Other Files</th><td>'.
 		_hiderCodeEntry('connectFilesHidden', 'connectFilesHider').
-		'</tr><tr><td colspan="2"><span id="connectFilesHidden"><table class="config_table">';
+		'</div></tr><tr><td colspan="2"><span id="connectFilesHidden"><table class="config_table">';
 	$page .= '<tr><td valign=middle bgcolor="#C0C0C0" COLSPAN=2>'.
 		'<span class="info_text">If you wish, you can connect other '.
 		'files on your account to Greymatter, and have them treated as if they were one of Greymatter\'s '.
@@ -4778,15 +4733,15 @@ window.onload = init;
 		'comfortable using Greymatter.</span></td></tr>';
 
 	$page .= '<tr '.$rowcolor.'><th width="40%"><span class="info_title">Filename List</span><br />'.
-		'<span class="info_text">To connect a file to Greymatter, <B>CHMOD it to 666</B>&#151;making sure '.
-		'it contains whatever Greymatter variables you wish&#151;and enter its filename on the right; place '.
+		'<span class="info_text">To connect a file to Greymatter, <B>CHMOD it to 666</B>&#8212;making sure '.
+		'it contains whatever Greymatter variables you wish&#8212;and enter its filename on the right; place '.
 		'each filename on separate lines.  If the file isn\'t in the same directory as gm.cgi, then use '.
 		'virtual paths relative to where it\'s running from.  For example, if you want to connect "test.htm" '.
 		'and it\'s in the directory above gm.cgi, you\'d use ../test.htm; or, if you run gm.cgi from '.
 		'/here/cgi-bin and test.htm was in /there/log, you\'d use ../../there/log ("../" means to go up '.
 		'one directory).  Greymatter will automatically create a "pattern" file in your entries directory '.
 		'for each filename, and whenever you reupload a changed file, Greymatter will automatically update '.
-		'its stored pattern for that file.</span></td><td>'.
+		'its stored pattern for that file.</span></th><td>'.
 		'<TEXTAREA NAME="editedotherfilelist" COLS=25 ROWS=10 class="inputfield">'.
 		$gmConfigs->{'gmotherfilelist'}.'</TEXTAREA></td></tr>';
 	$rowcolor = Gm_Web::altRowColor( $rowcolor );
@@ -4794,24 +4749,24 @@ window.onload = init;
 	$page .= '<tr '.$rowcolor.'><th><span class="info_title">Update them when adding entries?</span><br />'.
 		'<span class="info_text">If "Yes", then Greymatter will automatically update any of the connected '.
 		'files above when new entries are added; if not, they\'ll only be updated whenever you rebuild them '.
-		'(either specifically, or by rebuilding everything).</span></td><td>'.
+		'(either specifically, or by rebuilding everything).</span></th><td>'.
 		Gm_Web::createRadioButton( name=>'editedotherfilelistentryrebuild', value=>Gm_Constants::YES,
 		checked=>$gmConfigs->{'gmotherfilelistentryrebuild'} ).' Yes &#160; '.
 		Gm_Web::createRadioButton( name=>'editedotherfilelistentryrebuild', value=>Gm_Constants::NO,
 		checked=>$gmConfigs->{'gmotherfilelistentryrebuild'} ).' No </td></tr>';
 	$rowcolor = Gm_Web::altRowColor( $rowcolor );
-	$page .= '</table></td></tr>';
+	$page .= '</table></span></td></tr>';
 
 	
 	$page .= '<tr class="section_head"><th>Miscellaneous Options</th><td>'.
 		_hiderCodeEntry('miscOptionHidden', 'miscOptionHider').
-		'</tr><tr><td colspan="2"><span id="miscOptionHidden"><table class="config_table">';
+		'</div></tr><tr><td colspan="2"><span id="miscOptionHidden"><table class="config_table">';
 	$page .= '<tr><td valign=middle bgcolor="#C0C0C0" COLSPAN=2><span class="info_title">'.
 		'Options for a variety of features.</span></td></tr>';
 
 	$page .= '<tr '.$rowcolor.'><th width="40%"><span class="info_title">Enable/Disable cookies?</span><br />'.
 		'<span class="info_text">By default, Greymatter doesn\'t keep a cookie on your browser to remember '.
-		'your name and password.  To enable Greymatter\'s cookies, select "Yes".</span></td><td>'.
+		'your name and password.  To enable Greymatter\'s cookies, select "Yes".</span></th><td>'.
 		Gm_Web::createRadioButton( name=>'editedcookiesallowed', value=>Gm_Constants::YES,
 		checked=>$gmConfigs->{'gmcookiesallowed'} ).' Yes &#160; '.
 		Gm_Web::createRadioButton( name=>'editedcookiesallowed', value=>Gm_Constants::NO,
@@ -4822,7 +4777,7 @@ window.onload = init;
 
 	$page .= '<tr '.$rowcolor.'><th><span class="info_title">Keep control panel log?</span><br />'.
 		'<span class="info_text">Specifies whether you want Greymatter to keep its internal log of all activity; '.
-		'disable this if you want to shut it off.</span></td><td>'.
+		'disable this if you want to shut it off.</span></th><td>'.
 		Gm_Web::createRadioButton( name=>'editedkeeplog', value=>Gm_Constants::YES,
 		checked=>$gmConfigs->{'gmkeeplog'} ).' Yes &#160; '.
 		Gm_Web::createRadioButton( name=>'editedkeeplog', value=>Gm_Constants::NO,
@@ -4833,7 +4788,7 @@ window.onload = init;
 		'<span class="info_text">With "easy formatting", bold text, italics & underlining can be done easily '.
 		'by bracketing text with two **asterisks**, \\\\backslashes\\\\ or __underlines__ respectively.  You '.
 		'can specify whether this is enabled in entries, comments, or both; if disabled, the characters won\'t be '.
-		'converted.</span></td><td>'.
+		'converted.</span></th><td>'.
 		Gm_Web::createRadioButton( name=>'editedinlineformatting', value=>Gm_Constants::ENTRIES,
 		checked=>$gmConfigs->{'gminlineformatting'} ).' Entries only &#160; '.
 		Gm_Web::createRadioButton( name=>'editedinlineformatting', value=>Gm_Constants::COMMENTS,
@@ -4846,7 +4801,7 @@ window.onload = init;
 
 	$page .= '<tr '.$rowcolor.'><th><span class="info_title">Default entry list view:</span><br />'.
 		'<span class="info_text">This specifies which view will be the default when you go to the Edit '.
-		'An Entry selection menu.</span></td><td><SELECT NAME="editeddefaultentrylistview" CLASS="selectlist">'.
+		'An Entry selection menu.</span></th><td><SELECT NAME="editeddefaultentrylistview" CLASS="selectlist">'.
 		Gm_Web::createOption( value=>'main', label=>' Current entries ('.$gmConfigs->{'gmindexdays'}.' day(s))',
 		checked=>$gmConfigs->{'gmdefaultentrylistview'} ).
 		Gm_Web::createOption( value=>'onlyyou', label=>' All entries by you',
@@ -4863,9 +4818,9 @@ window.onload = init;
 	
 	$page .= '<tr '.$rowcolor.'><th><span class="info_title">Order of list links:</span><br />'.
 		'<span class="info_text">The order in which you want links to be displayed in log list '.
-		'variables&#151;check the manual for more information on those.  If "ascending", the links will '.
+		'variables&#8212;check the manual for more information on those.  If "ascending", the links will '.
 		'be listed from newest to oldest, with the newest entry at the top; if "descending", from first to '.
-		'last, with the first entry at the top.</span></td><td>'.
+		'last, with the first entry at the top.</span></th><td>'.
 		Gm_Web::createRadioButton( name=>'editedentrylistsortorder', value=>Gm_Constants::ASCENDING,
 		checked=>$gmConfigs->{'gmentrylistsortorder'} ).' Ascending &#160; '.
 		Gm_Web::createRadioButton( name=>'editedentrylistsortorder', value=>Gm_Constants::DESCENDING,
@@ -4877,7 +4832,7 @@ window.onload = init;
 		'the "number" variant of the log entrylist variables (for example, if this is set to 5, using '.
 		'{{logmoreentrylist number}} would generate a list of links to the five most recent extended entries).  '.
 		'Check the <a href="'.Gm_Constants::GM_FORUM.'" title="read the manual" target="_blank">manual</a> '.
-		'for more information on those variables.</span></td><td>'.
+		'for more information on those variables.</span></th><td>'.
 		'<INPUT TYPE=TEXT CLASS="inputfield" NAME="editedentrylistcountnumber" VALUE="'.
 		$gmConfigs->{'gmentrylistcountnumber'}.'"></td></tr>';
 	$rowcolor = Gm_Web::altRowColor( $rowcolor );
@@ -4886,7 +4841,7 @@ window.onload = init;
 		'only if comments are active?</span><br /><span class="info_text">If you use {{logentrylist comments}} '.
 		'and its related variables (see the <a href="'.Gm_Constants::GM_FORUM.'" title="read the manual" '.
 		'target="_blank">manual</a> for more information), this specifies whether to list only entries to '.
-		'which comments can still be posted.</span></td><td>'.
+		'which comments can still be posted.</span></th><td>'.
 		Gm_Web::createRadioButton( name=>'editedcommententrylistonlyifokay', value=>Gm_Constants::YES,
 		checked=>$gmConfigs->{'gmcommententrylistonlyifokay'} ).' Yes &#160; '.
 		Gm_Web::createRadioButton( name=>'editedcommententrylistonlyifokay', value=>Gm_Constants::NO,
@@ -4897,7 +4852,7 @@ window.onload = init;
 		'<span class="info_text">Whenever you use {{calendar}} or {{calendarweek}} to generate tables linking '.
 		'to your entries, this specifies whether you want to link to the most recent entry for that day, or to '.
 		'link only to extended entries.  (It won\'t generate links at all if "Generate pages for individual '.
-		'entries" is turned off).</span></td><td>'.
+		'entries" is turned off).</span></th><td>'.
 		Gm_Web::createRadioButton( name=>'editedlinktocalendarentries', value=>Gm_Constants::ALL,
 		checked=>$gmConfigs->{'gmlinktocalendarentries'} ).' Always link to entry for that calendar day<br />'.
 		Gm_Web::createRadioButton( name=>'editedlinktocalendarentries', value=>Gm_Constants::MORE,
@@ -4907,16 +4862,16 @@ window.onload = init;
 	$page .= '<tr '.$rowcolor.'><th><span class="info_title">"Automatically rebuild" selected by default?'.
 		'</span><br /><span class="info_text">Selects whether the option to automatically rebuild files '.
 		'after saving changes to templates or entries is prechecked by default.  (Authors without access '.
-		'to rebuilding files won\'t see this option.)</span></td><td>'.
+		'to rebuilding files won\'t see this option.)</span></th><td>'.
 		Gm_Web::createRadioButton( name=>'editedautomaticrebuilddefault', value=>Gm_Constants::YES,
 		checked=>$gmConfigs->{'gmautomaticrebuilddefault'} ).' Yes &#160; '.
 		Gm_Web::createRadioButton( name=>'editedautomaticrebuilddefault', value=>Gm_Constants::NO,
 		checked=>$gmConfigs->{'gmautomaticrebuilddefault'} ).' No </td></tr>';
 	$rowcolor = Gm_Web::altRowColor( $rowcolor );
-	$page .= '</table></td></tr>';
+	$page .= '</table></span></td></tr>';
 	
 	$page .= '</table><p><INPUT TYPE=SUBMIT CLASS="button" NAME="viewdiag" '.
-		'style="background: #D0FFD0; width: 485;" VALUE="Save Configs and Perform Diagnostics"></p>'.
+		'style="background: #D0FFD0; width: 485px;" VALUE="Save Configs and Perform Diagnostics"></p>'.
 		'<p><INPUT TYPE=RESET class="cancel_button button_hov" VALUE="Undo Changes Since Last Save"> '.
 		'<INPUT TYPE=SUBMIT class="accept_button button_hov" NAME="update" VALUE="Save Configuration"></p></form>';
 	$page .= '<form action="gm.cgi" method="post">'.Gm_Security::getFormAuth( author=>\%AUTHOR ).
@@ -4990,7 +4945,7 @@ sub viewDiagnosticRepair {
 		
 	$page .= "\n\n".'<p><form action="gm.cgi" method="post"> '.Gm_Security::getFormAuth( author=>\%AUTHOR ).
 		'<input type=submit class="button" name="menu" VALUE="'.Gm_Core::text( Gm_Constants::RETURN_MAIN_MENU ).
-		'" STYLE="background: #C0C0C0"></form></p>';
+		'" STYLE="background: #C0C0C0"></form>';
 
 	Gm_Web::displayAdminPageExit( $page );
 	exit(0);
@@ -5319,7 +5274,7 @@ sub doDiagnosticRepair {
 
 	$page .= "\n\n".'<p><form action="gm.cgi" method="post"> '.Gm_Security::getFormAuth( author=>\%AUTHOR ).
 		'<input type=submit class="button" name="menu" VALUE="'.Gm_Core::text( Gm_Constants::RETURN_MAIN_MENU ).
-		'" STYLE="background: #C0C0C0"></form></p>';
+		'" STYLE="background: #C0C0C0"></form>';
 
 	Gm_Web::displayAdminPageExit( $page );
 	exit(0);
@@ -5611,50 +5566,8 @@ sub viewTemplates {
 		'<a href="javascript:init();">Expand All</a>)<br /><p>Templates control the layout & format of '.
 		'every aspect of your weblog/journal.</p><p>'.$message.'</p>';
 
-	$page .= '<script language="JavaScript">
-/* Will change the size of the given element 
-  ARG1: id of span to hide
-  ARG2: id of span that is the controller, the hide/show link
-*/
-function hider( toFlip, toLink ){
-	if( document.getElementById && document.getElementById(toFlip) != null ){
-		var subject = document.getElementById( toFlip );
-		var controller = document.getElementById( toLink ); 
-		if( subject.className != "hidden" ){
-			_hideShow( "hidden", "Show", subject, controller );
-
-	} else {
-			_hideShow( "", "Hide", subject, controller );
-		}
-	}
-	
-	function _hideShow( className, theText, sub, con ){
-		sub.className=className;
-		var link = document.createElement("a");
-		link.href = \'javascript:hider(\\\'\'+ toFlip +\'\\\', \\\'\'+ toLink +\'\\\');\';
-		link.appendChild( document.createTextNode( theText ));
-		
-		while( con.hasChildNodes() ){
-			con.removeChild( con.firstChild );
-		}
-		con.appendChild( link );
-	}
-}
-
-function init(){
-	var cookieStrings = ["mainIndexTempHidden|mainIndexTempHider", "archiveTempHidden|archiveTempHider",
-		"entryTempHidden|entryTempHider", "karmaCommentTempHidden|karmaCommentTempHider",
-		"headerFooterTempHidden|headerFooterTempHider","miscTempHidden|miscTempHider"];
-	for( var i=0;i< cookieStrings.length;i++ ){
-		var cookieParts = cookieStrings[i].split("|");
-		// should be calling a function to hide, not the toggle function
-		hider( cookieParts[0], cookieParts[1] );
-	}
-}
-
-window.onload = init;
-</script>
-';
+	$page .= "\n" . '<script type="text/javascript" src="../js/hider.js"></script>';
+	$page .= "\n" . '<script type="text/javascript" src="../js/init_templ.js"></script>' . "\n";
 
 	## Outer table
 	$page .= '<form action="gm.cgi" method=post>'.Gm_Security::getFormAuth( author=>\%AUTHOR ).
@@ -5672,11 +5585,11 @@ window.onload = init;
 		## Main Index pages
 		$page .= '<tr class="section_head"><th>Main Index-Related Templates</th><td>'.
 			_hiderCodeEntry('mainIndexTempHidden', 'mainIndexTempHider').
-			'</tr><tr><td colspan="2"><span id="mainIndexTempHidden"><div class="info_text">These are the templates '.
+			'</div></tr><tr><td colspan="2"><span id="mainIndexTempHidden"><div class="info_text">These are the templates '.
 			'that affect the layout and appearance of your main index.</div><br /><table class="config_table">';
 			
 		$page .= '<tr><td valign=middle bgcolor="#c0c0c0" colspan=2><span class="info_title">Main Index Template</span>'.
-			'<br /><span class="info_text">The overall template for your main index page&#151;typically the first '.
+			'<br /><span class="info_text">The overall template for your main index page&#8212;typically the first '.
 			'page that people will see on your weblog/journal.  The {{logbody}} variable is the placeholder that '.
 			'tells Greymatter where you want the body of your log to be inserted, so it must be included somewhere '.
 			'in this template.  The format of the log body is controlled through the templates below.</span></td></tr>'.
@@ -5724,7 +5637,7 @@ window.onload = init;
 			'<tr><td><TEXTAREA NAME="newdatetemplate" COLS=41 ROWS=10 WRAP=VIRTUAL class="inputfield">'.
 			$gmTemplates->{'gmdatetemplate'}.'</TEXTAREA></td><td>'.
 			'<TEXTAREA NAME="newdategroupingfootertemplate" COLS=41 ROWS=10 class="inputfield">'.
-			$gmTemplates->{'gmdategroupingfootertemplate'}.'</TEXTAREA></span></td></tr>';
+			$gmTemplates->{'gmdategroupingfootertemplate'}.'</TEXTAREA></td></tr>';
 	
 		$page .= '<tr><td colspan="2"> &#160; </td></tr>';
 		
@@ -5741,11 +5654,11 @@ window.onload = init;
 		## Archive Related Templates
 		$page .= '<tr class="section_head"><th>Archive-Related Templates</th><td>'.
 			_hiderCodeEntry('archiveTempHidden', 'archiveTempHider').
-			'</tr><tr><td colspan="2"><span id="archiveTempHidden"><div class="info_text">These are the '.
+			'</div></tr><tr><td colspan="2"><span id="archiveTempHidden"><div class="info_text">These are the '.
 			'templates that affect the layout and appearance of your archives.</div><br /><table class="config_table">';
 			
 		$page .= '<tr><td valign=middle bgcolor="#c0c0c0" colspan=2><span class="info_title">Archive Master Index '.
-			'Template</span><br /><span class="info_text">If you wish, you can keep a master index of your archives&#151;an '.
+			'Template</span><br /><span class="info_text">If you wish, you can keep a master index of your archives&#8212;an '.
 			'index page in your entries/archives directory intended for linking to all the archives (both the '.
 			'monthly/weekly logs and the individual entry pages) of your site.  You can use variables such as '.
 			'{{logarchivelist}} and {{logentrylist}} here (or anywhere) to generate those list links; check the '.
@@ -5816,10 +5729,10 @@ window.onload = init;
 			'</span></td></tr><tr><td><TEXTAREA NAME="newdatearchivetemplate" COLS=41 ROWS=10 class="inputfield">'.
 			$gmTemplates->{'gmdatearchivetemplate'}.'</TEXTAREA></td><td>'.
 			'<TEXTAREA NAME="newdategroupingfooterarchivetemplate" COLS=41 ROWS=10 class="inputfield">'.
-			$gmTemplates->{'gmdategroupingfooterarchivetemplate'}.'</TEXTAREA></span></td></tr><tr><td><span class="info_text">'.
+			$gmTemplates->{'gmdategroupingfooterarchivetemplate'}.'</TEXTAREA></td></tr><tr><td><span class="info_text">'.
 			'<INPUT TYPE=CHECKBOX NAME="archivedateheadercheck" VALUE="yes"> Make this the same as the main '.
-			'index version</td><td><INPUT TYPE=CHECKBOX NAME="archivedatefootercheck" VALUE="yes"> Make this '.
-			'the same as the main index version</span></td></tr>';
+			'index version</span></td><td><INPUT TYPE=CHECKBOX NAME="archivedatefootercheck" VALUE="yes"> Make this '.
+			'the same as the main index version</td></tr>';
 			
 		$page .= '</table><br /></span></td></tr>';
 	
@@ -5827,7 +5740,7 @@ window.onload = init;
 		## Entry Page Related Templates
 		$page .= '<tr class="section_head"><th>Entry Page-Related Templates</th><td>'.
 			_hiderCodeEntry('entryTempHidden', 'entryTempHider').
-			'</tr><tr><td colspan="2"><span id="entryTempHidden"><div class="info_text">These are the templates '.
+			'</div></tr><tr><td colspan="2"><span id="entryTempHidden"><div class="info_text">These are the templates '.
 			'that affect the layout and appearance of the pages for your individual entries (as opposed to the '.
 			'Index Entry templates, in the Main Index and Archive template groups, which customise how entries '.
 			'appear in the body of your log). If you have "Generate pages for individual entries" disabled in '.
@@ -5870,7 +5783,7 @@ window.onload = init;
 			'<span class="info_text">Like the above, except this applies to archived entries (entries too old '.
 			'to be listed on the main log) *with* "more" text.</span></td></tr><tr><td colspan="2">'.
 			'<TEXTAREA NAME="newmorearchiveentrypagetemplate" COLS=86 ROWS=30 class="inputfield">'.
-			$gmTemplates->{'gmmorearchiveentrypagetemplate'}.'</TEXTAREA></TEXTAREA></td></tr><tr>'.
+			$gmTemplates->{'gmmorearchiveentrypagetemplate'}.'</TEXTAREA></td></tr><tr>'.
 			'<td colspan="2"><span class="info_text">'.
 			'<INPUT TYPE=CHECKBOX NAME="entrymorearchivepagecheck" VALUE="yes"> Make this the same as the '.
 			'previous template (archived standard entries)</span></td></tr>';
@@ -5881,7 +5794,7 @@ window.onload = init;
 		## Karma & Comments Related Templates
 		$page .= '<tr class="section_head"><th>Karma & Comments-Related Templates</th><td>'.
 			_hiderCodeEntry('karmaCommentTempHidden', 'karmaCommentTempHider').
-			'</tr><tr><td colspan="2"><span id="karmaCommentTempHidden"><div class="info_text">These are the '.
+			'</div></tr><tr><td colspan="2"><span id="karmaCommentTempHidden"><div class="info_text">These are the '.
 			'templates that affect all elements relating to karma voting and comment posting; if you have either '.
 			'or both of those disabled, you can ignore the templates relating to them. All these templates affect '.
 			'things that will not appear on entries for which karma voting and/or comment posting is disabled.</div>'.
@@ -5913,7 +5826,7 @@ window.onload = init;
 			'<tr><td><TEXTAREA NAME="newcommentstemplate" COLS=41 ROWS=10 class="inputfield">'.
 			$gmTemplates->{'gmcommentstemplate'}.'</TEXTAREA></td><td>'.
 			'<TEXTAREA NAME="newcommentsformtemplate" COLS=41 ROWS=10 class="inputfield">'.
-			$gmTemplates->{'gmcommentsformtemplate'}.'</TEXTAREA></span></td></tr>';
+			$gmTemplates->{'gmcommentsformtemplate'}.'</TEXTAREA></td></tr>';
 	
 		$page .= '<tr><td colspan="2"> &#160; </td></tr>';
 		
@@ -5927,7 +5840,7 @@ window.onload = init;
 			'<TEXTAREA NAME="newsmartemoticonscodetemplate" COLS=41 ROWS=10 class="inputfield">'.
 			$gmTemplates->{'gmsmartemoticonscodetemplate'}.'</TEXTAREA></td><td>'.
 			'<TEXTAREA NAME="newcookiescodetemplate" COLS=41 ROWS=10 class="inputfield">'.
-			$gmTemplates->{'gmcookiescodetemplate'}.'</TEXTAREA></span></td></tr>';
+			$gmTemplates->{'gmcookiescodetemplate'}.'</TEXTAREA></td></tr>';
 			
 		$page .= '<tr><td colspan="2"> &#160; </td></tr>';
 	
@@ -5943,7 +5856,7 @@ window.onload = init;
 			'<TEXTAREA NAME="newcommentdividertemplate" COLS=41 ROWS=10 class="inputfield">'.
 			$gmTemplates->{'gmcommentdividertemplate'}.'</TEXTAREA></td><td>'.
 			'<TEXTAREA NAME="newkarmaformtemplate" COLS=41 ROWS=10 class="inputfield">'.
-			$gmTemplates->{'gmkarmaformtemplate'}.'</TEXTAREA></span></td></tr>';
+			$gmTemplates->{'gmkarmaformtemplate'}.'</TEXTAREA></td></tr>';
 	
 		$page .= '<tr><td colspan="2"> &#160; </td></tr>';
 	
@@ -6003,7 +5916,7 @@ window.onload = init;
 		## Header, Footer & Sidebar (& Custom) Templates Related Templates
 		$page .= '<tr class="section_head"><th>Header, Footer & Sidebar (& Custom) Templates</th><td>'.
 			_hiderCodeEntry('headerFooterTempHidden', 'headerFooterTempHider').
-			'</tr><tr><td colspan="2"><span id="headerFooterTempHidden"><div class="info_text">If you want to '.
+			'</div></tr><tr><td colspan="2"><span id="headerFooterTempHidden"><div class="info_text">If you want to '.
 			'have something - certain text, graphics, formatting, etc. - that appears across all your pages, but '.
 			'you don\'t want to have to modify all the templates each time you change them, simply use the Header, '.
 			'Footer and Sidebar templates below, or any of the ten custom templates. Their contents will be inserted '.
@@ -6102,7 +6015,7 @@ window.onload = init;
 		## Misc Templates Related Templates
 		$page .= '<tr class="section_head"><th>Miscellaneous Templates</th><td>'.
 			_hiderCodeEntry('miscTempHidden', 'miscTempHider').
-			'</tr><tr><td colspan="2"><span id="miscTempHidden"><div class="info_text">All the templates '.
+			'</div></tr><tr><td colspan="2"><span id="miscTempHidden"><div class="info_text">All the templates '.
 			'affecting things that didn\'t fit into the other categories.</div><br /><table class="config_table">';
 			
 		$page .= '<tr><td valign=middle bgcolor="#c0c0c0" colspan=2><span class="info_title">{{previouslink}} '.
@@ -6134,7 +6047,7 @@ window.onload = init;
 			'Templates</span><br /><span class="info_text">The variables {{logarchivelist}} and {{logentrylist}} '.
 			'(and the variants thereof; check the <a href="'.Gm_Constants::GM_FORUM.'" title="read the manual" '.
 			'target="_blank">manual</a> for more information) are used for automatically generating lists of '.
-			'links&#151;whether on your archive master index, or anywhere else&#151;to your log archives and your '.
+			'links&#8212;whether on your archive master index, or anywhere else&#8212;to your log archives and your '.
 			'individual entry pages; these templates set the formatting of those links.  The first two templates '.
 			'apply to the {{logentrylist}} variable and its variants, formatting the links to standard and extended '.
 			'entries respectively; the Log Archive Links Templates apply to the {{logarchivelist}} variable, which '.
@@ -6226,7 +6139,7 @@ window.onload = init;
 			'<span class="info_title">{{calendarweek}}: Day without link</span></td><td bgcolor="#e0f0ff">'.
 			'<span class="info_title">{{calendarweek}}: Day with link</span></td></tr><tr><td>'.
 			'<TEXTAREA NAME="newcalendarweekfulldaytemplate" COLS=41 ROWS=5 class="inputfield">'.
-			$gmTemplates->{'gmcalendarweekfulldaytemplate'}.'</TEXTAREA></TEXTAREA></td><td>'.
+			$gmTemplates->{'gmcalendarweekfulldaytemplate'}.'</TEXTAREA></td><td>'.
 			'<TEXTAREA NAME="newcalendarweekfulldaylinktemplate" COLS=41 ROWS=5 class="inputfield">'.
 			$gmTemplates->{'gmcalendarweekfulldaylinktemplate'}.'</TEXTAREA></td></tr>';
 	
@@ -6236,7 +6149,7 @@ window.onload = init;
 			'</span><br /><span class="info_text">These templates control the code associated with the {{popup}} '.
 			'variable for making popup windows; the Popup Code template is for the code that calls the window, '.
 			'and the Popup Window template is for the HTML file to be generated for the window.  (The popup-related '.
-			'variables&#151;{{popuptitle}} etc.&#151;will only work in these two templates.)</span></td></tr><tr>'.
+			'variables&#8212;{{popuptitle}} etc.&#8212;will only work in these two templates.)</span></td></tr><tr>'.
 			'<td bgcolor="#e0f0ff"><span class="info_title">Popup Code Template</span></td><td bgcolor="#e0f0ff">'.
 			'<span class="info_title">Popup Window Template</span></td></tr><tr><td>'.
 			'<TEXTAREA NAME="newpopupcodetemplate" COLS=41 ROWS=10 class="inputfield">'.
@@ -6668,7 +6581,7 @@ sub viewRebuild {
 		'If you\'ve made any changes '.
 		'that will have a visible impact on your site (such as changing the templates, closing/reopening '.
 		'an entry, etc), you may want to rebuild the relevant files so that the changes will be immediately '.
-		'visible&#151;note that whenever you add a new entry, Greymatter automatically updates the relevant '.
+		'visible&#8212;note that whenever you add a new entry, Greymatter automatically updates the relevant '.
 		'files.</span></p><p>'.$message.'</p>';
 
 	my $rebuildconnectedfilesbutton = Gm_Constants::EMPTY;
@@ -6710,7 +6623,7 @@ sub viewRebuild {
 		
 	$page .= "\n\n".'<p><form action="gm.cgi" method="post"> '.Gm_Security::getFormAuth( author=>\%AUTHOR ).
 		'<input type=submit class="button" name="menu" VALUE="'.Gm_Core::text( Gm_Constants::RETURN_MAIN_MENU ).
-		'" STYLE="background: #C0C0C0"></form></p>';
+		'" STYLE="background: #C0C0C0"></form>';
 
 	Gm_Web::displayAdminPageExit( $page );
 	exit(0);
@@ -7337,7 +7250,7 @@ sub viewUploads {
 			'upload directly to your account. (If you don\'t see the prompt, then your browser doesn\'t '.
 			'support this feature.)  All files will be uploaded to your entries/archives directory; '.
 			'after uploading, you can then have a link to download the file or display the image in a '.
-			'new entry if you wish.</p><p>'.$specialuploadtext; 
+			'new entry if you wish.</span><p>'.$specialuploadtext; 
 	}
 
 #&gm_readconfig;
@@ -7372,7 +7285,7 @@ sub viewUploads {
 
 	$page .= "\n\n".'<P><FORM ACTION="gm.cgi" METHOD="post"> '.Gm_Security::getFormAuth( author=>\%AUTHOR ).
 		'<INPUT TYPE=SUBMIT CLASS="button" NAME="menu" VALUE="'.Gm_Core::text( Gm_Constants::RETURN_MAIN_MENU ).
-		'" STYLE="background: #C0C0C0"></form></p>';
+		'" STYLE="background: #C0C0C0"></form>';
 
 	Gm_Web::displayAdminPageExit( $page );
 	exit(0);

@@ -414,15 +414,15 @@ sub hackClTest {
 	## NOTE: Why aren't we using web params to keep username and password in the fields?
 	# They would only repopulate if they were wrong, so by forcing user to retype, hopefully will 
 	# correct any mistake
-	$page .= '<p><form action="gm.cgi" method="post" name="gmloginform">'.
+	$page .= '<p><form action="gm.cgi" method="post" name="gmloginform">' ."\n" .
 		'<table width="80%" class="form_table"><tr><th width="40%"><label for="loginname">'.
 		Gm_Core::text( Gm_Constants::LOGIN_AUTHOR ).':</label></th><td>'.
-  	'<input type="text" class="textinput" size=20 name="loginname" class="inputfield"></td></tr>'.
+  	'<input type="text" class="textinput inputfield" size=20 name="loginname"></td></tr>' ."\n" .
 		'<tr><th><label for="loginpw">'. Gm_Core::text( Gm_Constants::PW ).
-		':</label></th><td><input type="password" class="textinput" size=20 name="loginpw" '.
-		'class="inputfield"></td></td></table></p>';
+		':</label></th><td><input type="password" class="textinput inputfield" size=20 name="loginpw" '.
+		'></td></table>' . "\n";
 	$page .= '<p><INPUT TYPE=SUBMIT CLASS="button" name="login" VALUE="'.
-		Gm_Core::text( Gm_Constants::LOGIN_ENTER ).'" STYLE="background: #D0FFD0; width: 75"></form></p>';
+		Gm_Core::text( Gm_Constants::LOGIN_ENTER ).'" STYLE="background: #D0FFD0; width: 75"></form>';
 
 	$page .= "$getnameandpwcookie\n";
 
