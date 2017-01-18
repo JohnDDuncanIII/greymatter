@@ -124,10 +124,11 @@ a:hover {
 
 table.calendar { margin-left: 10px; }
 
-.searchform {
-    margin-right: 7px;
-}
+.searchform { margin-right: 7px; }
 
-.content {
-    margin-left: 10px;
+.content { margin-left: 10px; }
+
+.path {
+    border-bottom: 1px dotted black;
+    display: table-cell;
 }
