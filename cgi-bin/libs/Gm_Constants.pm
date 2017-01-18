@@ -28,7 +28,7 @@ use warnings;
 # ---------------------------------------------------------------------
 
 use constant GM_VERSION => '1.8.2'; # first release of 2008
-use constant GM_FORUM => 'http://greymatterforum.proboards82.com';
+use constant GM_FORUM => 'http://greymatterforum.proboards.com/';
 
 use constant GM_COOKIE_PW => 'gm_password';
 

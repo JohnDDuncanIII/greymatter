@@ -1,6 +1,6 @@
 gmsmartentrymoodtemplate=mood: {{entrymood}}<br />
 gmentryseparatortemplate=<hr />
-gmfootertemplate=</div>|*||*|	<br clear="all" />|*|<!-- http://greymatterforum.proboards82.com/ -->|*|</div>|*|</body>|*|</html>
+gmfootertemplate=</div>|*||*|	<br clear="all" />|*|<!-- http://greymatterforum.proboards.com/-->|*|</div>|*|</body>|*|</html>
 gmpreviouslinktemplate=[<a href="{{previouspagelink}}" onmouseover="window.status='{{previousmonthmonth}}/{{previousdayday}}/{{previousyear}}: {{previousentrysubject}}';return true" onmouseout="window.status='';return true">Previous entry: "{{previousentrysubject}}"</a>]
 gmarchiveentryseparatortemplate=<br />
 gmentrypagelinktemplate=<a href="{{pagelink}}">{{monthmonth}}/{{dayday}}/{{yearyear}}: {{entrysubject}}</a>|*|<br />
@@ -42,7 +42,7 @@ gmsmartemoticonscodetemplate=<script type="text/javascript">|*|<!--// |*|functio
 gmheadertemplate=<!DOCTYPE HTML>|*|<html><head><title>My Weblog: {{entrysubject}}</title>|*|<meta charset="UTF-8">|*|<link rel="stylesheet" type="text/css" href="css/gm.css">|*|</head>|*|<body>|*|<div id="frame">|*||*|	<h1 class="header"> My Weblog </h1>|*|	<div id="contentright">|*|{{sidebar}}|*|	</div>|*|	<div id="contentcenter">
 gmdategroupingfootertemplate=</div><br />
 gmmoreentrypagetemplate={{header}}|*|{{cookiescode}}|*|<div class="content">|*|<div class="path"><a href="{{pageindexlink}}" title="back to frontpage">Home</a> &raquo; <a href="{{pagearchiveindexlink}}" title="weblog archives">Archives</a> &raquo; <a href="{{entrieswebpath}}/archive-{{monthmonth}}{{yearyear}}.{{archivesuffix}}" title="archive of {{monthword}} {{yearyear}}">{{monthword}} {{yearyear}}</a> &raquo; {{entrysubject}}</div><br />|*|<p>|*|{{previouslink}} {{nextlink}}|*|</p>|*||*|<h1>{{monthmonth}}/{{dayday}}/{{yearyear}}: "{{entrysubject}}"</h1>|*|{{smartentrymusic}}{{smartentrymood}}|*|<p>|*|{{entrymainbody}}|*|<br /><br />|*|{{entrymorebody}}|*|</p>|*|</div>|*||*|<div class="content">|*|{{commentdivider}}|*|{{entrycomments}}|*|{{entrycommentsform}}|*|</div> |*|{{footer}}
-gmusererrorfootertemplate=</p>|*|</div><br />|*|</div>|*||*|	<br clear="all" />|*|<!-- http://greymatterforum.proboards82.com/ -->|*|</div>|*|</body>|*|</html>
+gmusererrorfootertemplate=</p>|*|</div><br />|*|</div>|*||*|	<br clear="all" />|*|<!-- http://greymatterforum.proboards.com/-->|*|</div>|*|</body>|*|</html>
 gmkarmaformtemplate=Vote on this entry's karma: <a href="{{positivekarmalink}}" onmouseover="window.status='Cast a positive vote on this entry';return true" onmouseout="window.status='';return true">+</a>/<a href="{{negativekarmalink}}"  onmouseover="window.status='Cast a negative vote on this entry';return true" onmouseout="window.status='';return true">-</a> (currently at {{totalkarma}} karma)
 gmcommentauthorhomepagetemplate=[<a href="{{commentauthorhomepageabsolute}}" rel="nofollow">homepage</a>]
 gmcommentslinktemplate= [<a href="{{commentspostlink}}" onmouseover="window.status='Add a comment to this entry';return true" onmouseout="window.status='';return true">{{commentstatussmart}}</a>]
