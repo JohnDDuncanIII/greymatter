@@ -1,882 +1,625 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!DOCTYPE html>
 <html>
-<head>
-<title>GreyMatter 1.8.2 - Installation Instructions</title>
-
-<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
-<meta content="NOINDEX, NOFOLLOW, NOIMAGEINDEX, NOIMAGECLICK" name=ROBOTS>
-<meta content="Home of the Weblogging software, GreyMatter." name=DESCRIPTION>
-<meta content="Copyright (c)2000-2001 Noah Grey.  All rights reserved." name=COPYRIGHT>
-<meta content="Greysoft, GreyMatter, Noah Grey, perl, CGI, software, Weblogs, journals, Weblogging, journaling" name=KEYWORDS>
-
-<style type="text/css">
-<!--
-.entryheader {
-
-	BORDER-RIGHT: #000000 1px solid;
-	PADDING-RIGHT: 5px;
-	BORDER-TOP: #000000 1px solid;
-	PADDING-LEFT: 5px;
-	PADDING-BOTTOM: 5px;
-	BORDER-LEFT: #000000 1px solid;
-	PADDING-TOP: 5px; BORDER-BOTTOM: #000000 1px solid;
-	BACKGROUND-COLOR: #EAE8E8; border: #000000;
-	border-style: solid; border-top-width: 1px;
-	border-right-width: 1px;
-	border-bottom-width: 1px;
-	border-left-width: 1px;
-}
-
-.title {
-	FONT-SIZE: 150%;
-}
-
-
-BODY {
- background-color: #FFFFFF;
-}
-
-
-.headers {  
-	border: #000000; 
-	border-style: solid; 
-	border-top-width: 1px; 
-	border-right-width: 1px; 
-	border-bottom-width: 1px; 
-	border-left-width: 1px;
-}
-
-.example {
-	margin:  5px;
-	padding: 5px;
-	border: 1px solid #222244;
-	background-color: #CCCCEE;
-}
-
-.detailed {
-	margin:  5px;
-	padding: 5px;
-	border: 1px solid #222244;
-	background-color: #FCFCFE;
-}
-
-p.note 
-	{font: 8pt Tahoma, MS Sans-Serif, Arial, Sans-Serif;
-	text-align: center; 
-}
-
-p.curly
-	 { font-family:  Curlz MT, Funstuff, Comic Sans MS, fantasy; 
-	text-align:center; 
-	font-size: 12pt;
-}
-
-p.author 
-	{font-family: Tahoma, MS sans-serif, Arial, sans-serif; 	
-	font-size: 10pt;
-	font-weight: bold;
-}
-
-.question
-	 { background-color: #EDEBEB;
-}
-
-.code
-	{ color: #1C581C;
-	border: 1px #808080 solid;
-}
-
-.grey
-	 { background-color: #DDDEFB;
-	border: 1px #808080 solid;
-}
-
-.break { page-break-after: always; 
-	text-align: right;
-	font-size: 8pt;
-}
-	
-abbr, acronym, .help {
-	background-color: #DBF3F3;
-	border: 1px #808080 solid;
-  	cursor: help;
-}
-
-}
-span.small 
-	{font-family: Tahoma, MS sans-serif, Arial, sans-serif; 	
-	font-size: 8pt;
-}
--->
-</style>
-
-</head>
-	<body>
-
-<!-- Top Header -->
-<table cellspacing=0 cellpadding=5 width="100%" bgcolor=#C2C2CD border=0 class="headers">
-  <tbody> 
-  <tr>
-		<td align=left><font face="VERDANA, ARIAL, HELVETICA" size=4><b>GreyMatter: Logware</b></font></td>
-				</tr>
-			</tbody>
-		</table>
-<!-- End Top Header -->
-
-
-<!-- Sub Header with Linkage -->
-<table cellspacing=0 cellpadding=5 width="100%" bgcolor=#EAE8E8 border=0 class="headers">
-  <tbody> 
-  	<tr>
-			<td align=right>
-			<font face="VERDANA, ARIAL, HELVETICA" size=2>
-			<a class=hoverlink onMouseOver="window.status='News, updates and everything else.';return true" onMouseOut="window.status='';return true" href="http://greymatterforum.proboards82.com/">home</a>
-			</font>
-			</td>
+    <head>
+	<title>Greymatter 1.8.2 - Installation Instructions</title>
+	<meta charset="utf-8">
+	<meta content="NOINDEX, NOFOLLOW, NOIMAGEINDEX, NOIMAGECLICK" name=ROBOTS>
+	<meta content="Home of the Weblogging software, GreyMatter." name=DESCRIPTION>
+	<meta content="Copyright (c)2000-2001 Noah Grey.  All rights reserved." name=COPYRIGHT>
+	<meta content="Greysoft, GreyMatter, Noah Grey, perl, CGI, software, Weblogs, journals, Weblogging, journaling" name=KEYWORDS>
+	<link rel="stylesheet" type="text/css" href="css/man.css">
+    </head>
+    <body>
+	<!-- Top Header -->
+	<table cellspacing=0 cellpadding=5 width="100%" bgcolor=#C2C2CD border=0 class="headers">
+	    <tbody>
+		<tr>
+		    <td align=left><font face="VERDANA, ARIAL, HELVETICA" size=4><b>Greymatter: Logware</b></font></td>
 		</tr>
-	</tbody>
-</table>
-<!-- End Sub Header with Linkage -->
-
-
-<!-- Begin Body -->
-		<table cellspacing=1 cellpadding=0 width="100%" border=0>
-			<tbody>
-				<tr>
-					<td valign=center align=left>
-						<font class=bodytext face="VERDANA, ARIAL, HELVETICA" size=2>
-
-<!-- Main Title -->
-							<p class=maintitle align=center>
-								<font size=6><b>GreyMatter</b></font>
-								<br>
-								<font color=#000000><b>Weblog/Journal Software . Version 1.8.2 . 
-								Installation Instructions</b></font>
-								<br>
-								<b>Copyright (c) 2000-2017 The GreyMatter Team . All Rights Reserved</b>
-							</p>
-<!-- End Main Title -->
-
-
-<!-- About version of GreyMatter -->
-	<p class=entryheader align=justify>
-		<font color=#000000><b>About the current version</b></font>
-	</p>
-	<p align=justify>
-GreyMatter 1.8.2 is second release of 2008.  It contains a very extensive reworking of the code from the old gm-library
-file to the gm.cgi and various libraries.</p>
-<!-- About version of GreyMatter -->
-
-
-<!-- Requirements to run GreyMatter -->
-	<p class=entryheader align=justify>
-		<font color=#000000><b>Requirements</b></font>
-	</p>
-	<p align=justify>GreyMatter requires the ability to run Perl software on 
-	your account on your Web server and an 
-	FTP client (such as <a href="http://www.ftpplanet.com/download.htm" target="_blank">WS_FTP LE</a>) 
-	to upload the files to your account and 
-	<a href="http://www.google.com/search?hl=en&ie=UTF-8&oe=UTF-8&q=chmod" target="_blank">CHMOD</a> 
-	them on the server.  Also, you should be moderatly comfortable with 
-	editing HTML to customize the templates, and thus make your Weblog, journal, or 
-	photolog truly your own.  GreyMatter is run on a variety operating systems including Unix/Linux, Mac OSX, and Windows.
-	</p>
-	<p align=justify><b>Note:</b> that GreyMatter 1.6.1 and higher requires perl 5.6 at a minimum.  Even 
-	though perl 5.6 was released in 2000, not everyone can control which version of Perl their ISP/Web Host will
-	choose to run.  GM 1.6.1 can be made to work with older versions of Perl, see <a class=hoverlink onMouseOver="window.status='Download GreyMatter';return true" onMouseOut="window.status='';return true" href="http://greymatterforum.proboards82.com/">
-	the forums</a> for more information.  While the GM team will keep older version of Perl in mind while
-	we continue to develop GreyMatter, it is hoped that by taking advantage of features in more recent versions
-	of Perl that we can get closer to our goals (among which is a GM that is more secure, easier to modify, 
-	better spam controls, etc.).
-	</p>
-<!-- End Requirements to run GreyMatter -->
-
-
-<!-- Files Included In GreyMatter Package-->
-	<p class=entryheader align=justify>
-		<font color=#000000><b>Distributed Files</b></font>
-	</p>
-	<p align=justify>Here is a list of what files you should get in your GreyMatter package
-	(either in a zip or tar file):
-	<ul>
-		<li><b>gm_install.html</b> this document on installing GreyMatter</li>
-		<li><b>gm_manual.html</b> GreyMatter usage manaual, faq, etc.</li>
-		<li><b>gm_cookbook.html</b> configuration guide</li>
-		<li><b>gm_dev_guide.html</b> this document on installing GreyMatter</li>
-		<li><b>cgi-bin</b>
-			<ul>
-				<li><b>gm.cgi</b> the admin script (required for upgrade)</li>
-				<li><b>gm-comments.cgi</b> for posting comments and searching (required for upgrade)</li>
-				<li><b>gm-karma.cgi</b> for modifying karma of an entry (required for upgrade)</li>
-				<li><b>gm-upload.cgi</b> for uploading files (required for upgrade)</li>
-				<li><b>gm-library.cgi</b> core code for GM (required for upgrade)</li>
-				<li><b>gm-authors.cgi</b> GM users and information</li>
-				<li><b>gm-banlist.cgi</b> who is banned</li>
-				<li><b>gm-config.cgi</b> configuration settings</li>
-				<li><b>gm-cplog.cgi</b> log of events</li>
-				<li><b>gm-entrylist.cgi</b> a summary of the entries for the site</li>
-				<li><b>gm-templates.cgi</b> the look and feel of your site, can be given to others</li>
-				<li><b>libs</b> contains essential files of GreyMatter code (required for upgrade)</li>
-				<li><b>lang</b> contains the language files of GreyMatter multi-language support (required for upgrade)</li>
-			</ul>
-		</li>
-		<li><b>emoticons</b> contains the emoticon images used by site</li>
-		<li><b>gm-changelog.html</b> the changes per release that have occurred</li>
-	</ul>
-	</p>
-<!-- End Files Included In GreyMatter Package -->
-
-
-<!-- Upgrade Instructions -->
-	<p class=entryheader align=justify>
-		<font color=#000000><b>Upgrading From a Previous Version of GreyMatter</b></font>
-	</p>
-	<p>Users of a previous version of GreyMatter should:
-	<ol type=number align=justify>
-	    <li> Download the 1.8.2 zip/tar file from <b>
-	<a class=hoverlink onMouseOver="window.status='Download GreyMatter';return true" onMouseOut="window.status='';return true" href="http://greymatterforum.proboards82.com/">
-	the forums</a> and look for the download page</b>.</li>
-
-	    <li> Open the archive locally, change the path to perl if needed.</li>
-
-	    <li><b>Backup your existing GreyMatter installation!</b> This means making a copy of your archive directory
-	    (or whatever you have named your archive directory) and the cgi-bin directory (or wherever 
-	    you keep the gm.cgi and other gm files).</li>
-
-	    <li> Upload the following files to your server: 
-	    <ul><li>gm-comments.cgi</li>
-	    <li>gm-karma.cgi</li>
-	    <li>gm-upload.cgi</li>
-	    <li>gm.cgi</li>
-	    <li>gm-library.cgi</li>
-	    <li> and the 'libs' directory (including all files within)</li>
-	    <li> and the 'lang' directory (including all files within)</li>
-	    </ul>
-	    These files are the core of GreyMatter. </li>
-
-	    <li> Confirm that gm-comments.cgi, gm-karma.cgi, gm-upload.cgi are 
-	    <a href="http://www.google.com/search?hl=en&ie=UTF-8&oe=UTF-8&q=chmod" target="_blank">CHMOD</a>'ed 755, 
-	    and gm-library.cgi, and all files in the 'libs' and 'lang' directory are
-	    <a href="http://www.google.com/search?hl=en&ie=UTF-8&oe=UTF-8&q=chmod" target="_blank">CHMOD</a>'ed 644.  
-	    However, the libs and lang should be 
-	    <a href="http://www.google.com/search?hl=en&ie=UTF-8&oe=UTF-8&q=chmod" target="_blank">CHMOD</a>'ed 777</li>
-
-	    <li>Log in.
-	    When you log in for the first time after upgrading, the upgrade routine will detect 
-	    the old version based on your gm-config.cgi file, and update it to 1.8.2. If you've customized 
-	    your version string you may see an error message. You will have to manually the value of the line
-	    in gm-config.cgi "gmversionsetup=1.8.2" to the version you modified it from. </li>
-
-	    <li> We recommend that you check your config and templates immediatly after
-	    upgrading as there are a few new features.  This includes the ability to 
-	    protect all the author's names from being used in a post on the site (to 
-	    avoid impersonation issues).  This feature and other are turned off by default
-	    so that you do not have to worry about your site behaving differently.  Also,
-	    the new templates should allow you to show errors and messages (such as when a 
-	    banned user tries to post a comment) in the style of the rest of your website. </li>
-
-	    <li> Rebuild everything and then visit your site. </li>
-	    
-	    <li> You may also want to upload (or at least keep for reference) gm_manual.html,
-	    gm_cookbook.html, and for people interested in modifying code in GM, gm_dev_guide.html.
-
-	  </ol>
-
-							</p>
-
-<!-- End Upgrade Instructions -->
-
-
-<!-- section -->
-	<p class=entryheader align=justify>
-		<font color=#000000><b>Installing GreyMatter</b></font>
-	</p>
-	<p align=justify>
-There are two sets of directions for installing GreyMatter.  The Detailed Install was written by 
-Melanie Cook at <a href="http://www.wiccked.com/gmfd/">www.wiccked.com/gmfd/</a> 
-(originally titled "Greymatter Installation For Dummies") to be a step-by-step guide to 
-installing GreyMatter.  The Quick Installation Guide is the same
-steps but without as much detail or explanation.  If at any point you find you need more detail/explanation, please
-skip below to the Detailed guide.</p>
-<!-- end section -->
-
-<!-- Before You Start -->
-
-	<p class=entryheader align=justify>
-
-		<font color=#000000><b>Quick Installation Guide: Before You Start</b></font>
-
-	</p>
-
-	<p>During the process of installing GreyMatter, you will need to know some things 
-	about your account on your Web server and how you want your site to work.  It 
-	would be helpful if you wrote them down or had them stored electronically, so 
-	you could have them as a reference.  Yes, it's time to take some notes.</p>
-
-	<ol>
-
-		<li>Where is Perl?
-
-		<br>The location of Perl is vitally important to running GreyMatter.  Your Web 
-		host can tell you where Perl is located, or you can find out for yourself if 
-		you have access via telnet or SSH to your server.  If you have such access, 
-		type 'whereis perl' at the prompt, and make note of that location.  It will 
-		be something like '/usr/bin/perl', '/usr/local/bin/perl', or '/usr/bin/perl5' 
-		on a Unix server.  On a Windows server, it may be 'C:/perl/bin/perl.exe'.
-
-		<br>Once you know the location of Perl, make a note of it, and go on to the next step.
-
-		</li>
-
-
-		<li>What will your site structure be?
-
-		<br>It seems silly to think about this so early, but setting the site structure 
-		is like building the foundation for a house.  That's why we'll lay a good foundation now.
-
-		<br>First, it will be important to know how you want your log to appear.  Some 
-		people like to have their GreyMatter-powered log appear on the main page of their 
-		site; when that is the case, bringing up http://www.mysite.com/ will show the log.  
-		Others like to have their log in another place, in what is called a subdirectory.  
-		In that case, it's usually something like http://www.mysite.com/log/, where /log/ 
-		is the location of the log.
-
-		<br>So, take some time to think about it.  GreyMatter needs to know two things 
-		to properly present your log: where your main page for your log will be, and 
-		where you want your archives to be.  If you wanted your main log to be at 
-		http://www.mysite.com/weblog/, and the archives folder for that to be called 
-		"blatherings", your archives will be stored at http://www.mysite.com/weblog/blatherings/.
-
-		</li>
-
-		<li>Where are your CGI files kept on the server?
-
-		<br>When you upload and install GreyMatter, it will take a good stab how 
-		your Web server is set up.  It will always find the directory where CGI files 
-		should be kept, assuming that you upload it to the right place.
-
-		<br>To make sure you do it right, start your FTP program and just look at your 
-		account's main folder.  What is that folder called?  [Write that down; if you 
-		can't see, try to go "up" a folder and see if you can see that.]  Do you see a 
-		folder named /cgi-bin/?  If so, find that, and make a note of where it is in 
-		relation to the main folder of your site.  That will help you later on in the 
-		installation process.
-
-		</li>
-
-	</ol>
-
-	<p>Once you've made these notes, you're ready to roll.</p>
-
-<!-- End Before You Start -->
-
-
-<!-- First Time Installation -->
-
-	<p class=entryheader align=justify>
-
-		<font color=#000000><b>Installing For The First Time</b></font>
-
-	</p>
-
-	<ol type=number align=justify>
-
-		<li>Make sure you meet all the requirements, as specified above.</li>
-
-		<li>Separately, open the files "gm.cgi", "gm-karma.cgi","gm-comments.cgi", 
-		and "gm-upload.cgi", and look at the very first line, which should say "#!/usr/bin/perl".  
-		Make sure that the Perl pointer here is correct; refer to your notes that you made.  
-		If, for example, your Perl directory is '/usr/local/bin/perl', change the first line 
-		in each of the four files to reflect that.  <b>You must maintain the #! [the shebang, 
-		if you're wondering what to call it] before the directory, or it just won't work.  
-		<i>This is the only time you'll ever need to touch the GreyMatter program code.</i></b></li>
-
-		<li>Refer to your notes above about site structure.  If you want your main index 
-		file to be named something other than "index.htm", then rename the included index.htm 
-		file accordingly. For clarity's sake, we'll assume "index.htm" with the rest of the instructions.</li>
-
-		<li>Open your FTP program. Important note: All files except "gm-icon.gif" <b>must be 
-		uploaded in ASCII mode</b>; check your FTP program to find out how to make sure that 
-		all CGI files are uploaded as ASCII and not binary files.</li>
-
-		<li>Upload <b>all</b> the GreyMatter CGI files (they all begin with "gm" and end with ".cgi") 
-		to the CGI files directory you found above in your notes.  All these files must be in the 
-		same directory on your account.<br/>
-		Note that the libs directory and its files should also be uploaded to the cgi directory.</li>
-
-		<li><a href="http://www.google.com/search?hl=en&ie=UTF-8&oe=UTF-8&q=chmod" target="_blank">CHMOD</a> 
-		the files "gm.cgi", "gm-karma.cgi", "gm-comments.cgi"and "gm-upload.cgi" to 755, 
-		<a href="http://www.google.com/search?hl=en&ie=UTF-8&oe=UTF-8&q=chmod" target="_blank">CHMOD</a> 
-		all the other .cgi files to 666 (except gm-library.cgi. <b>DO NOT</b> change the permissions on 
-		gm-library.cgi), and and all files in the 'libs' directory (Gm_Storage.pm, etc.) to 644 (same as gm-library.cgi).
-		However, the libs and lang should be 
-	    <a href="http://www.google.com/search?hl=en&ie=UTF-8&oe=UTF-8&q=chmod" target="_blank">CHMOD</a>'ed 777</li>
-
-		<li>Upload index.html (or whatever you've renamed it to) and gm-icon.gif to the place where you want your log to be.  Refer to your notes above for that process.</li>
-
-		<li><a href="http://www.google.com/search?hl=en&ie=UTF-8&oe=UTF-8&q=chmod" target="_blank">CHMOD</a> the index.html file (or whatever you've renamed it to) to 666.</li>
-
-		<li>Create the directory where all your log entries and archives will be stored.  Refer to your notes above when creating this directory.  By default, GreyMatter will assume you name this directory "archives", but you can name it whatever you wish.</li>
-
-		<li><a href="http://www.google.com/search?hl=en&ie=UTF-8&oe=UTF-8&q=chmod" target="_blank">CHMOD</a> your entries/archives directory to 777.</li>
-
-		<li>Open your Web browser and run gm.cgi on your site (for example, if you run www.mysite.com and you uploaded the GreyMatter files to the /cgi-bin/ subdirectory, then you'd type http://www.mysite.com/cgi-bin/gm.cgi in your browser).  If all of the above went okay, then you should now see the GreyMatter logon prompt.  (If you're getting a 500 Server Error or having other problems attempting to run gm.cgi, go back and make sure that everything is uploaded and <a href="http://www.google.com/search?hl=en&ie=UTF-8&oe=UTF-8&q=chmod" target="_blank">CHMOD</a>ed correctly; read the "Troubleshooting" section in the manual for more information.)</li>
-
-		<li>Log on with the author name "Alice", and the password "wonderland".</li>
-
-	</ol>
-
-<!-- End First Time Installation -->
-
-
-<!-- Configuring Your Paths -->
-
-	<p class=entryheader align=justify>
-
-		<font color=#000000><b>Configuring Your Paths</b></font>
-
-	</p>
-
-	<p>Welcome to GreyMatter!  The next step is to configure your paths.  Refer to your notes above on your site structure.
-
-	<p>We'll use the following example site structure to explain the paths setup; this is where a sizable group of new GreyMatter users have gotten confused before, so we'll work with this example and use it to explain all six paths.</p>
-
-	<p>Our example comes from the site structure of Geof Morris, one of the authors of this set of installation instructions.  [Though it's about to be re-designed, it will still be clear for you.]</p>
-
-	<p>Geof's site is http://www.ijsm.org/, and he hosts a log on the front page.  His entries and archives folder is /journal/, so it's found at http://www.ijsm.org/journal/.  His server requires CGI files to be in the /cgi-bin/ directory, so his GreyMatter installation is found at http://www.ijsm.org/cgi-bin/gm.cgi .</p>
-
-	<p>Now, the first time you look at your paths, they'll be wrong.  That's okay!  For an example, here's what Geof saw the first time he installed GreyMatter:</p>
-
-	<div class="example">Local Log: /home/ijsm/public_html/cgi-bin
-
-	<br>Local Entries/Archives: /home/ijsm/public_html/cgi-bin/archives/
-
-	<br>Local CGI: /home/ijsm/public_html/cgi-bin
-
-	<br />Website Log: http://www.ijsm.org/cgi-bin
-
-	<br>Website Entries/Archives: http://www.ijsm.org/cgi-bin/archives/
-
-	<br>Website CGI: http://www.ijsm.org/cgi-bin
-
-	</div>
-
-
-	<p>This wasn't what Geof wanted, so he had to start changing things.</p>
-
-
-	<p>First off, he wanted http://www.ijsm.org/ to be where his log appeared.  So, he changed the Log paths to:</p>
-
-
-	<div class="example">Local Log: /home/ijsm/public_html
-
-	<br>Website Log: http://www.ijsm.org/</div>
-
-
-	<p>Next, he'd created /journal/ in the main directory of his site, and that's where he wanted his archives and entries to be.  So the Entries/Archives paths were going to have to change.  Here's what they became:</p>
-
-
-	<div class="example">Local Entries/Archives: /home/ijsm/public_html/journal/
-
-	<br>Website Entries/Archives: http://www.ijsm.org/journal/</div>
-
-
-	<p>What about the CGI files?  Well, that's what GreyMatter gets correct every time.  There's no need to change the two CGI paths, unless you want GreyMatter in a subdirectory of your /cgi-bin/ directory.</p>
-
-
-	<p><b>NOTE:</b> <b><u>DO NOT</u></b> put your archives directory inside your cgi-bin.</b>
-
-<!-- End Configuring Your Paths -->
-
-
-<!-- Diagnostics and Repair, Author Configuration -->
-
-	<p class=entryheader align=justify>
-
-		<font color=#000000><b>Diagnostics and Repair, Author Configuration</b></font>
-
-	</p>
-
-	<p>Return to Configuration and click "Diagnostics &amp; Repair".  This routine checks to see that all your files and paths are working correctly.  If you aren't able to run it successfully, your paths are probably incorrect; check the Troubleshooting section of the manual.  Once you've run it successfully, you'll be able to post your first entry.</p>
-
-	<p>Click "Edit Authors", create a new account for yourself with the name and password you'd like to use, and delete Alice. (You <i>could</i> keep Alice around, but for obvious security reasons, it's not recommended.) Since you're still logged on as Alice, you'll need to re-enter under the new name and password.</p>
-
-<!-- End Diagnostics and Repair, Author Configuration -->
-
-
-<!-- Diagnostics and Repair, Author Configuration -->
-
-	<p class=entryheader align=justify>
-
-		<font color=#000000><b>Last Steps</b></font>
-
-	</p>
-
-	<p align=justify>All done! You should now be able to post entries and get 
-	your Weblog, journal, or photolog going. (It's a good idea to set up a private 
-	test log first, and try creating and editing a few test entries, simply so you 
-	can get the hang of GreyMatter before doing it "for real".)
-
-	</p>
-
-
-	<p align=justify>GreyMatter uses an extensive template system to allow you total 
-	control over every aspect of your Weblog and all the pages &amp; elements it'll 
-	comprise. The default templates included with GreyMatter are quite plain-jane, 
-	but they should be enough to provide a starting point and, hopefully, to give you 
-	a basic idea of GreyMatter's template &amp; variable usage.  Change the templates 
-	as much as you like (and just reupload the gm-templates.cgi file if you mess things 
-	up too much and want to start over) to suit your own design and style; refer to the 
-	GreyMatter manual (included as gm_manual.html) for full information about all the template variables. </p>
-
-
-	<p align=justify>And that's that!  Hopefully by now you're up and running in some 
-	form--after you add your first entry, open another window in your browser and load 
-	up your log's intended location. You can alter your templates anytime to change any 
-	aspect of your log's design and layout (be sure to "Rebuild Files" after changing 
-	the templates for GreyMatter to automatically update your site accordingly). 
-	Enjoy doing your log, and thanks for using GreyMatter.
-	</p>
-
-
-
-<!-- section -->
-<div class="detailed">
-	<p class=entryheader align=justify>
-		<font color=#000000><b>Detail Installation Guide: Before You Start</b></font>
-	</p>
-	<p align=justify>
-	By Melanie Cook<br />
-I've decided to write this, not to replace the GM Manual, which I find to be extremely useful, but to be used as an adjunct to the GM Manual for those who find installation a bit of a challenge.<br />
-Much of the information contained here is also in the GM Installation Instructions, which we are also going to use, in performing this installation.  This is intended to be used <b>with</b> the guide, not <b>instead</b> of it!<br />
-My work has led me to teach myself to write keystroke by keystroke help for various tasks.
-<br />
-This is simply my effort to assist people with the installation of greymatter, hopefully answering such questions as <span class="question">What are my paths?</span>, and <span class="question">where is Perl, and do I need to know what it is?</span>.
-<p>
-I am also going to assume, in writing this, that you know you have access to a cgi-bin on your server.  It doesn't matter if you don't know what it is, just that you have one.  You also have to be able to upload and run your own cgi scripts.  This also only covers installing greymatter on UNIX based servers.
-<br />
-The <span class="help" title="File Transfer Protocol">FTP</span> software I personally use is <A HREF="http://www.ipswitch.com/Products/file-transfer.html">WS_FTP</A>.  They have a light version available for free.  There are lots of other FTP software packages out there.  Which you choose is up to you.  Any examples I'll give here though, will be from WS_FTP Pro, so any variations from that you'll have to work out for yourself.</p>
-<p>
-I'm also assuming you've already downloaded greymatter.  If not you can go <A HREF="http://greymatterforum.proboards82.com/">here</A> to get the latest version.</p>
-<p>
-Right.   With all of that done, we're about ready to start.
-<br />
-You may have already noticed some of the formatting I'll be using in this tutorial.  I'll explain them below.</p>
-<p>
-<A HREF="index.php">Links</A>  Links will be underlined.<br />
-<span class="question">Questions</span>  Questions, where I'm asking you to determine something, will have a grey background.<br />
-<span class="help" title="Pop-up Explanation">Help</span>  Help spots, where you can hold your mouse over the highlighted bordered text will provide popup information or explanations.<br />
-<span class="code">Code</span>.  Where I am telling you to type something into somewhere, I'll use this bordered, green text.<br />
-<span class="grey">Greymatter boxes</span>.  When I want you to see what's in a Greymatter box already, or when I want to show you what's in my Greymatter box, I'll use the bordered mauve background.</p>
-<p>
-We're ready to begin now, so we'll go to stage one.</p>
-<!--printed page break here-->
-
-<a name="one"></A><h3>Set up Greymatter Locally</h3><p>
-Setup is probably a little misleading here.  We're not actually going to "Setup" greymatter, rather we're going to duplicate your online setup.<br />
-If you haven't already done so, create a directory on your hard disk, for your weblog setup.  Then create a cgi-bin directory inside the directory you just created, and unzip your Greymatter files into that directory.  This is not a "working" cgi-bin.  You are not going to be able to run greymatter from here, but it makes sense to store your files in a logical order.</p>
-<p>
-Now create, inside your weblog directory, an archives directory.  This is purely so that your <span class="help" title="the copy on your hard disk">local</span> and your <span class="help" title="the copy on your server">online</span> setup is the same.  This will simplify things later, and hopefully you'll get an understanding of how things work.</p>
-<p>
-Now, I want you to find <span class="question">index.htm, manual.htm, gm-icon.gif and Install.html</span> which should be in the cgi-bin directory and move them out of there and  into the weblog directory.
-<br />
-You need to decide at this stage what extension you want your web pages to have.  Are they going to be <span class="question">.htm?  .html? .shtml? or .php?</span><br />
-Rename index.htm if you want it to be something other than that.  (This is actually step three of the Installation instructions, which we will print next.)</p>
-<p>
-Locate and open the file Install.html, and print it.</p>
-<p>
-Don't worry about what the Requirements say, other than that you must be comfortable with editing HTML.  I'll explain the rest to you as you need it.  That's the whole purpose of this tutorial.<br />
-We're also not going to worry about the next step, Upgrading From Version 1.0 or 1.1, since I'm assuming if you need help with your installation you're not upgrading, but installing from scratch.<br />
-So.  On to the next part.  Installing For The First Time.</p>
-<p>
-The next thing you need to do is <span class="question">locate perl on your webserver.</span><br />
-When you signed up for your domain hosting your host may have sent you a welcome email which included things like "where is perl" or "what and where is my mail program".  You also need to know the path of your "home directory".  If you have that, fine.  If not, go to your domain hosts website, and look for their support or <span class="help" title="Frequently Asked Questions">FAQ</span> page, and try to find that information.<br />
-It may be on a page related to cgi-bin, or program locations.  If you can't find it, and there's a search facility, try searching for perl.  If that still doesn't help, send an email to your host asking for <span class="code">"the path to perl and the path to the mail program, and your home directory."</span>.<br />
-These will commonly be /usr/bin/perl and /usr/bin/sendmail.</p>
-<p>
-If perl on your server is in a different location, for example /usr/local/bin/perl you will need to edit the "gm.cgi", "gm-karma.cgi", "gm-comments.cgi" and "gm-upload.cgi".<br />
-The first line of these files should say "#!/usr/bin/perl".  We need to change that to show where perl is on your server, so it says #!/usr/local/bin/perl for example, if that's what your perl path is.  You can't use a normal windows editor for this.  I use <A HREF="http://www.editpadpro.com/editpadlite.html">EditPad Lite</A> which is free for non-commercial use.  I used this before I got editpad - <A HREF="http://www.winvi.de/en/">WinVi32</A>, which is available free.  It's a single executable file. <br />
-Make the changes to all four files, and save them.</p>
-
-
-<!--there's another page break for printing in here-->
-<p>
-<A NAME="two"><h3>Upload Greymatter</h3></A>
-Open your FTP program.  If this program uses profiles select the one for your webhost.  If not, use your own method of configuring it to connect to your webhost.<br />
-There are two ways files can be uploaded using this type of software.  ASCII or Binary.  Your CGI files <b>must</b> be uploaded as ASCII files, or they won't work.<br />
-Upload <b>all</b> files ending in <b>.cgi</b> in <b>ASCII</b> format to your webservers 
-cgi-bin directory.  Also upload the 'libs' directory and all files within to the 
-your cgi directory.  In WS_FTP this is simply a matter of checking the radio button directly 
-beneath the local and remote windows.<br />
-In WS_FTP Pro you are able to click the Options button, and then, on the extensions tab, select the file types you want to automatically upload as ASCII.  I have mine set to do .cgi .pl .pm and .txt as ASCII.  Everything else will, when you use the auto option, be uploaded as Binary.</p>
-<p><b>NOTE</b>  Many people have issues with windows line endings (windows OS uses a different line ending character than other OS's).  See the gm_manual file for more information.
-
-<p>
-Now you need to <span class="help" title="a unix command to set the permissions on the file">CHMOD</span> 
-"gm.cgi", "gm-karma.cgi", "gm-comments.cgi", "gm-upload.cgi" and all files withen the 'libs' directory 
-(located withen the CGI directory) to 755.  If your FTP program has a graphical interface for this, 755 means "rwx r-x r-x".  (In WS_FTP right click the file, and then down towards the bottom of the popup menu you'll see chmod (UNIX)) CHMOD all of the other cgi files to 666, which means "-rw -rw -rw".</p>
-<p>
-Upload the files from your local weblog directory, in Binary format, into your online weblog directory.<br />
-Now you need to CHMOD your index file to 666.<br />
-Make a directory online for your archives, with the same name as the one you made locally.  CHMOD this to 777.  (That's "rwx rwx rwx")  (In WS_FTP you have a MkDir button which will enable you to create a directory on your webserver.)  There is an image showing the directory levels <A HREF="javascript:void(0)" onClick="window.open('paths.php', 'Pop', 'width=700,height=480,toolbar=yes,resizable=yes,scrollbars=yes,screenX=200,screenY=100,left=200,top=50')">here</A>.</p>
-<p>
-Now you're ready to login to Greymatter for the first time.  In your web browser, go to the gm.cgi file you uploaded to your cgi-bin.  Usually that would be at "http://www.yourdomain.com/cgi-bin/gm.cgi".<br />
-If everything did as it was supposed to, you'll be seeing the purple gm login screen.<br />
-If you're getting a 500 Server Error, or having other problems, upload your files again, making sure you use ASCII format.  CHMOD them again, to make sure they're all  CHMODed right.  (It's quite simple to do them back to front and get the 4 that are meant to be 755 at 666 and the ones that should be at 666 at 755.  I know.. I've done it myself!)<br />
-If it's still not working, go back and check the perl path.  It <b>must</b> be correct in those four files, or gm.cgi isn't going to be able to find perl, and therefore won't run.<br />
-Still no luck, and I'd be checking with my host that my cgi-bin was properly configured.  I've heard of hosts who, even though there is a cgi-bin in your directory don't actually configure it to allow files to run until you ask them to.  Find out if there are any restrictions on running your own scripts.<br />
-Failing that, you've got me stumped.  If all of that is set correctly I can think of no reason why greymatter wouldn't be working so far.<br />
-There are online Greymatter <A HREF="http://greymatterforum.proboards82.com">Forums</A> where you can go to ask for help.</p>
-<p>
-We're continuing now, from the login screen.  The default login is Alice, and the password is wonderland.</p>
-<p>
-You're in!  You at least got it installed!  Congratulations!</p>
-
-<!--there's another page break for printing in here-->
-
-<a name="three"><h3>Configuring Greymatter</h3></a>
-Now you have to configure it.  This means we're going to tell it how and where you want everything.  <br />
-Greymatter assumes that all files for your weblog or journal are going to be in the same directory.  We're not going to do that.  We're going to have our cgi files in the cgi-bin, and the log and entry files in their own directories.  This is why the assumptions greymatter makes below don't suit this installation.  To do this click on the Configuration button on the welcome screen.
-<br />
-For the purposes of this tutorial you need to know that on my server </p>
-<ul><li>My perl path is /usr/bin/perl, so I didn't have to edit my cgi files.</li>
-<li>My mail path is /usr/sbin/sendmail.</li>
-<li>My domain is called wiccked.  </li>
-<li>My home directory is /home/wiccked/public_html.</li></ul>
-<p>
-Greymatter tells me my
-<ul>
-<li>Local Log Path is: <span class="grey">/home/theonion/public_html/wiccked/cgi-bin</span></li>
-<li>Local Entries/Archives path is: <span class="grey">/home/theonion/public_html/wiccked/cgi-bin/archives</span></li>
-<li>Local CGI Path is: <span class="grey">/home/theonion/public_html/wiccked/cgi-bin</span></li>
-<li>Website Log Path is: <span class="grey">http://wiccked.com/cgi-bin</span></li>
-<li>Website Entries path is: <span class="grey">http://wiccked.com/cgi-bin/archives</span></li>
-<li>Website CGI Path is: <span class="grey">http://wiccked.com/cgi-bin</span></li>
-</ul>
-Now, I know, that these are not all correct.  I'll copy the correct ones below, and tell you beside them why what greymatter assumed is wrong.
-<ul>
-<li>Local Log Path is: <span class="code">/home/wiccked/public_html</span> - greymatter had assumed the main index page was going to be in the same directory as the cgi-bin.</li>
-<li>Local Entries/Archives path is: <span class="code">/home/theonion/public_html/wiccked/archives</span> - again, gm had assumed the archives directory was to be in the cgi-bin.</li>
-<li>Local CGI Path is: <span class="grey">/home/theonion/public_html/wiccked/cgi-bin</span> - This one gm usually gets right.</li>
-<li>Website Log Path is: <span class="code">http://wiccked.com</span> - As in the local log path, gm assumes the main index page is going to be in the cgi-bin.</li>
-<li>Website Entries path is: <span class="code">http://wiccked.com/archives</span> - The same again.  The archives aren't in the cgi-bin.</li>
-<li>Website CGI Path is: <span class="grey">http://wiccked.com/cgi-bin</span> - And it got this one right too.</li>
-</ul>
-I'm not sure why greymatter assumes that the logs and archives are going to be inside the cgi-bin, since most webhosts wouldn't like that at all.  But it does, so we fix it.  But this seems to be one of the part of configuring greymatter that people find most confusing.<br />
-But you've got this far.  The hard bit is almost done.
-
-<!--there's another page break for printing in here-->
-
-<a name="four"><h3>File Names and Archives</h3></a>
-Greymatter wants to know now
-<ul>
-<li>Index filename:<br />
-<span class="small">The filename of your log/journal's main index. If you enable "Keep archive master index", Greymatter will create that file in the archives directory with the same filename.</span><br />
-<span class="code">index.php or whatever you decided to call it. (make sure it's the same as the file you uploaded!)</span></li>
-<li>.suffix to entry files: <br />
-<span class="small">If you have "Generate pages for individual entries" enabled, this is the suffix those pages will have. </span><br />
-<span class="code">.php (or whatever you decided to use)</span></li>
-<li>.suffix to log archives: <br />
-<span class="small">If you have "Keep monthly/weekly log archives" enabled, this is the suffix those log archive files will have. </span> <br />
-<span class="code">.php (again, the extension you decided to use.)</span></li>
-<li>Days to keep on main index: <br />
-<span class="small">The number of days' worth of entries Greymatter will list on your main index before scrolling them off. </span><br />
-When you start setting up your templates, you'll probably include either an extract or complete entries, for however many days you set this to.  Mine is set to 7  <span class="code">&nbsp;&nbsp;&nbsp;7&nbsp;&nbsp;&nbsp;</span></li>
-<li>Generate pages for individual entries? <br />
-<span class="small">Specifies whether you want individual entries to have their own pages. <b>Comments are disabled if this is turned off. </b> </span><br />
-<span class="code">Radio button selection of "Yes" or "No "</span></li>
-<li>Keep archive master index? <span class="small">If enabled, Greymatter will keep an index (with the same filename as above) in your entries/archives directory, intended to be an overview of all your archives.</span><br />
-<span class="code">Radio button selection of "Yes" or "No "  (An example of what you get for Yes is <a href="http://theonion.wiccked.com/journal/archives/index.shtml">here</a>)</span></li>
-<li>Keep monthly/weekly log archives?<br />
-<span class="small">If enabled, Greymatter will keep archive files of your log in monthly or weekly instalments in your entries/archives directory. </span><br />
-<span class="code">Radio button selection of "Yes" or "No "  (An example of what you get for yes is <a href="http://theonion.wiccked.com/journal/archives/archive-122001.shtml">here</a>)</span></li>
-<li>Keep main index and archive log indexes concurrent with each other?<br />
-<span class="small">If enabled, both new and archived entries will be listed in the monthly/weekly archives; if disabled, Greymatter won't list entries there until they've scrolled off the main index. For simplicity's sake, it's a good idea leave this on.</span><br />
-<span class="code">Radio button selection of "Yes" or "No "</span></li>
-<li>Archive by month or week?<br />
-<span class="small">If "Keep monthly/weekly log archives" is enabled, this specifies whether the log archives will be generated by the month or by the week.</span><br /> 
-<span class="code">Radio button selection of "Monthly" or "Weekly"</span></li></ul>
-
-<!--there's another page break for printing in here-->
-
-<a name="five"><h3>E-Mail, Karma Voting, and Comments</h3></a>
-<ul>
-<li class="topic">E-Mail Options<br />
-<span class="small">Options relating to e-mail setup and notification. If you don't plan to have Greymatter send you e-mails, you can safely ignore the "E-Mail Program Location" and "E-Mail(s) to send notices to" fields.</span></li>
-<li>E-Mail Program Location:<br />
-<span class="small">The pointer to the mail program (usually Sendmail) on your account.</span><br />
-<span class="code">/usr/sbin/sendmail (or whatever is appropriate to your own server!)</span></li>
-<li>E-Mail(s) to send notices to:<br />
-<span class="small">The e-mail addresses you want all notifications (if any) to be sent to. Separate multiple e-mail addresses with semicolons.  </span><br />
-<span class="code"> youremailaddress@yourdomain.com</span></li>
-<li>Send e-mail notifications for:<br />
-<span class="small">Indicates whether you want Greymatter to send e-mails notifying you of new karma votes, new comment postings, both karma and comments, or to disable e-mail notification altogether.</span><br />
-<span class="code"> Radio Button selection of "New karma votes" "New comments" "Both" "Neither"</span></li><br /><br />
-<li class="topic">Karma & Comments Options<br />
-<span class="small">Options relating to karma voting and comment posting. Obviously, certain options can be ignored if you have their respective functions disabled (for example, if you disable comments or have "Generate pages for individual entries" turned off, none of the options relating to comments will have any effect). </span></li>
-<li>Allow karma voting and/or comment posting?<br />
-<span class="small">Specifies whether you want to permit voting on karma, posting comments, both, or neither, on your site. You can leave them enabled and still turn karma or comments on or off for individual entries; to disable either or both will override that for ALL entries.</span><br />
-<span class="code">Radio Button selection of "Karma only" "Comments only" "Both" "Neither"</span>
-</li>
-<li>Order of comments on entry pages:<br />
-<span class="small">The order in which you want comments displayed. If "ascending", they'll be listed from newest to oldest, with the newest comment at the top; if "descending", from first to last, with the first comment at the top.</span><br />
-<span class="code">Radio Button selection of "Ascending" "Descending"</span></li>
-<li>Can post comments and vote on karma in archives?<br />
-<span class="small">If enabled, visitors can cast karma votes or post comments (if applicable) on entries no longer listed on the main index. Enabling this may slow down your site over time.</span><br />
-If you answer Yes to this question people will NOT be able to cast karma votes or post comments once an entry has gone from your main index page.  If you have only one entry on your main index page that is all that will allow comments to be posted!<br />
-<span class="code">Radio Button selection of "Yes" "No"</span></li>
-<li>Karma voting on by default?<br />
-<span class="small">Specifies whether "Allow karma voting on this entry" is preselected to "Yes" or "No" by default on the "Add a new entry" screen.</span><br />
-<span class="code">Radio Button selection of "Yes" "No"</span></li>
-<li>Comment posting on by default?<br />
-<span class="small">Specifies whether "Allow comments to be posted to this entry" is preselected to "Yes" or "No" by default on the "Add a new entry" screen.</span><br />
-<span class="code">Radio Button selection of "Yes" "No"</span></li>
-
-<!--there's another page break for printing in here-->
-
-<a name="six"><li>HTML allowed in comments?<br /></a>
-<span class="small">Indicates whether you want to allow visitors to include HTML codes in their comments, or to have Greymatter strip them out. You can also specify whether only the codes for links, bold and italics can be included, or just the codes for links.</span><br />
-<span class="code">Radio button selection of "All HTML allowed" "No HTML allowed" "Linking, Bold & Italic code only" "Linking code only"</span></li>
-<li>Auto-link URLs in comments?<br />
-<span class="small">If enabled, Greymatter will automatically link to any website or e-mail addresses that users post in their comments <i>(unless you've enabled linking above and they've already linked the website/e-mail address themselves).</i></span><br />
-<span class="code">Radio Button selection of "Yes" "No"</span></li>
-<li>Strip new lines from comments?<br />
-<span class="small">If enabled, all line and paragraph breaks are stripped when displaying visitors' comments, turning them into unbroken blocks of text; if disabled, Greymatter preserves the visitors' original formatting.</span><br />
-<span class="code">Radio Button selection of "Yes" "No"</span></li>
-<li>Allow multiple karma votes from same IP?<br />
-<span class="small">If enabled, the same visitor could cast multiple karma votes on the same entry; if disabled, only one vote per visitor is allowed.</span><br />
-<span class="code">Radio Button selection of "Yes" "No"</span></li>
-<li>Mention it in the control panel log when comments and karma votes are added?<br />
-<span class="small">Enable this if you want Greymatter to mention all new comments and karma votes in the control panel log.</span><br />
-<span class="code">Radio Button selection of "Yes" "No"</span></li>
-<br /><br />
-<li class="topic">Date & Time Options<br />
-<span class="small">Miscellaneous options regarding to dates & times. Use the wide variety date and time variables in your templates to fine-tune how you want the date and time to appear on your site.</span></li>
-<li>Server Offset Time:<br />
-<span class="small">As of this moment, Greymatter reads your time as 6:13 AM. If this is incorrect, specify the number of hours to add or subtract from this time (to subtract, make it a negative number, with a minus in front of it).<br />
-If you know where your server is located, you need to take the <b>day</b> into account too.  If Greymatter is telling you the server time is 6:13 AM, and you know that because of your geographical location and that of your server that this is on a different day your time difference needs to reflect this.  My time is 9:13 PM, so I need to set the time offset as +15, since there are 15 hours difference between my server time, and my local time.  This can be quite complicated to work out, and it may take a couple ot tries to ensure you end up with the correct time and date on your entries.  Test entries are good to use for this.<br />
-<span class="code"> 15  </span></li>
-<li>Your Time Zone:<br />
-<span class="small">The time zone you live in. This is what will appear wherever you use the {{timezone}} variable in your templates.</span><br />
-(Enter your own time zone.  Remember to allow for daylight savings here.  If your server changes time for daylight savings this may need to be reset at the start and end of daylight savings time.)<br />
-<span class="code">AEST</span></li>
-<br /><br />
-
-<!--there's another page break for printing in here-->
-
-<a name="seven"><li class="topic">File Uploading Options<br /></a>
-<span class="small">Options relating to uploading files from within Greymatter.</span></li> 
-<li>Allowed File Types:<br />
-<span class="small">If you only wish to allow certain types of files to be uploaded, enter their file suffixes here. Separate allowed file types by semicolons (for example, "jpg;gif;zip"). Leave this blank to allow any type of file to be uploaded.</span><br />
-<span class="code">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span></li>
-<li>Maximum Filesize Allowed:<br />
-<span class="small">If you don't wish to allow files larger than a certain size to be uploaded, specify that limit here (in KB/kilobytes). Leave this on "0" to allow files of any size to be uploaded.</span><br />
-<span class="code">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span></li>&nbsp; KB <br /><br />
-<li class="topic">Censoring Options<br />
-<span class="small">Words or phrases you want to censor on your site (if any), and where to censor them.<br />
-Censored terms will be turned into "*" asterisks. </span><br />
-<li>Enable censoring?<br />
-<span class="small">Specifies whether you want any words or phrases in your censor list to appear censored for entries, comments, or both. Leave it on "Neither" to disable censorship.</span><br />
-<span class="code">Radio button selection of "Entries only" "Comments only" "Both" "Neither"</span></li>
-<li>Censor List<br />
-<span class="small">Enter any words or phrases you want to censor, separated by lines (press return after each word/phrase). Use [brackets] around words/phrases to censor the term only if it's not part of another word/phrase; for example, censoring the word hell would render hell as **** and shell as s****, but censoring [hell] would only turn hell by itself into asterisks, and leave the word shell alone. </span><br />
-<span class="code">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span></li>
-<br /><br />
-<li class="topic">Connect Other Files (Advanced Users Only) * I will add further explanations to this at a later date.<br />
-<span class="small">If you wish, you can connect other files on your account to Greymatter, and have them treated as if they were one of Greymatter's regular index files; for example, using {{header}} or {{footer}} in another file to insert your Greymatter header or footer into that file. (You'll need to edit & upload these files to your account outside Greymatter.) This is only recommended for advanced users that are already comfortable using Greymatter.</span></li>
-<li>Filename List<br />
-<span class="small">To connect a file to Greymatter, CHMOD it to 666 making sure it contains whatever Greymatter variables you wish and enter its filename on the right;<br />place each filename on separate lines. If the file isn't in the same directory as gm.cgi, then use virtual paths relative to where it's running from. For example, if you want to connect "test.htm" and it's in the directory above gm.cgi, you'd use ../test.htm; or, if you run gm.cgi from /here/cgi-bin and test.htm was in /there/log, you'd use ../../there/log ("../" means to go up one directory). Greymatter will automatically create a "pattern" file in your entries directory for each filename, and whenever you reupload a changed file, Greymatter will automatically update its stored pattern for that file.</span><br />
-<span class="code">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span></li>
-<li>Update them when adding entries?<br />
-<span class="small">If "Yes", then Greymatter will automatically update any of the connected files above when new entries are added; if not, they'll only be updated whenever you rebuild them (either specifically, or by rebuilding everything).</span><br />
-<span class="code">Radio Button selection of "Yes" "No"</span></li>
-<br /><br />
-
-<!--there's another page break for printing in here-->
-
-<a name="eight"><li class="topic">Miscellaneous Options</li></a>
-<li>Enable cookies?<br />
-<span class="small">By default, Greymatter keeps a cookie on your browser that remembers your name and password, so you don't have to type them in each time you log on. To disable and delete Greymatter's cookies, select "No" and check the checkbox.</span><br />
-If you use a shared computer, and do not want others to have access to Greymatter you should set this to No, and tick the box.</span><br />
-<span class="code">Radio Button selection of "Yes" "No", and "Delete cookies set by Greymatter?" tickbox.</span></li>
-<li>Keep control panel log?<br />
-<span class="small">Specifies whether you want Greymatter to keep its internal log of all activity; disable this if you want to shut it off.</span><br />
-<span class="code">Radio Button selection of "Yes" "No"</span></li>
-<li>Allow "easy formatting"?<br />
-<span class="small">With "easy formatting", bold text, italics & underlining can be done easily by bracketing text with two **asterisks**, \\backslashes\\ or __underlines__ respectively. You can specify whether this is enabled in entries, comments, or both; if disabled, the characters won't be converted.</span><br />
-<span class="code">Radio Button selection of "Entries only" "Comments only" "Both" "Neither"</span></li>
-<li>Default entry list view:<br />
-<span class="small">This specifies which view will be the default when you go to the Edit An Entry selection menu.</span><br />
-Under normal use Current entries is probably fine.  If you need to edit a lot of entries outside that range, temporarily change this option<br />
-<span class="code">Selection list choice of "Current entries (7 days)" "All entries by you" "All extended entries" "All open entries" "All closed entries" "All entries"</span></li> 
-<li>Order of list links:<br />
-<span class="small">The order in which you want links to be displayed in log list variables, check the manual for more information on those. If "ascending", the links will be listed from newest to oldest, with the newest entry at the top; if "descending", from first to last, with the first entry at the top.</span><br />
-<span class="code">Radio Button selection of "Ascending" "Descending"</span></li>
-<li>Log entry list variable number:<br />
-<span class="small">The number of entries to link to, starting from the most recent, whenever the "number" variant of the log entrylist variables (for example, if this is set to 5, using {{logmoreentrylist number}} would generate a list of links to the five most recent extended entries). Check the manual for more information on those variables.</span><br />
-<span class="code">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span></li>
-<li>Link to entries in {{logentrylist comments}} only if comments are active?<br />
-<span class="small">If you use {{logentrylist comments}} and its related variables (see the manual for more information), this specifies whether to list only entries to which comments can still be posted.</span><br />
-<span class="code">Radio Button selection of "Yes" "No"</span></li>
-<li>Entries to link to in {{calendar}}:<br />
-<span class="small">Whenever you use {{calendar}} or {{calendarweek}} to generate tables linking to your entries, this specifies whether you want to link to the most recent entry for that day, or to link only to extended entries. (It won't generate links at all if "Generate pages for individual entries" is turned off.)</span><br />
-<span class="code">Radio Button selection of "Always link to entry for that calendar day" "Link only to extended entries"</span><br />
-<li>"Automatically rebuild" selected by default?<br />
-<span class="small">Selects whether the option to automatically rebuild files after saving changes to templates or entries is prechecked by default. (Authors without access to rebuilding files won't see this option.)</span><br />
-<span class="code">Radio Button selection of "Yes" "No"</span></li>
-</ul>
-
-<!--there's another page break for printing in here-->
-
-<a name="nine">Now you've configured</a> Greymatter you need to run diagnostics & repair to ensure that all of the paths and permissions are correct.  Click on the <span class="grey">Diagnostics & Repair</span> button.<br />
-Once you click the next button, Greymatter will check that it is able to run correctly, and that it is able to write to the directories required to add your entries etc.  Click the <span class="grey">Peform Diagnostics & Repair</span> button.</p>
-Greymatter will hopefully report that <span class="grey">Diagnostics & Repair Complete<br />
-All operations were completed successfully. Greymatter successfully checked and/or performed the following: <br />
-<ul><li>All config files are readable/writeable and are CHMODed correctly </li>
-<li>The local CGI path is correctly configured and all essential files are there </li>
-<li>The entries/archives path is readable/writeable and is CHMODed correctly </li>
-<li>The main index file is readable/writeable and is CHMODed correctly </li></ul></span></p>
-If any errors are reported, read them carefully.  They should provide you with enough information to correct them.  For example, if you are told that Greymatter can't write to <span class="grey">/home/theonion/public_html/wiccked/cgi-bin/archives/</span> you have probably got the local archives path set incorrectly.  Change it to leave "cgi-bin" out of the path, then re-run the diagnostics program.<br />
-If the path is correct but Greymatter is telling you it can't write to the directory CHMOD it again, ensuring permissions are set as laid out in the Upload Greymatter section of this tutorial.<br />
-Once all is correct you can <span class="grey">Return to Main Menu</span></p>
-Your Greymatter installation still only has Alice as the default author, so we select <span class="grey">Edit Authors</span> to add you, and to delete Alice.  Add yourself before you delete Alice.  Don't delete Alice until you've successfully logged in as yourself.<br />
-Fill in the "Register a New Author" box.<br />
-Enter the appropriate details into the <br />
-<span class="code">Name:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span> &nbsp; &nbsp; <span class="code">Password:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>&nbsp; &nbsp; <span class="code">Email:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>&nbsp; &nbsp; <span class="code">Homepage:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span> boxes.<br />
-Set the "Default Author Access" for this Author.<br />
-<span class="code">Radio button selection of "All access" "No access" "Post & edit their own entries only"</span> and then click the <span class="grey">Create Author</span> button.<br />
-When you have added all the authors you want to add click the <span class="grey">Return to Main Menu</span> button.<br />
-Click the <span class="grey">Re-Login</span> button.<br />
-Enter your own author details, and login.<br />
-You can now go back into Edit Authors and delete Alice, by selecting Alices radio button, and clicking the <span class="grey">Delete Selected Author</span> button.</p>
-You're ready to start setting up your templates now.  The simplest place to start is by adding an entry.  Don't write your life story or anything, just make it a very brief first entry.  This will enable you to see what formatting is there.<br />
-From here, if you're comfortable continuing with the templates by yourself, have fun.  Enjoy Greymatter, and please let me know if you found this useful, or if you have any suggestions for something you'd like to see added here.<br />
-</p>
-</div>
-
-
-      <p align=center><a href="http://noahgrey.com/greysoft/"><img alt="Powered By GreyMatter" src="gm-icon.gif" border=0></a> 
-
-      </p>
-
-
-							<p align=center><font size=1>Copyright (c)2000-2017 <a href="http://greymatterforum.proboards82.com/">The GreyMatter Team</a>. All rights reserved.</font>
-
-							</p>
-
-
-							</font>
-
-						</td>
-
-					</tr>
-
-				</tbody>
-
-			</table>
-
-	</body>
-
+	    </tbody>
+	</table>
+	<!-- End Top Header -->
+	<!-- Sub Header with Linkage -->
+	<table cellspacing=0 cellpadding=5 width="100%" bgcolor=#EAE8E8 border=0 class="headers">
+	    <tbody>
+  		<tr>
+		    <td align=right>
+			<font face="VERDANA, ARIAL, HELVETICA" size=2>
+			    <a class=hoverlink onMouseOver="window.status='News, updates and everything else.';return true" onMouseOut="window.status='';return true" href="http://greymatterforum.proboards.com/">home</a>
+			</font>
+		    </td>
+		</tr>
+	    </tbody>
+	</table>
+	<!-- End Sub Header with Linkage -->
+	<!-- Begin Body -->
+	<table cellspacing=1 cellpadding=0 width="100%" border=0>
+	    <tbody>
+		<tr>
+		    <td valign=center align=left>
+			<font class=bodytext face="VERDANA, ARIAL, HELVETICA" size=2>
+
+			    <!-- Main Title -->
+			    <p class=maintitle align=center>
+				<font size=6><b>Greymatter</b></font>
+				<br>
+				<font color=#000000><b>Weblog/Journal Software . Version 1.8.2 .
+					Installation Instructions</b></font>
+				<br>
+				<b>Copyright (c) 2000-2017 The GreyMatter Team . All Rights Reserved</b>
+			    </p>
+			    <!-- End Main Title -->
+			    <!-- About version of GreyMatter -->
+			    <p class=entryheader align=justify>
+				<font color=#000000><b>About the current version</b></font>
+			    </p>
+			    <p align=justify>
+				GreyMatter 1.8.2 is second release of 2008.  It contains a very extensive reworking of the code from the old gm-library
+				file to the gm.cgi and various libraries.</p>
+			    <!-- About version of GreyMatter -->
+			    <!-- Requirements to run GreyMatter -->
+			    <p class=entryheader align=justify>
+				<font color=#000000><b>Requirements</b></font>
+			    </p>
+			    <p align=justify>GreyMatter requires the ability to run Perl software on
+				your account on your Web server and an
+				FTP client (such as <a href="http://www.ftpplanet.com/download.htm" target="_blank">WS_FTP LE</a>)
+				to upload the files to your account and
+				<a href="http://www.google.com/search?hl=en&amp;ie=UTF-8&amp;oe=UTF-8&amp;q=chmod" target="_blank">CHMOD</a>
+				them on the server.  Also, you should be moderatly comfortable with
+				editing HTML to customize the templates, and thus make your Weblog, journal, or
+				photolog truly your own.  GreyMatter is run on a variety operating systems including Unix/Linux, Mac OSX, and Windows.
+			    </p>
+			    <p align=justify><b>Note:</b> that GreyMatter 1.6.1 and higher requires perl 5.6 at a minimum.  Even
+				though perl 5.6 was released in 2000, not everyone can control which version of Perl their ISP/Web Host will
+				choose to run.  GM 1.6.1 can be made to work with older versions of Perl, see <a class=hoverlink onMouseOver="window.status='Download GreyMatter';return true" onMouseOut="window.status='';return true" href="http://greymatterforum.proboards.com/">
+				    the forums</a> for more information.  While the GM team will keep older version of Perl in mind while
+				we continue to develop GreyMatter, it is hoped that by taking advantage of features in more recent versions
+				of Perl that we can get closer to our goals (among which is a GM that is more secure, easier to modify,
+				better spam controls, etc.).
+			    </p>
+			    <!-- End Requirements to run GreyMatter -->
+			    <!-- Files Included In GreyMatter Package-->
+			    <p class=entryheader align=justify>
+				<font color=#000000><b>Distributed Files</b></font>
+			    </p>
+			    <p align=justify>Here is a list of what files you should get in your GreyMatter package
+				(either in a zip or tar file):
+				<ul>
+				    <li><b>gm_install.html</b> this document on installing GreyMatter</li>
+				    <li><b>gm_manual.html</b> GreyMatter usage manaual, faq, etc.</li>
+				    <li><b>gm_cookbook.html</b> configuration guide</li>
+				    <li><b>gm_dev_guide.html</b> this document on installing GreyMatter</li>
+				    <li><b>cgi-bin</b>
+					<ul>
+					    <li><b>gm.cgi</b> the admin script (required for upgrade)</li>
+					    <li><b>gm-comments.cgi</b> for posting comments and searching (required for upgrade)</li>
+					    <li><b>gm-karma.cgi</b> for modifying karma of an entry (required for upgrade)</li>
+					    <li><b>gm-upload.cgi</b> for uploading files (required for upgrade)</li>
+					    <li><b>gm-library.cgi</b> core code for GM (required for upgrade)</li>
+					    <li><b>gm-authors.cgi</b> GM users and information</li>
+					    <li><b>gm-banlist.cgi</b> who is banned</li>
+					    <li><b>gm-config.cgi</b> configuration settings</li>
+					    <li><b>gm-cplog.cgi</b> log of events</li>
+					    <li><b>gm-entrylist.cgi</b> a summary of the entries for the site</li>
+					    <li><b>gm-templates.cgi</b> the look and feel of your site, can be given to others</li>
+					    <li><b>libs</b> contains essential files of GreyMatter code (required for upgrade)</li>
+					    <li><b>lang</b> contains the language files of GreyMatter multi-language support (required for upgrade)</li>
+					</ul>
+				    </li>
+				    <li><b>emoticons</b> contains the emoticon images used by site</li>
+				    <li><b>gm-changelog.html</b> the changes per release that have occurred</li>
+				</ul>
+				<!-- End Files Included In GreyMatter Package -->
+				<!-- Upgrade Instructions -->
+			    <p class=entryheader align=justify>
+				<font color=#000000><b>Upgrading From a Previous Version of GreyMatter</b></font>
+			    </p>
+			    <p>Users of a previous version of GreyMatter should:
+				<ol type=number align=justify>
+				    <li> Download the 1.8.2 zip/tar file from <b>
+					    <a class=hoverlink onMouseOver="window.status='Download GreyMatter';return true" onMouseOut="window.status='';return true" href="http://greymatterforum.proboards.com/">
+						the forums</a> and look for the download page</b>.</li>
+				    <li> Open the archive locally, change the path to perl if needed.</li>
+				    <li><b>Backup your existing GreyMatter installation!</b> This means making a copy of your archive directory
+					(or whatever you have named your archive directory) and the cgi-bin directory (or wherever
+					you keep the gm.cgi and other gm files).</li>
+				    <li> Upload the following files to your server:
+					<ul><li>gm-comments.cgi</li>
+					    <li>gm-karma.cgi</li>
+					    <li>gm-upload.cgi</li>
+					    <li>gm.cgi</li>
+					    <li>gm-library.cgi</li>
+					    <li> and the 'libs' directory (including all files within)</li>
+					    <li> and the 'lang' directory (including all files within)</li>
+					</ul>
+					These files are the core of GreyMatter. </li>
+				    <li> Confirm that gm-comments.cgi, gm-karma.cgi, gm-upload.cgi are
+					<a href="http://www.google.com/search?hl=en&amp;ie=UTF-8&amp;oe=UTF-8&amp;q=chmod" target="_blank">CHMOD</a>'ed 755,
+					and gm-library.cgi, and all files in the 'libs' and 'lang' directory are
+					<a href="http://www.google.com/search?hl=en&amp;ie=UTF-8&amp;oe=UTF-8&amp;q=chmod" target="_blank">CHMOD</a>'ed 644.
+					However, the libs and lang should be
+					<a href="http://www.google.com/search?hl=en&amp;ie=UTF-8&amp;oe=UTF-8&amp;q=chmod" target="_blank">CHMOD</a>'ed 777</li>
+				    <li>Log in.
+					When you log in for the first time after upgrading, the upgrade routine will detect
+					the old version based on your gm-config.cgi file, and update it to 1.8.2. If you've customized
+					your version string you may see an error message. You will have to manually the value of the line
+					in gm-config.cgi "gmversionsetup=1.8.2" to the version you modified it from. </li>
+				    <li> We recommend that you check your config and templates immediatly after
+					upgrading as there are a few new features.  This includes the ability to
+					protect all the author's names from being used in a post on the site (to
+					avoid impersonation issues).  This feature and other are turned off by default
+					so that you do not have to worry about your site behaving differently.  Also,
+					the new templates should allow you to show errors and messages (such as when a
+					banned user tries to post a comment) in the style of the rest of your website. </li>
+				    <li> Rebuild everything and then visit your site. </li>
+				    <li> You may also want to upload (or at least keep for reference) gm_manual.html,
+					gm_cookbook.html, and for people interested in modifying code in GM, gm_dev_guide.html.
+				</ol>
+				<!-- End Upgrade Instructions -->
+				<!-- section -->
+			    <p class=entryheader align=justify>
+				<font color=#000000><b>Installing GreyMatter</b></font>
+			    </p>
+			    <p align=justify>
+				There are two sets of directions for installing GreyMatter.  The Detailed Install was written by
+				Melanie Cook at <a href="http://www.wiccked.com/gmfd/">www.wiccked.com/gmfd/</a>
+				(originally titled "Greymatter Installation For Dummies") to be a step-by-step guide to
+				installing GreyMatter.  The Quick Installation Guide is the same
+				steps but without as much detail or explanation.  If at any point you find you need more detail/explanation, please
+				skip below to the Detailed guide.</p>
+			    <!-- end section -->
+			    <!-- Before You Start -->
+			    <p class=entryheader align=justify>
+				<font color=#000000><b>Quick Installation Guide: Before You Start</b></font>
+			    </p>
+			    <p>During the process of installing GreyMatter, you will need to know some things
+				about your account on your Web server and how you want your site to work.  It
+				would be helpful if you wrote them down or had them stored electronically, so
+				you could have them as a reference.  Yes, it's time to take some notes.</p>
+			    <ol>
+				<li>Where is Perl?
+				    <br>The location of Perl is vitally important to running GreyMatter.  Your Web
+				    host can tell you where Perl is located, or you can find out for yourself if
+				    you have access via telnet or SSH to your server.  If you have such access,
+				    type 'whereis perl' at the prompt, and make note of that location.  It will
+				    be something like '/usr/bin/perl', '/usr/local/bin/perl', or '/usr/bin/perl5'
+				    on a Unix server.  On a Windows server, it may be 'C:/perl/bin/perl.exe'.
+				    <br>Once you know the location of Perl, make a note of it, and go on to the next step.
+				</li>
+				<li>What will your site structure be?
+				    <br>It seems silly to think about this so early, but setting the site structure
+				    is like building the foundation for a house.  That's why we'll lay a good foundation now.
+				    <br>First, it will be important to know how you want your log to appear.  Some
+				    people like to have their GreyMatter-powered log appear on the main page of their
+				    site; when that is the case, bringing up http://www.mysite.com/ will show the log.
+				    Others like to have their log in another place, in what is called a subdirectory.
+				    In that case, it's usually something like http://www.mysite.com/log/, where /log/
+				    is the location of the log.
+				    <br>So, take some time to think about it.  GreyMatter needs to know two things
+				    to properly present your log: where your main page for your log will be, and
+				    where you want your archives to be.  If you wanted your main log to be at
+				    http://www.mysite.com/weblog/, and the archives folder for that to be called
+				    "blatherings", your archives will be stored at http://www.mysite.com/weblog/blatherings/.
+				</li>
+				<li>Where are your CGI files kept on the server?
+				    <br>When you upload and install GreyMatter, it will take a good stab how
+				    your Web server is set up.  It will always find the directory where CGI files
+				    should be kept, assuming that you upload it to the right place.
+				    <br>To make sure you do it right, start your FTP program and just look at your
+				    account's main folder.  What is that folder called?  [Write that down; if you
+				    can't see, try to go "up" a folder and see if you can see that.]  Do you see a
+				    folder named /cgi-bin/?  If so, find that, and make a note of where it is in
+				    relation to the main folder of your site.  That will help you later on in the
+				    installation process.
+				</li>
+			    </ol>
+			    <p>Once you've made these notes, you're ready to roll.</p>
+			    <!-- End Before You Start -->
+			    <!-- First Time Installation -->
+			    <p class=entryheader align=justify>
+				<font color=#000000><b>Installing For The First Time</b></font>
+			    </p>
+			    <ol type=number align=justify>
+				<li>Make sure you meet all the requirements, as specified above.</li>
+				<li>Separately, open the files "gm.cgi", "gm-karma.cgi","gm-comments.cgi",
+				    and "gm-upload.cgi", and look at the very first line, which should say "#!/usr/bin/perl".
+				    Make sure that the Perl pointer here is correct; refer to your notes that you made.
+				    If, for example, your Perl directory is '/usr/local/bin/perl', change the first line
+				    in each of the four files to reflect that.  <b>You must maintain the #! [the shebang,
+					if you're wondering what to call it] before the directory, or it just won't work.
+					<i>This is the only time you'll ever need to touch the GreyMatter program code.</i></b></li>
+				<li>Refer to your notes above about site structure.  If you want your main index
+				    file to be named something other than "index.htm", then rename the included index.htm
+				    file accordingly. For clarity's sake, we'll assume "index.htm" with the rest of the instructions.</li>
+				<li>Open your FTP program. Important note: All files except "gm-icon.gif" <b>must be
+					uploaded in ASCII mode</b>; check your FTP program to find out how to make sure that
+				    all CGI files are uploaded as ASCII and not binary files.</li>
+				<li>Upload <b>all</b> the GreyMatter CGI files (they all begin with "gm" and end with ".cgi")
+				    to the CGI files directory you found above in your notes.  All these files must be in the
+				    same directory on your account.<br/>
+				    Note that the libs directory and its files should also be uploaded to the cgi directory.</li>
+				<li><a href="http://www.google.com/search?hl=en&amp;ie=UTF-8&amp;oe=UTF-8&amp;q=chmod" target="_blank">CHMOD</a>
+				    the files "gm.cgi", "gm-karma.cgi", "gm-comments.cgi"and "gm-upload.cgi" to 755,
+				    <a href="http://www.google.com/search?hl=en&amp;ie=UTF-8&amp;oe=UTF-8&amp;q=chmod" target="_blank">CHMOD</a>
+				    all the other .cgi files to 666 (except gm-library.cgi. <b>DO NOT</b> change the permissions on
+				    gm-library.cgi), and and all files in the 'libs' directory (Gm_Storage.pm, etc.) to 644 (same as gm-library.cgi).
+				    However, the libs and lang should be
+				    <a href="http://www.google.com/search?hl=en&amp;ie=UTF-8&amp;oe=UTF-8&amp;q=chmod" target="_blank">CHMOD</a>'ed 777</li>
+				<li>Upload index.html (or whatever you've renamed it to) and gm-icon.gif to the place where you want your log to be.  Refer to your notes above for that process.</li>
+				<li><a href="http://www.google.com/search?hl=en&amp;ie=UTF-8&amp;oe=UTF-8&amp;q=chmod" target="_blank">CHMOD</a> the index.html file (or whatever you've renamed it to) to 666.</li>
+				<li>Create the directory where all your log entries and archives will be stored.  Refer to your notes above when creating this directory.  By default, GreyMatter will assume you name this directory "archives", but you can name it whatever you wish.</li>
+				<li><a href="http://www.google.com/search?hl=en&amp;ie=UTF-8&amp;oe=UTF-8&amp;q=chmod" target="_blank">CHMOD</a> your entries/archives directory to 777.</li>
+				<li>Open your Web browser and run gm.cgi on your site (for example, if you run www.mysite.com and you uploaded the GreyMatter files to the /cgi-bin/ subdirectory, then you'd type http://www.mysite.com/cgi-bin/gm.cgi in your browser).  If all of the above went okay, then you should now see the GreyMatter logon prompt.  (If you're getting a 500 Server Error or having other problems attempting to run gm.cgi, go back and make sure that everything is uploaded and <a href="http://www.google.com/search?hl=en&amp;ie=UTF-8&amp;oe=UTF-8&amp;q=chmod" target="_blank">CHMOD</a>ed correctly; read the "Troubleshooting" section in the manual for more information.)</li>
+				<li>Log on with the author name "Alice", and the password "wonderland".</li>
+			    </ol>
+			    <!-- End First Time Installation -->
+			    <!-- Configuring Your Paths -->
+			    <p class=entryheader align=justify>
+				<font color=#000000><b>Configuring Your Paths</b></font>
+			    </p>
+			    <p>Welcome to GreyMatter!  The next step is to configure your paths.  Refer to your notes above on your site structure.
+			    <p>We'll use the following example site structure to explain the paths setup; this is where a sizable group of new GreyMatter users have gotten confused before, so we'll work with this example and use it to explain all six paths.</p>
+			    <p>Our example comes from the site structure of Geof Morris, one of the authors of this set of installation instructions.  [Though it's about to be re-designed, it will still be clear for you.]</p>
+			    <p>Geof's site is http://www.ijsm.org/, and he hosts a log on the front page.  His entries and archives folder is /journal/, so it's found at http://www.ijsm.org/journal/.  His server requires CGI files to be in the /cgi-bin/ directory, so his GreyMatter installation is found at http://www.ijsm.org/cgi-bin/gm.cgi .</p>
+			    <p>Now, the first time you look at your paths, they'll be wrong.  That's okay!  For an example, here's what Geof saw the first time he installed GreyMatter:</p>
+			    <div class="example">Local Log: /home/ijsm/public_html/cgi-bin
+				<br>Local Entries/Archives: /home/ijsm/public_html/cgi-bin/archives/
+				<br>Local CGI: /home/ijsm/public_html/cgi-bin
+				<br />Website Log: http://www.ijsm.org/cgi-bin
+				<br>Website Entries/Archives: http://www.ijsm.org/cgi-bin/archives/
+				<br>Website CGI: http://www.ijsm.org/cgi-bin
+			    </div>
+			    <p>This wasn't what Geof wanted, so he had to start changing things.</p>
+			    <p>First off, he wanted http://www.ijsm.org/ to be where his log appeared.  So, he changed the Log paths to:</p>
+			    <div class="example">Local Log: /home/ijsm/public_html
+				<br>Website Log: http://www.ijsm.org/</div>
+			    <p>Next, he'd created /journal/ in the main directory of his site, and that's where he wanted his archives and entries to be.  So the Entries/Archives paths were going to have to change.  Here's what they became:</p>
+			    <div class="example">Local Entries/Archives: /home/ijsm/public_html/journal/
+				<br>Website Entries/Archives: http://www.ijsm.org/journal/</div>
+			    <p>What about the CGI files?  Well, that's what GreyMatter gets correct every time.  There's no need to change the two CGI paths, unless you want GreyMatter in a subdirectory of your /cgi-bin/ directory.</p>
+			    <p><b>NOTE:</b> <b><u>DO NOT</u></b> put your archives directory inside your cgi-bin.
+				<!-- End Configuring Your Paths -->
+				<!-- Diagnostics and Repair, Author Configuration -->
+			    <p class=entryheader align=justify>
+				<font color=#000000><b>Diagnostics and Repair, Author Configuration</b></font>
+			    </p>
+			    <p>Return to Configuration and click "Diagnostics &amp; Repair".  This routine checks to see that all your files and paths are working correctly.  If you aren't able to run it successfully, your paths are probably incorrect; check the Troubleshooting section of the manual.  Once you've run it successfully, you'll be able to post your first entry.</p>
+			    <p>Click "Edit Authors", create a new account for yourself with the name and password you'd like to use, and delete Alice. (You <i>could</i> keep Alice around, but for obvious security reasons, it's not recommended.) Since you're still logged on as Alice, you'll need to re-enter under the new name and password.</p>
+			    <!-- End Diagnostics and Repair, Author Configuration -->
+			    <!-- Diagnostics and Repair, Author Configuration -->
+			    <p class=entryheader align=justify>
+				<font color=#000000><b>Last Steps</b></font>
+			    </p>
+			    <p align=justify>All done! You should now be able to post entries and get
+				your Weblog, journal, or photolog going. (It's a good idea to set up a private
+				test log first, and try creating and editing a few test entries, simply so you
+				can get the hang of GreyMatter before doing it "for real".)
+			    </p>
+			    <p align=justify>GreyMatter uses an extensive template system to allow you total
+				control over every aspect of your Weblog and all the pages &amp; elements it'll
+				comprise. The default templates included with GreyMatter are quite plain-jane,
+				but they should be enough to provide a starting point and, hopefully, to give you
+				a basic idea of GreyMatter's template &amp; variable usage.  Change the templates
+				as much as you like (and just reupload the gm-templates.cgi file if you mess things
+				up too much and want to start over) to suit your own design and style; refer to the
+				GreyMatter manual (included as gm_manual.html) for full information about all the template variables. </p>
+			    <p align=justify>And that's that!  Hopefully by now you're up and running in some
+				form--after you add your first entry, open another window in your browser and load
+				up your log's intended location. You can alter your templates anytime to change any
+				aspect of your log's design and layout (be sure to "Rebuild Files" after changing
+				the templates for GreyMatter to automatically update your site accordingly).
+				Enjoy doing your log, and thanks for using GreyMatter.
+			    </p>
+			    <!-- section -->
+			    <div class="detailed">
+				<p class=entryheader align=justify>
+				    <font color=#000000><b>Detail Installation Guide: Before You Start</b></font>
+				</p>
+				<p align=justify>
+				    By Melanie Cook<br />
+				    I've decided to write this, not to replace the GM Manual, which I find to be extremely useful, but to be used as an adjunct to the GM Manual for those who find installation a bit of a challenge.<br />
+				    Much of the information contained here is also in the GM Installation Instructions, which we are also going to use, in performing this installation.  This is intended to be used <b>with</b> the guide, not <b>instead</b> of it!<br />
+				    My work has led me to teach myself to write keystroke by keystroke help for various tasks.
+				    <br />
+				    This is simply my effort to assist people with the installation of greymatter, hopefully answering such questions as <span class="question">What are my paths?</span>, and <span class="question">where is Perl, and do I need to know what it is?</span>.
+				<p>
+				    I am also going to assume, in writing this, that you know you have access to a cgi-bin on your server.  It doesn't matter if you don't know what it is, just that you have one.  You also have to be able to upload and run your own cgi scripts.  This also only covers installing greymatter on UNIX based servers.
+				    <br />
+				    The <span class="help" title="File Transfer Protocol">FTP</span> software I personally use is <A HREF="http://www.ipswitch.com/Products/file-transfer.html">WS_FTP</A>.  They have a light version available for free.  There are lots of other FTP software packages out there.  Which you choose is up to you.  Any examples I'll give here though, will be from WS_FTP Pro, so any variations from that you'll have to work out for yourself.</p>
+				<p>
+				    I'm also assuming you've already downloaded greymatter.  If not you can go <A HREF="http://greymatterforum.proboards.com/">here</A> to get the latest version.</p>
+				<p>
+				    Right.   With all of that done, we're about ready to start.
+				    <br />
+				    You may have already noticed some of the formatting I'll be using in this tutorial.  I'll explain them below.</p>
+				<p>
+				    <A HREF="index.php">Links</A>  Links will be underlined.<br />
+				    <span class="question">Questions</span>  Questions, where I'm asking you to determine something, will have a grey background.<br />
+				    <span class="help" title="Pop-up Explanation">Help</span>  Help spots, where you can hold your mouse over the highlighted bordered text will provide popup information or explanations.<br />
+				    <span class="code">Code</span>.  Where I am telling you to type something into somewhere, I'll use this bordered, green text.<br />
+				    <span class="grey">Greymatter boxes</span>.  When I want you to see what's in a Greymatter box already, or when I want to show you what's in my Greymatter box, I'll use the bordered mauve background.</p>
+				<p>
+				    We're ready to begin now, so we'll go to stage one.</p>
+				<!--printed page break here-->
+
+				<a name="one"></A><h3>Set up Greymatter Locally</h3><p>
+				    Setup is probably a little misleading here.  We're not actually going to "Setup" greymatter, rather we're going to duplicate your online setup.<br />
+				    If you haven't already done so, create a directory on your hard disk, for your weblog setup.  Then create a cgi-bin directory inside the directory you just created, and unzip your Greymatter files into that directory.  This is not a "working" cgi-bin.  You are not going to be able to run greymatter from here, but it makes sense to store your files in a logical order.</p>
+				<p>
+				    Now create, inside your weblog directory, an archives directory.  This is purely so that your <span class="help" title="the copy on your hard disk">local</span> and your <span class="help" title="the copy on your server">online</span> setup is the same.  This will simplify things later, and hopefully you'll get an understanding of how things work.</p>
+				<p>
+				    Now, I want you to find <span class="question">index.htm, manual.htm, gm-icon.gif and Install.html</span> which should be in the cgi-bin directory and move them out of there and  into the weblog directory.
+				    <br />
+				    You need to decide at this stage what extension you want your web pages to have.  Are they going to be <span class="question">.htm?  .html? .shtml? or .php?</span><br />
+				    Rename index.htm if you want it to be something other than that.  (This is actually step three of the Installation instructions, which we will print next.)</p>
+				<p>
+				    Locate and open the file Install.html, and print it.</p>
+				<p>
+				    Don't worry about what the Requirements say, other than that you must be comfortable with editing HTML.  I'll explain the rest to you as you need it.  That's the whole purpose of this tutorial.<br />
+				    We're also not going to worry about the next step, Upgrading From Version 1.0 or 1.1, since I'm assuming if you need help with your installation you're not upgrading, but installing from scratch.<br />
+				    So.  On to the next part.  Installing For The First Time.</p>
+				<p>
+				    The next thing you need to do is <span class="question">locate perl on your webserver.</span><br />
+				    When you signed up for your domain hosting your host may have sent you a welcome email which included things like "where is perl" or "what and where is my mail program".  You also need to know the path of your "home directory".  If you have that, fine.  If not, go to your domain hosts website, and look for their support or <span class="help" title="Frequently Asked Questions">FAQ</span> page, and try to find that information.<br />
+				    It may be on a page related to cgi-bin, or program locations.  If you can't find it, and there's a search facility, try searching for perl.  If that still doesn't help, send an email to your host asking for <span class="code">"the path to perl and the path to the mail program, and your home directory."</span>.<br />
+				    These will commonly be /usr/bin/perl and /usr/bin/sendmail.</p>
+				<p>
+				    If perl on your server is in a different location, for example /usr/local/bin/perl you will need to edit the "gm.cgi", "gm-karma.cgi", "gm-comments.cgi" and "gm-upload.cgi".<br />
+				    The first line of these files should say "#!/usr/bin/perl".  We need to change that to show where perl is on your server, so it says #!/usr/local/bin/perl for example, if that's what your perl path is.  You can't use a normal windows editor for this.  I use <A HREF="http://www.editpadpro.com/editpadlite.html">EditPad Lite</A> which is free for non-commercial use.  I used this before I got editpad - <A HREF="http://www.winvi.de/en/">WinVi32</A>, which is available free.  It's a single executable file. <br />
+				    Make the changes to all four files, and save them.</p>
+				<!--there's another page break for printing in here-->
+				<p>
+				    <H3><A NAME="two">Upload Greymatter</A></H3>
+				    Open your FTP program.  If this program uses profiles select the one for your webhost.  If not, use your own method of configuring it to connect to your webhost.<br />
+				    There are two ways files can be uploaded using this type of software.  ASCII or Binary.  Your CGI files <b>must</b> be uploaded as ASCII files, or they won't work.<br />
+				    Upload <b>all</b> files ending in <b>.cgi</b> in <b>ASCII</b> format to your webservers
+				    cgi-bin directory.  Also upload the 'libs' directory and all files within to the
+				    your cgi directory.  In WS_FTP this is simply a matter of checking the radio button directly
+				    beneath the local and remote windows.<br />
+				    In WS_FTP Pro you are able to click the Options button, and then, on the extensions tab, select the file types you want to automatically upload as ASCII.  I have mine set to do .cgi .pl .pm and .txt as ASCII.  Everything else will, when you use the auto option, be uploaded as Binary.
+				<p><b>NOTE</b>  Many people have issues with windows line endings (windows OS uses a different line ending character than other OS's).  See the gm_manual file for more information.
+				<p>
+				    Now you need to <span class="help" title="a unix command to set the permissions on the file">CHMOD</span>
+				    "gm.cgi", "gm-karma.cgi", "gm-comments.cgi", "gm-upload.cgi" and all files withen the 'libs' directory
+				    (located withen the CGI directory) to 755.  If your FTP program has a graphical interface for this, 755 means "rwx r-x r-x".  (In WS_FTP right click the file, and then down towards the bottom of the popup menu you'll see chmod (UNIX)) CHMOD all of the other cgi files to 666, which means "-rw -rw -rw".</p>
+				<p>
+				    Upload the files from your local weblog directory, in Binary format, into your online weblog directory.<br />
+				    Now you need to CHMOD your index file to 666.<br />
+				    Make a directory online for your archives, with the same name as the one you made locally.  CHMOD this to 777.  (That's "rwx rwx rwx")  (In WS_FTP you have a MkDir button which will enable you to create a directory on your webserver.)  There is an image showing the directory levels <A HREF="javascript:void(0)" onClick="window.open('paths.php', 'Pop', 'width=700,height=480,toolbar=yes,resizable=yes,scrollbars=yes,screenX=200,screenY=100,left=200,top=50')">here</A>.</p>
+				<p>
+				    Now you're ready to login to Greymatter for the first time.  In your web browser, go to the gm.cgi file you uploaded to your cgi-bin.  Usually that would be at "http://www.yourdomain.com/cgi-bin/gm.cgi".<br />
+				    If everything did as it was supposed to, you'll be seeing the purple gm login screen.<br />
+				    If you're getting a 500 Server Error, or having other problems, upload your files again, making sure you use ASCII format.  CHMOD them again, to make sure they're all  CHMODed right.  (It's quite simple to do them back to front and get the 4 that are meant to be 755 at 666 and the ones that should be at 666 at 755.  I know.. I've done it myself!)<br />
+				    If it's still not working, go back and check the perl path.  It <b>must</b> be correct in those four files, or gm.cgi isn't going to be able to find perl, and therefore won't run.<br />
+				    Still no luck, and I'd be checking with my host that my cgi-bin was properly configured.  I've heard of hosts who, even though there is a cgi-bin in your directory don't actually configure it to allow files to run until you ask them to.  Find out if there are any restrictions on running your own scripts.<br />
+				    Failing that, you've got me stumped.  If all of that is set correctly I can think of no reason why greymatter wouldn't be working so far.<br />
+				    There are online Greymatter <A HREF="http://greymatterforum.proboards82.com">Forums</A> where you can go to ask for help.</p>
+				<p>
+				    We're continuing now, from the login screen.  The default login is Alice, and the password is wonderland.</p>
+				<p>
+				    You're in!  You at least got it installed!  Congratulations!</p>
+				<!--there's another page break for printing in here-->
+				<a name="three"><h3>Configuring Greymatter</h3></a>
+				Now you have to configure it.  This means we're going to tell it how and where you want everything.  <br />
+				Greymatter assumes that all files for your weblog or journal are going to be in the same directory.  We're not going to do that.  We're going to have our cgi files in the cgi-bin, and the log and entry files in their own directories.  This is why the assumptions greymatter makes below don't suit this installation.  To do this click on the Configuration button on the welcome screen.
+				<br />
+				For the purposes of this tutorial you need to know that on my server
+				<ul><li>My perl path is /usr/bin/perl, so I didn't have to edit my cgi files.</li>
+				    <li>My mail path is /usr/sbin/sendmail.</li>
+				    <li>My domain is called wiccked.  </li>
+				    <li>My home directory is /home/wiccked/public_html.</li></ul>
+				<p>
+				    Greymatter tells me my
+				    <ul>
+					<li>Local Log Path is: <span class="grey">/home/theonion/public_html/wiccked/cgi-bin</span></li>
+					<li>Local Entries/Archives path is: <span class="grey">/home/theonion/public_html/wiccked/cgi-bin/archives</span></li>
+					<li>Local CGI Path is: <span class="grey">/home/theonion/public_html/wiccked/cgi-bin</span></li>
+					<li>Website Log Path is: <span class="grey">http://wiccked.com/cgi-bin</span></li>
+					<li>Website Entries path is: <span class="grey">http://wiccked.com/cgi-bin/archives</span></li>
+					<li>Website CGI Path is: <span class="grey">http://wiccked.com/cgi-bin</span></li>
+				    </ul>
+				    Now, I know, that these are not all correct.  I'll copy the correct ones below, and tell you beside them why what greymatter assumed is wrong.
+				    <ul>
+					<li>Local Log Path is: <span class="code">/home/wiccked/public_html</span> - greymatter had assumed the main index page was going to be in the same directory as the cgi-bin.</li>
+					<li>Local Entries/Archives path is: <span class="code">/home/theonion/public_html/wiccked/archives</span> - again, gm had assumed the archives directory was to be in the cgi-bin.</li>
+					<li>Local CGI Path is: <span class="grey">/home/theonion/public_html/wiccked/cgi-bin</span> - This one gm usually gets right.</li>
+					<li>Website Log Path is: <span class="code">http://wiccked.com</span> - As in the local log path, gm assumes the main index page is going to be in the cgi-bin.</li>
+					<li>Website Entries path is: <span class="code">http://wiccked.com/archives</span> - The same again.  The archives aren't in the cgi-bin.</li>
+					<li>Website CGI Path is: <span class="grey">http://wiccked.com/cgi-bin</span> - And it got this one right too.</li>
+				    </ul>
+				    I'm not sure why greymatter assumes that the logs and archives are going to be inside the cgi-bin, since most webhosts wouldn't like that at all.  But it does, so we fix it.  But this seems to be one of the part of configuring greymatter that people find most confusing.<br />
+				    But you've got this far.  The hard bit is almost done.
+
+				    <!--there's another page break for printing in here-->
+
+				    <a name="four"><h3>File Names and Archives</h3></a>
+				    Greymatter wants to know now
+				    <ul>
+					<li>Index filename:<br />
+					    <span class="small">The filename of your log/journal's main index. If you enable "Keep archive master index", Greymatter will create that file in the archives directory with the same filename.</span><br />
+					    <span class="code">index.php or whatever you decided to call it. (make sure it's the same as the file you uploaded!)</span></li>
+					<li>.suffix to entry files: <br />
+					    <span class="small">If you have "Generate pages for individual entries" enabled, this is the suffix those pages will have. </span><br />
+					    <span class="code">.php (or whatever you decided to use)</span></li>
+					<li>.suffix to log archives: <br />
+					    <span class="small">If you have "Keep monthly/weekly log archives" enabled, this is the suffix those log archive files will have. </span> <br />
+					    <span class="code">.php (again, the extension you decided to use.)</span></li>
+					<li>Days to keep on main index: <br />
+					    <span class="small">The number of days' worth of entries Greymatter will list on your main index before scrolling them off. </span><br />
+					    When you start setting up your templates, you'll probably include either an extract or complete entries, for however many days you set this to.  Mine is set to 7  <span class="code">&nbsp;&nbsp;&nbsp;7&nbsp;&nbsp;&nbsp;</span></li>
+					<li>Generate pages for individual entries? <br />
+					    <span class="small">Specifies whether you want individual entries to have their own pages. <b>Comments are disabled if this is turned off. </b> </span><br />
+					    <span class="code">Radio button selection of "Yes" or "No "</span></li>
+					<li>Keep archive master index? <span class="small">If enabled, Greymatter will keep an index (with the same filename as above) in your entries/archives directory, intended to be an overview of all your archives.</span><br />
+					    <span class="code">Radio button selection of "Yes" or "No "  (An example of what you get for Yes is <a href="http://theonion.wiccked.com/journal/archives/index.shtml">here</a>)</span></li>
+					<li>Keep monthly/weekly log archives?<br />
+					    <span class="small">If enabled, Greymatter will keep archive files of your log in monthly or weekly instalments in your entries/archives directory. </span><br />
+					    <span class="code">Radio button selection of "Yes" or "No "  (An example of what you get for yes is <a href="http://theonion.wiccked.com/journal/archives/archive-122001.shtml">here</a>)</span></li>
+					<li>Keep main index and archive log indexes concurrent with each other?<br />
+					    <span class="small">If enabled, both new and archived entries will be listed in the monthly/weekly archives; if disabled, Greymatter won't list entries there until they've scrolled off the main index. For simplicity's sake, it's a good idea leave this on.</span><br />
+					    <span class="code">Radio button selection of "Yes" or "No "</span></li>
+					<li>Archive by month or week?<br />
+					    <span class="small">If "Keep monthly/weekly log archives" is enabled, this specifies whether the log archives will be generated by the month or by the week.</span><br /> 
+					    <span class="code">Radio button selection of "Monthly" or "Weekly"</span></li></ul>
+
+				    <!--there's another page break for printing in here-->
+
+				    <a name="five"><h3>E-Mail, Karma Voting, and Comments</h3></a>
+				    <ul>
+					<li class="topic">E-Mail Options<br />
+					    <span class="small">Options relating to e-mail setup and notification. If you don't plan to have Greymatter send you e-mails, you can safely ignore the "E-Mail Program Location" and "E-Mail(s) to send notices to" fields.</span></li>
+					<li>E-Mail Program Location:<br />
+					    <span class="small">The pointer to the mail program (usually Sendmail) on your account.</span><br />
+					    <span class="code">/usr/sbin/sendmail (or whatever is appropriate to your own server!)</span></li>
+					<li>E-Mail(s) to send notices to:<br />
+					    <span class="small">The e-mail addresses you want all notifications (if any) to be sent to. Separate multiple e-mail addresses with semicolons.  </span><br />
+					    <span class="code"> youremailaddress@yourdomain.com</span></li>
+					<li>Send e-mail notifications for:<br />
+					    <span class="small">Indicates whether you want Greymatter to send e-mails notifying you of new karma votes, new comment postings, both karma and comments, or to disable e-mail notification altogether.</span><br />
+					    <span class="code"> Radio Button selection of "New karma votes" "New comments" "Both" "Neither"</span></li><br /><br />
+					<li class="topic">Karma &amp; Comments Options<br />
+					    <span class="small">Options relating to karma voting and comment posting. Obviously, certain options can be ignored if you have their respective functions disabled (for example, if you disable comments or have "Generate pages for individual entries" turned off, none of the options relating to comments will have any effect). </span></li>
+					<li>Allow karma voting and/or comment posting?<br />
+					    <span class="small">Specifies whether you want to permit voting on karma, posting comments, both, or neither, on your site. You can leave them enabled and still turn karma or comments on or off for individual entries; to disable either or both will override that for ALL entries.</span><br />
+					    <span class="code">Radio Button selection of "Karma only" "Comments only" "Both" "Neither"</span>
+					</li>
+					<li>Order of comments on entry pages:<br />
+					    <span class="small">The order in which you want comments displayed. If "ascending", they'll be listed from newest to oldest, with the newest comment at the top; if "descending", from first to last, with the first comment at the top.</span><br />
+					    <span class="code">Radio Button selection of "Ascending" "Descending"</span></li>
+					<li>Can post comments and vote on karma in archives?<br />
+					    <span class="small">If enabled, visitors can cast karma votes or post comments (if applicable) on entries no longer listed on the main index. Enabling this may slow down your site over time.</span><br />
+					    If you answer Yes to this question people will NOT be able to cast karma votes or post comments once an entry has gone from your main index page.  If you have only one entry on your main index page that is all that will allow comments to be posted!<br />
+					    <span class="code">Radio Button selection of "Yes" "No"</span></li>
+					<li>Karma voting on by default?<br />
+					    <span class="small">Specifies whether "Allow karma voting on this entry" is preselected to "Yes" or "No" by default on the "Add a new entry" screen.</span><br />
+					    <span class="code">Radio Button selection of "Yes" "No"</span></li>
+					<li>Comment posting on by default?<br />
+					    <span class="small">Specifies whether "Allow comments to be posted to this entry" is preselected to "Yes" or "No" by default on the "Add a new entry" screen.</span><br />
+					    <span class="code">Radio Button selection of "Yes" "No"</span></li>
+
+					<!--there's another page break for printing in here-->
+
+					<li><a name="six">HTML allowed in comments?</a><br>
+					    <span class="small">Indicates whether you want to allow visitors to include HTML codes in their comments, or to have Greymatter strip them out. You can also specify whether only the codes for links, bold and italics can be included, or just the codes for links.</span><br />
+					    <span class="code">Radio button selection of "All HTML allowed" "No HTML allowed" "Linking, Bold &amp; Italic code only" "Linking code only"</span></li>
+					<li>Auto-link URLs in comments?<br />
+					    <span class="small">If enabled, Greymatter will automatically link to any website or e-mail addresses that users post in their comments <i>(unless you've enabled linking above and they've already linked the website/e-mail address themselves).</i></span><br />
+					    <span class="code">Radio Button selection of "Yes" "No"</span></li>
+					<li>Strip new lines from comments?<br />
+					    <span class="small">If enabled, all line and paragraph breaks are stripped when displaying visitors' comments, turning them into unbroken blocks of text; if disabled, Greymatter preserves the visitors' original formatting.</span><br />
+					    <span class="code">Radio Button selection of "Yes" "No"</span></li>
+					<li>Allow multiple karma votes from same IP?<br />
+					    <span class="small">If enabled, the same visitor could cast multiple karma votes on the same entry; if disabled, only one vote per visitor is allowed.</span><br />
+					    <span class="code">Radio Button selection of "Yes" "No"</span></li>
+					<li>Mention it in the control panel log when comments and karma votes are added?<br />
+					    <span class="small">Enable this if you want Greymatter to mention all new comments and karma votes in the control panel log.</span><br />
+					    <span class="code">Radio Button selection of "Yes" "No"</span></li>
+					<br /><br />
+					<li class="topic">Date &amp; Time Options<br />
+					    <span class="small">Miscellaneous options regarding to dates &amp; times. Use the wide variety date and time variables in your templates to fine-tune how you want the date and time to appear on your site.</span></li>
+					<li>Server Offset Time:<br />
+					    <span class="small">As of this moment, Greymatter reads your time as 6:13 AM. If this is incorrect, specify the number of hours to add or subtract from this time (to subtract, make it a negative number, with a minus in front of it).<br />
+						If you know where your server is located, you need to take the <b>day</b> into account too.  If Greymatter is telling you the server time is 6:13 AM, and you know that because of your geographical location and that of your server that this is on a different day your time difference needs to reflect this.  My time is 9:13 PM, so I need to set the time offset as +15, since there are 15 hours difference between my server time, and my local time.  This can be quite complicated to work out, and it may take a couple ot tries to ensure you end up with the correct time and date on your entries.  Test entries are good to use for this.<br />
+						<span class="code"> 15  </span></span></li>
+					<li>Your Time Zone:<br />
+					    <span class="small">The time zone you live in. This is what will appear wherever you use the {{timezone}} variable in your templates.</span><br />
+					    (Enter your own time zone.  Remember to allow for daylight savings here.  If your server changes time for daylight savings this may need to be reset at the start and end of daylight savings time.)<br />
+					    <span class="code">AEST</span></li>
+					<br /><br />
+					<!--there's another page break for printing in here-->
+					<li class="topic"><a name="seven">File Uploading Options<br /></a>
+					    <span class="small">Options relating to uploading files from within Greymatter.</span></li> 
+					<li>Allowed File Types:<br />
+					    <span class="small">If you only wish to allow certain types of files to be uploaded, enter their file suffixes here. Separate allowed file types by semicolons (for example, "jpg;gif;zip"). Leave this blank to allow any type of file to be uploaded.</span><br />
+					    <span class="code">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span></li>
+					<li>Maximum Filesize Allowed:<br />
+					    <span class="small">If you don't wish to allow files larger than a certain size to be uploaded, specify that limit here (in KB/kilobytes). Leave this on "0" to allow files of any size to be uploaded.</span><br />
+					    <span class="code">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span></li>&nbsp; KB <br /><br />
+					<li class="topic">Censoring Options<br />
+					    <span class="small">Words or phrases you want to censor on your site (if any), and where to censor them.<br />
+						Censored terms will be turned into "*" asterisks. </span><br />
+					<li>Enable censoring?<br />
+					    <span class="small">Specifies whether you want any words or phrases in your censor list to appear censored for entries, comments, or both. Leave it on "Neither" to disable censorship.</span><br />
+					    <span class="code">Radio button selection of "Entries only" "Comments only" "Both" "Neither"</span></li>
+					<li>Censor List<br />
+					    <span class="small">Enter any words or phrases you want to censor, separated by lines (press return after each word/phrase). Use [brackets] around words/phrases to censor the term only if it's not part of another word/phrase; for example, censoring the word hell would render hell as **** and shell as s****, but censoring [hell] would only turn hell by itself into asterisks, and leave the word shell alone. </span><br />
+					    <span class="code">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span></li>
+					<br /><br />
+					<li class="topic">Connect Other Files (Advanced Users Only) * I will add further explanations to this at a later date.<br />
+					    <span class="small">If you wish, you can connect other files on your account to Greymatter, and have them treated as if they were one of Greymatter's regular index files; for example, using {{header}} or {{footer}} in another file to insert your Greymatter header or footer into that file. (You'll need to edit &amp; upload these files to your account outside Greymatter.) This is only recommended for advanced users that are already comfortable using Greymatter.</span></li>
+					<li>Filename List<br />
+					    <span class="small">To connect a file to Greymatter, CHMOD it to 666 making sure it contains whatever Greymatter variables you wish and enter its filename on the right;<br />place each filename on separate lines. If the file isn't in the same directory as gm.cgi, then use virtual paths relative to where it's running from. For example, if you want to connect "test.htm" and it's in the directory above gm.cgi, you'd use ../test.htm; or, if you run gm.cgi from /here/cgi-bin and test.htm was in /there/log, you'd use ../../there/log ("../" means to go up one directory). Greymatter will automatically create a "pattern" file in your entries directory for each filename, and whenever you reupload a changed file, Greymatter will automatically update its stored pattern for that file.</span><br />
+					    <span class="code">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span></li>
+					<li>Update them when adding entries?<br />
+					    <span class="small">If "Yes", then Greymatter will automatically update any of the connected files above when new entries are added; if not, they'll only be updated whenever you rebuild them (either specifically, or by rebuilding everything).</span><br />
+					    <span class="code">Radio Button selection of "Yes" "No"</span></li>
+					<br /><br />
+					<!--there's another page break for printing in here-->
+					<a name="eight"><li class="topic">Miscellaneous Options</li></a>
+					<li>Enable cookies?<br />
+					    <span class="small">By default, Greymatter keeps a cookie on your browser that remembers your name and password, so you don't have to type them in each time you log on. To disable and delete Greymatter's cookies, select "No" and check the checkbox.</span><br />
+					    If you use a shared computer, and do not want others to have access to Greymatter you should set this to No, and tick the box.<br />
+					    <span class="code">Radio Button selection of "Yes" "No", and "Delete cookies set by Greymatter?" tickbox.</span></li>
+					<li>Keep control panel log?<br />
+					    <span class="small">Specifies whether you want Greymatter to keep its internal log of all activity; disable this if you want to shut it off.</span><br />
+					    <span class="code">Radio Button selection of "Yes" "No"</span></li>
+					<li>Allow "easy formatting"?<br />
+					    <span class="small">With "easy formatting", bold text, italics &amp; underlining can be done easily by bracketing text with two **asterisks**, \\backslashes\\ or __underlines__ respectively. You can specify whether this is enabled in entries, comments, or both; if disabled, the characters won't be converted.</span><br />
+					    <span class="code">Radio Button selection of "Entries only" "Comments only" "Both" "Neither"</span></li>
+					<li>Default entry list view:<br />
+					    <span class="small">This specifies which view will be the default when you go to the Edit An Entry selection menu.</span><br />
+					    Under normal use Current entries is probably fine.  If you need to edit a lot of entries outside that range, temporarily change this option<br />
+					    <span class="code">Selection list choice of "Current entries (7 days)" "All entries by you" "All extended entries" "All open entries" "All closed entries" "All entries"</span></li>
+					<li>Order of list links:<br />
+					    <span class="small">The order in which you want links to be displayed in log list variables, check the manual for more information on those. If "ascending", the links will be listed from newest to oldest, with the newest entry at the top; if "descending", from first to last, with the first entry at the top.</span><br />
+					    <span class="code">Radio Button selection of "Ascending" "Descending"</span></li>
+					<li>Log entry list variable number:<br />
+					    <span class="small">The number of entries to link to, starting from the most recent, whenever the "number" variant of the log entrylist variables (for example, if this is set to 5, using {{logmoreentrylist number}} would generate a list of links to the five most recent extended entries). Check the manual for more information on those variables.</span><br />
+					    <span class="code">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span></li>
+					<li>Link to entries in {{logentrylist comments}} only if comments are active?<br />
+					    <span class="small">If you use {{logentrylist comments}} and its related variables (see the manual for more information), this specifies whether to list only entries to which comments can still be posted.</span><br />
+					    <span class="code">Radio Button selection of "Yes" "No"</span></li>
+					<li>Entries to link to in {{calendar}}:<br />
+					    <span class="small">Whenever you use {{calendar}} or {{calendarweek}} to generate tables linking to your entries, this specifies whether you want to link to the most recent entry for that day, or to link only to extended entries. (It won't generate links at all if "Generate pages for individual entries" is turned off.)</span><br />
+					    <span class="code">Radio Button selection of "Always link to entry for that calendar day" "Link only to extended entries"</span><br />
+					<li>"Automatically rebuild" selected by default?<br />
+					    <span class="small">Selects whether the option to automatically rebuild files after saving changes to templates or entries is prechecked by default. (Authors without access to rebuilding files won't see this option.)</span><br />
+					    <span class="code">Radio Button selection of "Yes" "No"</span></li>
+				    </ul>
+				    <!--there's another page break for printing in here-->
+				    <a name="nine">Now you've configured</a> Greymatter you need to run diagnostics &amp; repair to ensure that all of the paths and permissions are correct.  Click on the <span class="grey">Diagnostics &amp; Repair</span> button.<br />
+				    Once you click the next button, Greymatter will check that it is able to run correctly, and that it is able to write to the directories required to add your entries etc.  Click the <span class="grey">Peform Diagnostics &amp; Repair</span> button.
+				    Greymatter will hopefully report that <span class="grey">Diagnostics &amp; Repair Complete<br />
+					All operations were completed successfully. Greymatter successfully checked and/or performed the following: <br />
+					<ul><li>All config files are readable/writeable and are CHMODed correctly </li>
+					    <li>The local CGI path is correctly configured and all essential files are there </li>
+					    <li>The entries/archives path is readable/writeable and is CHMODed correctly </li>
+					    <li>The main index file is readable/writeable and is CHMODed correctly </li></ul></span>
+				    If any errors are reported, read them carefully.  They should provide you with enough information to correct them.  For example, if you are told that Greymatter can't write to <span class="grey">/home/theonion/public_html/wiccked/cgi-bin/archives/</span> you have probably got the local archives path set incorrectly.  Change it to leave "cgi-bin" out of the path, then re-run the diagnostics program.<br />
+				    If the path is correct but Greymatter is telling you it can't write to the directory CHMOD it again, ensuring permissions are set as laid out in the Upload Greymatter section of this tutorial.<br />
+				    Once all is correct you can <span class="grey">Return to Main Menu</span>
+				    Your Greymatter installation still only has Alice as the default author, so we select <span class="grey">Edit Authors</span> to add you, and to delete Alice.  Add yourself before you delete Alice.  Don't delete Alice until you've successfully logged in as yourself.<br />
+				    Fill in the "Register a New Author" box.<br />
+				    Enter the appropriate details into the <br />
+				    <span class="code">Name:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span> &nbsp; &nbsp; <span class="code">Password:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>&nbsp; &nbsp; <span class="code">Email:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span>&nbsp; &nbsp; <span class="code">Homepage:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span> boxes.<br />
+				    Set the "Default Author Access" for this Author.<br />
+				    <span class="code">Radio button selection of "All access" "No access" "Post &amp; edit their own entries only"</span> and then click the <span class="grey">Create Author</span> button.<br />
+				    When you have added all the authors you want to add click the <span class="grey">Return to Main Menu</span> button.<br />
+				    Click the <span class="grey">Re-Login</span> button.<br />
+				    Enter your own author details, and login.<br />
+				    You can now go back into Edit Authors and delete Alice, by selecting Alices radio button, and clicking the <span class="grey">Delete Selected Author</span> button.
+				    You're ready to start setting up your templates now.  The simplest place to start is by adding an entry.  Don't write your life story or anything, just make it a very brief first entry.  This will enable you to see what formatting is there.<br />
+				    From here, if you're comfortable continuing with the templates by yourself, have fun.  Enjoy Greymatter, and please let me know if you found this useful, or if you have any suggestions for something you'd like to see added here.<br />
+			    </div>
+			    <p align=center><a href="http://noahgrey.com/greysoft/"><img alt="Powered By GreyMatter" src="gm-icon.gif" border=0></a>
+			    </p>
+			    <p align=center><font size=1>Copyright (c)2000-2017 <a href="http://greymatterforum.proboards.com/">The GreyMatter Team</a>. All rights reserved.</font>
+			    </p>
+			</font>
+		    </td>
+		</tr>
+	    </tbody>
+	</table>
+    </body>
 </html>
-
-

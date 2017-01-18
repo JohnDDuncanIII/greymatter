@@ -1,1398 +1,1279 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!DOCTYPE html>
 <html>
-<head>
-<title>Greymatter 1.8.2 - Manual & Reference</title>
-
-<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
-<meta content="NOINDEX, NOFOLLOW, NOIMAGEINDEX, NOIMAGECLICK" name=ROBOTS>
-<meta content="Home of the Weblogging software, GreyMatter." name=DESCRIPTION>
-<meta content="Copyright (c)2000-2001 Noah Grey.  All rights reserved." name=COPYRIGHT>
-<meta content="Greysoft, GreyMatter, Noah Grey, perl, CGI, software, Weblogs, journals, Weblogging, journaling" name=KEYWORDS>
-
-<style type="text/css">
-<!--
-.entryheader {
-
-	BORDER-RIGHT: #000000 1px solid;
-	PADDING-RIGHT: 5px;
-	BORDER-TOP: #000000 1px solid;
-	PADDING-LEFT: 5px;
-	PADDING-BOTTOM: 5px;
-	BORDER-LEFT: #000000 1px solid;
-	PADDING-TOP: 5px; BORDER-BOTTOM: #000000 1px solid;
-	BACKGROUND-COLOR: #EAE8E8; border: #000000;
-	border-style: solid; border-top-width: 1px;
-	border-right-width: 1px;
-	border-bottom-width: 1px;
-	border-left-width: 1px;
-}
-
-.title {
-	FONT-SIZE: 150%;
-}
-
-
-BODY {
- background-color: #FFFFFF;
-}
-
-
-.headers {  
-	border: #000000; 
-	border-style: solid; 
-	border-top-width: 1px; 
-	border-right-width: 1px; 
-	border-bottom-width: 1px; 
-	border-left-width: 1px;
-}
-
-.example {
-	margin:  5px;
-	padding: 5px;
-	border: 1px solid #222244;
-	background-color: #CCCCEE;
-}
-
-.detailed {
-	margin:  5px;
-	padding: 5px;
-	border: 1px solid #222244;
-	background-color: #FCFCFE;
-}
-
-p.note 
-	{font: 8pt Tahoma, MS Sans-Serif, Arial, Sans-Serif;
-	text-align: center; 
-}
-
-p.curly
-	 { font-family:  Curlz MT, Funstuff, Comic Sans MS, fantasy; 
-	text-align:center; 
-	font-size: 12pt;
-}
-
-p.author 
-	{font-family: Tahoma, MS sans-serif, Arial, sans-serif; 	
-	font-size: 10pt;
-	font-weight: bold;
-}
-
-.question
-	 { background-color: #EDEBEB;
-}
-
-.code
-	{ color: #1C581C;
-	border: 1px #808080 solid;
-}
-
-.grey
-	 { background-color: #DDDEFB;
-	border: 1px #808080 solid;
-}
-
-.break { page-break-after: always; 
-	text-align: right;
-	font-size: 8pt;
-}
-	
-abbr, acronym, .help {
-	background-color: #DBF3F3;
-	border: 1px #808080 solid;
-  	cursor: help;
-}
-
-}
-span.small 
-	{font-family: Tahoma, MS sans-serif, Arial, sans-serif; 	
-	font-size: 8pt;
-}
--->
-</style>
-
-</head>
-	<body>
-
-<!-- Top Header -->
-<table cellspacing=0 cellpadding=5 width="100%" bgcolor=#C2C2CD border=0 class="headers">
-  <tbody> 
-  <tr>
-		<td align=left><font face="VERDANA, ARIAL, HELVETICA" size=4><b>GreyMatter: Logware</b></font></td>
-				</tr>
-			</tbody>
-		</table>
-<!-- End Top Header -->
-<!-- Sub Header with Linkage -->
-<table cellspacing=0 cellpadding=5 width="100%" bgcolor=#EAE8E8 border=0 class="headers">
-  <tbody> 
-  	<tr>
-			<td align=right>
-			<font face="VERDANA, ARIAL, HELVETICA" size=2>
-			<a class=hoverlink onMouseOver="window.status='News, updates and everything else.';return true" onMouseOut="window.status='';return true" href="http://greymatterforum.proboards82.com/">home</a>
-			</font>
-			</td>
+    <head>
+	<title>Greymatter 1.8.2 - Manual &amp; Reference</title>
+	<meta charset="utf-8">
+	<meta content="NOINDEX, NOFOLLOW, NOIMAGEINDEX, NOIMAGECLICK" name=ROBOTS>
+	<meta content="Home of the Weblogging software, GreyMatter." name=DESCRIPTION>
+	<meta content="Copyright (c)2000-2001 Noah Grey.  All rights reserved." name=COPYRIGHT>
+	<meta content="Greysoft, GreyMatter, Noah Grey, perl, CGI, software, Weblogs, journals, Weblogging, journaling" name=KEYWORDS>
+	<link rel="stylesheet" type="text/css" href="css/man.css">
+    </head>
+    <body>
+	<!-- Top Header -->
+	<table cellspacing=0 cellpadding=5 width="100%" bgcolor=#C2C2CD border=0 class="headers">
+	    <tbody>
+		<tr>
+		    <td align=left><font face="VERDANA, ARIAL, HELVETICA" size=4><b>Greymatter: Logware</b></font></td>
 		</tr>
-	</tbody>
-</table>
-<!-- End Sub Header with Linkage -->
-
-<FONT FACE="VERDANA, ARIAL, HELVETICA" SIZE=2>
-
-<P ALIGN=CENTER CLASS="maintitle"><CENTER>
-<FONT SIZE=6><B>Greymatter</B></FONT><BR><FONT SIZE=4><B>Weblog/Journal Software &#183; Version 1.8.1 &#183; Manual & Reference</B></FONT><BR><B>Copyright &copy;2000-2017 The Greymatter Team &#183; All Rights Reserved</B>
-</CENTER></P>
-
-<P ALIGN=CENTER><CENTER>
-<BR>
-</CENTER></P>
-
-<p class=entryheader align=justify>
-<font color=#000000><b>Table of Contents</B></FONT>
-</P>
-
-<BLOCKQUOTE>
-<P ALIGN=JUSTIFY>
-<A HREF="#1">1. About Greymatter</A><BR>
-<A HREF="#2">2. Copyright & Usage</A><BR>
-<A HREF="#3">3. A note about the bottom line</A><BR>
-<A HREF="#4">4. Security Considerations</A><BR>
-<A HREF="#5">5. Configuration Options</A><BR>
-<A HREF="#6">6. Entries & Archives</A><BR>
-<A HREF="#7">7. The Templates</A><BR>
-<A HREF="#8">8. Template Variables</A><BR>
-<A HREF="#9">9. Editing & Creating Authors</A><BR>
-<A HREF="#10">10. The Banned IP List</A><BR>
-<A HREF="#11">11. Rebuilding Your Files</A><BR>
-<A HREF="#12">12. Tips & Suggestions</A><BR>
-<A HREF="#13">13. Troubleshooting</A><BR>
-<A HREF="#14">14. Version History</A><BR>
-<A HREF="#15">15. Credits & Thanks</A>
-</P>
-</BLOCKQUOTE>
-
-<A NAME="1">
-
-<p class=entryheader align=justify>
-<font color=#000000><b>1. About Greymatter</B></FONT>
-</P>
-
-<BLOCKQUOTE>
-<P ALIGN=JUSTIFY>
-Thanks for trying Greymatter.  Greymatter is a Web-based tool for the creation of weblogs 
-(regularly-updated news- or journal-type sites) or online journals, allowing complete 
-control over your weblog/journal while supporting such features as: the ability for 
-users to post comments to your entries or cast "karma" votes on them, with no database 
-used or required whatsoever; a template-based system that allows you to fully customise 
-every aspect of your site's look and function, great or small; support for multiple 
-weblog/journal authors, with fully-controllable individual access; a ban system for 
-preventing malicious users from voting or posting on your site; nearly a hundred template 
-variables that allow for extremely flexible styles and setups; easy and complete editing 
-of any entry (including its comments) at any time; runs completely on your own account 
-and is thus under your full control at all times; and, of course, "more"!
-</P><P ALIGN=JUSTIFY>
-To install Greymatter, please carefully follow the instructions in 
-the <a href="http://greymatterforum.proboards82.com">install.html</a> file.  
-Greymatter is intended as a flexible "power tool" for webloggers & 
-journal-keepers who are moderately comfortable with the HTML language 
-(to customise Greymatter's templates).  Greymatter requires a server 
-that fully supports CGI programs with Perl 5.6 installed, and is optimised 
-for 800x600 or higher.
-</P><P ALIGN=JUSTIFY>
-<FONT COLOR="#FF0000"><B>IMPORTANT NOTE:</B> If you're upgrading from an 
-older version of Greymatter, please read 
-the <a href="http://greymatterforum.proboards82.com">install.html</a> file 
-for instructions on how to upgrade.</FONT>
-</P>
-</BLOCKQUOTE>
-
-<A NAME="2">
-
-<p class=entryheader align=justify>
-<font color=#000000><b>2. Copyright & Usage</B></FONT>
-</p>
-
-<BLOCKQUOTE>
-<P ALIGN=JUSTIFY>
-Greymatter is Copyright (c)2000-2017 by the Greymatter team.  All rights reserved.
-</P><P ALIGN=JUSTIFY>
-By possessing this software, you agree not to hold the author responsible for 
-any problems that may arise from your installation or usage of Greymatter itself, 
-or from any content generated by yourself or others through the use of this program.  
-You <I>may</I> freely modify and redistribute this program, so long as 
-every copyright notice (including in this manual and in the Greymatter code) remains 
-fully intact.  Finally, you may <I>not</I> sell or in any way make a financial 
-profit from this program, either in original or modified form.
-</P><P ALIGN=JUSTIFY>
-Your possession of this software signifies that you agree to these terms; please 
-delete your copy of this software if you don't agree to these terms.
-</P>
-</BLOCKQUOTE>
-
-<A NAME="3">
-
-<p class=entryheader align=justify>
-<font color=#000000><b>3. A note about the bottom line</B></FONT>
-</p>
-
-<BLOCKQUOTE>
-<P ALIGN=JUSTIFY>
-At present, Greymatter is a completely free program; you don't need to spend a 
-cent to use it, or to download any updates from the Greysoft site whenever they're 
-made available.  However, any donations (no requested fee, do what your heart 
-dictates, if anything) or gift purchases made from 
-the <A HREF="http://noahgrey.com/greysoft/">Greysoft site</A> would be more 
-than welcome; I've put an immense amount of work into this program, and any 
-donations (though again, of course, *not* required in any way) would definitely 
-be the best incentive to keep me working on and updating it, or simply to let 
-me know that this program's existence is appreciated.
-</P><P ALIGN=JUSTIFY>
-In any event, donation or no donation, if you like using Greymatter then feel 
-free to e-mail me at <A HREF="mailto:noah@noahgrey.com">noah@noahgrey.com</A>&#151;I'd love 
-to hear from you.  (For most tech-support questions or comments and queries relating to 
-its usage, please leave a post about it on Greymatter's 
-discussion <a href="http://greymatterforum.proboards82.com">forums</a> instead; 
-that way, everyone can benefit from the information.)
-</P>
-</BLOCKQUOTE>
-
-<A NAME="4">
-
-<p class=entryheader align=justify>
-<font color=#000000><b>4. Security Considerations</B></FONT>
-</p>
-
-<BLOCKQUOTE>
-<P ALIGN=JUSTIFY>Greymatter requires that certain files and directories be writeable by the userid that the web server runs as. Normally, this is accomplished by making those files and directories world-writeable. If you have the flexibility to exec a CGI script under a different userid, then this userid is the only one that requires write privileges. Greymatter has not been tested extensively under a "CGI wrapper" but should work fine if you keep this need to write files in mind.
-</P><P ALIGN=JUSTIFY>Every attempt has been made to secure this set of scripts against cross-site scripting (XSS) attacks. However, it is worth noting that if security is a significant concern, disallowing comments entirely is the only way to be completely safe from XSS attacks. Greymatter has configuration options that allow you to filter the set of allowable tags in comments. You need to be aware that allowing HTML in comments with no restrictions can lead to your site being compromised.
-</P><P ALIGN=JUSTIFY>In Greymatter 1.3.1, author usernames and passwords are no longer exposed during a rebuild files operation. Please take note that using the cookie and bookmarklet options both have the potential to reveal your author login information. If you are not the sole user of a machine, you should not use the cookies or bookmarklets features.
-</P></BLOCKQUOTE>
-
-<A NAME="5">
-
-<p class=entryheader align=justify>
-<font color=#000000><b>5. Configuration Options</B></FONT>
-</p>
-
-<BLOCKQUOTE>
-<P ALIGN=JUSTIFY>
-The Configuration screen is where you set up Greymatter and tell it how you want it to work.  As explained in installation.htm, setting things up here will need to be your first order of business when you use Greymatter for the first time.  Whenever you change any of the settings here after your weblog/journal has already started, then it'd be a good idea to rebuild your files (see the "Rebuilding Your Files" section of the manual below) to make the appropriate changes visible on your site.  You can also run "Diagnostics & Repair" (indeed, you'll <I>need</I> to do so upon installation) to insure that all your files and paths are accessible and are working correctly.
-</P><P ALIGN=JUSTIFY>
-Since the various configuration options are now described within the program itself, descriptions of them aren't included here.
-</P>
-</BLOCKQUOTE>
-
-<A NAME="6">
-
-<p class=entryheader align=justify>
-<font color=#000000><b>6. Entries & Archives</B></FONT>
-</p>
-
-<BLOCKQUOTE>
-<P ALIGN=JUSTIFY>
-Entries are what your weblog/journal is made of, and the "Add A New Entry" screen is where you'll post them.  There are three distinct elements to an entry that you can create: the subject, the main text, and the extended (or "more") text.
-</P><P ALIGN=JUSTIFY>
-You must always give your entries a subject, for at least reference purposes, since entries are listed by subject when you select them from the Edit An Entry menu.  (However you want to use or display them in your weblog/journal, or whether you want them displayed anywhere on your site at all, is, of course, entirely up to you and how you configure your templates.)
-</P><P ALIGN=JUSTIFY>
-The Main Entry Text is intended to be the main body of your entry, and the extended text is for additional or supplemental information; you must always enter a main text, but the extended text is optional.  This is intended to help you make an entry's appearance on your main index, and on its entry page, distinct when you want them to be distinct; typically (as in the default templates included with Greymatter), you would use the main text for when entries appear in the body of your log, and if you have something more you want to say in an entry but don't want to dump it all on the main page, you'd enter it as extended text to appear in full on that entry's individual page.  (Also note that you can, if you wish, give normal and extended entries different formatting via your templates, or handle them in any distinct way you choose.)
-</P><P ALIGN=JUSTIFY>
-Finally, upon creating the entry, you're given the option whether or not you want to turn karma voting and comment posting on or off for this entry (the options won't appear if you've disabled karma and/or comments in Configuration, since disabling them overrides individual entry settings).  You also have the option to mark that entry to stay at the top of your main log (which you could set apart with custom formatting via the templates, for announcements, special notices, and so forth)owhen the main index is generated, then that entry will stay at the top indefinitely, until you edit it removing its stay-at-top status (or set another entry to take its place).
-</P><P ALIGN=JUSTIFY>
-You can edit an entry anytime by selecting it from the "Edit An Entry" screen (entries are listed by subject in order from newest to oldest); this includes being able to edit or delete any comments from any entry, turning karma and/or comments on or off for that entry, and marking or removing it as the stay-at-top entry.  When you edit an entry, you also have the option to leave it "open" or make it "closed"&#151;meaning, basically, whether or not you want to leave that entry on your site.  Think of open as meaning "visible" and closed meaning "invisible"; all entries are, of course, open by default.  To close an entry is to effectively "delete" it&#151;when the relevant files are rebuilt, Greymatter will treat that entry as if it no longer exists, removing all links to it or traces of it&#151;but with the obvious advantage that Greymatter still has the entry data on file, and you could re-open it later if you wish.  Be sure to rebuild the appropriate files after saving any changes to an entry, to make those changes take immediate effect on your site.  (Greymatter automatically updates all relevant files whenever you add a new entry.)
-</P><P ALIGN=JUSTIFY>
-An entry is considered "archived" when it becomes too old to be listed on your main index.  You specify in Configuration how many days' worth of entries you want to keep on your main index.  (This counts how many days you've posted entries for, *not* consecutive days; so for example, if you've posted entries only on four different days scattered throughout a month, Greymatter still counts that as four days.)
-</P><P ALIGN=JUSTIFY>
-Indexes of your archived logs are automatically created by Greymatter in your entries/archives directory, in monthly or weekly installments.  If you have the "Keep main index and archive log indexes concurrent with each other" option selected, then Greymatter will generate these files in your archives directory right away when you post entries and log your entries in both places simultaneously.  Otherwise, entries won't appear here, and these files won't be generated, until entries have "scrolled off" the main index.  Your archive master index is a good place to set up links to your archives; check the <A HREF="#7">Template Variables</A> section below for information about the {{log*list}} family of variables, which generate lists of these links automatically.  (The "Miscellaneous Templates" allow you to customise these lists.)
-</P>
-</BLOCKQUOTE>
-
-<A NAME="7">
-
-<p class=entryheader align=justify>
-<font color=#000000><b>7. The Templates</B></FONT>
-</p>
-
-<BLOCKQUOTE>
-<P ALIGN=JUSTIFY>
-Templates are what Greymatter builds your site out of&#151;they're patterns that tell Greymatter how you want your site to look, how you want your content to be formatted, what information you want to include and exactly where you want to include it.  You mainly customise your templates with HTML (though since Greymatter generates *exactly* what the templates tell it to generate&#151;nothing more, nothing less&#151;you can also incorporate SHTML, PHP/SQL, or any other kinds of codes into your templates if you wish; you could even use Greymatter to generate text files or other specially-formatted documents if you wanted to), and you use the template variables (see the "Template Variables" sections below for a complete listing) to control what information you want to incorporate and where you want it to be placed.
-</P>
-<P ALIGN=JUSTIFY>
-Since the various templates are now described within the program itself, descriptions of them aren't included here.
-</P>
-<P ALIGN=JUSTIFY><strong>Templates and Forms</strong><br />
-Greymatter uses several html/cgi forms to perform certain vital tasks.  The tasks include karma voting, commenting, previewing, and searching.  When you modify your templates, you must be aware of certain bits of html that <em>need</em> to be present in order for your site to work.  Listed below are the form parameters and example code<br />
-<ul>Karma Voting
-<li>These forms are generate by Greymatter, no need to worry.</li>
-</ul>
-
-<ul>Searching (Edit Templates : Misc Templates : Search Templates)
-<li>field with name="gmsearch".  Typically this is a input of type text, but could be a text area, or even a put into a link, for a predefined search.</li>
-<li>field with value="Search".  Typically a submit type (button), but could be coded into a link that alwasy searches for 'fooo' such as: gm-comments.cgi?Search=1&gmsearch=fooo</li>
-<li>Example:
-<pre>	&lt;form action="{{cgiwebpath}}/gm-comments.cgi" method="post" &gt;&lt;input type="text" name="gmsearch" /&gt;
-	&lt;input type="submit" value="Search" /&gt;&lt;/form&gt;</pre>
-</li>
-</ul>
-
-<ul>Commenting (Edit Templates : Edit Commenting Templates)
-<li>field with name="newcommententrynumber".  Typically this is a hidden field with value="{{entrynumber}}", this field is required so that Greymatter knows which entry to associate this comment to.</li>
-<li>field with name="newcommentauthor".  Typically this is a text field, used by Greymatter for the Commenters Name.</li>
-<li>field with name="newcommentemail".  Typicall a text field, used for the commenter's email address, Optional.</li>
-<li>field with name="newcommenthomepage". Typically this is text field, used  for the commenter's homepage, Optional.</li>
-<li>field with name="newcommentbody".  Typically this is a text area, but could be text field.  Used for the comment text.</li>
-<li>field with name="gmpostpreview".  Should be a button, takes user to preview screen.</li>
-<li>field with value="Submit". Should be a button, used to submit the comment.</li>
-<li></li>
-<li>Example:
-<pre>	&lt;form action="{{cgiwebpath}}/gm-comments.cgi#comments" method="post"  &gt;
-	&lt;input name="newcommententrynumber" type="hidden" value="{{entrynumber}}" /&gt;
-	&lt;input name="newcommentauthor" type="text" /&gt;
-	&lt;input name="newcommentemail" type="text" /&gt;
-	&lt;input name="newcommenthomepage" type="text" /&gt;
-	&lt;textarea name="newcommentbody" &gt;&lt;/textarea&gt;
-	&lt;input name="gmpostpreview" type="submit" value="Preview" /&gt;
-	&lt;input type="submit" value="Submit" /&gt;
-	&lt;/form&gt;</pre></li>
-</ul>
-
-<ul>Previewing (Edit Templates : Edit Commenting Templates)
-<li>field with name="newcommententrynumber".  Typically this is a hidden field with value="{{entrynumber}}", this field is required so that Greymatter knows which entry to associate this comment to.</li>
-<li>field with name="newcommentauthor".  Typically this is a hidden field with value="{{previewcommentauthor}}", but could be text field.  Used by Greymatter for the Commenters Name.</li>
-<li>field with name="newcommentemail".  Typically this is a hidden field with value="{{previewcommentemail}}", but could be text field.  Used for the commenter's email address, Optional.</li>
-<li>field with name="newcommenthomepage". Typically this is a hidden field with value="{{previewcommenthomepage}}", but could be text field.  Used  for the commenter's homepage, Optional.</li>
-<li>field with name="newcommentbody".  Typically this is a hidden field with value="{{previewcommentbody}}", but could be text field.  Used for the comment text.</li>
-<li>field with name="previewrand".  Should be a hidden field with value="{{previewrand}}".  Used when confirming a preview with a random hidden number.</li>
-<li>field with name="postit". Should be a button, used to submit the comment.</li>
-
-<li>Example:
-<pre> 	&lt;form action="{{cgiwebpath}}/gm-comments.cgi" method="post"&gt;
-	&lt;input type="hidden" name="newcommententrynumber" value="{{entrynumber}}" /&gt;
-	&lt;input type="hidden" name="newcommentauthor" value="{{previewcommentauthor}}" /&gt;
-	&lt;input type="hidden" name="newcommentemail" value="{{previewcommentemail}}" /&gt;
-	&lt;input type="hidden" name="newcommenthomepage" value="{{previewcommenthomepage}}" /&gt;
-	&lt;input type="hidden" name="newcommentbody" value="{{previewcommentbody}}" /&gt;
-	&lt;input type="hidden" name="previewrand" value="{{previewrand}}" /&gt;
-	&lt;input type="submit" name="postit" value="Post It" /&gt;
-	&lt;/form&gt;</pre>
-</li>
-</ul>
-
-</P>
-</BLOCKQUOTE>
-
-
-
-<A NAME="8">
-
-<p class=entryheader align=justify>
-<font color=#000000><b>8. Template Variables</B></FONT>
-</p>
-
-<BLOCKQUOTE>
-<P ALIGN=JUSTIFY>
-Think of variables as placeholders for dynamic information (since that's exactly what they are)&#151;each variable represents some piece of info or code, and their placement in your templates tells Greymatter where you want that info to be included.  Variables are usually context-dependent; for example, a date/time variable like {{month}} or {{hour}}, in the context of the Individual Entry Template, will display the numbers for the month and hour respectively in which that entry was posted, or in the context of the Comments Template, the month and hour in which that comment was posted.  Some variables (for example, {{header}}, {{footer}} and {{sidebar}}) have their own templates; in those cases, Greymatter inserts the contents of those templates wherever those variables are and then goes on analyzing the rest of the variables.  A few variables can only be used in a particular instance, but most are intended to be used as flexibly as you like.
-</P><P ALIGN=JUSTIFY>
-The template variables are as follows:
-</P>
-
-<BLOCKQUOTE>
-
-<P ALIGN=LEFT>
-<FONT COLOR="#0000FF"><B>{{ampm}}, {{ampmlower}}, {{ampmdot}}, {{ampmdotlower}}</B></FONT>
-</P><BLOCKQUOTE><P ALIGN=JUSTIFY>
-The AM or PM status of the relevant time.  The "lower" variations list it in lowercase ("am" or "pm"), and the dot variations list it with dots ("a.m." or "p.m.").
-</P></BLOCKQUOTE><P ALIGN=LEFT>
-<FONT COLOR="#0000FF"><B>{{archivebody}}</B></FONT>
-</P><BLOCKQUOTE><P ALIGN=JUSTIFY>
-Placeholder for use only in the Archive Log Index Template; when the log archives are generated, this tells Greymatter where to place the body of that month's or week's log.  You can also use {{logbody}} (see below) to do the same thing.
-</P></BLOCKQUOTE><P ALIGN=LEFT>
-<FONT COLOR="#0000FF"><B>{{author}}, {{authoremail}}, {{authorhomepage}}, {{authorentrycount}}</B></FONT>
-</P><BLOCKQUOTE><P ALIGN=JUSTIFY>
-The name of that entry's author, their e-mail address (if given), their homepage address (if given), and the total number of entries they've posted so far, respectively.  You can also include the name of an author to <I>always</I> give the relevant status for that particular author; for example, {{authoremail Alice}} will give Alice's e-mail address (if there is one), {{authorentrycount Mad Hatter}} will display how many entries Mad Hatter has posted, and so on.
-</P></BLOCKQUOTE><P ALIGN=LEFT>
-<FONT COLOR="#0000FF"><B>{{authorsmartlink}}</B></FONT>
-</P><BLOCKQUOTE><P ALIGN=JUSTIFY>
-Displays the name of that entry's author as a link either to that author's e-mail or homepage address, whichever has been given (if both are available, the link is to that author's homepage; if neither, the name is left unlinked).  This is a self-contained link.  As above, you can also names to generate smart dynamic links for specific authors.
-</P></BLOCKQUOTE><P ALIGN=LEFT>
-<FONT COLOR="#0000FF"><B>{{calendar}}, {{calendar [mm]/[yy]}}, {{calendarweek}}</B></FONT>
-</P><BLOCKQUOTE><P ALIGN=JUSTIFY>
-Creates calendar displays for the current month or week (or, in the case of {{calendar [mm]/[yy]}}, the month you specify) with each day in the calendar display as a link to the most recent entry posted that day, if any; you can specify in configuration whether calendars will link to any entry or only to extended entries.  Use {{calendar [mm]/[yy]}} to create a calendar for a specific month; for example, {{calendar 11/00}} would make a calendar for the month of November 2000.  (This requires that you've actually posted at least one entry during that month.)
-</P></BLOCKQUOTE><P ALIGN=LEFT>
-<FONT COLOR="#0000FF"><B>{{cgiwebpath}}</B></FONT>
-</P><BLOCKQUOTE><P ALIGN=JUSTIFY>
-Inserts the web path where your Greymatter CGI files are located, as specified in Configuration.
-</P></BLOCKQUOTE><P ALIGN=LEFT>
-<FONT COLOR="#0000FF"><B>{{commentauthor}}, {{commentauthoremailabsolute}}, {{commentauthorhomepageabsolute}}</B></FONT>
-</P><BLOCKQUOTE><P ALIGN=JUSTIFY>
-The name of that comment's author, their e-mail address (if given), and their homepage address (if given), respectively.
-</P></BLOCKQUOTE><P ALIGN=LEFT>
-<FONT COLOR="#0000FF"><B>{{commentauthoremail}}, {{commentauthorhomepage}}</B></FONT>
-</P><BLOCKQUOTE><P ALIGN=JUSTIFY>
-The contents of their respective templates; these will only appear if the author of that comment has given an e-mail or homepage address, respectively.
-</P></BLOCKQUOTE><P ALIGN=LEFT>
-<FONT COLOR="#0000FF"><B>{{commentauthorip}}</B></FONT>
-</P><BLOCKQUOTE><P ALIGN=JUSTIFY>
-Displays the IP address of that comment's author.  You can always see the IP addresses for comments by editing the entries they appear in, so you may want to think twice about using this variable and thus having the IPs appear out in the open, since many will (with due reason) probably consider this an invasion of privacy.
-</P></BLOCKQUOTE><P ALIGN=LEFT>
-<FONT COLOR="#0000FF"><B>{{commentauthorsmartlink}}</B></FONT>
-</P><BLOCKQUOTE><P ALIGN=JUSTIFY>
-Displays the name of that comment's author as a link either to that author's e-mail or homepage address, whichever has been given (if both are available, the link is to that author's homepage; if neither, the name is left unlinked).  This is a self-contained link.
-</P></BLOCKQUOTE><P ALIGN=LEFT>
-<FONT COLOR="#0000FF"><B>{{commentbody}}</B></FONT>
-</P><BLOCKQUOTE><P ALIGN=JUSTIFY>
-The text of the current comment.
-</P></BLOCKQUOTE><P ALIGN=LEFT>
-<FONT COLOR="#0000FF"><B>{{commentdivider}}</B></FONT>
-</P><BLOCKQUOTE><P ALIGN=JUSTIFY>
-The contents of the {{commentdivider}} template.  This will only appear if the entry contains at least one comment (and, if so, will still appear in that entry whether or not comments are disabled later).
-</P></BLOCKQUOTE><P ALIGN=LEFT>
-<FONT COLOR="#0000FF"><B>{{commentordernumber}}</B></FONT>
-</P><BLOCKQUOTE><P ALIGN=JUSTIFY>
-The number of the comment.  The first comment posted is always number 1, whether or not the comments are displayed in ascending or descending order.
-</P></BLOCKQUOTE><P ALIGN=LEFT>
-<FONT COLOR="#0000FF"><B>{{commentslink}}</B></FONT>
-</P><BLOCKQUOTE><P ALIGN=JUSTIFY>
-The contents of the {{commentslink}} template, intended for linking to the comments on individual entry pages.  This will not appear on entries for which comments have been disabled (or, of course, if comments are disabled altogether).
-</P></BLOCKQUOTE><P ALIGN=LEFT>
-<FONT COLOR="#0000FF"><B>{{commentsnumber}}</B></FONT>
-</P><BLOCKQUOTE><P ALIGN=JUSTIFY>
-The number of comments that entry has received.
-</P></BLOCKQUOTE><P ALIGN=LEFT>
-<FONT COLOR="#0000FF"><B>{{commentspostlink}}</B></FONT>
-</P><BLOCKQUOTE><P ALIGN=JUSTIFY>
-Generates a link to the #comments marker in that entry's page (wherever you have the <A NAME="comments"> tag in your entry page templates; by default, the tag points to the comments in that particular entry, or the posting form if no comments have been posted yet).  If used outside the {{commentslink}} template, this link will always appear whether or not comments are disabled for that entry.
-</P></BLOCKQUOTE><P ALIGN=LEFT>
-<FONT COLOR="#0000FF"><B>{{commentstatussmart}}, {{commentstatussmartupper}}, {{commentstatussmartlower}}</B></FONT>
-</P><BLOCKQUOTE><P ALIGN=JUSTIFY>
-By default, displays how many comments there are in the "x Comments" format (with upper- and lower-case variations) with a "smart" status of how many comments there are: zero comments are "No Comments" and one is "1 Comment" (note the singular).  If used outside the {{commentslink}} template, this will always appear whether or not comments are disabled for that entry.  You can customise the output of this variable via the templates.
-</P></BLOCKQUOTE><P ALIGN=LEFT>
-<FONT COLOR="#0000FF"><B>{{customone}} through {{customten}}</B></FONT>
-</P><BLOCKQUOTE><P ALIGN=JUSTIFY>
-Inserts whatever you have in the respective custom template.
-</P></BLOCKQUOTE><P ALIGN=LEFT>
-<FONT COLOR="#0000FF"><B>{{day}}, {{dayday}}, {{dayappend}}</B></FONT>
-</P><BLOCKQUOTE><P ALIGN=JUSTIFY>
-Displays the number of the relevant day.  {{dayday}} forces it to two digits (if it's not already), padding single-digit numbers with zeroes (for example, 2 becomes 02).  
-{{dayappend}} adds the appropriate ordinal to the number (e.g. 7 to 7th, 1 to 1st, etc.).
-</P></BLOCKQUOTE><P ALIGN=LEFT>
-<FONT COLOR="#0000FF"><B>{{domain}}</B></FONT>
-</P><BLOCKQUOTE><P ALIGN=JUSTIFY>
-Displays the domain the gm software resides on.</P></BLOCKQUOTE><P ALIGN=LEFT>
-<FONT COLOR="#0000FF"><B>{{email [url]}}, {{email [url] [link text]}}, {{emailmo [url] [link text]|[mouseover]}}</B></FONT>
-</P><BLOCKQUOTE><P ALIGN=JUSTIFY>
-Works the same way as the {{link}} variables; see the description of them below.
-</P></BLOCKQUOTE><P ALIGN=LEFT>
-<FONT COLOR="#0000FF"><B>{{emoticonspath}}</B></FONT>
-</P><BLOCKQUOTE><P ALIGN=JUSTIFY>
-Inserts the path to your emoticon images, as specified in the Configuration.
-</P></BLOCKQUOTE><P ALIGN=LEFT>
-<FONT COLOR="#0000FF"><B>{{entrieswebpath}}</B></FONT>
-</P><BLOCKQUOTE><P ALIGN=JUSTIFY>
-Inserts the web path of your entries/archives directory, as specified in Configuration.
-</P></BLOCKQUOTE><P ALIGN=LEFT>
-<FONT COLOR="#0000FF"><B>{{entrycomments}}</B></FONT>
-</P><BLOCKQUOTE><P ALIGN=JUSTIFY>
-All the comments for that individual entry; like {{logbody}} on the Main Index and Archive Log Index pages, this is a placeholder for the full body of the comment list.  Each comment is patterned on the Comment Appearance template.
-</P></BLOCKQUOTE><P ALIGN=LEFT>
-<FONT COLOR="#0000FF"><B>{{entrycommentsform}}</B></FONT>
-</P><BLOCKQUOTE><P ALIGN=JUSTIFY>
-The contents of the {{entrycommentsform} template&#151;the form whereby your visitors can add their comments to an entry.  This won't appear on entries for which comments are disabled, or if comment posting is disabled altogether.
-</P></BLOCKQUOTE><P ALIGN=LEFT>
-<FONT COLOR="#0000FF"><B>{{entrykarmaform}}</B></FONT>
-</P><BLOCKQUOTE><P ALIGN=JUSTIFY>
-The contents of the {{entrycommentsform} template, intended to be a distinct form by which people can vote on an entry's karma from that entry's individual page.  This won't appear on entries for which karma is disabled, or if karma voting is disabled altogether.
-</P></BLOCKQUOTE><P ALIGN=LEFT>
-<FONT COLOR="#0000FF"><B>{{entrymainbody}}</B></FONT>
-</P><BLOCKQUOTE><P ALIGN=JUSTIFY>
-The main text of that entry.
-</P></BLOCKQUOTE><P ALIGN=LEFT>
-<FONT COLOR="#0000FF"><B>{{entrymorebody}}</B></FONT>
-</P><BLOCKQUOTE><P ALIGN=JUSTIFY>
-The extended (or "more") text of that entry, if there is any.
-</P></BLOCKQUOTE><P ALIGN=LEFT>
-<FONT COLOR="#0000FF"><B>{{entrymainbodyfirstwords [x]}} and {{entrymorebodyfirstwords [x]}}</B></FONT>
-</P><BLOCKQUOTE><P ALIGN=LEFT>
-Displays only the first X words of that entry's main or extended text, respectively; for example, {{entrymainbodyfirstwords 20}} will display the first twenty words of the main text (or the entire main text if it's less than twenty words, of course).  All words displayed this way will be shown without HTML codes.
-</P></BLOCKQUOTE><P ALIGN=LEFT>
-<FONT COLOR="#0000FF"><B>{{entrymusic}}, {{entrymood}}</B></FONT>
-</P><BLOCKQUOTE><P ALIGN=JUSTIFY>
-Displays the music or mood text for that entry, if there is any.
-</P></BLOCKQUOTE><P ALIGN=LEFT>
-<FONT COLOR="#0000FF"><B>{{entrynumber}}, {{entrynumberpadded}}</B></FONT>
-</P><BLOCKQUOTE><P ALIGN=JUSTIFY>
-The number of that entry.  The "padded" version displays it in Greymatter's 8-digit padded filenaming convention (for example, the number for entry 187 would display as 00000187).
-</P></BLOCKQUOTE><P ALIGN=LEFT>
-<FONT COLOR="#0000FF"><B>{{entrysubject}}, {{entrysubjectstripped}}</B></FONT>
-</P><BLOCKQUOTE><P ALIGN=JUSTIFY>
-The subject line for that entry.  Although you're required to give a subject when adding 
-a new entry for the sake of reference, you're certainly not required to display it anywhere 
-in your log.  Note that the 'stripped' subject has had all html removed, making it well suited
-for using in a 'title' tag on a page.
-</P></BLOCKQUOTE><P ALIGN=LEFT>
-<FONT COLOR="#0000FF"><B>{{entrysuffix}}, {{archivesuffix}}</B></FONT>
-</P><BLOCKQUOTE><P ALIGN=JUSTIFY>
-Displays the page extension specified in the config. {{entrysuffix}} for entry pages, {{archivesuffix}} for archive files.
-</P></BLOCKQUOTE><P ALIGN=LEFT>
-<FONT COLOR="#0000FF"><B>{{footer}}</B></FONT>
-</P><BLOCKQUOTE><P ALIGN=JUSTIFY>
-Inserts whatever you have in the Footer template.
-</P></BLOCKQUOTE><P ALIGN=LEFT>
-<FONT COLOR="#0000FF"><B>{{gmicon}}</B></FONT>
-</P><BLOCKQUOTE><P ALIGN=JUSTIFY>
-Puts the gm-icon.gif graphic on your page, linked to <A HREF="http://noahgrey.com/greysoft/">the Greysoft site</A>.  Required on the main index template, although donators can request a copy of Greymatter with the requirement removed if desired.
-</P></BLOCKQUOTE><P ALIGN=LEFT>
-<FONT COLOR="#0000FF"><B>{{gmversion}}</B></FONT>
-</P><BLOCKQUOTE><P ALIGN=JUSTIFY>
-Greymatter's current version number.
-</P></BLOCKQUOTE><P ALIGN=LEFT>
-<FONT COLOR="#0000FF"><B>{{header}}</B></FONT>
-</P><BLOCKQUOTE><P ALIGN=JUSTIFY>
-Inserts whatever you have in the Header template.
-</P></BLOCKQUOTE><P ALIGN=LEFT>
-<FONT COLOR="#0000FF"><B>{{hour}}, {{hourhour}}</B></FONT>
-</P><BLOCKQUOTE><P ALIGN=JUSTIFY>
-Displays the number of the relevant hour.  {{hourhour}} forces it to two digits (if it's not already), padding single-digit numbers with zeroes (for example, 4 becomes 04).
-</P></BLOCKQUOTE><P ALIGN=LEFT>
-<FONT COLOR="#0000FF"><B>{{link [url]}}, {{link [url] [link text]}}, {{linkmo [url] [link text]|[mouseover]}}</B></FONT>
-</P><BLOCKQUOTE><P ALIGN=JUSTIFY>
-For use when adding new entries, to facilitate adding links as a kind of shorthand.  (You can always do them the old-fashioned way too, of course.)  Links added this way are self-contained.  The syntax works as follows:
-</P><P ALIGN=JUSTIFY>
-<UL>
-<LI> Typing "Check this site out: {{{link http://noahgrey.com/}}" produces "Check this site out: <A HREF="http://noahgrey.com/">http://noahgrey.com/</A>" with the URL as a plain link.
-<LI> Typing "Say, have you been to {{link http://noahgrey.com/ Noah's site}} lately?" produces "Say, have you been to <A HREF="http://noahgrey.com/">Noah's site</A> lately?" with the words "Noah's site" as a 
-link to noahgrey.com.
-<LI> Typing "Really, you MUST {{linkmo http://noahgrey.com/ go there|Click here!}} sometime!" produces "Really, you MUST <A HREF="http://noahgrey.com/" onMouseOver="window.status='Click here!';return true" onMouseOut="window.status='';return true">go there</A> sometime!" with the words "go there" as a link to noahgrey.com, and the words "Click here!" appearing as mouseover text for that link in the browser's status bar.
-</UL>
-</P><P ALIGN=JUSTIFY>
-You can also use "email" and "emailmo", with the same syntax as above (replacing "link" or "linkmo" accordingly), for linking to e-mail addresses.
-</P></BLOCKQUOTE><P ALIGN=LEFT>
-<FONT COLOR="#0000FF"><B>{{logarchivelist}}</B></FONT>
-</P><BLOCKQUOTE><P ALIGN=JUSTIFY>
-Generates a list of links to all your monthly/weekly log archives.  The appearance of these links is controlled by the Log Archives Link template (under Miscellaneous Templates) and the Log Archives Link Separator.
-</P></BLOCKQUOTE><P ALIGN=LEFT>
-<FONT COLOR="#0000FF"><B>{{logbody}}</B></FONT>
-</P><BLOCKQUOTE><P ALIGN=JUSTIFY>
-Placeholder for use only in the Main Index or Archive Log Index Templates; when the log is generated, this tells Greymatter where to place the body of the log (the current log for the main index, and the monthly/weekly log for the archive log index).
-</P></BLOCKQUOTE><P ALIGN=LEFT>
-<FONT COLOR="#0000FF"><B>{{logentrylist}}, {{logshortentrylist}}, {{logmoreentrylist}} (plus optional variants: day, month, year, firsthalf, secondhalf, number, comments, commentsminimum, commentsnumber, and author name)</B></FONT>
-</P><BLOCKQUOTE><P ALIGN=JUSTIFY>
-Generates a list of links to your individual entry pages (unless you have those disabled).  The appearance of these links is controlled by the Entry List Link templates (under Miscellaneous Templates) and the Entry List Link Separator.  {{logentrylist}} generates a list of links to all your entries; {{logshortentrylist}} generates a list for non-extended entries only, and {{logmoreentrylist}} for extended entries only.  With each of those you can optionally specify that only a particular range of entries be listed:
-</P><P ALIGN=JUSTIFY>
-<UL>
-<LI> day&#151;lists the entries only for the most recent day that entries were posted
-<LI> month&#151;lists the entries only for the most recent month
-<LI> year&#151;lists the entries only for the most recent year
-<LI> firsthalf&#151;lists the first (most recent) half of all entries
-<LI> secondhalf&#151;lists the second (older) half of all entries
-<LI> number&#151;lists the most recent number of however many entries you specify in Configuration
-<LI> comments&#151;lists entries sorted by the number of comments they've received
-<LI> commentsminimum&#151;same as above, but lists entries only if they've received at least one comment
-<LI> commentsnumber&#151;lists the top X most-posted-to entries (X being whatever you specified in Configuration)
-<LI> (name of any author)&#151;lists all entries by that particular author
-</UL>
-</P><P ALIGN=JUSTIFY>
-So, for example, {{logshortentrylist month}} would list all the non-extended entries for the current month; {{logentrylist firsthalf}} and {{logentrylist secondhalf}} would list all the entries in separate halves (useful if you want to list them in two columns); {{logmoreentrylist number}} would list the twenty most recent extended entries, if you have "Log entry list variable number" in Configuration set to 20; {{logentrylist commentsminimum}} lists all entries, sorted by number of comments, that have received at least one comment (you can specify in Configuration whether or not this only lists entries for which comments can still be posted to); {{logmoreentrylist commentsnumber}} would list the top five most-posted-to entries if you have "Log entry list variable number" in Configuration set to 5; {{logentrylist WhiteRabbit}} would list all entries written by WhiteRabbit; and so on.
-</P></BLOCKQUOTE><P ALIGN=LEFT>
-<FONT COLOR="#0000FF"><B>{{logwebpath}}</B></FONT>
-</P><BLOCKQUOTE><P ALIGN=JUSTIFY>
-Inserts the web directory where your main index is, as specified in Configuration.
-</P></BLOCKQUOTE><P ALIGN=LEFT>
-<FONT COLOR="#0000FF"><B>{{karmalink}}</B></FONT>
-</P><BLOCKQUOTE><P ALIGN=JUSTIFY>
-The contents of the {{karmalink}} template, for use in voting on an entry's karma.  This won't appear with entries for which karma is disabled, or if karma voting is disabled altogether.
-</P></BLOCKQUOTE><P ALIGN=LEFT>
-<FONT COLOR="#0000FF"><B>{{militaryhour}}</B></FONT>
-</P><BLOCKQUOTE><P ALIGN=JUSTIFY>
-Displays the number of the relevant hour, in military time (always double-digit).  The custom in military time is to add twelve to any hour after noon; so for example, 2 PM would be 14 in military time.
-</P></BLOCKQUOTE><P ALIGN=LEFT>
-<FONT COLOR="#0000FF"><B>{{minute}}, {{minuteminute}}</B></FONT>
-</P><BLOCKQUOTE><P ALIGN=JUSTIFY>
-Displays the number of the relevant minute.  {{minuteminute}} forces it to two digits (if it's not already), padding single-digit numbers with zeroes (for example, 5 becomes 05).
-</P></BLOCKQUOTE><P ALIGN=LEFT>
-<FONT COLOR="#0000FF"><B>{{month}}, {{monthmonth}}</B></FONT>
-</P><BLOCKQUOTE><P ALIGN=JUSTIFY>
-Displays the number of the relevant month.  {{monthmonth}} forces it to two digits (if it's not already), padding single-digit numbers with zeroes (for example, 3 becomes 03).
-</P></BLOCKQUOTE><P ALIGN=LEFT>
-<FONT COLOR="#0000FF"><B>{{monthword}}, {{monthwordupper}}, {{monthwordlower}}, {{monthwordshort}}, {{monthworduppershort}}, {{monthwordlowershort}}</B></FONT>
-</P><BLOCKQUOTE><P ALIGN=JUSTIFY>
-Displays the name of the month; {{monthwordshort}} displays it abbreviated to three letters.  The "upper" and "lower" variations for both are for displaying it in upper- or lowercase respectively.  So for example, the month of December would be displayed by the variables like so, in the order they're listed above: December, DECEMBER, december, Dec, DEC, dec.
-</P></BLOCKQUOTE><P ALIGN=LEFT>
-<FONT COLOR="#FF0000"><B>{{morelink}}, {{morepreface}} (deprecated)</B></FONT>
-</P><BLOCKQUOTE><P ALIGN=JUSTIFY>
-The contents of their respective templates; will only appear with entries that have an 
-extended ("more") text.  These are no longer recommended for use; it's simpler and more 
-flexible now to distinguish standard and extended entries with their separate templates, 
-so these are no longer necessary (but are kept for compatibility purposes).  <b>NOTE</b>
-These have not been honored since at least GM 1.3.1 and should not be used.
-</P></BLOCKQUOTE><P ALIGN=LEFT>
-<FONT COLOR="#0000FF"><B>{{next}} and {{nextmore}} as a prefix</B></FONT>
-</P><BLOCKQUOTE><P ALIGN=JUSTIFY>
-When "next" or "nextmore" is used as a prefix to most variables, it will give the relevant variable output as it pertains to the next standard or extended entry; for example, {{nexthour}} gives the next entry's hour, {{nextmoreentrysubject}} the next extended entry's subject, and so on.
-</P></BLOCKQUOTE><P ALIGN=LEFT>
-<FONT COLOR="#0000FF"><B>{{pagelink}}</B></FONT>
-</P><BLOCKQUOTE><P ALIGN=JUSTIFY>
-Generates a link to the individual page for that entry.  This is always generated, so you won't want to use this variable if you have individual entry page generation turned off, unless you want it to create links to pages that don't exist.  =)
-</P></BLOCKQUOTE><P ALIGN=LEFT>
-<FONT COLOR="#0000FF"><B>{{pageindexlink}}, {{pagearchiveindexlink}}, {{pagearchivelogindexlink}}</B></FONT>
-</P><BLOCKQUOTE><P ALIGN=JUSTIFY>
-Generates links to the main index, the archive master index (if you have one), and the log archives for the current month or week, respectively.
-</P></BLOCKQUOTE><P ALIGN=LEFT>
-<FONT COLOR="#0000FF"><B>{{pagesmartindexlink}}</B></FONT>
-</P><BLOCKQUOTE><P ALIGN=JUSTIFY>
-Generates a "smart" link either to the main index page or, if the entry is an archived entry, to the log archives for that entry's month or week.
-</P></BLOCKQUOTE><P ALIGN=LEFT>
-<FONT COLOR="#0000FF"><B>{{popup [filename] [title] [width]x[height]}}</B></FONT>
-</P><BLOCKQUOTE><P ALIGN=JUSTIFY>
-Generates a popup window for images, as well as an HTML file for that popup window in the entries/archives directory (both according to the popup templates you specify).  "Filename" is the name of the image file (the HTML file Greymatter creates for the window will be named based on this file as well), "title" is its title, and "width" and "height" are the image's width and height respectively.  {{popup}} creates its link and HTML file according to your customisation of them in the templates.  So, for example, {{popup me.jpg This is me 300x200}} would create a popup window for the me.jpg image in the entries/archives directory (creating a me.htm file there for the window as well) that is 300 pixels wide and 200 pixels high.  Note that when you upload an image through Greymatter, you can have it automatically create a new entry with the correct {{popup}} variable already in place.
-</P></BLOCKQUOTE><P ALIGN=LEFT>
-<FONT COLOR="#0000FF"><B>{{popupfile}}, {{popuphtmlfile}}, {{popuptitle}}, {{popupwidth}}, {{popupheight}}</B></FONT>
-</P><BLOCKQUOTE><P ALIGN=JUSTIFY>
-Gives the image filename, HTML filename, title, width, and height respectively, from the popup variable above.  These variables will, of course, only work in the popup templates.
-</P></BLOCKQUOTE><P ALIGN=LEFT>
-<FONT COLOR="#0000FF"><B>{{positivekarma}}, {{negativekarma}}, {{totalkarma}}</B></FONT>
-</P><BLOCKQUOTE><P ALIGN=JUSTIFY>
-The positive, negative and total karma ratings of that entry, respectively.  If used outside the {{karmalink}} and {{entrykarmaform}} templates, these will just show up as permanent zeroes for entries on which karma is disabled or if karma voting is disabled altogether.  Total karma is the positive minus the negative karma votes; 10 positive votes with 3 negative would give a 7 total karma rating, 4 positive with 7 negative would give -3 total.
-</P></BLOCKQUOTE><P ALIGN=LEFT>
-<FONT COLOR="#0000FF"><B>{{positivekarmalink}}, {{negativekarmalink}}</B></FONT>
-</P><BLOCKQUOTE><P ALIGN=JUSTIFY>
-Generates links for voting upon that entry's karma for the positive or the negative respectively.  If used outside the {{entrykarmaform}} or {{karmalink}} templates, these links will always appear whether or not karma voting is enabled for that entry or if karma is disabled altogether (if karma's disabled, though, clicking the links will not alter that entry's karma).
-</P></BLOCKQUOTE><P ALIGN=LEFT>
-<FONT COLOR="#0000FF"><B>{{previewcommentauthor}}, {{previewcommentemail}}, {{previewcommenthomepage}}, {{previewcommentbody}}</B></FONT>
-</P><BLOCKQUOTE><P ALIGN=JUSTIFY>
-The name, e-mail, homepage of the author previewing the comment, and the text of the comment being previewed, respectively.  These will only work in the Comment Previewing Confirmation Form.
-</P></BLOCKQUOTE><P ALIGN=LEFT>
-<FONT COLOR="#0000FF"><B>{{previous}} and {{previousmore}} as a prefix</B></FONT>
-</P><BLOCKQUOTE><P ALIGN=JUSTIFY>
-When "previous" or "previousmore" is used as a prefix to most variables, it will give the relevant variable output as it pertains to the previous standard or extended entry; for example, {{previoushour}} gives the previous entry's hour, {{previousmoreentrysubject}} the previous extended entry's subject, and so on.
-</P></BLOCKQUOTE><P ALIGN=LEFT>
-<FONT COLOR="#0000FF"><B>{{previouslink}}, {{nextlink}}, {{previousmorelink}}, {{nextmorelink}}</B></FONT>
-</P><BLOCKQUOTE><P ALIGN=JUSTIFY>
-Inserts the contents of their respective templates, intended for use in linking to previous or next entries (or, with the "more" variations, previous/next extended entries).  These will only appear if there's a non-closed previous/next entry (or extended entry, respectively) to be linked to. 
-</P></BLOCKQUOTE><P ALIGN=LEFT>
-<FONT COLOR="#0000FF"><B>{{randomnumber [x]-[y]}}</B></FONT>
-</P><BLOCKQUOTE><P ALIGN=JUSTIFY>
-Displays a random number within the range you specify; for example, {{randomnumber 1-10}} generates a random number from 1 to 10 (inclusive).  These numbers will be different each time the page in question is rebuilt, of course.
-</P></BLOCKQUOTE><P ALIGN=LEFT>
-<FONT COLOR="#0000FF"><B>{{searchform}}</B></FONT>
-</P><BLOCKQUOTE><P ALIGN=JUSTIFY>
-Inserts the form for searching through your entries.
-</P></BLOCKQUOTE><P ALIGN=LEFT>
-<FONT COLOR="#0000FF"><B>{{searchterm}}, {{searchmatches}}, {{searchresults}}</B></FONT>
-</P><BLOCKQUOTE><P ALIGN=JUSTIFY>
-The term used in a search, the number of matches for that search, and the total formatted results of the search, respectively.  These variables only apply to the Search Results Page template.
-</P></BLOCKQUOTE><P ALIGN=LEFT>
-<FONT COLOR="#0000FF"><B>{{second}}, {{secondsecond}}</B></FONT>
-</P><BLOCKQUOTE><P ALIGN=JUSTIFY>
-Displays the number of the relevant second.  {{secondsecond}} forces it to two digits (if it's not already), padding single-digit numbers with zeroes (for example, 7 becomes 07).
-</P></BLOCKQUOTE><P ALIGN=LEFT>
-<FONT COLOR="#0000FF"><B>{{smartentrymusic}}, {{smartentrymood}}</B></FONT>
-</P><BLOCKQUOTE><P ALIGN=JUSTIFY>
-Displays contents of the respective templates if text is included in the respective inputs when adding a new entry.
-</P></BLOCKQUOTE><P ALIGN=LEFT>
-<FONT COLOR="#0000FF"><B>{{sidebar}}</B></FONT>
-</P><BLOCKQUOTE><P ALIGN=JUSTIFY>
-Inserts whatever you have in the Sidebar template.
-</P></BLOCKQUOTE><P ALIGN=LEFT>
-<FONT COLOR="#0000FF"><B>{{timezone}}</B></FONT>
-</P><BLOCKQUOTE><P ALIGN=JUSTIFY>
-Your time zone, as entered in Configuration.
-</P></BLOCKQUOTE><P ALIGN=LEFT>
-<FONT COLOR="#0000FF"><B>{{weekbeginning[?]}}, {{weekending[?]}}</B></FONT>
-</P><BLOCKQUOTE><P ALIGN=JUSTIFY>
-Pertains to the date at the beginning or ending of the current week, respectively; [?] can be any of the variables pertaining to days, months, years, or weekdays.  For example, {{weekbeginningday}} would give the day at the beginning of the current week, and {{weekendingmonthword}} would give the name of the month for the day at the end of the week.
-</P></BLOCKQUOTE><P ALIGN=LEFT>
-<FONT COLOR="#0000FF"><B>{{weekday}}, {{weekdayupper}}, {{weekdaylower}}, {{weekdayshort}}, {{weekdayuppershort}}, {{weekdaylowershort}}</B></FONT>
-</P><BLOCKQUOTE><P ALIGN=JUSTIFY>
-Displays the name of the weekday; {{weekdayshort}} displays it abbreviated to three letters.  The "upper" and "lower" variations for both are for displaying it in upper- or lowercase respectively.  So for example, Thursday would be displayed by the variables like so, in the order they're listed above: Thursday, THURSDAY, thursday, Thu, THU, thu.
-</P></BLOCKQUOTE><P ALIGN=LEFT>
-<FONT COLOR="#0000FF"><B>{{year}}, {{yearyear}}</B></FONT>
-</P><BLOCKQUOTE><P ALIGN=JUSTIFY>
-Displays the number of the relevant year.  {{year}} displays only the last two digits of the year, and {{yearyear}} the full year; so for example, 2001 would be displayed as "01" and "2001" respectively.
-</P></BLOCKQUOTE>
-
-</BLOCKQUOTE>
-</BLOCKQUOTE>
-
-<A NAME="9">
-
-<p class=entryheader align=justify>
-<font color=#000000><b>9. Editing & Creating Authors</B></FONT>
-</p>
-
-<BLOCKQUOTE>
-<P ALIGN=JUSTIFY>
-To post an entry to your weblog/journal&#151;to access Greymatter or do anything with it at all, for that matter&#151;you have to be a registered author.  (The default author is "Alice", password "wonderland".)  You can control the specific access of any author registered with Greymatter&#151;for example, if you want to create an account for someone that can post entries to your weblog/journal, but you don't want them having the ability to muck up your site's configuration or to do anything else.  (Needless to say, be careful about turning off your own access to anything!)  Likewise, of course, you can also delete an author's account altogether at any time.
-</P><P ALIGN=JUSTIFY>
-To create a new author account, simply enter the desired name and password in the "Register A New Author" box, as well as that person's e-mail and/or homepage (this is optional).  If you leave the "All access on for this author by default?" checkbox on, then that author will be created having access to everything; if you leave it unchecked, then they'll be created having access to nothing.  After creating the author, edit them if you want to specifically turn their access on or off for different functions.  There is no theoretical limit to how many authors you can register.
-</P>
-</BLOCKQUOTE>
-
-<A NAME="10">
-
-<p class=entryheader align=justify>
-<font color=#000000><b>10. The Banned IP List</B></FONT>
-</p>
-
-<BLOCKQUOTE>
-<P ALIGN=JUSTIFY>
-If someone's being a pain and you want to ban them from posting comments to your site or casting karma votes on any of the entries, you can add their IP address to the Banned IP list.  You can also optionally specify a name to go along with the banned IPs, to help you remember who's who, and, of course, you can remove a banned IP from the list at any time.  (In a nutshell, IP addresses are four-digit numbers&#151;in the format x.x.x.x&#151;which usually specify an individual account accessing the Internet; a full explanation of IPs is beyond the scope of this manual.)  You can see the IP address of someone posting a comment or voting on karma whenever an e-mail notification is sent to you (if you have that enabled), or by reviewing that entry in the "Edit An Entry" screen.
-</P><P ALIGN=JUSTIFY>
-Since some internet service providers use "rolling" (non-static) IPs, you can enter a partial IP if you want to ban all IP numbers that contain the given partial IP string; for example, banning "12.34.56" would ban the IP "12.34.56.78" as well as "90.12.34.56".
-</P>
-</BLOCKQUOTE>
-
-<A NAME="11">
-
-<p class=entryheader align=justify>
-<font color=#000000><b>11. Rebuilding Your Files</B></FONT>
-</p>
-
-<BLOCKQUOTE>
-<P ALIGN=JUSTIFY>
-From time to time, you may want to rebuild your files&#151;to rebuild files basically means to tell Greymatter to regenerate them.  You'll usually only want to do this after you've made changes to your configuration settings, after you've edited your templates, or after you've edited an entry (including closing or reopening it).  For example, if you've changed the entry page templates for current entries, you'll probably just want to rebuild the main entry pages&#151;and if you've made changes affecting the entire look or operation of your site, you'll want to rebuild everything.  Most of the time, though, rebuilding should be quite unnecessary.
-</P><P ALIGN=JUSTIFY>
-Remember that, obviously, some of these operations may take some time, depending on how much is involved in the rebuilding&#151;most rebuilding operations should be fairly quick, but major rebuilding over a large number of entries could take a little while.  DO NOT attempt to abort Greymatter in any way once you've started rebuilding, or you may mess up your files!
-</P><P ALIGN=JUSTIFY>
-The rebuilding options are as follows:
-</P><P ALIGN=JUSTIFY>
-<UL>
-<LI> "Rebuild Last Entry Page Only"&#151;Rebuilds only the individual entry page for the most recent entry.
-<LI> "Rebuild Main Index File"&#151;Rebuilds the main index of your weblog/journal.
-<LI> "Rebuild Main Entry Pages"&#151;Rebuilds the individual entry pages of every entry that's still considered current (non-archived).
-<LI> "Rebuild Archive Master Index"&#151;Rebuilds the archive master index (if enabled).
-<LI> "Rebuild Archive Log Indexes"&#151;Rebuilds the archive log indexes for every month or week.
-<LI> "Rebuild Archive Entry Pages"&#151;Rebuilds the individual entry pages of every entry that's considered an archive.
-<LI> "Rebuild All Entry Pages"&#151;Rebuilds the individual entry pages of every entry, both current and archived.
-<LI> "Rebuild Connected Pages"&#151;Rebuilds any page you might have connected to Greymatter in Configuration; this option will only appear if you have other pages connected to Greymatter.
-<LI> "Rebuild Everything"&#151;Rebuilds all of the above at once.
-</P>
-</BLOCKQUOTE>
-
-<A NAME="12">
-
-<p class=entryheader align=justify>
-<font color=#000000><b>12. Tips & Suggestions</B></FONT>
-</p>
-
-<BLOCKQUOTE>
-<P ALIGN=JUSTIFY>
-The following are some things you might like to consider after you've become comfortable with using and customising Greymatter.
-</P><P ALIGN=JUSTIFY>
-<FONT COLOR="#0000FF"><B>1. Using Greymatter to do an online journal</B></FONT>
-</P><P ALIGN=JUSTIFY>
-Although Greymatter's default inclination is towards weblogs, it can also be used as a flexible tool for maintaining an online journal with, to which you could have visitors post comments to your journal entries.  For starters, try editing your templates to leave the date grouping template blank, and in the individual entry template, list only the date and entry subject&#151;for example, a one-line template like so:
-</P><P ALIGN=CENTER>
-{{month}}/{{day}}/{{year}}: {{pagelink}}{{entrysubject}}
-</P><P ALIGN=JUSTIFY>
-would make for a quick-and-easy "table of contents" type of format, and you could use the main index as your table of contents for current journal entries.  (You might also want to try bumping up the "Days to keep on main index" variable to a much higher number - even a number like 99999, which would in effect make the main index a table-of-contents list of all entries.)
-</P><P ALIGN=JUSTIFY>
-<FONT COLOR="#0000FF"><B>2. Tying variables to graphics (suggested by Jay Barrow)</B></FONT>
-</P><P ALIGN=JUSTIFY>
-Greymatter's template variables don't have to only be used for outputting plain text&#151;try using them to automatically insert particular graphics as well.  For instance, say that you have a series of twelve GIFs, one for every month, displaying that month's name in a special visual way&#151;january.gif, february.gif, etc.  In this case, use a tag like "&lt;IMG SRC="{{monthwordlower}}.gif"&gt;", and Greymatter will automatically insert the appropriate month word (in this instance, in lowercase) in the image tag.  You could also use it to, say, associate particular graphics/icons to particular people if you have multiple authors in your weblog/journal and wanted to set them apart.
-</P><P ALIGN=JUSTIFY>
-<FONT COLOR="#0000FF"><B>3. Using Greymatter for database-type sites like movie/music review sites, etc.</B></FONT>
-</P><P ALIGN=JUSTIFY>
-Remember that you're not constrained to think of "main text", "more text" or anything else with their default meanings, or to use Greymatter's templates only in the same way all the time.  Let's say that you want to run a site for music reviews.  Set up your main index page in a table-of-contents type of format (as suggested under "Using Greymatter to do an online journal" above).  When you add reviews, your "subject" can be the title of the CD you're reviewing, your "main text" could be some miscellaneous info (the release date, the label, a summary of your review, etc) that you want to set apart somehow, and the "more text" could be the review itself&#151;format your templates accordingly.  And you could use karma ratings, but instead call it: "Do you like this album?  Yes/No", for example.
-</P><P ALIGN=JUSTIFY>
-Despite the way Greymatter names things, it's not intended to be a program where you must always think "this is what I have to do here" and "that's what I have to do there" - take the time to learn how Greymatter works, and feel free to make it all into whatever *you* want to be.
-</P>
-</BLOCKQUOTE>
-
-<A NAME="13">
-
-<p class=entryheader align=justify>
-<font color=#000000><b>13. Troubleshooting</B></FONT>
-</p>
-
-<BLOCKQUOTE>
-<P ALIGN=JUSTIFY>
-First, assuming you can run Greymatter at all, be sure to run "Diagnostics & Repair" on the 
-Configuration screen if you're having problems; that should be able to tell you what most of 
-the holdups are, if Greymatter hasn't done so already along the way&#151;whenever Greymatter 
-has trouble accessing a file, it should stop and tell you what the problem is.  You might also 
-want to contact your server operator or webhost to find out if your server has any special 
-limitations when running Perl software.  Also, don't forget to check the discussion board at 
-the <A HREF="http://greymatterforum.proboards82.com/">Greymatter Forums</A>; someone (including me) 
-may be able to answer your problem there, if it hasn't been answered already.
-</P>
-
-<P ALIGN=JUSTIFY><FONT COLOR="#FF0000">
-PROBLEM: I keep getting a 500 Internal Service Error when I attempt to run Greymatter, or 
-at a particular spot while attempting to do something in Greymatter.
-</FONT></P>
-<P ALIGN=JUSTIFY>
-DIAGNOSIS: First, check to make sure that you've uploaded everything in ASCII mode via your 
-FTP program; if you're unsure, reupload all the files making sure that each upload is in 
-ASCII mode.  Next, check to make sure that your Perl pointers are correctly set, as specified 
-in the installation instructions; then, double-check that everything is 
-<a href="http://www.google.com/search?hl=en&ie=UTF-8&oe=UTF-8&q=chmod" target="_blank">CHMOD</a>ed 
-correctly, also as specified in the installation instructions.  If it still won't 
-run after all that, then your server might not have Perl 5 or its standard modules installed.
-</P>
-
-<P ALIGN=JUSTIFY><FONT COLOR="#FF0000">
-PROBLEM: I can't seem to configure my paths correctly.
-</FONT></P>
-<P ALIGN=JUSTIFY>
-DIAGNOSIS: If you're absolutely certain that your paths are as they should be, 
-and "Diagnostics & Repair" still gives you error notices, then try using virtual 
-instead of relative paths instead. For example, your local CGI path would simply be a "." 
-period (that just means "this directory is right where I'm running from"), and if 
-your entries directory is a subdirectory of that named "archives", then your local 
-entries path would be "./archives". Use "../" for going back one directory relative 
-to the current one (where gm.cgi is); for example, if you have gm.cgi in /cgi-bin/gmfiles/ 
-and you want your log path to be in /www/weblog/, you'd use "../../www/weblog"othe "../../" 
-going back two directories and into "/www/weblog" from there. (Without the quotes, in all instances.)
-</P>
-
-<P ALIGN=JUSTIFY><FONT COLOR="#FF0000">
-PROBLEM: I get "Forbidden" errors whenever I try to view my main index and/or any of my entries.
-</FONT></P>
-<P ALIGN=JUSTIFY>
-DIAGNOSIS: If you've got your main index in your account's cgi-bin directory, and/or 
-your entries directory as a subdirectory of that, then your server is probably set to 
-automatically disallow viewing of any files in your cgi-bin directory (or 
-subdirectories thereof) as a security measure.  You'll have to have your log 
-directory and your entries/archives directory to be somewhere other than in the 
-cgi-bin directory.
-</P>
-
-<P ALIGN=JUSTIFY><FONT COLOR="#FF0000">
-PROBLEM: My entries or other files are messed up, and/or Greymatter just stalls 
-out and stops running whenever I attempt to do something.
-</FONT></P>
-<P ALIGN=JUSTIFY>
-DIAGNOSIS: You may have interrupted Greymatter in the middle of an operation, 
-such as adding a new entry or rebuilding files. <B>Never</B> do this, since this 
-is the surest way to corrupt your Greymatter files.  Keep in mind that actions 
-like rebuilding files will always take some time, depending on how much Greymatter 
-has to rebuild; if you have large templates, and/or you're trying to rebuild a 
-significant amount of entries (and/or if entries contain a significant amount of 
-comments), then rebuilding will probably require an ample amount of time.  If your 
-files have indeed been definitely corrupted, there will probably be no choice but 
-to reinstall from scratch.  If you believe you've encountered a genuine bug that 
-corrupted your files through no fault of your own, then please don't hesitate to 
-<A HREF="mailto:noah@noahgrey.com">report it to me</A>.
-</P>
-
-<P ALIGN=JUSTIFY><FONT COLOR="#FF0000">
-PROBLEM: I try to run Greymatter and get a bunch of text, but can't get the 
-program to run properly; or, whenever I try to access Greymatter I'm simply 
-prompted to download gm.cgi instead.
-</FONT></P>
-<P ALIGN=JUSTIFY>
-DIAGNOSIS: Your server may not have Perl 5 installed, or it may not be properly 
-configured to run CGI scripts (*or* it may not allow for running CGI at all).
-</P>
-
-<P ALIGN=JUSTIFY><FONT COLOR="#FF0000">
-PROBLEM: I get an error when running Grey Matter.  It complains about not being able
-to find the library 'warnings'.
-</FONT></P>
-<P ALIGN=JUSTIFY>
-DIAGNOSIS: Your server may not have Perl 5.6 (released in 2000) installed, or 
-the cgi scripts are not pointed at it (Sometimes more than one version of Perl 
-is installed on a machine).  Ask your webhost or ISP where the newest version of
-Perl is located and update the cgi scripts with the path).
-</P>
-
-<P ALIGN=JUSTIFY><FONT COLOR="#FF0000">
-PROBLEM: I get an error when running Grey Matter.  It complains about not being able
-to find the 'libs' directory or can't find Gm_(whatever) (usually Gm_Constants).
-</FONT></P>
-<P ALIGN=JUSTIFY>
-DIAGNOSIS: You need to upload the 'libs' (and all files withen) directory and set the appropriatte 
-permissions.  The 'libs' directory should be under your cgi-bin directory where
-gm.cgi and the other scripts are located.  The 'libs' directory and the files withen
-were added in an effort to modularize GreyMatter and isolate similar code into
-seperate files.  Also make sure that the 'libs' directory is chmod'ed to 755, other permissions may 
-prevent your webserver from viewing the file.
-</P>
-
-<P ALIGN=JUSTIFY><FONT COLOR="#FF0000">
-PROBLEM: I get an error when running Grey Matter.  It complains about a file being forbidden/denied access to.
-</FONT></P>
-<P ALIGN=JUSTIFY>
-DIAGNOSIS: Sometimes a file such as gm.cgi can be given too many permissions.  Some webservers,
-such as Apache, can be setup to not execute Perl/cgi scripts that have execute and write permissions
-for group and world.  Chmod 777 ('-rwxrwxrwx') vs chmmod 755 ('-rwxr-xr-x').
-</P>
-
-<P ALIGN=JUSTIFY><FONT COLOR="#FF0000">
-PROBLEM: I get odd behavior from GreyMatter such as a blank screen during rebuild, failure to rebuilt,
-blank pages after rebuilding, etc.
-</FONT></P>
-<P ALIGN=JUSTIFY>
-DIAGNOSIS: GreyMatter depends on being able to read files, line by line.  However, Windows uses
-a different line ending character than Linxu/Mac/etc. and so GM will read a file like gm-config.cgi
-and see it as one big line, which means, none of your configurations will be loaded into GreyMatter 
-(same for gm-templates.cgi, etc.).
-
-There are several things to solve this issue:
-<ul>
-<li>Reupload a fresh file, if its a new install, or you haven't made any changes.  FTP programs will have a way
-to specify to send a file in ASCII, consult google or your ftp program's help.</li>
-<li>You could try downloading the file to your local machine, then re-uploading, making sure to set your FTP program 
-to ASCII (same as above).  Downloading and re-uploading will cleanse the file.
-<li>If you have modified a file directly, make sure you do 'save as text' or plain text or ascii.  Some 
-editing programs will insert bad characters, such as windows line endings, into the file when saving.</li>
-<li>This program http://www.comparatorfast.com/ will may help.
-Under - tools-misc, you have a dos-unix conversion program to get rid of the windows endings.
-The program is shareware it will work for 30 days.</li>
-</P>
-
-</BLOCKQUOTE>
-
-
-
-<A NAME="14">
-
-<p class=entryheader align=justify>
-<font color=#000000><b>14. Version History</B></FONT>
-</p>
-
-<BLOCKQUOTE>
-
-
-<P ALIGN=JUSTIFY>
-<FONT COLOR="#0000FF"><B>1.8.2:</B></FONT> Second release of 2008 (4/2008)
-</P><P ALIGN=JUSTIFY>
-<UL>
-<li>Bug fix where number of entries edited by author wasn't being updated (post increment).</li>
-<li>Bug fix where config screen wouldn't show changes:<br >
-http://greymatterforum.proboards82.com/index.cgi?board=gmbugreport&action=display&thread=1200952988</li>
-<li>Updated to use CGI.pm for getting web parameters.</li>
-<li>SECURITY: Deprecated gm-upload.cgi, file no longer required, best to be removed.</li>
-<li>Wrote some automated test cases using http://selenium.openqa.org/</li>
-<li>NEW FEATURE: added label tag to configuration screen for accessability</li>
-<li>Bug fix where entry-only authors couldn't add a new entry:<br >
-http://greymatterforum.proboards82.com/v45index.cgi?action=display&board=gmbugreport&thread=385</li>
-</ul>
-</P>
-
-
-<P ALIGN=JUSTIFY>
-<FONT COLOR="#0000FF"><B>1.8.1:</B></FONT> First release of 2008 (1/2008)
-</P><P ALIGN=JUSTIFY>
-<UL>
-<li>NEW FEATURE: random salt used when encoding author passwords.</li>
-<li>NEW FEATURE: Bookmarklets available for everyone now, regardless of platform.</li>
-<li>Refactored screens: Configuration, Templates, Rebuild</li>
-<li>Bug fix of 1.7.4.1 which addressed issue where new italicizing logic interferred with URLS</li>
-<li>BUG FIX: issue where a badly formatted banned ip would cause a regex parse error, use of quotemeta</li>
-</ul>
-</P>
-
-
-<P ALIGN=JUSTIFY>
-<FONT COLOR="#0000FF"><B>1.7.4:</B></FONT> Fourth release of 2007 (10/2007)
-</P><P ALIGN=JUSTIFY>
-<UL>
-<li>NEW FEATURE: more information given in comment email</li>
-<li>NEW FEATURE: check that commenter came from a page on the Gm site</li>
-<li>NEW FEATURE: force commenters to preview page, enhanced to put a secret value on the page</li>
-<li>NEW FEATURE: throttle commments to slow down spammers</li>
-<li>NEW FEATURE: 'all' option on paging, for those who don't want to go page by page</li>
-<li>Fixed defect where comment email missing usefull information:<br >
-  http://greymatterforum.proboards82.com/index.cgi?board=gmbugreport&action=display&thread=1183695439</li>
-<li>Refactored screens: Entrylist, View Entry</li>
-<li>Updated Edit Author screen so that option selections are preserved on an error</li>
-<li>Updated gm.cgi to 'use strict', but not permanently since it stops the program from working with old part</li>
-<li>Applied fix to trailing whitespace in templates issue, posted by Carlos P.</li>
-<li>Applied fix for "Author Smartlink Target Template", discovered by stryker<br>
-   http://greymatterforum.proboards82.com/index.cgi?action=display&board=gmbugreport&thread=1191509858</li>
-</ul>
-</P>
-
-
-<FONT COLOR="#0000FF"><B>1.7.3:</B></FONT> Third release of 2007 (6/2007)
-</P><P ALIGN=JUSTIFY>
-<UL>
-<li>WARNING:  Default wonderland password now crypted, GM 1.7.4 will not allow plaintext passwords</li> 
-<li>Refactored gm.cgi to use new request routing logic (to prepare for admin overhaul)</li>
-<li>NEW FEATURE: added 'pageing' to Control Panel Log.  Pages are 100 lines.</li>
-<li>NEW FEATURE: added 'pageing' to Ban List.  Pages are 25 lines.</li>
-<li>Fixed bug with poorly optimized sorting:<br />
-	link</li>
-<li>Refactored to use Gm_Security for url and form auths</li>
-<li>Refactored out gm_formatentry to use Core methods (removing direct file access).</li>
-<li>Refactored direct file access out of gm-karma.cgi</li>
-<li>Refactored direct file acesss out of gm-comments.cgi</li>
-<li>Search and Replace should now work for the Mood and Music fields</li>
-<li>Fixed defect where 'index.' wasn't removed from home and archive links, broken in 1.6.1 - 1.7.2</li>
-<li>Fixed issue where some screens had 'Content-type...' at top of.</li>
-<li>Updated default templates to use cookie code, entry subjects as page titles, and smartemotions.</li>
-<li>Refactored out direct emailing, into Core function</li>
-<li>Removed 2000+ lines of deprecated code from gm-library.cgi</li>
-<li>Discovered and documented tag {{entrysubjectstripped}}</li>
-<li>Discovered and documented tag {{dayappend}}</li>
-<li>Refactored screens to use CSS and Web functions: Cplog, Ban Ip, Login, front page, authors</li>
-<li>Added localization logic functionality to enable translation, not fully propagated</li>
-<li>Fixed defect where Preview Does Not Show Preview as Translated<br />
-	http://greymatterforum.proboards82.com/index.cgi?board=gmbugreport&action=display&thread=1175056731</li>
-<li>Fixed defect when authors Preview an Entry and then attempt to post it or re-edit it, GM will report an error<br />
-	http://greymatterforum.proboards82.com/index.cgi?board=gmbugreport&action=display&thread=1175056250</li>
-<li>Fixed defect where if could edit own entries, listed as 'no' instead of 'own' on edit authors page</li>
-<li>Fixed defect where gm-comments.cgi doesn't check for entryid passed in from form</li>
-<li>Fixed defect where entrymainbodyfirstwords and entrymorebodyfirstwords didn't work on search results or after commenting.<br />
-  link</li>
-<li>Fixed defect where Select All on edit entry, didn't select all if there was one item.
-  add issue to forums and link</li>
-<li>Fixed defect where newlines break comments when previewing or doing commenter verification<br />
-  http://greymatterforum.proboards82.com/index.cgi?board=gmbugreport&action=display&thread=1180022969</li>
-<li>Fixed defect in gm_DeleteAllSelectedComments where comments where only reduced by 1 on multi-delete of comments<br />   
-  link</li>
-<li>Fixed defect in gm-comments.cgi where forceverify did not follow 'static' preference<br />
-  http://greymatterforum.proboards82.com/index.cgi?board=gmbugreport&action=display&thread=1180923636</li>
-</UL>
-</P>
-
-
-<P ALIGN=JUSTIFY>
-<FONT COLOR="#0000FF"><B>1.7.2:</B></FONT> Second release of 2007 (3/10/2007)
-</P><P ALIGN=JUSTIFY>
-<UL>
-<li>Modified comments gm_phphackcheck to check search strings for hacks as well, particularly since they are logged.</li>
-<li>Issue with check execute bit on windows with Active perl, rolling back feature</li>
-<li>Fixed random phrase generator to create 3 minute window in which phrase is good for</li>
-<li>Added back key shortcuts for GM:<br />
-  http://greymatterforum.proboards82.com/index.cgi?board=gmbugreport&action=display&thread=1167948704</li>
-<li>NEW FEATURE: Select all for deleting comments:<br />
-  http://greymatterforum.proboards82.com/index.cgi?board=gmmoddev&action=display&thread=1168809763</li>
-<li>Security enhancements to scan all form variables inputted.</li>
-<li>Updated install, manual, and developer documents, fixing typos, adding clarifications.</li>
-<li>Refactored gm_formatentry to Gm_Core</li>
-<li>Refactored Gm_Storage methods to stop (die) on required params, instead of assuming defaults</li>
-<li>Truncated search parameter to 35 characters to try and limit attacks</li>
-<li>UPDATED FEATURE:  Protect author now has an exact and loose option:<br />
-	http://greymatterforum.proboards82.com/index.cgi?board=gmbugreport&action=display&thread=1170709235&page=1</li>
-<li>ADDED FEATURE: If inline formatting on, will display help when entering an entry, editing an entry</li>
-</UL>
-</P>
-
-<P ALIGN=JUSTIFY>
-<FONT COLOR="#0000FF"><B>1.7.1:</B></FONT> First release of 2007 (12/31/2006)
-</P><P ALIGN=JUSTIFY>
-<UL>
-<li> NEW FEATURE: Link Limit will block and/or ban commenters based on number of links in comment</li>
-<li> NEW FEATURE: Force Preview will require that a commenter preview their post before submitting </li>
-<li> NEW FEATURE: Require commenter to type pass-phrase, either a phrase provided or random letters</li>
-<li> Fixed defect where installations with more than 1 connected files would not rebuild/repair the connected files: <br />
-  http://greymatterforum.proboards82.com/index.cgi?board=gmbugreport&action=display&thread=1163736661&page=1#1163736661</li>
-<li> Fixed defect where two templates were cleared out in 1.6.1 upgrade, but should only be cleared out for versions prior to 1.3.1.
-  http://greymatterforum.proboards82.com/index.cgi?board=gmbugreport&action=display&thread=1163569859&page=1#1163569859</li>
-<li> Fixed defect where military hour not showed as 00 for 12 am:<br />
-	http://greymatterforum.proboards82.com/index.cgi?board=gmbugreport&action=display&thread=1165810428&page=1#1165810428</li>
-<li> Fixed defect where censored word list was no longer honored.  Due to 1.6.1 refactoring:<br />
-	http://greymatterforum.proboards82.com/index.cgi?board=gmbugreport&action=display&thread=1165811797&page=1#1165811797</li>
-<li> Fixed defect where multiple files where not being processed:<br />
-	http://greymatterforum.proboards82.com/index.cgi?board=gmbugreport&action=display&thread=1163736661&page=1#1163736661</li>
-<li> Fixed defect where 	{{commentauthorsmartlink}} was not being censored:<br />
-	http://greymatterforum.proboards82.com/index.cgi?board=gmbugreport&action=display&thread=1164257159&page=1#1164257159</li>
-<li> Fixed defect where preview/post wouldn't work unless "Protect Author Name" was enabled.<br />
-	http://greymatterforum.proboards82.com/index.cgi?board=gmbugreport&action=display&thread=1165981473&page=1#1165981473</li>
-<li> refactored gm_collatecomments into Gm_Core, in order to gain OO benefits.</li>
-<li> refactored gm_getentryvariables into Gm_Core, in order to gain OO benefits.</li>
-<li> Tighted up regex to look for hacks, specifically malformed iframe and script tags<br />
-   URL</li>
-<li> GM will search closed entries - THIS IS NO LONGER A DEFECT SINCE 1.3.1<br />
-  http://greymatterforum.proboards82.com/index.cgi?action=display&board=gmbugreport&thread=1161577994</li>
-</UL>
-</P>
-
-<P ALIGN=JUSTIFY>
-<FONT COLOR="#0000FF"><B>1.6.1:</B></FONT> First release of 2006
-</P><P ALIGN=JUSTIFY>
-<UL>
-<li> added author name protecion, commenter must enter name_pw in order to post with author name.</li>
-<li> refactored config screen to use Gm_Web.pm functions, cut down on if statements</li>
-<li> refactored to use Gm_Constants to avoid typos of bareword flags.</li>
-<li> refactored to use Gm_Storage to retrieve templates (continue this trend to get to db)
-  <ul><li> also refactored template file so that templates are stored as: template_name=templatevalue (removes order dependance)</li></ul>
-<li> refactored to use Gm_Storage to retrieve and set configs
-  <ul><li> also refactored configs to use format: configname=configvalue (removes order dependance, cleaner)</li></ul>
-<li> refactored to use Gm_Storage to retrive and set ban lists</li>
-<li> refactored to use Gm_Storage to retrive and save authors</li>
-<li> refactored minor "utility" functions to Gm_Utils
-  <ul><li> This includes &date which is now Gm_Utils::getStdDate</li></ul>
-<li> fixed issue with ArchiveGroupingFooter not being printed properly<br />
-	http://greymatterforum.proboards82.com/index.cgi?board=gmbugreport&action=display&thread=1155058370&page=1#1155058370</li>
-<li> removed quotes, they don't contribute anything to the task at hand.</li>
-<li> added user templates for errors that are displayed to grey matter users vs gm admin messages<br />
-  http://greymatterforum.proboards82.com/index.cgi?board=gmfeaturemodrequests&action=display&thread=1155527898&page=1#1155527898</li>
-<li> added in Multiple delete on the entry edit page.</li>
-</UL>
-</P>
-
-<P ALIGN=JUSTIFY>
-<FONT COLOR="#0000FF"><B>1.3.1:</B></FONT>
-</P><P ALIGN=JUSTIFY>
-<UL>
-<li> added xhtml sanitation for & symbols.
-  http://www.greymatterforums.com/index.php?topic=9178.msg40972#msg40972</li>
-<li> added {{entrymood}} and {{entrymusic}} to {{logentrylist}} and {{calendar}}
-  http://www.greymatterforums.com/index.php?topic=7555.0</li>
-<li> fixed default first paths (removed cgi-bin from log and entries/archives paths).</li>
-<li> added the google comment spam prevention to the comments censor code
-  and default {{commentauthoremail}} & {{commentauthorhomepage}} templates.
-  http://www.google.com/googleblog/2005/01/preventing-comment-spam.html</li>
-<li> cplog sanitised (< converted to &lt; and > converted to &gt;)
-  http://www.greymatterforums.com/index.php?topic=9146.0</li>
-<li> gm-comments.cgi and gm-karma.cgi use the cplog subroutine</li>
-<li> &lt;iframe check added in php hack detection script</li>
-<li> Editing Author without editing password no longer wipes password
-  http://www.greymatterforums.com/index.php?topic=8526.0</li>
-<li> Inputs into gm-comments.cgi and gm.cgi have < and > replaced</li>
-<li> Ampersand in Subject now comes out as &
-  http://www.greymatterforums.com/index.php?topic=8861.0</li>
-<li> $commentname="gm_password"; at the top of gm-library.cgi. It changes the name of your password cookie
-  http://www.greymatterforums.com/index.php?topic=9146.0</li>
-<li> Check for overwriting when adding new entry</li>
-<li> $commentname support added to deleting cookie through config</li>
-<li> Changed some of the simple html tags to lowercase: &lt;b&gt; <font></li>
-<li> cplog sanatise re-written to only take out possible hack html</li>
-<li> {{smartentrymusic}} and {{smartentrymood}} now work in {{sidebar}}
-  http://www.greymatterforums.com/index.php?topic=8707.0</li>
-<li> changed main menu background color and used some css goodies</li>
-<li> http://www.greymatterforums.com/index.php?topic=6336
-  casting a karma vote neutralized emoticons, entrymusic, and entrymood (Fixed 2/2 Silent Bob)</li>
-<li> http://www.greymatterforums.com/index.php?topic=6750
-  calendar doesn't validate as xhtml when month ends on Saturday (Fixed 1/8 linear)</li>
-<li> http://www.greymatterforums.com/index.php?topic=6535
-  {{authorsmartlink}} gets autolinked twice</li>
-<li> (no bug report, several complaints)
-  autolinking in entries removed. Use the {{link}} varaibles provided instead. (Fixed 2/19 linear)</li>
-<li> fixed $aftermath related karma bug (Fixed 2/11 linear)</li>
-<li> http://www.greymatterforums.com/index.php?topic=7105
-  {{loglistmonthwordshort}} returned wrong value (Fixed 2/8 Ian)</li>
-<li> http://www.greymatterforums.com/index.php?topic=7141 (Fixed 6/29 Linear/flipped cracker)
-  added new $dategrouping flag</li>
-<li> removed easy formatting from entry subject (flipped cracker 6/29)</li>
-<li> updated gm gui using css (flipped cracker 6/29)</li>
-</UL>
-</P>
-<P ALIGN=JUSTIFY>
-<FONT COLOR="#0000FF"><B>1.3:</B></FONT> minor release
-</P><P ALIGN=JUSTIFY>
-<UL>
-<LI> numerous security-related improvements
-<LI> added music input to entries
-<LI> added mood input to entries
-<LI> integrated smilies hack to core gm code
-<LI> improved php hack check
-<LI> changed entry rebuild increment to 10 (instead of 20)
-<LI> improved the default template set
-<LI> fixed bug where "00000000.cgi can not be read" errors occur
-<LI> fixed bug where sqare brackets in entry subjects broke the scripts
-<LI> fixed bug where image buttons would not work in entrycommentsform template
-<LI> added automatic configuration save when D&R is clicked
-<LI> improved upgrade handling over 1.21d
-
-</UL>
-</P>
-<P ALIGN=JUSTIFY>
-<FONT COLOR="#0000FF"><B>1.21d:</B></FONT> bug-fix release
-</P><P ALIGN=JUSTIFY>
-<UL>
-<LI> fixed php exploit
-</UL>
-</P>
-<P ALIGN=JUSTIFY>
-<FONT COLOR="#0000FF"><B>1.21c:</B></FONT> bug-fix release
-</P><P ALIGN=JUSTIFY>
-<UL>
-<LI> fixed bug with crypt in gm-authors.cgi
-</UL>
-</P>
-<P ALIGN=JUSTIFY>
-<FONT COLOR="#0000FF"><B>06.19.2001:</B></FONT> license change
-</P><P ALIGN=JUSTIFY>
-<UL>
-<LI> updated the "Copyright & Usage" information in this manual
-</UL>
-</P><P ALIGN=JUSTIFY>
-<FONT COLOR="#0000FF"><B>1.21b [02.22.2001]:</B></FONT> bug-fix release
-</P><P ALIGN=JUSTIFY>
-<UL>
-<LI> fixed bug with every 20th entry not being rebuilt
-<LI> fixed bug with {{calendar mm/yy}} not aligning dates to the correct weekdays
-<LI> fixed bug with {{logentrylist comments}} not sorting properly with entries having 10 or more comments
-</UL>
-</P><P ALIGN=JUSTIFY>
-<FONT COLOR="#0000FF"><B>1.21a [01.17.2001]:</B></FONT> bug-fix release
-</P><P ALIGN=JUSTIFY>
-<UL>
-<LI> fixed security issue involving clicking "Visit Your Site" after certain rebuilding operations
-<LI> fixed bug converting pluses to spaces in selected text/URLs when using bookmarklets
-<LI> fixed bug padding {{militaryhour}} to too many zeroes when used in {{logentrylist}}s
-<LI> fixed bug with not properly handling some {{previousmorepagelink}}s and {{nextmorepagelink}}s
-</UL>
-</P><P ALIGN=JUSTIFY>
-<FONT COLOR="#0000FF"><B>1.21 [01.15.2001]:</B></FONT> minor release
-</P><P ALIGN=JUSTIFY>
-<UL>
-<LI> added incremental rebuilding&#151;entry pages & connected files are now rebuilt 20 files at a time rather than all at once, to be somewhat more browser/server-friendly
-<LI> fixed a minor bug involving {{commentauthoremail}} and {{commentauthorhomepage}}
-<LI> fixed problem not recognizing pre-1.2 passwords that contained nonalphanumeric characters
-</UL>
-</P><P ALIGN=JUSTIFY>
-<FONT COLOR="#0000FF"><B>1.2 [01.12.2001]:</B></FONT> major upgrade release
-</P><P ALIGN=JUSTIFY>
-<UL>
-<LI> added bookmarklets for convenient "blogging" of sites from anywhere on the web (Internet Explorer 5+ only)
-<LI> added ability to upload files from within Greymatter to your entries/archives directory (you must upload the new gm-upload.cgi file and <a href="http://www.google.com/search?hl=en&ie=UTF-8&oe=UTF-8&q=chmod" target="_blank">CHMOD</a> it to 755); can also allow only certain types of files to be uploaded, and/or specify a maximum filesize limit on uploads; can also send a link to the file or display the image directly in a new entry
-<LI> can now choose whether log archives are kept on a monthly or weekly basis; they can also now be disabled altogether
-<LI> added cookies to remember your name and password upon login; can be disabled or cleared in configuration
-<LI> added new {{calendar}} & {{calendarweek}} options & templates, to create calendar tables showing links to your entries for the current month or week; can also create monthly calendars for individual months
-<LI> added quick-and-easy {{popup}} variable for making popup windows for images (fully customisable, of course); when you upload an image through Greymatter, you can also have the popup window & code automatically made in a new entry
-<LI> added ability for visitors to search your entries (to enable this, add {{searchform}} to any template to insert the search form), with fully-customisable form and results display
-<LI> added ability to search through entries or perform search-and-replace operations across all entries from within Greymatter
-<LI> retooled the way link variables are done for greater flexibility (link variables are no longer self-contained; templates automatically converted upon upgrading)
-<LI> added ten new custom templates to the Header, Footer & Sidebar group
-<LI> added shortcut keys and "easy formatting" (see configuration) for adding link, bold, italic & underline tags to text when adding or editing entries (Internet Explorer 5+ only)
-<LI> added ability for authors to preview the contents of entries within Greymatter before posting them
-<LI> added ability for visitors to preview comments before submitting them (to enable this, add a &lt;INPUT TYPE=SUBMIT NAME="gmpostpreview" VALUE="Preview Your Comment"&gt; button [the "value" text can be changed to whatever you wish, as long as you keep the NAME="gmpostpreview" part] to your entry comments form)
-<LI> can now "connect" other files to Greymatter, allowing Greymatter to use and update any other file on your account as if it were one of its regular index files&#151;recommended for advanced users only
-<LI> added censor list ability; undesired words or phrases (in entries, comments, or both) can now be *****ed out
-<LI> added "Automatically rebuild..." option upon saving changes to templates or entries
-<LI> added "Rebuild All Entry Pages" option to the Rebuild Files menu
-<LI> added more options for customising authors' access, including allowing authors to edit only their own entries and/or the header, footer & sidebar templates
-<LI> can now specify whether only the HTML code for linking, bold and italics, or just linking, can be included in comments
-<LI> can now specify dividers&#151;by day, month, and/or year&#151;to add to lists of entry links (the {{logentrylist}} variables)
-<LI> can now list all entries by any individual author with the {{logentrylist}} variables
-<LI> can also do {{logentrylist}}s sorted by number of comments
-<LI> can now refer to the body of the entry text in {{logentrylist}}ings
-<LI> much more flexible handling of {{previous}} and {{next}}-related variables
-<LI> added new {{weekbeginning}} and {{weekending}} variables, pertaining to the date at the beginning or end of the given week
-<LI> added new {{entrymainbodyfirstwords [x]}} and {{entrymorebodyfirstwords [x]}} variables, to display only the first X words of the current entry
-<LI> added ability to sort by date, subject, or author, as well as an "All entries by you" viewing option, to the Edit An Entry selection menu
-<LI> can now specify a default view for the Edit An Entry selection menu in configuration
-<LI> can now customise the output of {{commentstatussmart}}
-<LI> can now have separate suffix for the monthly log archive files
-<LI> added "Visit Your Site" button to main menu
-<LI> giving subjects to entries is no longer required
-<LI> slightly improved autolinking to e-mail addresses
-<LI> various minor speed optimisations
-<LI> added {{randomnumber [x]-[y]}} variable
-<LI> added a template for line breaks
-<LI> added better checking for incorrect author names when creating a new author
-<LI> fixed a small bug with not using the extended entry page template whenever comments were added to extended entries
-<LI> fixed a small bug involving {{militaryhour}}: midnight was showing up as "12" instead of "00"
-<LI> removed requirement that the Socket module be installed
-<LI> added display of internal errors to browser
-</UL>
-</P><P ALIGN=JUSTIFY>
-<FONT COLOR="#0000FF"><B>1.1b [12.27.2000]:</B></FONT> bug-fix release
-</P><P ALIGN=JUSTIFY>
-<UL>
-<LI> fixed important bug that could cause Greymatter to stop working after New Year's
-</UL>
-</P><P ALIGN=JUSTIFY>
-<FONT COLOR="#0000FF"><B>1.1a [12.07.2000]:</B></FONT> bug-fix release
-</P><P ALIGN=JUSTIFY>
-<UL>
-<LI> fixed a small bug involving mouseovers with the {{logentrylist}} variables
-</UL>
-</P><P ALIGN=JUSTIFY>
-<FONT COLOR="#0000FF"><B>1.1 [12.06.2000]:</B></FONT> major upgrade release
-</P><P ALIGN=JUSTIFY>
-<UL>
-<LI> polished up the interface and editing environment
-<LI> new archive master index template & options
-<LI> new variables ({{logarchivelist}}, {{logentrylist}} and several variations thereof), templates and options for generating automatic, fully-customisable lists of links to log archives and individual entry pages
-<LI> added new Diagnostics & Repair function in the Configuration screen&#151;a means for Greymatter to check that all files and paths are working correctly
-<LI> added new header, footer and sidebar templates/variables
-<LI> added filecheck error trapping (which basically means that if Greymatter ever has a problem reading or writing to a file, it'll stop and tell you what the problem is, instead of stalling out indefinitely)
-<LI> new templates allowing you to set up all standard and extended entries in completely distinct ways
-<LI> can now universally disable karma and/or comments in configuration, overriding individual entry settings
-<LI> new entry separator templates&#151;can now add special separators/dividers between entries if you wish
-<LI> new link customisation template, for any special code to be inserted in links to individual entry pages
-<LI> can now close or reopen entries right from the entry selection menu
-<LI> added {{previouslink}}, {{nextlink}}, {{previousmorelink}} and {{nextmorelink}} variables
-<LI> added {{pagenextmorelink}} and {{pagepreviousmorelink}} for linking to the next and previous extended entries
-<LI> added various variables for referring to the subject, author, and number of next and previous entries
-<LI> added {{pageindexlink}}, {{pagearchiveindexlink}}, and {{pagearchivelogindexlink}} variables for linking to the main index, the archive master index, and the current log archive, respectively
-<LI> can now modify the {{author}} group of variables to insert the links/information for specific authors
-<LI> all variables involving the next & previous entries will now work in any of the mini-templates, not just the entry page templates
-<LI> can now use entry-specific variables in the main index & archive log indexes if you wish; on the main index, they will refer to the most recent entry, and on the archive log index, to the entry at the top
-<LI> new template for the date grouping header in archives
-<LI> much improved handling of auto-linking to URL's in comments (thanks Neal)
-<LI> e-mail addresses in comments will now be automatically linked to, if auto linking is enabled
-<LI> implemented workaround for textareas choking on certain codes when editing templates or entries
-<LI> fixed problem deleting banned IP addresses if the banned person's name contained quotes
-<LI> can now activate both "HTML allowed in comments" and "Auto-link URLs in comments" without the links getting messed up
-<LI> new {{entrieswebpath}} and {{logwebpath}} variables
-<LI> got rid of the "Delete All Generated Pages" button
-<LI> should work better on servers running Windows NT
-<LI> can now fit in 800x600 instead of requiring a minimum display of 1024x768
-<LI> looks much better on Netscape 4.x and 6.x
-<LI> redid the installation file and the manual you're now reading
-</UL>
-</P><P ALIGN=JUSTIFY>
-<FONT COLOR="#0000FF"><B>1.0a [11.20.2000]:</B></FONT> bug-fix release
-</P><P ALIGN=JUSTIFY>
-<UL>
-<LI> fixed tiny bug involving use of negative numbers on "Server Offset Time" (thanks Bill @ mermaniac.com)
-</UL>
-</P><P ALIGN=JUSTIFY>
-<FONT COLOR="#0000FF"><B>1.0 [11.04.2000]:</B></FONT> first official public release of Greymatter
-</P><P ALIGN=JUSTIFY>
-<UL>
-<LI> added automatic path detection for installing (or upgrading, if necessary); Greymatter will attempt to figure out your local & web paths automatically if they haven't been configured or verified yet
-<LI> added a version check to login so that all necessary files can be easily updated whenever an upgrade to Greymatter is installed in a previous Greymatter setup
-<LI> added "Keep main index and archive log indexes concurrent with each other" option, allowing you to have new entries appear simultaneously in the main index and that month's archive log index if you wish
-<LI> added file checks to login; will not allow login if critical files are missing
-<LI> new "Local CGI Path" and "Website CGI Path" fields in configuration
-<LI> added new {{pageindexlink}} and {{cgiwebpath}} variables
-<LI> fixed bug with karma voting (wouldn't work if the main index file was not in the same place as the cgi files, since it assumed the same path)&#151;karma voting links now refer to the cgi web path
-<LI> {{pagenextlink}} and {{pagepreviouslink}} are now "smarter"; will now skip over closed entries (rather than just linking to the main index if the next/previous entry is closed) and will always link to the next/previous non-closed entry
-<LI> single line breaks will now show up in entry text and in comments (unless you've enabled "Strip new lines from comments", of course)
-<LI> minor tweaks to look slightly better on Netscape (still looks much better in IE, though)
-<LI> rewrote the installation.txt file, and finished the manual you're now reading
-</UL>
-</P><P ALIGN=JUSTIFY>
-<FONT COLOR="#0000FF"><B>beta 2 [10.28.2000]:</B></FONT> fixed a small bug with IP addresses (thanks, Jay)
-</P><P ALIGN=JUSTIFY>
-<FONT COLOR="#0000FF"><B>beta 1 [10.26.2000]:</B></FONT> first private beta release
-</P><P ALIGN=JUSTIFY>
-<FONT COLOR="#0000FF"><B>alpha 0.x [began 09.10.2000]:</B></FONT> spawning, creating, testing, tweaking
-</P>
-</BLOCKQUOTE>
-
-<A NAME="15">
-
-<p class=entryheader align=justify>
-<font color=#000000><b>15. Credits & Thanks</B></FONT>
-</p>
-
-<BLOCKQUOTE>
-<P ALIGN=JUSTIFY>
-Greymatter is written and created entirely by Noah Grey and The Greymatter Team.  All rights reserved.
-</P><P ALIGN=JUSTIFY>
-Thanks to: <A HREF="http://semistatic.com/" TARGET="_top">Jay Barrow</A>, without whose encouragement 
-Greymatter wouldn't be in your hands right now (and who made the included "Powered By Greymatter" button); 
-to <A HREF="http://indecisions.org/" TARGET="_top">Neal Coffey</A> for help with Linux and URL 
-auto-linking; to <A HREF="http://www.mermaniac.com/" TARGET="_top">Bill</A>, 
-<A HREF="http://www.flogeeks.org/" TARGET="_top">Daniel</A>, 
-<A HREF="http://www.unxmaal.com/" TARGET="_top">Eric</A>, 
-<A HREF="http://www.nine2000.com/" TARGET="_top">James</A>, 
-<A HREF="http://www.semistatic.com/" TARGET="_top">Jay</A>, 
-<A HREF="http://www.nosurrender.org" TARGET="_top">Jimmy</A>, 
-<A HREF="http://www.bluezfire.org/" TARGET="_top">Lee</A>, 
-<A HREF="http://www.starcrossd.org" TARGET="_top">Sara</A>, 
-and <A HREF="http://www.project37.org/" TARGET="_top">Tom</A> for being great beta-testers 
-(and friends); to my family and friends for their love and support; to everyone who has 
-donated and helped make Greymatter to feel like a worthwhile effort thus far; and to 
-Thomas for being himself.
-</P><P ALIGN=RIGHT>
-&#151;Noah Grey<br />
-&#151;The Greymatter Team
-<BR>
-<A HREF="http://greymatterforum.proboards82.com/">http://greymatterforum.proboards82.com/</A>
-<BR>
-</P>
-</BLOCKQUOTE>
-
-</FONT>
-
-</BODY>
+	    </tbody>
+	</table>
+	<!-- End Top Header -->
+	<!-- Sub Header with Linkage -->
+	<table cellspacing=0 cellpadding=5 width="100%" bgcolor=#EAE8E8 border=0 class="headers">
+	    <tbody>
+  		<tr>
+		    <td align=right>
+			<font face="VERDANA, ARIAL, HELVETICA" size=2>
+			    <a class=hoverlink onMouseOver="window.status='News, updates and everything else.';return true" onMouseOut="window.status='';return true" href="http://greymatterforum.proboards.com/">home</a>
+			</font>
+		    </td>
+		</tr>
+	    </tbody>
+	</table>
+	<!-- End Sub Header with Linkage -->
+
+	<FONT FACE="VERDANA, ARIAL, HELVETICA" SIZE=2>
+
+	    <P ALIGN=CENTER CLASS="maintitle"><CENTER>
+		    <FONT SIZE=6><B>Greymatter</B></FONT><BR><FONT SIZE=4><B>Weblog/Journal Software &#183; Version 1.8.2 &#183; Manual & Reference</B></FONT><BR><B>Copyright &copy;2000-2017 The Greymatter Team &#183; All Rights Reserved</B>
+		</CENTER>
+
+	    <P ALIGN=CENTER><CENTER>
+		    <BR>
+		</CENTER>
+
+	    <p class=entryheader align=justify>
+		<font color=#000000><b>Table of Contents</B></FONT>
+	    </P>
+
+	    <BLOCKQUOTE>
+		<P ALIGN=JUSTIFY>
+		    <A HREF="#1">1. About Greymatter</A><BR>
+		    <A HREF="#2">2. Copyright &amp; Usage</A><BR>
+		    <A HREF="#3">3. A note about the bottom line</A><BR>
+		    <A HREF="#4">4. Security Considerations</A><BR>
+		    <A HREF="#5">5. Configuration Options</A><BR>
+		    <A HREF="#6">6. Entries &amp; Archives</A><BR>
+		    <A HREF="#7">7. The Templates</A><BR>
+		    <A HREF="#8">8. Template Variables</A><BR>
+		    <A HREF="#9">9. Editing & Creating Authors</A><BR>
+		    <A HREF="#10">10. The Banned IP List</A><BR>
+		    <A HREF="#11">11. Rebuilding Your Files</A><BR>
+		    <A HREF="#12">12. Tips & Suggestions</A><BR>
+		    <A HREF="#13">13. Troubleshooting</A><BR>
+		    <A HREF="#14">14. Version History</A><BR>
+		    <A HREF="#15">15. Credits & Thanks</A>
+		</P>
+	    </BLOCKQUOTE>
+
+	    <A NAME="1"></A>
+
+	    <p class=entryheader align=justify>
+		<font color=#000000><b>1. About Greymatter</B></FONT>
+	    </P>
+
+	    <BLOCKQUOTE>
+		<P ALIGN=JUSTIFY>
+		    Thanks for trying Greymatter.  Greymatter is a Web-based tool for the creation of weblogs 
+		    (regularly-updated news- or journal-type sites) or online journals, allowing complete 
+		    control over your weblog/journal while supporting such features as: the ability for 
+		    users to post comments to your entries or cast "karma" votes on them, with no database 
+		    used or required whatsoever; a template-based system that allows you to fully customise 
+		    every aspect of your site's look and function, great or small; support for multiple 
+		    weblog/journal authors, with fully-controllable individual access; a ban system for 
+		    preventing malicious users from voting or posting on your site; nearly a hundred template 
+		    variables that allow for extremely flexible styles and setups; easy and complete editing 
+		    of any entry (including its comments) at any time; runs completely on your own account 
+		    and is thus under your full control at all times; and, of course, "more"!
+		</P><P ALIGN=JUSTIFY>
+		    To install Greymatter, please carefully follow the instructions in 
+		    the <a href="http://greymatterforum.proboards82.com">install.html</a> file.  
+		    Greymatter is intended as a flexible "power tool" for webloggers & 
+		    journal-keepers who are moderately comfortable with the HTML language 
+		    (to customise Greymatter's templates).  Greymatter requires a server 
+		    that fully supports CGI programs with Perl 5.6 installed, and is optimised 
+		    for 800x600 or higher.
+		</P><P ALIGN=JUSTIFY>
+		    <FONT COLOR="#FF0000"><B>IMPORTANT NOTE:</B> If you're upgrading from an 
+			older version of Greymatter, please read 
+			the <a href="http://greymatterforum.proboards82.com">install.html</a> file 
+			for instructions on how to upgrade.</FONT>
+		</P>
+	    </BLOCKQUOTE>
+
+	    <A NAME="2"></A>
+
+	    <p class=entryheader align=justify>
+		<font color=#000000><b>2. Copyright & Usage</B></FONT>
+	    </p>
+
+	    <BLOCKQUOTE>
+		<P ALIGN=JUSTIFY>
+		    Greymatter is Copyright (c)2000-2017 by the Greymatter team.  All rights reserved.
+		</P><P ALIGN=JUSTIFY>
+		    By possessing this software, you agree not to hold the author responsible for 
+		    any problems that may arise from your installation or usage of Greymatter itself, 
+		    or from any content generated by yourself or others through the use of this program.  
+		    You <I>may</I> freely modify and redistribute this program, so long as 
+		    every copyright notice (including in this manual and in the Greymatter code) remains 
+		    fully intact.  Finally, you may <I>not</I> sell or in any way make a financial 
+		    profit from this program, either in original or modified form.
+		</P><P ALIGN=JUSTIFY>
+		    Your possession of this software signifies that you agree to these terms; please 
+		    delete your copy of this software if you don't agree to these terms.
+		</P>
+	    </BLOCKQUOTE>
+
+	    <A NAME="3"></A>
+
+	    <p class=entryheader align=justify>
+		<font color=#000000><b>3. A note about the bottom line</B></FONT>
+	    </p>
+
+	    <BLOCKQUOTE>
+		<P ALIGN=JUSTIFY>
+		    At present, Greymatter is a completely free program; you don't need to spend a 
+		    cent to use it, or to download any updates from the Greysoft site whenever they're 
+		    made available.  However, any donations (no requested fee, do what your heart 
+		    dictates, if anything) or gift purchases made from 
+		    the <A HREF="http://noahgrey.com/greysoft/">Greysoft site</A> would be more 
+		    than welcome; I've put an immense amount of work into this program, and any 
+		    donations (though again, of course, *not* required in any way) would definitely 
+		    be the best incentive to keep me working on and updating it, or simply to let 
+		    me know that this program's existence is appreciated.
+		</P><P ALIGN=JUSTIFY>
+		    In any event, donation or no donation, if you like using Greymatter then feel 
+		    free to e-mail me at <A HREF="mailto:noah@noahgrey.com">noah@noahgrey.com</A>&#8212;I'd love 
+		    to hear from you.  (For most tech-support questions or comments and queries relating to 
+		    its usage, please leave a post about it on Greymatter's 
+		    discussion <a href="http://greymatterforum.proboards82.com">forums</a> instead; 
+		    that way, everyone can benefit from the information.)
+		</P>
+	    </BLOCKQUOTE>
+
+	    <A NAME="4"></A>
+
+	    <p class=entryheader align=justify>
+		<font color=#000000><b>4. Security Considerations</B></FONT>
+	    </p>
+
+	    <BLOCKQUOTE>
+		<P ALIGN=JUSTIFY>Greymatter requires that certain files and directories be writeable by the userid that the web server runs as. Normally, this is accomplished by making those files and directories world-writeable. If you have the flexibility to exec a CGI script under a different userid, then this userid is the only one that requires write privileges. Greymatter has not been tested extensively under a "CGI wrapper" but should work fine if you keep this need to write files in mind.
+		</P><P ALIGN=JUSTIFY>Every attempt has been made to secure this set of scripts against cross-site scripting (XSS) attacks. However, it is worth noting that if security is a significant concern, disallowing comments entirely is the only way to be completely safe from XSS attacks. Greymatter has configuration options that allow you to filter the set of allowable tags in comments. You need to be aware that allowing HTML in comments with no restrictions can lead to your site being compromised.
+		</P><P ALIGN=JUSTIFY>In Greymatter 1.3.1, author usernames and passwords are no longer exposed during a rebuild files operation. Please take note that using the cookie and bookmarklet options both have the potential to reveal your author login information. If you are not the sole user of a machine, you should not use the cookies or bookmarklets features.
+	    </P></BLOCKQUOTE>
+
+	    <A NAME="5"></A>
+
+	    <p class=entryheader align=justify>
+		<font color=#000000><b>5. Configuration Options</B></FONT>
+	    </p>
+
+	    <BLOCKQUOTE>
+		<P ALIGN=JUSTIFY>
+		    The Configuration screen is where you set up Greymatter and tell it how you want it to work.  As explained in installation.htm, setting things up here will need to be your first order of business when you use Greymatter for the first time.  Whenever you change any of the settings here after your weblog/journal has already started, then it'd be a good idea to rebuild your files (see the "Rebuilding Your Files" section of the manual below) to make the appropriate changes visible on your site.  You can also run "Diagnostics &amp; Repair" (indeed, you'll <I>need</I> to do so upon installation) to insure that all your files and paths are accessible and are working correctly.
+		</P><P ALIGN=JUSTIFY>
+		    Since the various configuration options are now described within the program itself, descriptions of them aren't included here.
+		</P>
+	    </BLOCKQUOTE>
+
+	    <A NAME="6"></A>
+
+	    <p class=entryheader align=justify>
+		<font color=#000000><b>6. Entries &amp; Archives</B></FONT>
+	    </p>
+
+	    <BLOCKQUOTE>
+		<P ALIGN=JUSTIFY>
+		    Entries are what your weblog/journal is made of, and the "Add A New Entry" screen is where you'll post them.  There are three distinct elements to an entry that you can create: the subject, the main text, and the extended (or "more") text.
+		</P><P ALIGN=JUSTIFY>
+		    You must always give your entries a subject, for at least reference purposes, since entries are listed by subject when you select them from the Edit An Entry menu.  (However you want to use or display them in your weblog/journal, or whether you want them displayed anywhere on your site at all, is, of course, entirely up to you and how you configure your templates.)
+		</P><P ALIGN=JUSTIFY>
+		    The Main Entry Text is intended to be the main body of your entry, and the extended text is for additional or supplemental information; you must always enter a main text, but the extended text is optional.  This is intended to help you make an entry's appearance on your main index, and on its entry page, distinct when you want them to be distinct; typically (as in the default templates included with Greymatter), you would use the main text for when entries appear in the body of your log, and if you have something more you want to say in an entry but don't want to dump it all on the main page, you'd enter it as extended text to appear in full on that entry's individual page.  (Also note that you can, if you wish, give normal and extended entries different formatting via your templates, or handle them in any distinct way you choose.)
+		</P><P ALIGN=JUSTIFY>
+		    Finally, upon creating the entry, you're given the option whether or not you want to turn karma voting and comment posting on or off for this entry (the options won't appear if you've disabled karma and/or comments in Configuration, since disabling them overrides individual entry settings).  You also have the option to mark that entry to stay at the top of your main log (which you could set apart with custom formatting via the templates, for announcements, special notices, and so forth)owhen the main index is generated, then that entry will stay at the top indefinitely, until you edit it removing its stay-at-top status (or set another entry to take its place).
+		</P><P ALIGN=JUSTIFY>
+		    You can edit an entry anytime by selecting it from the "Edit An Entry" screen (entries are listed by subject in order from newest to oldest); this includes being able to edit or delete any comments from any entry, turning karma and/or comments on or off for that entry, and marking or removing it as the stay-at-top entry.  When you edit an entry, you also have the option to leave it "open" or make it "closed"&#8212;meaning, basically, whether or not you want to leave that entry on your site.  Think of open as meaning "visible" and closed meaning "invisible"; all entries are, of course, open by default.  To close an entry is to effectively "delete" it&#8212;when the relevant files are rebuilt, Greymatter will treat that entry as if it no longer exists, removing all links to it or traces of it&#8212;but with the obvious advantage that Greymatter still has the entry data on file, and you could re-open it later if you wish.  Be sure to rebuild the appropriate files after saving any changes to an entry, to make those changes take immediate effect on your site.  (Greymatter automatically updates all relevant files whenever you add a new entry.)
+		</P><P ALIGN=JUSTIFY>
+		    An entry is considered "archived" when it becomes too old to be listed on your main index.  You specify in Configuration how many days' worth of entries you want to keep on your main index.  (This counts how many days you've posted entries for, *not* consecutive days; so for example, if you've posted entries only on four different days scattered throughout a month, Greymatter still counts that as four days.)
+		</P><P ALIGN=JUSTIFY>
+		    Indexes of your archived logs are automatically created by Greymatter in your entries/archives directory, in monthly or weekly installments.  If you have the "Keep main index and archive log indexes concurrent with each other" option selected, then Greymatter will generate these files in your archives directory right away when you post entries and log your entries in both places simultaneously.  Otherwise, entries won't appear here, and these files won't be generated, until entries have "scrolled off" the main index.  Your archive master index is a good place to set up links to your archives; check the <A HREF="#7">Template Variables</A> section below for information about the {{log*list}} family of variables, which generate lists of these links automatically.  (The "Miscellaneous Templates" allow you to customise these lists.)
+		</P>
+	    </BLOCKQUOTE>
+
+	    <A NAME="7"></A>
+
+	    <p class=entryheader align=justify>
+		<font color=#000000><b>7. The Templates</B></FONT>
+	    </p>
+
+	    <BLOCKQUOTE>
+		<P ALIGN=JUSTIFY>
+		    Templates are what Greymatter builds your site out of&#8212;they're patterns that tell Greymatter how you want your site to look, how you want your content to be formatted, what information you want to include and exactly where you want to include it.  You mainly customise your templates with HTML (though since Greymatter generates *exactly* what the templates tell it to generate&#8212;nothing more, nothing less&#8212;you can also incorporate SHTML, PHP/SQL, or any other kinds of codes into your templates if you wish; you could even use Greymatter to generate text files or other specially-formatted documents if you wanted to), and you use the template variables (see the "Template Variables" sections below for a complete listing) to control what information you want to incorporate and where you want it to be placed.
+		</P>
+		<P ALIGN=JUSTIFY>
+		    Since the various templates are now described within the program itself, descriptions of them aren't included here.
+		</P>
+		<P ALIGN=JUSTIFY><strong>Templates and Forms</strong><br />
+		    Greymatter uses several html/cgi forms to perform certain vital tasks.  The tasks include karma voting, commenting, previewing, and searching.  When you modify your templates, you must be aware of certain bits of html that <em>need</em> to be present in order for your site to work.  Listed below are the form parameters and example code<br />
+		    <ul>Karma Voting
+			<li>These forms are generate by Greymatter, no need to worry.</li>
+		    </ul>
+
+		    <ul>Searching (Edit Templates : Misc Templates : Search Templates)
+			<li>field with name="gmsearch".  Typically this is a input of type text, but could be a text area, or even a put into a link, for a predefined search.</li>
+			<li>field with value="Search".  Typically a submit type (button), but could be coded into a link that alwasy searches for 'fooo' such as: gm-comments.cgi?Search=1&amp;gmsearch=fooo</li>
+			<li>Example:
+			    <pre>
+&lt;form action="{{cgiwebpath}}/gm-comments.cgi" method="post" &gt;&lt;input type="text" name="gmsearch" /&gt;
+&lt;input type="submit" value="Search" /&gt;&lt;/form&gt;</pre>
+			</li>
+		    </ul>
+
+		    <ul>Commenting (Edit Templates : Edit Commenting Templates)
+			<li>field with name="newcommententrynumber".  Typically this is a hidden field with value="{{entrynumber}}", this field is required so that Greymatter knows which entry to associate this comment to.</li>
+			<li>field with name="newcommentauthor".  Typically this is a text field, used by Greymatter for the Commenters Name.</li>
+			<li>field with name="newcommentemail".  Typicall a text field, used for the commenter's email address, Optional.</li>
+			<li>field with name="newcommenthomepage". Typically this is text field, used  for the commenter's homepage, Optional.</li>
+			<li>field with name="newcommentbody".  Typically this is a text area, but could be text field.  Used for the comment text.</li>
+			<li>field with name="gmpostpreview".  Should be a button, takes user to preview screen.</li>
+			<li>field with value="Submit". Should be a button, used to submit the comment.</li>
+			<li></li>
+			<li>Example:
+			    <pre>
+&lt;form action="{{cgiwebpath}}/gm-comments.cgi#comments" method="post"  &gt;
+&lt;input name="newcommententrynumber" type="hidden" value="{{entrynumber}}" /&gt;
+&lt;input name="newcommentauthor" type="text" /&gt;
+&lt;input name="newcommentemail" type="text" /&gt;
+&lt;input name="newcommenthomepage" type="text" /&gt;
+&lt;textarea name="newcommentbody" &gt;&lt;/textarea&gt;
+&lt;input name="gmpostpreview" type="submit" value="Preview" /&gt;
+&lt;input type="submit" value="Submit" /&gt;
+&lt;/form&gt;</pre>
+			</li>
+		    </ul>
+
+		    <ul>Previewing (Edit Templates : Edit Commenting Templates)
+			<li>field with name="newcommententrynumber".  Typically this is a hidden field with value="{{entrynumber}}", this field is required so that Greymatter knows which entry to associate this comment to.</li>
+			<li>field with name="newcommentauthor".  Typically this is a hidden field with value="{{previewcommentauthor}}", but could be text field.  Used by Greymatter for the Commenters Name.</li>
+			<li>field with name="newcommentemail".  Typically this is a hidden field with value="{{previewcommentemail}}", but could be text field.  Used for the commenter's email address, Optional.</li>
+			<li>field with name="newcommenthomepage". Typically this is a hidden field with value="{{previewcommenthomepage}}", but could be text field.  Used  for the commenter's homepage, Optional.</li>
+			<li>field with name="newcommentbody".  Typically this is a hidden field with value="{{previewcommentbody}}", but could be text field.  Used for the comment text.</li>
+			<li>field with name="previewrand".  Should be a hidden field with value="{{previewrand}}".  Used when confirming a preview with a random hidden number.</li>
+			<li>field with name="postit". Should be a button, used to submit the comment.</li>
+
+			<li>Example:
+			    <pre>
+&lt;form action="{{cgiwebpath}}/gm-comments.cgi" method="post"&gt;
+&lt;input type="hidden" name="newcommententrynumber" value="{{entrynumber}}" /&gt;
+&lt;input type="hidden" name="newcommentauthor" value="{{previewcommentauthor}}" /&gt;
+&lt;input type="hidden" name="newcommentemail" value="{{previewcommentemail}}" /&gt;
+&lt;input type="hidden" name="newcommenthomepage" value="{{previewcommenthomepage}}" /&gt;
+&lt;input type="hidden" name="newcommentbody" value="{{previewcommentbody}}" /&gt;
+&lt;input type="hidden" name="previewrand" value="{{previewrand}}" /&gt;
+&lt;input type="submit" name="postit" value="Post It" /&gt;
+&lt;/form&gt;</pre>
+			</li>
+		    </ul>
+	    </BLOCKQUOTE>
+
+
+
+	    <A NAME="8"></A>
+
+	    <p class=entryheader align=justify>
+		<font color=#000000><b>8. Template Variables</B></FONT>
+	    </p>
+
+	    <BLOCKQUOTE>
+		<P ALIGN=JUSTIFY>
+		    Think of variables as placeholders for dynamic information (since that's exactly what they are)&#8212;each variable represents some piece of info or code, and their placement in your templates tells Greymatter where you want that info to be included.  Variables are usually context-dependent; for example, a date/time variable like {{month}} or {{hour}}, in the context of the Individual Entry Template, will display the numbers for the month and hour respectively in which that entry was posted, or in the context of the Comments Template, the month and hour in which that comment was posted.  Some variables (for example, {{header}}, {{footer}} and {{sidebar}}) have their own templates; in those cases, Greymatter inserts the contents of those templates wherever those variables are and then goes on analyzing the rest of the variables.  A few variables can only be used in a particular instance, but most are intended to be used as flexibly as you like.
+		</P><P ALIGN=JUSTIFY>
+		    The template variables are as follows:
+		</P>
+
+		<BLOCKQUOTE>
+
+		    <P ALIGN=LEFT>
+			<FONT COLOR="#0000FF"><B>{{ampm}}, {{ampmlower}}, {{ampmdot}}, {{ampmdotlower}}</B></FONT>
+		    </P><BLOCKQUOTE><P ALIGN=JUSTIFY>
+			    The AM or PM status of the relevant time.  The "lower" variations list it in lowercase ("am" or "pm"), and the dot variations list it with dots ("a.m." or "p.m.").
+		    </P></BLOCKQUOTE><P ALIGN=LEFT>
+			<FONT COLOR="#0000FF"><B>{{archivebody}}</B></FONT>
+		    </P><BLOCKQUOTE><P ALIGN=JUSTIFY>
+			    Placeholder for use only in the Archive Log Index Template; when the log archives are generated, this tells Greymatter where to place the body of that month's or week's log.  You can also use {{logbody}} (see below) to do the same thing.
+		    </P></BLOCKQUOTE><P ALIGN=LEFT>
+			<FONT COLOR="#0000FF"><B>{{author}}, {{authoremail}}, {{authorhomepage}}, {{authorentrycount}}</B></FONT>
+		    </P><BLOCKQUOTE><P ALIGN=JUSTIFY>
+			    The name of that entry's author, their e-mail address (if given), their homepage address (if given), and the total number of entries they've posted so far, respectively.  You can also include the name of an author to <I>always</I> give the relevant status for that particular author; for example, {{authoremail Alice}} will give Alice's e-mail address (if there is one), {{authorentrycount Mad Hatter}} will display how many entries Mad Hatter has posted, and so on.
+		    </P></BLOCKQUOTE><P ALIGN=LEFT>
+			<FONT COLOR="#0000FF"><B>{{authorsmartlink}}</B></FONT>
+		    </P><BLOCKQUOTE><P ALIGN=JUSTIFY>
+			    Displays the name of that entry's author as a link either to that author's e-mail or homepage address, whichever has been given (if both are available, the link is to that author's homepage; if neither, the name is left unlinked).  This is a self-contained link.  As above, you can also names to generate smart dynamic links for specific authors.
+		    </P></BLOCKQUOTE><P ALIGN=LEFT>
+			<FONT COLOR="#0000FF"><B>{{calendar}}, {{calendar [mm]/[yy]}}, {{calendarweek}}</B></FONT>
+		    </P><BLOCKQUOTE><P ALIGN=JUSTIFY>
+			    Creates calendar displays for the current month or week (or, in the case of {{calendar [mm]/[yy]}}, the month you specify) with each day in the calendar display as a link to the most recent entry posted that day, if any; you can specify in configuration whether calendars will link to any entry or only to extended entries.  Use {{calendar [mm]/[yy]}} to create a calendar for a specific month; for example, {{calendar 11/00}} would make a calendar for the month of November 2000.  (This requires that you've actually posted at least one entry during that month.)
+		    </P></BLOCKQUOTE><P ALIGN=LEFT>
+			<FONT COLOR="#0000FF"><B>{{cgiwebpath}}</B></FONT>
+		    </P><BLOCKQUOTE><P ALIGN=JUSTIFY>
+			    Inserts the web path where your Greymatter CGI files are located, as specified in Configuration.
+		    </P></BLOCKQUOTE><P ALIGN=LEFT>
+			<FONT COLOR="#0000FF"><B>{{commentauthor}}, {{commentauthoremailabsolute}}, {{commentauthorhomepageabsolute}}</B></FONT>
+		    </P><BLOCKQUOTE><P ALIGN=JUSTIFY>
+			    The name of that comment's author, their e-mail address (if given), and their homepage address (if given), respectively.
+		    </P></BLOCKQUOTE><P ALIGN=LEFT>
+			<FONT COLOR="#0000FF"><B>{{commentauthoremail}}, {{commentauthorhomepage}}</B></FONT>
+		    </P><BLOCKQUOTE><P ALIGN=JUSTIFY>
+			    The contents of their respective templates; these will only appear if the author of that comment has given an e-mail or homepage address, respectively.
+		    </P></BLOCKQUOTE><P ALIGN=LEFT>
+			<FONT COLOR="#0000FF"><B>{{commentauthorip}}</B></FONT>
+		    </P><BLOCKQUOTE><P ALIGN=JUSTIFY>
+			    Displays the IP address of that comment's author.  You can always see the IP addresses for comments by editing the entries they appear in, so you may want to think twice about using this variable and thus having the IPs appear out in the open, since many will (with due reason) probably consider this an invasion of privacy.
+		    </P></BLOCKQUOTE><P ALIGN=LEFT>
+			<FONT COLOR="#0000FF"><B>{{commentauthorsmartlink}}</B></FONT>
+		    </P><BLOCKQUOTE><P ALIGN=JUSTIFY>
+			    Displays the name of that comment's author as a link either to that author's e-mail or homepage address, whichever has been given (if both are available, the link is to that author's homepage; if neither, the name is left unlinked).  This is a self-contained link.
+		    </P></BLOCKQUOTE><P ALIGN=LEFT>
+			<FONT COLOR="#0000FF"><B>{{commentbody}}</B></FONT>
+		    </P><BLOCKQUOTE><P ALIGN=JUSTIFY>
+			    The text of the current comment.
+		    </P></BLOCKQUOTE><P ALIGN=LEFT>
+			<FONT COLOR="#0000FF"><B>{{commentdivider}}</B></FONT>
+		    </P><BLOCKQUOTE><P ALIGN=JUSTIFY>
+			    The contents of the {{commentdivider}} template.  This will only appear if the entry contains at least one comment (and, if so, will still appear in that entry whether or not comments are disabled later).
+		    </P></BLOCKQUOTE><P ALIGN=LEFT>
+			<FONT COLOR="#0000FF"><B>{{commentordernumber}}</B></FONT>
+		    </P><BLOCKQUOTE><P ALIGN=JUSTIFY>
+			    The number of the comment.  The first comment posted is always number 1, whether or not the comments are displayed in ascending or descending order.
+		    </P></BLOCKQUOTE><P ALIGN=LEFT>
+			<FONT COLOR="#0000FF"><B>{{commentslink}}</B></FONT>
+		    </P><BLOCKQUOTE><P ALIGN=JUSTIFY>
+			    The contents of the {{commentslink}} template, intended for linking to the comments on individual entry pages.  This will not appear on entries for which comments have been disabled (or, of course, if comments are disabled altogether).
+		    </P></BLOCKQUOTE><P ALIGN=LEFT>
+			<FONT COLOR="#0000FF"><B>{{commentsnumber}}</B></FONT>
+		    </P><BLOCKQUOTE><P ALIGN=JUSTIFY>
+			    The number of comments that entry has received.
+		    </P></BLOCKQUOTE><P ALIGN=LEFT>
+			<FONT COLOR="#0000FF"><B>{{commentspostlink}}</B></FONT>
+		    </P><BLOCKQUOTE><P ALIGN=JUSTIFY>
+			    Generates a link to the #comments marker in that entry's page (wherever you have the <A NAME="comments"></a> tag in your entry page templates; by default, the tag points to the comments in that particular entry, or the posting form if no comments have been posted yet).  If used outside the {{commentslink}} template, this link will always appear whether or not comments are disabled for that entry.
+		    </P></BLOCKQUOTE><P ALIGN=LEFT>
+			<FONT COLOR="#0000FF"><B>{{commentstatussmart}}, {{commentstatussmartupper}}, {{commentstatussmartlower}}</B></FONT>
+		    </P><BLOCKQUOTE><P ALIGN=JUSTIFY>
+			    By default, displays how many comments there are in the "x Comments" format (with upper- and lower-case variations) with a "smart" status of how many comments there are: zero comments are "No Comments" and one is "1 Comment" (note the singular).  If used outside the {{commentslink}} template, this will always appear whether or not comments are disabled for that entry.  You can customise the output of this variable via the templates.
+		    </P></BLOCKQUOTE><P ALIGN=LEFT>
+			<FONT COLOR="#0000FF"><B>{{customone}} through {{customten}}</B></FONT>
+		    </P><BLOCKQUOTE><P ALIGN=JUSTIFY>
+			    Inserts whatever you have in the respective custom template.
+		    </P></BLOCKQUOTE><P ALIGN=LEFT>
+			<FONT COLOR="#0000FF"><B>{{day}}, {{dayday}}, {{dayappend}}</B></FONT>
+		    </P><BLOCKQUOTE><P ALIGN=JUSTIFY>
+			    Displays the number of the relevant day.  {{dayday}} forces it to two digits (if it's not already), padding single-digit numbers with zeroes (for example, 2 becomes 02).  
+			    {{dayappend}} adds the appropriate ordinal to the number (e.g. 7 to 7th, 1 to 1st, etc.).
+		    </P></BLOCKQUOTE><P ALIGN=LEFT>
+			<FONT COLOR="#0000FF"><B>{{domain}}</B></FONT>
+		    </P><BLOCKQUOTE><P ALIGN=JUSTIFY>
+			    Displays the domain the gm software resides on.</P></BLOCKQUOTE><P ALIGN=LEFT>
+			<FONT COLOR="#0000FF"><B>{{email [url]}}, {{email [url] [link text]}}, {{emailmo [url] [link text]|[mouseover]}}</B></FONT>
+		    </P><BLOCKQUOTE><P ALIGN=JUSTIFY>
+			    Works the same way as the {{link}} variables; see the description of them below.
+		    </P></BLOCKQUOTE><P ALIGN=LEFT>
+			<FONT COLOR="#0000FF"><B>{{emoticonspath}}</B></FONT>
+		    </P><BLOCKQUOTE><P ALIGN=JUSTIFY>
+			    Inserts the path to your emoticon images, as specified in the Configuration.
+		    </P></BLOCKQUOTE><P ALIGN=LEFT>
+			<FONT COLOR="#0000FF"><B>{{entrieswebpath}}</B></FONT>
+		    </P><BLOCKQUOTE><P ALIGN=JUSTIFY>
+			    Inserts the web path of your entries/archives directory, as specified in Configuration.
+		    </P></BLOCKQUOTE><P ALIGN=LEFT>
+			<FONT COLOR="#0000FF"><B>{{entrycomments}}</B></FONT>
+		    </P><BLOCKQUOTE><P ALIGN=JUSTIFY>
+			    All the comments for that individual entry; like {{logbody}} on the Main Index and Archive Log Index pages, this is a placeholder for the full body of the comment list.  Each comment is patterned on the Comment Appearance template.
+		    </P></BLOCKQUOTE><P ALIGN=LEFT>
+			<FONT COLOR="#0000FF"><B>{{entrycommentsform}}</B></FONT>
+		    </P><BLOCKQUOTE><P ALIGN=JUSTIFY>
+			    The contents of the {{entrycommentsform} template&#8212;the form whereby your visitors can add their comments to an entry.  This won't appear on entries for which comments are disabled, or if comment posting is disabled altogether.
+		    </P></BLOCKQUOTE><P ALIGN=LEFT>
+			<FONT COLOR="#0000FF"><B>{{entrykarmaform}}</B></FONT>
+		    </P><BLOCKQUOTE><P ALIGN=JUSTIFY>
+			    The contents of the {{entrycommentsform} template, intended to be a distinct form by which people can vote on an entry's karma from that entry's individual page.  This won't appear on entries for which karma is disabled, or if karma voting is disabled altogether.
+		    </P></BLOCKQUOTE><P ALIGN=LEFT>
+			<FONT COLOR="#0000FF"><B>{{entrymainbody}}</B></FONT>
+		    </P><BLOCKQUOTE><P ALIGN=JUSTIFY>
+			    The main text of that entry.
+		    </P></BLOCKQUOTE><P ALIGN=LEFT>
+			<FONT COLOR="#0000FF"><B>{{entrymorebody}}</B></FONT>
+		    </P><BLOCKQUOTE><P ALIGN=JUSTIFY>
+			    The extended (or "more") text of that entry, if there is any.
+		    </P></BLOCKQUOTE><P ALIGN=LEFT>
+			<FONT COLOR="#0000FF"><B>{{entrymainbodyfirstwords [x]}} and {{entrymorebodyfirstwords [x]}}</B></FONT>
+		    </P><BLOCKQUOTE><P ALIGN=LEFT>
+			    Displays only the first X words of that entry's main or extended text, respectively; for example, {{entrymainbodyfirstwords 20}} will display the first twenty words of the main text (or the entire main text if it's less than twenty words, of course).  All words displayed this way will be shown without HTML codes.
+		    </P></BLOCKQUOTE><P ALIGN=LEFT>
+			<FONT COLOR="#0000FF"><B>{{entrymusic}}, {{entrymood}}</B></FONT>
+		    </P><BLOCKQUOTE><P ALIGN=JUSTIFY>
+			    Displays the music or mood text for that entry, if there is any.
+		    </P></BLOCKQUOTE><P ALIGN=LEFT>
+			<FONT COLOR="#0000FF"><B>{{entrynumber}}, {{entrynumberpadded}}</B></FONT>
+		    </P><BLOCKQUOTE><P ALIGN=JUSTIFY>
+			    The number of that entry.  The "padded" version displays it in Greymatter's 8-digit padded filenaming convention (for example, the number for entry 187 would display as 00000187).
+		    </P></BLOCKQUOTE><P ALIGN=LEFT>
+			<FONT COLOR="#0000FF"><B>{{entrysubject}}, {{entrysubjectstripped}}</B></FONT>
+		    </P><BLOCKQUOTE><P ALIGN=JUSTIFY>
+			    The subject line for that entry.  Although you're required to give a subject when adding 
+			    a new entry for the sake of reference, you're certainly not required to display it anywhere 
+			    in your log.  Note that the 'stripped' subject has had all html removed, making it well suited
+			    for using in a 'title' tag on a page.
+		    </P></BLOCKQUOTE><P ALIGN=LEFT>
+			<FONT COLOR="#0000FF"><B>{{entrysuffix}}, {{archivesuffix}}</B></FONT>
+		    </P><BLOCKQUOTE><P ALIGN=JUSTIFY>
+			    Displays the page extension specified in the config. {{entrysuffix}} for entry pages, {{archivesuffix}} for archive files.
+		    </P></BLOCKQUOTE><P ALIGN=LEFT>
+			<FONT COLOR="#0000FF"><B>{{footer}}</B></FONT>
+		    </P><BLOCKQUOTE><P ALIGN=JUSTIFY>
+			    Inserts whatever you have in the Footer template.
+		    </P></BLOCKQUOTE><P ALIGN=LEFT>
+			<FONT COLOR="#0000FF"><B>{{gmicon}}</B></FONT>
+		    </P><BLOCKQUOTE><P ALIGN=JUSTIFY>
+			    Puts the gm-icon.gif graphic on your page, linked to <A HREF="http://noahgrey.com/greysoft/">the Greysoft site</A>.  Required on the main index template, although donators can request a copy of Greymatter with the requirement removed if desired.
+		    </P></BLOCKQUOTE><P ALIGN=LEFT>
+			<FONT COLOR="#0000FF"><B>{{gmversion}}</B></FONT>
+		    </P><BLOCKQUOTE><P ALIGN=JUSTIFY>
+			    Greymatter's current version number.
+		    </P></BLOCKQUOTE><P ALIGN=LEFT>
+			<FONT COLOR="#0000FF"><B>{{header}}</B></FONT>
+		    </P><BLOCKQUOTE><P ALIGN=JUSTIFY>
+			    Inserts whatever you have in the Header template.
+		    </P></BLOCKQUOTE><P ALIGN=LEFT>
+			<FONT COLOR="#0000FF"><B>{{hour}}, {{hourhour}}</B></FONT>
+		    </P><BLOCKQUOTE><P ALIGN=JUSTIFY>
+			    Displays the number of the relevant hour.  {{hourhour}} forces it to two digits (if it's not already), padding single-digit numbers with zeroes (for example, 4 becomes 04).
+		    </P></BLOCKQUOTE><P ALIGN=LEFT>
+			<FONT COLOR="#0000FF"><B>{{link [url]}}, {{link [url] [link text]}}, {{linkmo [url] [link text]|[mouseover]}}</B></FONT>
+		    </P><BLOCKQUOTE><P ALIGN=JUSTIFY>
+			    For use when adding new entries, to facilitate adding links as a kind of shorthand.  (You can always do them the old-fashioned way too, of course.)  Links added this way are self-contained.  The syntax works as follows:
+			</P><P ALIGN=JUSTIFY>
+			    <UL>
+				<LI> Typing "Check this site out: {{{link http://noahgrey.com/}}" produces "Check this site out: <A HREF="http://noahgrey.com/">http://noahgrey.com/</A>" with the URL as a plain link.
+				<LI> Typing "Say, have you been to {{link http://noahgrey.com/ Noah's site}} lately?" produces "Say, have you been to <A HREF="http://noahgrey.com/">Noah's site</A> lately?" with the words "Noah's site" as a 
+				    link to noahgrey.com.
+				<LI> Typing "Really, you MUST {{linkmo http://noahgrey.com/ go there|Click here!}} sometime!" produces "Really, you MUST <A HREF="http://noahgrey.com/" onMouseOver="window.status='Click here!';return true" onMouseOut="window.status='';return true">go there</A> sometime!" with the words "go there" as a link to noahgrey.com, and the words "Click here!" appearing as mouseover text for that link in the browser's status bar.
+			    </UL>
+			<P ALIGN=JUSTIFY>
+			    You can also use "email" and "emailmo", with the same syntax as above (replacing "link" or "linkmo" accordingly), for linking to e-mail addresses.
+		    </P></BLOCKQUOTE><P ALIGN=LEFT>
+			<FONT COLOR="#0000FF"><B>{{logarchivelist}}</B></FONT>
+		    </P><BLOCKQUOTE><P ALIGN=JUSTIFY>
+			    Generates a list of links to all your monthly/weekly log archives.  The appearance of these links is controlled by the Log Archives Link template (under Miscellaneous Templates) and the Log Archives Link Separator.
+		    </P></BLOCKQUOTE><P ALIGN=LEFT>
+			<FONT COLOR="#0000FF"><B>{{logbody}}</B></FONT>
+		    </P><BLOCKQUOTE><P ALIGN=JUSTIFY>
+			    Placeholder for use only in the Main Index or Archive Log Index Templates; when the log is generated, this tells Greymatter where to place the body of the log (the current log for the main index, and the monthly/weekly log for the archive log index).
+		    </P></BLOCKQUOTE><P ALIGN=LEFT>
+			<FONT COLOR="#0000FF"><B>{{logentrylist}}, {{logshortentrylist}}, {{logmoreentrylist}} (plus optional variants: day, month, year, firsthalf, secondhalf, number, comments, commentsminimum, commentsnumber, and author name)</B></FONT>
+		    </P><BLOCKQUOTE><P ALIGN=JUSTIFY>
+			    Generates a list of links to your individual entry pages (unless you have those disabled).  The appearance of these links is controlled by the Entry List Link templates (under Miscellaneous Templates) and the Entry List Link Separator.  {{logentrylist}} generates a list of links to all your entries; {{logshortentrylist}} generates a list for non-extended entries only, and {{logmoreentrylist}} for extended entries only.  With each of those you can optionally specify that only a particular range of entries be listed:
+			</P><P ALIGN=JUSTIFY>
+			    <UL>
+				<LI> day&#8212;lists the entries only for the most recent day that entries were posted
+				<LI> month&#8212;lists the entries only for the most recent month
+				<LI> year&#8212;lists the entries only for the most recent year
+				<LI> firsthalf&#8212;lists the first (most recent) half of all entries
+				<LI> secondhalf&#8212;lists the second (older) half of all entries
+				<LI> number&#8212;lists the most recent number of however many entries you specify in Configuration
+				<LI> comments&#8212;lists entries sorted by the number of comments they've received
+				<LI> commentsminimum&#8212;same as above, but lists entries only if they've received at least one comment
+				<LI> commentsnumber&#8212;lists the top X most-posted-to entries (X being whatever you specified in Configuration)
+				<LI> (name of any author)&#8212;lists all entries by that particular author
+			    </UL>
+			<P ALIGN=JUSTIFY>
+			    So, for example, {{logshortentrylist month}} would list all the non-extended entries for the current month; {{logentrylist firsthalf}} and {{logentrylist secondhalf}} would list all the entries in separate halves (useful if you want to list them in two columns); {{logmoreentrylist number}} would list the twenty most recent extended entries, if you have "Log entry list variable number" in Configuration set to 20; {{logentrylist commentsminimum}} lists all entries, sorted by number of comments, that have received at least one comment (you can specify in Configuration whether or not this only lists entries for which comments can still be posted to); {{logmoreentrylist commentsnumber}} would list the top five most-posted-to entries if you have "Log entry list variable number" in Configuration set to 5; {{logentrylist WhiteRabbit}} would list all entries written by WhiteRabbit; and so on.
+		    </P></BLOCKQUOTE><P ALIGN=LEFT>
+			<FONT COLOR="#0000FF"><B>{{logwebpath}}</B></FONT>
+		    </P><BLOCKQUOTE><P ALIGN=JUSTIFY>
+			    Inserts the web directory where your main index is, as specified in Configuration.
+		    </P></BLOCKQUOTE><P ALIGN=LEFT>
+			<FONT COLOR="#0000FF"><B>{{karmalink}}</B></FONT>
+		    </P><BLOCKQUOTE><P ALIGN=JUSTIFY>
+			    The contents of the {{karmalink}} template, for use in voting on an entry's karma.  This won't appear with entries for which karma is disabled, or if karma voting is disabled altogether.
+		    </P></BLOCKQUOTE><P ALIGN=LEFT>
+			<FONT COLOR="#0000FF"><B>{{militaryhour}}</B></FONT>
+		    </P><BLOCKQUOTE><P ALIGN=JUSTIFY>
+			    Displays the number of the relevant hour, in military time (always double-digit).  The custom in military time is to add twelve to any hour after noon; so for example, 2 PM would be 14 in military time.
+		    </P></BLOCKQUOTE><P ALIGN=LEFT>
+			<FONT COLOR="#0000FF"><B>{{minute}}, {{minuteminute}}</B></FONT>
+		    </P><BLOCKQUOTE><P ALIGN=JUSTIFY>
+			    Displays the number of the relevant minute.  {{minuteminute}} forces it to two digits (if it's not already), padding single-digit numbers with zeroes (for example, 5 becomes 05).
+		    </P></BLOCKQUOTE><P ALIGN=LEFT>
+			<FONT COLOR="#0000FF"><B>{{month}}, {{monthmonth}}</B></FONT>
+		    </P><BLOCKQUOTE><P ALIGN=JUSTIFY>
+			    Displays the number of the relevant month.  {{monthmonth}} forces it to two digits (if it's not already), padding single-digit numbers with zeroes (for example, 3 becomes 03).
+		    </P></BLOCKQUOTE><P ALIGN=LEFT>
+			<FONT COLOR="#0000FF"><B>{{monthword}}, {{monthwordupper}}, {{monthwordlower}}, {{monthwordshort}}, {{monthworduppershort}}, {{monthwordlowershort}}</B></FONT>
+		    </P><BLOCKQUOTE><P ALIGN=JUSTIFY>
+			    Displays the name of the month; {{monthwordshort}} displays it abbreviated to three letters.  The "upper" and "lower" variations for both are for displaying it in upper- or lowercase respectively.  So for example, the month of December would be displayed by the variables like so, in the order they're listed above: December, DECEMBER, december, Dec, DEC, dec.
+		    </P></BLOCKQUOTE><P ALIGN=LEFT>
+			<FONT COLOR="#FF0000"><B>{{morelink}}, {{morepreface}} (deprecated)</B></FONT>
+		    </P><BLOCKQUOTE><P ALIGN=JUSTIFY>
+			    The contents of their respective templates; will only appear with entries that have an 
+			    extended ("more") text.  These are no longer recommended for use; it's simpler and more 
+			    flexible now to distinguish standard and extended entries with their separate templates, 
+			    so these are no longer necessary (but are kept for compatibility purposes).  <b>NOTE</b>
+			    These have not been honored since at least GM 1.3.1 and should not be used.
+		    </P></BLOCKQUOTE><P ALIGN=LEFT>
+			<FONT COLOR="#0000FF"><B>{{next}} and {{nextmore}} as a prefix</B></FONT>
+		    </P><BLOCKQUOTE><P ALIGN=JUSTIFY>
+			    When "next" or "nextmore" is used as a prefix to most variables, it will give the relevant variable output as it pertains to the next standard or extended entry; for example, {{nexthour}} gives the next entry's hour, {{nextmoreentrysubject}} the next extended entry's subject, and so on.
+		    </P></BLOCKQUOTE><P ALIGN=LEFT>
+			<FONT COLOR="#0000FF"><B>{{pagelink}}</B></FONT>
+		    </P><BLOCKQUOTE><P ALIGN=JUSTIFY>
+			    Generates a link to the individual page for that entry.  This is always generated, so you won't want to use this variable if you have individual entry page generation turned off, unless you want it to create links to pages that don't exist.  =)
+		    </P></BLOCKQUOTE><P ALIGN=LEFT>
+			<FONT COLOR="#0000FF"><B>{{pageindexlink}}, {{pagearchiveindexlink}}, {{pagearchivelogindexlink}}</B></FONT>
+		    </P><BLOCKQUOTE><P ALIGN=JUSTIFY>
+			    Generates links to the main index, the archive master index (if you have one), and the log archives for the current month or week, respectively.
+		    </P></BLOCKQUOTE><P ALIGN=LEFT>
+			<FONT COLOR="#0000FF"><B>{{pagesmartindexlink}}</B></FONT>
+		    </P><BLOCKQUOTE><P ALIGN=JUSTIFY>
+			    Generates a "smart" link either to the main index page or, if the entry is an archived entry, to the log archives for that entry's month or week.
+		    </P></BLOCKQUOTE><P ALIGN=LEFT>
+			<FONT COLOR="#0000FF"><B>{{popup [filename] [title] [width]x[height]}}</B></FONT>
+		    </P><BLOCKQUOTE><P ALIGN=JUSTIFY>
+			    Generates a popup window for images, as well as an HTML file for that popup window in the entries/archives directory (both according to the popup templates you specify).  "Filename" is the name of the image file (the HTML file Greymatter creates for the window will be named based on this file as well), "title" is its title, and "width" and "height" are the image's width and height respectively.  {{popup}} creates its link and HTML file according to your customisation of them in the templates.  So, for example, {{popup me.jpg This is me 300x200}} would create a popup window for the me.jpg image in the entries/archives directory (creating a me.htm file there for the window as well) that is 300 pixels wide and 200 pixels high.  Note that when you upload an image through Greymatter, you can have it automatically create a new entry with the correct {{popup}} variable already in place.
+		    </P></BLOCKQUOTE><P ALIGN=LEFT>
+			<FONT COLOR="#0000FF"><B>{{popupfile}}, {{popuphtmlfile}}, {{popuptitle}}, {{popupwidth}}, {{popupheight}}</B></FONT>
+		    </P><BLOCKQUOTE><P ALIGN=JUSTIFY>
+			    Gives the image filename, HTML filename, title, width, and height respectively, from the popup variable above.  These variables will, of course, only work in the popup templates.
+		    </P></BLOCKQUOTE><P ALIGN=LEFT>
+			<FONT COLOR="#0000FF"><B>{{positivekarma}}, {{negativekarma}}, {{totalkarma}}</B></FONT>
+		    </P><BLOCKQUOTE><P ALIGN=JUSTIFY>
+			    The positive, negative and total karma ratings of that entry, respectively.  If used outside the {{karmalink}} and {{entrykarmaform}} templates, these will just show up as permanent zeroes for entries on which karma is disabled or if karma voting is disabled altogether.  Total karma is the positive minus the negative karma votes; 10 positive votes with 3 negative would give a 7 total karma rating, 4 positive with 7 negative would give -3 total.
+		    </P></BLOCKQUOTE><P ALIGN=LEFT>
+			<FONT COLOR="#0000FF"><B>{{positivekarmalink}}, {{negativekarmalink}}</B></FONT>
+		    </P><BLOCKQUOTE><P ALIGN=JUSTIFY>
+			    Generates links for voting upon that entry's karma for the positive or the negative respectively.  If used outside the {{entrykarmaform}} or {{karmalink}} templates, these links will always appear whether or not karma voting is enabled for that entry or if karma is disabled altogether (if karma's disabled, though, clicking the links will not alter that entry's karma).
+		    </P></BLOCKQUOTE><P ALIGN=LEFT>
+			<FONT COLOR="#0000FF"><B>{{previewcommentauthor}}, {{previewcommentemail}}, {{previewcommenthomepage}}, {{previewcommentbody}}</B></FONT>
+		    </P><BLOCKQUOTE><P ALIGN=JUSTIFY>
+			    The name, e-mail, homepage of the author previewing the comment, and the text of the comment being previewed, respectively.  These will only work in the Comment Previewing Confirmation Form.
+		    </P></BLOCKQUOTE><P ALIGN=LEFT>
+			<FONT COLOR="#0000FF"><B>{{previous}} and {{previousmore}} as a prefix</B></FONT>
+		    </P><BLOCKQUOTE><P ALIGN=JUSTIFY>
+			    When "previous" or "previousmore" is used as a prefix to most variables, it will give the relevant variable output as it pertains to the previous standard or extended entry; for example, {{previoushour}} gives the previous entry's hour, {{previousmoreentrysubject}} the previous extended entry's subject, and so on.
+		    </P></BLOCKQUOTE><P ALIGN=LEFT>
+			<FONT COLOR="#0000FF"><B>{{previouslink}}, {{nextlink}}, {{previousmorelink}}, {{nextmorelink}}</B></FONT>
+		    </P><BLOCKQUOTE><P ALIGN=JUSTIFY>
+			    Inserts the contents of their respective templates, intended for use in linking to previous or next entries (or, with the "more" variations, previous/next extended entries).  These will only appear if there's a non-closed previous/next entry (or extended entry, respectively) to be linked to. 
+		    </P></BLOCKQUOTE><P ALIGN=LEFT>
+			<FONT COLOR="#0000FF"><B>{{randomnumber [x]-[y]}}</B></FONT>
+		    </P><BLOCKQUOTE><P ALIGN=JUSTIFY>
+			    Displays a random number within the range you specify; for example, {{randomnumber 1-10}} generates a random number from 1 to 10 (inclusive).  These numbers will be different each time the page in question is rebuilt, of course.
+		    </P></BLOCKQUOTE><P ALIGN=LEFT>
+			<FONT COLOR="#0000FF"><B>{{searchform}}</B></FONT>
+		    </P><BLOCKQUOTE><P ALIGN=JUSTIFY>
+			    Inserts the form for searching through your entries.
+		    </P></BLOCKQUOTE><P ALIGN=LEFT>
+			<FONT COLOR="#0000FF"><B>{{searchterm}}, {{searchmatches}}, {{searchresults}}</B></FONT>
+		    </P><BLOCKQUOTE><P ALIGN=JUSTIFY>
+			    The term used in a search, the number of matches for that search, and the total formatted results of the search, respectively.  These variables only apply to the Search Results Page template.
+		    </P></BLOCKQUOTE><P ALIGN=LEFT>
+			<FONT COLOR="#0000FF"><B>{{second}}, {{secondsecond}}</B></FONT>
+		    </P><BLOCKQUOTE><P ALIGN=JUSTIFY>
+			    Displays the number of the relevant second.  {{secondsecond}} forces it to two digits (if it's not already), padding single-digit numbers with zeroes (for example, 7 becomes 07).
+		    </P></BLOCKQUOTE><P ALIGN=LEFT>
+			<FONT COLOR="#0000FF"><B>{{smartentrymusic}}, {{smartentrymood}}</B></FONT>
+		    </P><BLOCKQUOTE><P ALIGN=JUSTIFY>
+			    Displays contents of the respective templates if text is included in the respective inputs when adding a new entry.
+		    </P></BLOCKQUOTE><P ALIGN=LEFT>
+			<FONT COLOR="#0000FF"><B>{{sidebar}}</B></FONT>
+		    </P><BLOCKQUOTE><P ALIGN=JUSTIFY>
+			    Inserts whatever you have in the Sidebar template.
+		    </P></BLOCKQUOTE><P ALIGN=LEFT>
+			<FONT COLOR="#0000FF"><B>{{timezone}}</B></FONT>
+		    </P><BLOCKQUOTE><P ALIGN=JUSTIFY>
+			    Your time zone, as entered in Configuration.
+		    </P></BLOCKQUOTE><P ALIGN=LEFT>
+			<FONT COLOR="#0000FF"><B>{{weekbeginning[?]}}, {{weekending[?]}}</B></FONT>
+		    </P><BLOCKQUOTE><P ALIGN=JUSTIFY>
+			    Pertains to the date at the beginning or ending of the current week, respectively; [?] can be any of the variables pertaining to days, months, years, or weekdays.  For example, {{weekbeginningday}} would give the day at the beginning of the current week, and {{weekendingmonthword}} would give the name of the month for the day at the end of the week.
+		    </P></BLOCKQUOTE><P ALIGN=LEFT>
+			<FONT COLOR="#0000FF"><B>{{weekday}}, {{weekdayupper}}, {{weekdaylower}}, {{weekdayshort}}, {{weekdayuppershort}}, {{weekdaylowershort}}</B></FONT>
+		    </P><BLOCKQUOTE><P ALIGN=JUSTIFY>
+			    Displays the name of the weekday; {{weekdayshort}} displays it abbreviated to three letters.  The "upper" and "lower" variations for both are for displaying it in upper- or lowercase respectively.  So for example, Thursday would be displayed by the variables like so, in the order they're listed above: Thursday, THURSDAY, thursday, Thu, THU, thu.
+		    </P></BLOCKQUOTE><P ALIGN=LEFT>
+			<FONT COLOR="#0000FF"><B>{{year}}, {{yearyear}}</B></FONT>
+		    </P><BLOCKQUOTE><P ALIGN=JUSTIFY>
+			    Displays the number of the relevant year.  {{year}} displays only the last two digits of the year, and {{yearyear}} the full year; so for example, 2001 would be displayed as "01" and "2001" respectively.
+		    </P></BLOCKQUOTE>
+
+		</BLOCKQUOTE>
+	    </BLOCKQUOTE>
+
+	    <A NAME="9"></A>
+
+	    <p class=entryheader align=justify>
+		<font color=#000000><b>9. Editing &amp; Creating Authors</B></FONT>
+	    </p>
+
+	    <BLOCKQUOTE>
+		<P ALIGN=JUSTIFY>
+		    To post an entry to your weblog/journal&#8212;to access Greymatter or do anything with it at all, for that matter&#8212;you have to be a registered author.  (The default author is "Alice", password "wonderland".)  You can control the specific access of any author registered with Greymatter&#8212;for example, if you want to create an account for someone that can post entries to your weblog/journal, but you don't want them having the ability to muck up your site's configuration or to do anything else.  (Needless to say, be careful about turning off your own access to anything!)  Likewise, of course, you can also delete an author's account altogether at any time.
+		</P><P ALIGN=JUSTIFY>
+		    To create a new author account, simply enter the desired name and password in the "Register A New Author" box, as well as that person's e-mail and/or homepage (this is optional).  If you leave the "All access on for this author by default?" checkbox on, then that author will be created having access to everything; if you leave it unchecked, then they'll be created having access to nothing.  After creating the author, edit them if you want to specifically turn their access on or off for different functions.  There is no theoretical limit to how many authors you can register.
+		</P>
+	    </BLOCKQUOTE>
+
+	    <A NAME="10"></A>
+
+	    <p class=entryheader align=justify>
+		<font color=#000000><b>10. The Banned IP List</B></FONT>
+	    </p>
+
+	    <BLOCKQUOTE>
+		<P ALIGN=JUSTIFY>
+		    If someone's being a pain and you want to ban them from posting comments to your site or casting karma votes on any of the entries, you can add their IP address to the Banned IP list.  You can also optionally specify a name to go along with the banned IPs, to help you remember who's who, and, of course, you can remove a banned IP from the list at any time.  (In a nutshell, IP addresses are four-digit numbers&#8212;in the format x.x.x.x&#8212;which usually specify an individual account accessing the Internet; a full explanation of IPs is beyond the scope of this manual.)  You can see the IP address of someone posting a comment or voting on karma whenever an e-mail notification is sent to you (if you have that enabled), or by reviewing that entry in the "Edit An Entry" screen.
+		</P><P ALIGN=JUSTIFY>
+		    Since some internet service providers use "rolling" (non-static) IPs, you can enter a partial IP if you want to ban all IP numbers that contain the given partial IP string; for example, banning "12.34.56" would ban the IP "12.34.56.78" as well as "90.12.34.56".
+		</P>
+	    </BLOCKQUOTE>
+
+	    <A NAME="11"></A>
+
+	    <p class=entryheader align=justify>
+		<font color=#000000><b>11. Rebuilding Your Files</B></FONT>
+	    </p>
+
+	    <BLOCKQUOTE>
+		<P ALIGN=JUSTIFY>
+		    From time to time, you may want to rebuild your files&#8212;to rebuild files basically means to tell Greymatter to regenerate them.  You'll usually only want to do this after you've made changes to your configuration settings, after you've edited your templates, or after you've edited an entry (including closing or reopening it).  For example, if you've changed the entry page templates for current entries, you'll probably just want to rebuild the main entry pages&#8212;and if you've made changes affecting the entire look or operation of your site, you'll want to rebuild everything.  Most of the time, though, rebuilding should be quite unnecessary.
+		</P><P ALIGN=JUSTIFY>
+		    Remember that, obviously, some of these operations may take some time, depending on how much is involved in the rebuilding&#8212;most rebuilding operations should be fairly quick, but major rebuilding over a large number of entries could take a little while.  DO NOT attempt to abort Greymatter in any way once you've started rebuilding, or you may mess up your files!
+		</P><P ALIGN=JUSTIFY>
+		    The rebuilding options are as follows:
+		</P><P ALIGN=JUSTIFY>
+		    <UL>
+			<LI> "Rebuild Last Entry Page Only"&#8212;Rebuilds only the individual entry page for the most recent entry.
+			<LI> "Rebuild Main Index File"&#8212;Rebuilds the main index of your weblog/journal.
+			<LI> "Rebuild Main Entry Pages"&#8212;Rebuilds the individual entry pages of every entry that's still considered current (non-archived).
+			<LI> "Rebuild Archive Master Index"&#8212;Rebuilds the archive master index (if enabled).
+			<LI> "Rebuild Archive Log Indexes"&#8212;Rebuilds the archive log indexes for every month or week.
+			<LI> "Rebuild Archive Entry Pages"&#8212;Rebuilds the individual entry pages of every entry that's considered an archive.
+			<LI> "Rebuild All Entry Pages"&#8212;Rebuilds the individual entry pages of every entry, both current and archived.
+			<LI> "Rebuild Connected Pages"&#8212;Rebuilds any page you might have connected to Greymatter in Configuration; this option will only appear if you have other pages connected to Greymatter.
+			<LI> "Rebuild Everything"&#8212;Rebuilds all of the above at once.
+		    </ul>
+	    </BLOCKQUOTE>
+
+	    <A NAME="12"></A>
+
+	    <p class=entryheader align=justify>
+		<font color=#000000><b>12. Tips &amp; Suggestions</B></FONT>
+	    </p>
+
+	    <BLOCKQUOTE>
+		<P ALIGN=JUSTIFY>
+		    The following are some things you might like to consider after you've become comfortable with using and customising Greymatter.
+		</P><P ALIGN=JUSTIFY>
+		    <FONT COLOR="#0000FF"><B>1. Using Greymatter to do an online journal</B></FONT>
+		</P><P ALIGN=JUSTIFY>
+		    Although Greymatter's default inclination is towards weblogs, it can also be used as a flexible tool for maintaining an online journal with, to which you could have visitors post comments to your journal entries.  For starters, try editing your templates to leave the date grouping template blank, and in the individual entry template, list only the date and entry subject&#8212;for example, a one-line template like so:
+		</P><P ALIGN=CENTER>
+		    {{month}}/{{day}}/{{year}}: {{pagelink}}{{entrysubject}}
+		</P><P ALIGN=JUSTIFY>
+		    would make for a quick-and-easy "table of contents" type of format, and you could use the main index as your table of contents for current journal entries.  (You might also want to try bumping up the "Days to keep on main index" variable to a much higher number - even a number like 99999, which would in effect make the main index a table-of-contents list of all entries.)
+		</P><P ALIGN=JUSTIFY>
+		    <FONT COLOR="#0000FF"><B>2. Tying variables to graphics (suggested by Jay Barrow)</B></FONT>
+		</P><P ALIGN=JUSTIFY>
+		    Greymatter's template variables don't have to only be used for outputting plain text&#8212;try using them to automatically insert particular graphics as well.  For instance, say that you have a series of twelve GIFs, one for every month, displaying that month's name in a special visual way&#8212;january.gif, february.gif, etc.  In this case, use a tag like "&lt;IMG SRC="{{monthwordlower}}.gif"&gt;", and Greymatter will automatically insert the appropriate month word (in this instance, in lowercase) in the image tag.  You could also use it to, say, associate particular graphics/icons to particular people if you have multiple authors in your weblog/journal and wanted to set them apart.
+		</P><P ALIGN=JUSTIFY>
+		    <FONT COLOR="#0000FF"><B>3. Using Greymatter for database-type sites like movie/music review sites, etc.</B></FONT>
+		</P><P ALIGN=JUSTIFY>
+		    Remember that you're not constrained to think of "main text", "more text" or anything else with their default meanings, or to use Greymatter's templates only in the same way all the time.  Let's say that you want to run a site for music reviews.  Set up your main index page in a table-of-contents type of format (as suggested under "Using Greymatter to do an online journal" above).  When you add reviews, your "subject" can be the title of the CD you're reviewing, your "main text" could be some miscellaneous info (the release date, the label, a summary of your review, etc) that you want to set apart somehow, and the "more text" could be the review itself&#8212;format your templates accordingly.  And you could use karma ratings, but instead call it: "Do you like this album?  Yes/No", for example.
+		</P><P ALIGN=JUSTIFY>
+		    Despite the way Greymatter names things, it's not intended to be a program where you must always think "this is what I have to do here" and "that's what I have to do there" - take the time to learn how Greymatter works, and feel free to make it all into whatever *you* want to be.
+		</P>
+	    </BLOCKQUOTE>
+
+	    <A NAME="13"></A>
+
+	    <p class=entryheader align=justify>
+		<font color=#000000><b>13. Troubleshooting</B></FONT>
+	    </p>
+
+	    <BLOCKQUOTE>
+		<P ALIGN=JUSTIFY>
+		    First, assuming you can run Greymatter at all, be sure to run "Diagnostics &amp; Repair" on the
+		    Configuration screen if you're having problems; that should be able to tell you what most of
+		    the holdups are, if Greymatter hasn't done so already along the way&#8212;whenever Greymatter
+		    has trouble accessing a file, it should stop and tell you what the problem is.  You might also
+		    want to contact your server operator or webhost to find out if your server has any special
+		    limitations when running Perl software.  Also, don't forget to check the discussion board at
+		    the <A HREF="http://greymatterforum.proboards.com/">Greymatter Forums</A>; someone (including me)
+		    may be able to answer your problem there, if it hasn't been answered already.
+		</P>
+
+		<P ALIGN=JUSTIFY><FONT COLOR="#FF0000">
+			PROBLEM: I keep getting a 500 Internal Service Error when I attempt to run Greymatter, or
+			at a particular spot while attempting to do something in Greymatter.
+		</FONT></P>
+		<P ALIGN=JUSTIFY>
+		    DIAGNOSIS: First, check to make sure that you've uploaded everything in ASCII mode via your
+		    FTP program; if you're unsure, reupload all the files making sure that each upload is in
+		    ASCII mode.  Next, check to make sure that your Perl pointers are correctly set, as specified
+		    in the installation instructions; then, double-check that everything is
+		    <a href="http://www.google.com/search?hl=en&amp;ie=UTF-8&amp;oe=UTF-8&amp;q=chmod" target="_blank">CHMOD</a>ed 
+		    correctly, also as specified in the installation instructions.  If it still won't
+		    run after all that, then your server might not have Perl 5 or its standard modules installed.
+		</P>
+
+		<P ALIGN=JUSTIFY><FONT COLOR="#FF0000">
+			PROBLEM: I can't seem to configure my paths correctly.
+		</FONT></P>
+		<P ALIGN=JUSTIFY>
+		    DIAGNOSIS: If you're absolutely certain that your paths are as they should be,
+		    and "Diagnostics &amp; Repair" still gives you error notices, then try using virtual
+		    instead of relative paths instead. For example, your local CGI path would simply be a "."
+		    period (that just means "this directory is right where I'm running from"), and if
+		    your entries directory is a subdirectory of that named "archives", then your local
+		    entries path would be "./archives". Use "../" for going back one directory relative
+		    to the current one (where gm.cgi is); for example, if you have gm.cgi in /cgi-bin/gmfiles/
+		    and you want your log path to be in /www/weblog/, you'd use "../../www/weblog"othe "../../"
+		    going back two directories and into "/www/weblog" from there. (Without the quotes, in all instances.)
+		</P>
+
+		<P ALIGN=JUSTIFY><FONT COLOR="#FF0000">
+			PROBLEM: I get "Forbidden" errors whenever I try to view my main index and/or any of my entries.
+		</FONT></P>
+		<P ALIGN=JUSTIFY>
+		    DIAGNOSIS: If you've got your main index in your account's cgi-bin directory, and/or
+		    your entries directory as a subdirectory of that, then your server is probably set to
+		    automatically disallow viewing of any files in your cgi-bin directory (or
+		    subdirectories thereof) as a security measure.  You'll have to have your log
+		    directory and your entries/archives directory to be somewhere other than in the
+		    cgi-bin directory.
+		</P>
+
+		<P ALIGN=JUSTIFY><FONT COLOR="#FF0000">
+			PROBLEM: My entries or other files are messed up, and/or Greymatter just stalls 
+			out and stops running whenever I attempt to do something.
+		</FONT></P>
+		<P ALIGN=JUSTIFY>
+		    DIAGNOSIS: You may have interrupted Greymatter in the middle of an operation, 
+		    such as adding a new entry or rebuilding files. <B>Never</B> do this, since this 
+		    is the surest way to corrupt your Greymatter files.  Keep in mind that actions 
+		    like rebuilding files will always take some time, depending on how much Greymatter 
+		    has to rebuild; if you have large templates, and/or you're trying to rebuild a 
+		    significant amount of entries (and/or if entries contain a significant amount of 
+		    comments), then rebuilding will probably require an ample amount of time.  If your 
+		    files have indeed been definitely corrupted, there will probably be no choice but 
+		    to reinstall from scratch.  If you believe you've encountered a genuine bug that 
+		    corrupted your files through no fault of your own, then please don't hesitate to 
+		    <A HREF="mailto:noah@noahgrey.com">report it to me</A>.
+		</P>
+
+		<P ALIGN=JUSTIFY><FONT COLOR="#FF0000">
+			PROBLEM: I try to run Greymatter and get a bunch of text, but can't get the 
+			program to run properly; or, whenever I try to access Greymatter I'm simply 
+			prompted to download gm.cgi instead.
+		</FONT></P>
+		<P ALIGN=JUSTIFY>
+		    DIAGNOSIS: Your server may not have Perl 5 installed, or it may not be properly 
+		    configured to run CGI scripts (*or* it may not allow for running CGI at all).
+		</P>
+
+		<P ALIGN=JUSTIFY><FONT COLOR="#FF0000">
+			PROBLEM: I get an error when running Grey Matter.  It complains about not being able
+			to find the library 'warnings'.
+		</FONT></P>
+		<P ALIGN=JUSTIFY>
+		    DIAGNOSIS: Your server may not have Perl 5.6 (released in 2000) installed, or 
+		    the cgi scripts are not pointed at it (Sometimes more than one version of Perl 
+		    is installed on a machine).  Ask your webhost or ISP where the newest version of
+		    Perl is located and update the cgi scripts with the path).
+		</P>
+
+		<P ALIGN=JUSTIFY><FONT COLOR="#FF0000">
+			PROBLEM: I get an error when running Grey Matter.  It complains about not being able
+			to find the 'libs' directory or can't find Gm_(whatever) (usually Gm_Constants).
+		</FONT></P>
+		<P ALIGN=JUSTIFY>
+		    DIAGNOSIS: You need to upload the 'libs' (and all files withen) directory and set the appropriatte 
+		    permissions.  The 'libs' directory should be under your cgi-bin directory where
+		    gm.cgi and the other scripts are located.  The 'libs' directory and the files withen
+		    were added in an effort to modularize GreyMatter and isolate similar code into
+		    seperate files.  Also make sure that the 'libs' directory is chmod'ed to 755, other permissions may 
+		    prevent your webserver from viewing the file.
+		</P>
+
+		<P ALIGN=JUSTIFY><FONT COLOR="#FF0000">
+			PROBLEM: I get an error when running Grey Matter.  It complains about a file being forbidden/denied access to.
+		</FONT></P>
+		<P ALIGN=JUSTIFY>
+		    DIAGNOSIS: Sometimes a file such as gm.cgi can be given too many permissions.  Some webservers,
+		    such as Apache, can be setup to not execute Perl/cgi scripts that have execute and write permissions
+		    for group and world.  Chmod 777 ('-rwxrwxrwx') vs chmmod 755 ('-rwxr-xr-x').
+		</P>
+
+		<P ALIGN=JUSTIFY><FONT COLOR="#FF0000">
+			PROBLEM: I get odd behavior from GreyMatter such as a blank screen during rebuild, failure to rebuilt,
+			blank pages after rebuilding, etc.
+		</FONT></P>
+		<P ALIGN=JUSTIFY>
+		    DIAGNOSIS: GreyMatter depends on being able to read files, line by line.  However, Windows uses
+		    a different line ending character than Linxu/Mac/etc. and so GM will read a file like gm-config.cgi
+		    and see it as one big line, which means, none of your configurations will be loaded into GreyMatter 
+		    (same for gm-templates.cgi, etc.).
+
+		    There are several things to solve this issue:
+		    <ul>
+			<li>Reupload a fresh file, if its a new install, or you haven't made any changes.  FTP programs will have a way
+			    to specify to send a file in ASCII, consult google or your ftp program's help.</li>
+			<li>You could try downloading the file to your local machine, then re-uploading, making sure to set your FTP program 
+			    to ASCII (same as above).  Downloading and re-uploading will cleanse the file.
+			<li>If you have modified a file directly, make sure you do 'save as text' or plain text or ascii.  Some 
+			    editing programs will insert bad characters, such as windows line endings, into the file when saving.</li>
+			<li>This program http://www.comparatorfast.com/ will may help.
+			    Under - tools-misc, you have a dos-unix conversion program to get rid of the windows endings.
+			    The program is shareware it will work for 30 days.</li>
+		    </UL>
+	    </BLOCKQUOTE>
+
+
+
+	    <A NAME="14"></A>
+
+	    <p class=entryheader align=justify>
+		<font color=#000000><b>14. Version History</B></FONT>
+	    </p>
+
+	    <BLOCKQUOTE>
+
+
+		<P ALIGN=JUSTIFY>
+		    <FONT COLOR="#0000FF"><B>1.8.2:</B></FONT> Second release of 2008 (4/2008)
+		</P><P ALIGN=JUSTIFY>
+		    <UL>
+			<li>Bug fix where number of entries edited by author wasn't being updated (post increment).</li>
+			<li>Bug fix where config screen wouldn't show changes:<br >
+			    http://greymatterforum.proboards.com/index.cgi?board=gmbugreport&amp;action=display&amp;thread=1200952988</li>
+			<li>Updated to use CGI.pm for getting web parameters.</li>
+			<li>SECURITY: Deprecated gm-upload.cgi, file no longer required, best to be removed.</li>
+			<li>Wrote some automated test cases using http://selenium.openqa.org/</li>
+			<li>NEW FEATURE: added label tag to configuration screen for accessability</li>
+			<li>Bug fix where entry-only authors couldn't add a new entry:<br >
+			    http://greymatterforum.proboards.com/v45index.cgi?action=display&amp;board=gmbugreport&amp;thread=385</li>
+		    </ul>
+
+		<P ALIGN=JUSTIFY>
+		    <FONT COLOR="#0000FF"><B>1.8.1:</B></FONT> First release of 2008 (1/2008)
+		</P><P ALIGN=JUSTIFY>
+		    <UL>
+			<li>NEW FEATURE: random salt used when encoding author passwords.</li>
+			<li>NEW FEATURE: Bookmarklets available for everyone now, regardless of platform.</li>
+			<li>Refactored screens: Configuration, Templates, Rebuild</li>
+			<li>Bug fix of 1.7.4.1 which addressed issue where new italicizing logic interferred with URLS</li>
+			<li>BUG FIX: issue where a badly formatted banned ip would cause a regex parse error, use of quotemeta</li>
+		    </ul>
+
+
+		<P ALIGN=JUSTIFY>
+		    <FONT COLOR="#0000FF"><B>1.7.4:</B></FONT> Fourth release of 2007 (10/2007)
+		</P><P ALIGN=JUSTIFY>
+		    <UL>
+			<li>NEW FEATURE: more information given in comment email</li>
+			<li>NEW FEATURE: check that commenter came from a page on the Gm site</li>
+			<li>NEW FEATURE: force commenters to preview page, enhanced to put a secret value on the page</li>
+			<li>NEW FEATURE: throttle commments to slow down spammers</li>
+			<li>NEW FEATURE: 'all' option on paging, for those who don't want to go page by page</li>
+			<li>Fixed defect where comment email missing usefull information:<br >
+			    http://greymatterforum.proboards.com/index.cgi?board=gmbugreport&amp;action=display&amp;thread=1183695439</li>
+			<li>Refactored screens: Entrylist, View Entry</li>
+			<li>Updated Edit Author screen so that option selections are preserved on an error</li>
+			<li>Updated gm.cgi to 'use strict', but not permanently since it stops the program from working with old part</li>
+			<li>Applied fix to trailing whitespace in templates issue, posted by Carlos P.</li>
+			<li>Applied fix for "Author Smartlink Target Template", discovered by stryker<br>
+			    http://greymatterforum.proboards.com/index.cgi?action=display&amp;board=gmbugreport&amp;thread=1191509858</li>
+		    </ul>
+
+		    <FONT COLOR="#0000FF"><B>1.7.3:</B></FONT> Third release of 2007 (6/2007)
+		<P ALIGN=JUSTIFY>
+		    <UL>
+			<li>WARNING:  Default wonderland password now crypted, GM 1.7.4 will not allow plaintext passwords</li> 
+			<li>Refactored gm.cgi to use new request routing logic (to prepare for admin overhaul)</li>
+			<li>NEW FEATURE: added 'pageing' to Control Panel Log.  Pages are 100 lines.</li>
+			<li>NEW FEATURE: added 'pageing' to Ban List.  Pages are 25 lines.</li>
+			<li>Fixed bug with poorly optimized sorting:<br />
+			    link</li>
+			<li>Refactored to use Gm_Security for url and form auths</li>
+			<li>Refactored out gm_formatentry to use Core methods (removing direct file access).</li>
+			<li>Refactored direct file access out of gm-karma.cgi</li>
+			<li>Refactored direct file acesss out of gm-comments.cgi</li>
+			<li>Search and Replace should now work for the Mood and Music fields</li>
+			<li>Fixed defect where 'index.' wasn't removed from home and archive links, broken in 1.6.1 - 1.7.2</li>
+			<li>Fixed issue where some screens had 'Content-type...' at top of.</li>
+			<li>Updated default templates to use cookie code, entry subjects as page titles, and smartemotions.</li>
+			<li>Refactored out direct emailing, into Core function</li>
+			<li>Removed 2000+ lines of deprecated code from gm-library.cgi</li>
+			<li>Discovered and documented tag {{entrysubjectstripped}}</li>
+			<li>Discovered and documented tag {{dayappend}}</li>
+			<li>Refactored screens to use CSS and Web functions: Cplog, Ban Ip, Login, front page, authors</li>
+			<li>Added localization logic functionality to enable translation, not fully propagated</li>
+			<li>Fixed defect where Preview Does Not Show Preview as Translated<br />
+			    http://greymatterforum.proboards.com/index.cgi?board=gmbugreport&amp;action=display&amp;thread=1175056731</li>
+			<li>Fixed defect when authors Preview an Entry and then attempt to post it or re-edit it, GM will report an error<br />
+			    http://greymatterforum.proboards.com/index.cgi?board=gmbugreport&amp;action=display&amp;thread=1175056250</li>
+			<li>Fixed defect where if could edit own entries, listed as 'no' instead of 'own' on edit authors page</li>
+			<li>Fixed defect where gm-comments.cgi doesn't check for entryid passed in from form</li>
+			<li>Fixed defect where entrymainbodyfirstwords and entrymorebodyfirstwords didn't work on search results or after commenting.<br />
+			    link</li>
+			<li>Fixed defect where Select All on edit entry, didn't select all if there was one item.
+			    add issue to forums and link</li>
+			<li>Fixed defect where newlines break comments when previewing or doing commenter verification<br />
+			    http://greymatterforum.proboards.com/index.cgi?board=gmbugreport&amp;action=display&amp;thread=1180022969</li>
+			<li>Fixed defect in gm_DeleteAllSelectedComments where comments where only reduced by 1 on multi-delete of comments<br />   
+			    link</li>
+			<li>Fixed defect in gm-comments.cgi where forceverify did not follow 'static' preference<br />
+			    http://greymatterforum.proboards.com/index.cgi?board=gmbugreport&amp;action=display&amp;thread=1180923636</li>
+		    </UL>
+
+
+		<P ALIGN=JUSTIFY>
+		    <FONT COLOR="#0000FF"><B>1.7.2:</B></FONT> Second release of 2007 (3/10/2007)
+		</P><P ALIGN=JUSTIFY>
+		    <UL>
+			<li>Modified comments gm_phphackcheck to check search strings for hacks as well, particularly since they are logged.</li>
+			<li>Issue with check execute bit on windows with Active perl, rolling back feature</li>
+			<li>Fixed random phrase generator to create 3 minute window in which phrase is good for</li>
+			<li>Added back key shortcuts for GM:<br />
+			    http://greymatterforum.proboards.com/index.cgi?board=gmbugreport&amp;action=display&amp;thread=1167948704</li>
+			<li>NEW FEATURE: Select all for deleting comments:<br />
+			    http://greymatterforum.proboards.com/index.cgi?board=gmmoddev&amp;action=display&amp;thread=1168809763</li>
+			<li>Security enhancements to scan all form variables inputted.</li>
+			<li>Updated install, manual, and developer documents, fixing typos, adding clarifications.</li>
+			<li>Refactored gm_formatentry to Gm_Core</li>
+			<li>Refactored Gm_Storage methods to stop (die) on required params, instead of assuming defaults</li>
+			<li>Truncated search parameter to 35 characters to try and limit attacks</li>
+			<li>UPDATED FEATURE:  Protect author now has an exact and loose option:<br />
+			    http://greymatterforum.proboards.com/index.cgi?board=gmbugreport&amp;action=display&amp;thread=1170709235&amp;page=1</li>
+			<li>ADDED FEATURE: If inline formatting on, will display help when entering an entry, editing an entry</li>
+		    </UL>
+
+		<P ALIGN=JUSTIFY>
+		    <FONT COLOR="#0000FF"><B>1.7.1:</B></FONT> First release of 2007 (12/31/2006)
+		</P><P ALIGN=JUSTIFY>
+		    <UL>
+			<li> NEW FEATURE: Link Limit will block and/or ban commenters based on number of links in comment</li>
+			<li> NEW FEATURE: Force Preview will require that a commenter preview their post before submitting </li>
+			<li> NEW FEATURE: Require commenter to type pass-phrase, either a phrase provided or random letters</li>
+			<li> Fixed defect where installations with more than 1 connected files would not rebuild/repair the connected files: <br />
+			    http://greymatterforum.proboards.com/index.cgi?board=gmbugreport&amp;action=display&amp;thread=1163736661&amp;page=1#1163736661</li>
+			<li> Fixed defect where two templates were cleared out in 1.6.1 upgrade, but should only be cleared out for versions prior to 1.3.1.
+			    http://greymatterforum.proboards.com/index.cgi?board=gmbugreport&amp;action=display&amp;thread=1163569859&amp;page=1#1163569859</li>
+			<li> Fixed defect where military hour not showed as 00 for 12 am:<br />
+			    http://greymatterforum.proboards.com/index.cgi?board=gmbugreport&amp;action=display&amp;thread=1165810428&amp;page=1#1165810428</li>
+			<li> Fixed defect where censored word list was no longer honored.  Due to 1.6.1 refactoring:<br />
+			    http://greymatterforum.proboards.com/index.cgi?board=gmbugreport&amp;action=display&amp;thread=1165811797&amp;page=1#1165811797</li>
+			<li> Fixed defect where multiple files where not being processed:<br />
+			    http://greymatterforum.proboards.com/index.cgi?board=gmbugreport&amp;action=display&amp;amp;thread=1163736661&amp;page=1#1163736661</li>
+			<li> Fixed defect where 	{{commentauthorsmartlink}} was not being censored:<br />
+			    http://greymatterforum.proboards.com/index.cgi?board=gmbugreport&amp;action=display&amp;thread=1164257159&amp;page=1#1164257159</li>
+			<li> Fixed defect where preview/post wouldn't work unless "Protect Author Name" was enabled.<br />
+			    http://greymatterforum.proboards.com/index.cgi?board=gmbugreport&amp;action=display&amp;thread=1165981473&amp;page=1#1165981473</li>
+			<li> refactored gm_collatecomments into Gm_Core, in order to gain OO benefits.</li>
+			<li> refactored gm_getentryvariables into Gm_Core, in order to gain OO benefits.</li>
+			<li> Tighted up regex to look for hacks, specifically malformed iframe and script tags<br />
+			    URL</li>
+			<li> GM will search closed entries - THIS IS NO LONGER A DEFECT SINCE 1.3.1<br />
+			    http://greymatterforum.proboards.com/index.cgi?action=display&amp;board=gmbugreport&amp;thread=1161577994</li>
+		    </UL>
+
+		<P ALIGN=JUSTIFY>
+		    <FONT COLOR="#0000FF"><B>1.6.1:</B></FONT> First release of 2006
+		</P><P ALIGN=JUSTIFY>
+		    <UL>
+			<li> added author name protecion, commenter must enter name_pw in order to post with author name.</li>
+			<li> refactored config screen to use Gm_Web.pm functions, cut down on if statements</li>
+			<li> refactored to use Gm_Constants to avoid typos of bareword flags.</li>
+			<li> refactored to use Gm_Storage to retrieve templates (continue this trend to get to db)
+			    <ul><li> also refactored template file so that templates are stored as: template_name=templatevalue (removes order dependance)</li></ul>
+			<li> refactored to use Gm_Storage to retrieve and set configs
+			    <ul><li> also refactored configs to use format: configname=configvalue (removes order dependance, cleaner)</li></ul>
+			<li> refactored to use Gm_Storage to retrive and set ban lists</li>
+			<li> refactored to use Gm_Storage to retrive and save authors</li>
+			<li> refactored minor "utility" functions to Gm_Utils
+			    <ul><li> This includes &amp;date which is now Gm_Utils::getStdDate</li></ul>
+			<li> fixed issue with ArchiveGroupingFooter not being printed properly<br />
+			    http://greymatterforum.proboards.com/index.cgi?board=gmbugreport&amp;action=display&amp;thread=1155058370&amp;page=1#1155058370</li>
+			<li> removed quotes, they don't contribute anything to the task at hand.</li>
+			<li> added user templates for errors that are displayed to grey matter users vs gm admin messages<br />
+			    http://greymatterforum.proboards.com/index.cgi?board=gmfeaturemodrequests&amp;action=display&amp;thread=1155527898&amp;page=1#1155527898</li>
+			<li> added in Multiple delete on the entry edit page.</li>
+		    </UL>
+
+		<P ALIGN=JUSTIFY>
+		    <FONT COLOR="#0000FF"><B>1.3.1:</B></FONT>
+		</P><P ALIGN=JUSTIFY>
+		    <UL>
+			<li> added xhtml sanitation for &amp; symbols.
+			    http://www.greymatterforums.com/index.php?topic=9178.msg40972#msg40972</li>
+			<li> added {{entrymood}} and {{entrymusic}} to {{logentrylist}} and {{calendar}}
+			    http://www.greymatterforums.com/index.php?topic=7555.0</li>
+			<li> fixed default first paths (removed cgi-bin from log and entries/archives paths).</li>
+			<li> added the google comment spam prevention to the comments censor code
+			    and default {{commentauthoremail}} &amp; {{commentauthorhomepage}} templates.
+			    http://www.google.com/googleblog/2005/01/preventing-comment-spam.html</li>
+			<li> cplog sanitised (< converted to &lt; and > converted to &gt;)
+				http://www.greymatterforums.com/index.php?topic=9146.0</li>
+			<li> gm-comments.cgi and gm-karma.cgi use the cplog subroutine</li>
+			<li> &lt;iframe check added in php hack detection script</li>
+			<li> Editing Author without editing password no longer wipes password
+			    http://www.greymatterforums.com/index.php?topic=8526.0</li>
+			<li> Inputs into gm-comments.cgi and gm.cgi have < and > replaced</li>
+			<li> Ampersand in Subject now comes out as &amp;
+			    http://www.greymatterforums.com/index.php?topic=8861.0</li>
+			<li> $commentname="gm_password"; at the top of gm-library.cgi. It changes the name of your password cookie
+			    http://www.greymatterforums.com/index.php?topic=9146.0</li>
+			<li> Check for overwriting when adding new entry</li>
+			<li> $commentname support added to deleting cookie through config</li>
+			<li> Changed some of the simple html tags to lowercase: &lt;b&gt;</li>
+			<li> cplog sanatise re-written to only take out possible hack html</li>
+			<li> {{smartentrymusic}} and {{smartentrymood}} now work in {{sidebar}}
+			    http://www.greymatterforums.com/index.php?topic=8707.0</li>
+			<li> changed main menu background color and used some css goodies</li>
+			<li> http://www.greymatterforums.com/index.php?topic=6336
+			    casting a karma vote neutralized emoticons, entrymusic, and entrymood (Fixed 2/2 Silent Bob)</li>
+			<li> http://www.greymatterforums.com/index.php?topic=6750
+			    calendar doesn't validate as xhtml when month ends on Saturday (Fixed 1/8 linear)</li>
+			<li> http://www.greymatterforums.com/index.php?topic=6535
+			    {{authorsmartlink}} gets autolinked twice</li>
+			<li> (no bug report, several complaints)
+			    autolinking in entries removed. Use the {{link}} varaibles provided instead. (Fixed 2/19 linear)</li>
+			<li> fixed $aftermath related karma bug (Fixed 2/11 linear)</li>
+			<li> http://www.greymatterforums.com/index.php?topic=7105
+			    {{loglistmonthwordshort}} returned wrong value (Fixed 2/8 Ian)</li>
+			<li> http://www.greymatterforums.com/index.php?topic=7141 (Fixed 6/29 Linear/flipped cracker)
+			    added new $dategrouping flag</li>
+			<li> removed easy formatting from entry subject (flipped cracker 6/29)</li>
+			<li> updated gm gui using css (flipped cracker 6/29)</li>
+		    </UL>
+		<P ALIGN=JUSTIFY>
+		    <FONT COLOR="#0000FF"><B>1.3:</B></FONT> minor release
+		</P><P ALIGN=JUSTIFY>
+		    <UL>
+			<LI> numerous security-related improvements
+			<LI> added music input to entries
+			<LI> added mood input to entries
+			<LI> integrated smilies hack to core gm code
+			<LI> improved php hack check
+			<LI> changed entry rebuild increment to 10 (instead of 20)
+			<LI> improved the default template set
+			<LI> fixed bug where "00000000.cgi can not be read" errors occur
+			<LI> fixed bug where sqare brackets in entry subjects broke the scripts
+			<LI> fixed bug where image buttons would not work in entrycommentsform template
+			<LI> added automatic configuration save when D&amp;R is clicked
+			<LI> improved upgrade handling over 1.21d
+		    </UL>
+		<P ALIGN=JUSTIFY>
+		    <FONT COLOR="#0000FF"><B>1.21d:</B></FONT> bug-fix release
+		</P><P ALIGN=JUSTIFY>
+		    <UL>
+			<LI> fixed php exploit
+		    </UL>
+		<P ALIGN=JUSTIFY>
+		    <FONT COLOR="#0000FF"><B>1.21c:</B></FONT> bug-fix release
+		</P><P ALIGN=JUSTIFY>
+		    <UL>
+			<LI> fixed bug with crypt in gm-authors.cgi
+		    </UL>
+		<P ALIGN=JUSTIFY>
+		    <FONT COLOR="#0000FF"><B>06.19.2001:</B></FONT> license change
+		<P ALIGN=JUSTIFY>
+		    <UL>
+			<LI> updated the "Copyright &amp; Usage" information in this manual
+		    </UL>
+		<P ALIGN=JUSTIFY>
+		    <FONT COLOR="#0000FF"><B>1.21b [02.22.2001]:</B></FONT> bug-fix release
+		<P ALIGN=JUSTIFY>
+		    <UL>
+			<LI> fixed bug with every 20th entry not being rebuilt
+			<LI> fixed bug with {{calendar mm/yy}} not aligning dates to the correct weekdays
+			<LI> fixed bug with {{logentrylist comments}} not sorting properly with entries having 10 or more comments
+		    </UL>
+		<P ALIGN=JUSTIFY>
+		    <FONT COLOR="#0000FF"><B>1.21a [01.17.2001]:</B></FONT> bug-fix release
+		<P ALIGN=JUSTIFY>
+		    <UL>
+			<LI> fixed security issue involving clicking "Visit Your Site" after certain rebuilding operations
+			<LI> fixed bug converting pluses to spaces in selected text/URLs when using bookmarklets
+			<LI> fixed bug padding {{militaryhour}} to too many zeroes when used in {{logentrylist}}s
+			<LI> fixed bug with not properly handling some {{previousmorepagelink}}s and {{nextmorepagelink}}s
+		    </UL>
+		<P ALIGN=JUSTIFY>
+		    <FONT COLOR="#0000FF"><B>1.21 [01.15.2001]:</B></FONT> minor release
+		<P ALIGN=JUSTIFY>
+		    <UL>
+			<LI> added incremental rebuilding&#8212;entry pages &amp; connected files are now rebuilt 20 files at a time rather than all at once, to be somewhat more browser/server-friendly
+			<LI> fixed a minor bug involving {{commentauthoremail}} and {{commentauthorhomepage}}
+			<LI> fixed problem not recognizing pre-1.2 passwords that contained nonalphanumeric characters
+		    </UL>
+		<P ALIGN=JUSTIFY>
+		    <FONT COLOR="#0000FF"><B>1.2 [01.12.2001]:</B></FONT> major upgrade release
+		<P ALIGN=JUSTIFY>
+		    <UL>
+			<LI> added bookmarklets for convenient "blogging" of sites from anywhere on the web (Internet Explorer 5+ only)
+			<LI> added ability to upload files from within Greymatter to your entries/archives directory (you must upload the new gm-upload.cgi file and <a href="http://www.google.com/search?hl=en&amp;ie=UTF-8&amp;oe=UTF-8&amp;q=chmod" target="_blank">CHMOD</a> it to 755); can also allow only certain types of files to be uploaded, and/or specify a maximum filesize limit on uploads; can also send a link to the file or display the image directly in a new entry
+			<LI> can now choose whether log archives are kept on a monthly or weekly basis; they can also now be disabled altogether
+			<LI> added cookies to remember your name and password upon login; can be disabled or cleared in configuration
+			<LI> added new {{calendar}} &amp; {{calendarweek}} options &amp; templates, to create calendar tables showing links to your entries for the current month or week; can also create monthly calendars for individual months
+			<LI> added quick-and-easy {{popup}} variable for making popup windows for images (fully customisable, of course); when you upload an image through Greymatter, you can also have the popup window &amp; code automatically made in a new entry
+			<LI> added ability for visitors to search your entries (to enable this, add {{searchform}} to any template to insert the search form), with fully-customisable form and results display
+			<LI> added ability to search through entries or perform search-and-replace operations across all entries from within Greymatter
+			<LI> retooled the way link variables are done for greater flexibility (link variables are no longer self-contained; templates automatically converted upon upgrading)
+			<LI> added ten new custom templates to the Header, Footer &amp; Sidebar group
+			<LI> added shortcut keys and "easy formatting" (see configuration) for adding link, bold, italic &amp; underline tags to text when adding or editing entries (Internet Explorer 5+ only)
+			<LI> added ability for authors to preview the contents of entries within Greymatter before posting them
+			<LI> added ability for visitors to preview comments before submitting them (to enable this, add a &lt;INPUT TYPE=SUBMIT NAME="gmpostpreview" VALUE="Preview Your Comment"&gt; button [the "value" text can be changed to whatever you wish, as long as you keep the NAME="gmpostpreview" part] to your entry comments form)
+			<LI> can now "connect" other files to Greymatter, allowing Greymatter to use and update any other file on your account as if it were one of its regular index files&#8212;recommended for advanced users only
+			<LI> added censor list ability; undesired words or phrases (in entries, comments, or both) can now be *****ed out
+			<LI> added "Automatically rebuild..." option upon saving changes to templates or entries
+			<LI> added "Rebuild All Entry Pages" option to the Rebuild Files menu
+			<LI> added more options for customising authors' access, including allowing authors to edit only their own entries and/or the header, footer &amp; sidebar templates
+			<LI> can now specify whether only the HTML code for linking, bold and italics, or just linking, can be included in comments
+			<LI> can now specify dividers&#8212;by day, month, and/or year&#8212;to add to lists of entry links (the {{logentrylist}} variables)
+			<LI> can now list all entries by any individual author with the {{logentrylist}} variables
+			<LI> can also do {{logentrylist}}s sorted by number of comments
+			<LI> can now refer to the body of the entry text in {{logentrylist}}ings
+			<LI> much more flexible handling of {{previous}} and {{next}}-related variables
+			<LI> added new {{weekbeginning}} and {{weekending}} variables, pertaining to the date at the beginning or end of the given week
+			<LI> added new {{entrymainbodyfirstwords [x]}} and {{entrymorebodyfirstwords [x]}} variables, to display only the first X words of the current entry
+			<LI> added ability to sort by date, subject, or author, as well as an "All entries by you" viewing option, to the Edit An Entry selection menu
+			<LI> can now specify a default view for the Edit An Entry selection menu in configuration
+			<LI> can now customise the output of {{commentstatussmart}}
+			<LI> can now have separate suffix for the monthly log archive files
+			<LI> added "Visit Your Site" button to main menu
+			<LI> giving subjects to entries is no longer required
+			<LI> slightly improved autolinking to e-mail addresses
+			<LI> various minor speed optimisations
+			<LI> added {{randomnumber [x]-[y]}} variable
+			<LI> added a template for line breaks
+			<LI> added better checking for incorrect author names when creating a new author
+			<LI> fixed a small bug with not using the extended entry page template whenever comments were added to extended entries
+			<LI> fixed a small bug involving {{militaryhour}}: midnight was showing up as "12" instead of "00"
+			<LI> removed requirement that the Socket module be installed
+			<LI> added display of internal errors to browser
+		    </UL>
+		<P ALIGN=JUSTIFY>
+		    <FONT COLOR="#0000FF"><B>1.1b [12.27.2000]:</B></FONT> bug-fix release
+		<P ALIGN=JUSTIFY>
+		    <UL>
+			<LI> fixed important bug that could cause Greymatter to stop working after New Year's
+		    </UL>
+		<P ALIGN=JUSTIFY>
+		    <FONT COLOR="#0000FF"><B>1.1a [12.07.2000]:</B></FONT> bug-fix release
+		<P ALIGN=JUSTIFY>
+		    <UL>
+			<LI> fixed a small bug involving mouseovers with the {{logentrylist}} variables
+		    </UL>
+		<P ALIGN=JUSTIFY>
+		    <FONT COLOR="#0000FF"><B>1.1 [12.06.2000]:</B></FONT> major upgrade release
+		<P ALIGN=JUSTIFY>
+		    <UL>
+			<LI> polished up the interface and editing environment
+			<LI> new archive master index template &amp; options
+			<LI> new variables ({{logarchivelist}}, {{logentrylist}} and several variations thereof), templates and options for generating automatic, fully-customisable lists of links to log archives and individual entry pages
+			<LI> added new Diagnostics &amp; Repair function in the Configuration screen&#8212;a means for Greymatter to check that all files and paths are working correctly
+			<LI> added new header, footer and sidebar templates/variables
+			<LI> added filecheck error trapping (which basically means that if Greymatter ever has a problem reading or writing to a file, it'll stop and tell you what the problem is, instead of stalling out indefinitely)
+			<LI> new templates allowing you to set up all standard and extended entries in completely distinct ways
+			<LI> can now universally disable karma and/or comments in configuration, overriding individual entry settings
+			<LI> new entry separator templates&#8212;can now add special separators/dividers between entries if you wish
+			<LI> new link customisation template, for any special code to be inserted in links to individual entry pages
+			<LI> can now close or reopen entries right from the entry selection menu
+			<LI> added {{previouslink}}, {{nextlink}}, {{previousmorelink}} and {{nextmorelink}} variables
+			<LI> added {{pagenextmorelink}} and {{pagepreviousmorelink}} for linking to the next and previous extended entries
+			<LI> added various variables for referring to the subject, author, and number of next and previous entries
+			<LI> added {{pageindexlink}}, {{pagearchiveindexlink}}, and {{pagearchivelogindexlink}} variables for linking to the main index, the archive master index, and the current log archive, respectively
+			<LI> can now modify the {{author}} group of variables to insert the links/information for specific authors
+			<LI> all variables involving the next &amp; previous entries will now work in any of the mini-templates, not just the entry page templates
+			<LI> can now use entry-specific variables in the main index &amp; archive log indexes if you wish; on the main index, they will refer to the most recent entry, and on the archive log index, to the entry at the top
+			<LI> new template for the date grouping header in archives
+			<LI> much improved handling of auto-linking to URL's in comments (thanks Neal)
+			<LI> e-mail addresses in comments will now be automatically linked to, if auto linking is enabled
+			<LI> implemented workaround for textareas choking on certain codes when editing templates or entries
+			<LI> fixed problem deleting banned IP addresses if the banned person's name contained quotes
+			<LI> can now activate both "HTML allowed in comments" and "Auto-link URLs in comments" without the links getting messed up
+			<LI> new {{entrieswebpath}} and {{logwebpath}} variables
+			<LI> got rid of the "Delete All Generated Pages" button
+			<LI> should work better on servers running Windows NT
+			<LI> can now fit in 800x600 instead of requiring a minimum display of 1024x768
+			<LI> looks much better on Netscape 4.x and 6.x
+			<LI> redid the installation file and the manual you're now reading
+		    </UL>
+		<P ALIGN=JUSTIFY>
+		    <FONT COLOR="#0000FF"><B>1.0a [11.20.2000]:</B></FONT> bug-fix release
+		<P ALIGN=JUSTIFY>
+		    <UL>
+			<LI> fixed tiny bug involving use of negative numbers on "Server Offset Time" (thanks Bill @ mermaniac.com)
+		    </UL>
+		<P ALIGN=JUSTIFY>
+		    <FONT COLOR="#0000FF"><B>1.0 [11.04.2000]:</B></FONT> first official public release of Greymatter
+		<P ALIGN=JUSTIFY>
+		    <UL>
+			<LI> added automatic path detection for installing (or upgrading, if necessary); Greymatter will attempt to figure out your local &amp; web paths automatically if they haven't been configured or verified yet
+			<LI> added a version check to login so that all necessary files can be easily updated whenever an upgrade to Greymatter is installed in a previous Greymatter setup
+			<LI> added "Keep main index and archive log indexes concurrent with each other" option, allowing you to have new entries appear simultaneously in the main index and that month's archive log index if you wish
+			<LI> added file checks to login; will not allow login if critical files are missing
+			<LI> new "Local CGI Path" and "Website CGI Path" fields in configuration
+			<LI> added new {{pageindexlink}} and {{cgiwebpath}} variables
+			<LI> fixed bug with karma voting (wouldn't work if the main index file was not in the same place as the cgi files, since it assumed the same path)&#8212;karma voting links now refer to the cgi web path
+			<LI> {{pagenextlink}} and {{pagepreviouslink}} are now "smarter"; will now skip over closed entries (rather than just linking to the main index if the next/previous entry is closed) and will always link to the next/previous non-closed entry
+			<LI> single line breaks will now show up in entry text and in comments (unless you've enabled "Strip new lines from comments", of course)
+			<LI> minor tweaks to look slightly better on Netscape (still looks much better in IE, though)
+			<LI> rewrote the installation.txt file, and finished the manual you're now reading
+		    </UL>
+		<P ALIGN=JUSTIFY>
+		    <FONT COLOR="#0000FF"><B>beta 2 [10.28.2000]:</B></FONT> fixed a small bug with IP addresses (thanks, Jay)
+		<P ALIGN=JUSTIFY>
+		    <FONT COLOR="#0000FF"><B>beta 1 [10.26.2000]:</B></FONT> first private beta release
+		<P ALIGN=JUSTIFY>
+		    <FONT COLOR="#0000FF"><B>alpha 0.x [began 09.10.2000]:</B></FONT> spawning, creating, testing, tweaking
+	    </BLOCKQUOTE>
+
+	    <A NAME="15"></A>
+
+	    <p class=entryheader align=justify>
+		<font color=#000000><b>15. Credits &amp; Thanks</B></FONT>
+	    </p>
+
+	    <BLOCKQUOTE>
+		<P ALIGN=JUSTIFY>
+		    Greymatter is written and created entirely by Noah Grey and The Greymatter Team.  All rights reserved.
+		</P><P ALIGN=JUSTIFY>
+		    Thanks to: <A HREF="http://semistatic.com/" TARGET="_top">Jay Barrow</A>, without whose encouragement 
+		    Greymatter wouldn't be in your hands right now (and who made the included "Powered By Greymatter" button); 
+		    to <A HREF="http://indecisions.org/" TARGET="_top">Neal Coffey</A> for help with Linux and URL 
+		    auto-linking; to <A HREF="http://www.mermaniac.com/" TARGET="_top">Bill</A>, 
+		    <A HREF="http://www.flogeeks.org/" TARGET="_top">Daniel</A>, 
+		    <A HREF="http://www.unxmaal.com/" TARGET="_top">Eric</A>, 
+		    <A HREF="http://www.nine2000.com/" TARGET="_top">James</A>, 
+		    <A HREF="http://www.semistatic.com/" TARGET="_top">Jay</A>, 
+		    <A HREF="http://www.nosurrender.org" TARGET="_top">Jimmy</A>, 
+		    <A HREF="http://www.bluezfire.org/" TARGET="_top">Lee</A>, 
+		    <A HREF="http://www.starcrossd.org" TARGET="_top">Sara</A>, 
+		    and <A HREF="http://www.project37.org/" TARGET="_top">Tom</A> for being great beta-testers 
+		    (and friends); to my family and friends for their love and support; to everyone who has 
+		    donated and helped make Greymatter to feel like a worthwhile effort thus far; and to 
+		    Thomas for being himself.
+		</P><P ALIGN=RIGHT>
+		    &#8212;Noah Grey<br />
+		    &#8212;The Greymatter Team
+		    <BR>
+		    <A HREF="http://greymatterforum.proboards.com/">http://greymatterforum.proboards.com/</A>
+		    <BR>
+		</P>
+	    </BLOCKQUOTE>
+	</FONT>
+    </BODY>
 </HTML>

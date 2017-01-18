@@ -1,0 +1,84 @@
+.entryheader {
+    BORDER-RIGHT: #000000 1px solid;
+    PADDING-RIGHT: 5px;
+    BORDER-TOP: #000000 1px solid;
+    PADDING-LEFT: 5px;
+    PADDING-BOTTOM: 5px;
+    BORDER-LEFT: #000000 1px solid;
+    PADDING-TOP: 5px;
+    BORDER-BOTTOM: #000000 1px solid;
+    BACKGROUND-COLOR: #EAE8E8;
+    border: #000000;
+    border-style: solid;
+    border-top-width: 1px;
+    border-right-width: 1px;
+    border-bottom-width: 1px;
+    border-left-width: 1px;
+}
+.title { FONT-SIZE: 150%; }
+BODY { background-color: #FFFFFF; }
+.headers {
+    border: #000000;
+    border-style: solid;
+    border-top-width: 1px;
+    border-right-width: 1px;
+    border-bottom-width: 1px;
+    border-left-width: 1px;
+}
+.example {
+    margin:  5px;
+    padding: 5px;
+    border: 1px solid #222244;
+    background-color: #CCCCEE;
+}
+.detailed {
+    margin:  5px;
+    padding: 5px;
+    border: 1px solid #222244;
+    background-color: #FCFCFE;
+}
+.headers {
+    border: #000000;
+    border-style: solid;
+    border-top-width: 1px;
+    border-right-width: 1px;
+    border-bottom-width: 1px;
+    border-left-width: 1px;
+}
+p.note {
+    font: 8pt Tahoma, MS Sans-Serif, Arial, Sans-Serif;
+    text-align: center;
+}
+p.curly {
+    font-family:  Curlz MT, Funstuff, Comic Sans MS, fantasy;
+    text-align:center;
+    font-size: 12pt;
+}
+p.author {
+    font-family: Tahoma, MS sans-serif, Arial, sans-serif;
+    font-size: 10pt;
+    font-weight: bold;
+}
+.question { background-color: #EDEBEB; }
+.code {
+    color: #1C581C;
+    border: 1px #808080 solid;
+}
+.grey {
+    background-color: #DDDEFB;
+    border: 1px #808080 solid;
+}
+.break {
+    page-break-after: always;
+    text-align: right;
+    font-size: 8pt;
+}
+abbr, acronym, .help {
+    background-color: #DBF3F3;
+    border: 1px #808080 solid;
+    cursor: help;
+}
+span.small {
+    font-family: Tahoma, MS sans-serif, Arial, sans-serif;
+    font-size: 8pt;
+}
