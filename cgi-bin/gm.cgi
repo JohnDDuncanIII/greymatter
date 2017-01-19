@@ -7543,7 +7543,7 @@ sub _emoticonsCode {
 sub _emoticons_html {
    my $text_window = shift( @_ ) || '';
    my $path = shift( @_ ) || '';
-   my $size = 'width="19" height="14"';
+   my $size = 'width="19" height="19"';
 
    return <<"EOP";
 <table>
