@@ -75,8 +75,8 @@ function doPicon() {
 
     async function getMetaPicon(url, i, callback) {
 	var img = new Image();
-	await sleep(1); // this ensures that the async callback will return the picons in proper oreder ... bad hack
-	if(i==mfPiconDatabases.length-1 && count==0) {
+	//await sleep(100); // this ensures that the async callback will return the picons in proper oreder ... bad hack
+	/*if(i==mfPiconDatabases.length-1 && count==0) {
 	    var path = '';
 	    path+="picons/misc/MISC/noface/face.gif";
 	    var pBox = document.getElementById("picons");
@@ -84,7 +84,7 @@ function doPicon() {
 	    pImg.setAttribute("class", "face");
 	    pImg.src = path;
 	    pBox.appendChild(pImg);
-	}
+	}*/
 	img.onload = function() {
 	    if(url.includes("picons/unknown") && count >0) {
 		return;
@@ -93,10 +93,7 @@ function doPicon() {
 	}
 	img.src = url;
     }
-
-    function sleep(ms) {
-	return new Promise(resolve => setTimeout(resolve, ms));
-    }
+    //function sleep(ms) { return new Promise(resolve => setTimeout(resolve, ms)); }
 }
 
 function doGravatar() {
