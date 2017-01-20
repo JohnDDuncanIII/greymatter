@@ -12,14 +12,14 @@ function doXFace(){
     var xFaceImg = document.getElementById("xface");
     xFaceImg.setAttribute("id", "fromBuddyIconXFace");
     xFaceImg.setAttribute("class", "face");
-	xFaceImg.title = "X-Face";
+    xFaceImg.title = "X-Face";
 
     xFace = xFace.replace(/ /g, "");
     var koComputedStyle = window.getComputedStyle(xFaceImg, null);
     if (mfX_Cache[xFace] == null) {
-		// It'd be nice to do this asyncronously. Wonder how. Me no know.
-		//mfX_Cache[xFace] = mfXFaceJSm.FaceURL(xFace);
-		mfX_Cache[xFace] = FaceURL(xFace, koComputedStyle);
+	// It'd be nice to do this asyncronously. Wonder how. Me no know.
+	//mfX_Cache[xFace] = mfXFaceJSm.FaceURL(xFace);
+	mfX_Cache[xFace] = FaceURL(xFace, koComputedStyle);
     }
     xFaceImg.setAttribute("src", mfX_Cache[xFace]);
 }
@@ -27,7 +27,7 @@ function doXFace(){
 function doFace() {
     var faceImage = document.getElementById("face");
     faceImage.setAttribute("class", "face");
-	faceImage.title = "Face";
+    faceImage.title = "Face";
 
     face = face.replace(/(\s)+/g, "");
     faceImage.setAttribute("src", ("data:image/png;base64," + encodeURIComponent(face)));
@@ -39,63 +39,63 @@ function doPicon() {
     var count = 0;
     // if we have a valid e-mail address..
     if (atSign != -1) {
-		var host = sender.substring(atSign + 1)
-		var user = sender.substring(0, atSign);
-		var host_pieces = host.split('.');
+	var host = sender.substring(atSign + 1)
+	var user = sender.substring(0, atSign);
+	var host_pieces = host.split('.');
 
-		for (var i in mfPiconDatabases) {
-            // clone the current URL, as we will need to use it for the next val in the array
-            var path = '';
-            path += "picons/"; // they are stored in $PROFILEPATH$/messagefaces/picons/ by default
-            path += mfPiconDatabases[i]; // append one of the six database folders
-            if(mfPiconDatabases[i] == "misc/") { path += "MISC/"; } // special case MISC
+	for (var i in mfPiconDatabases) {
+	    // clone the current URL, as we will need to use it for the next val in the array
+	    var path = '';
+	    path += "picons/"; // they are stored in $PROFILEPATH$/messagefaces/picons/ by default
+	    path += mfPiconDatabases[i]; // append one of the six database folders
+	    if(mfPiconDatabases[i] == "misc/") { path += "MISC/"; } // special case MISC
 
-            var l = host_pieces.length-1; // get number of database folders (probably six, but could theoretically change)
-            var clonedLocal; // we will check to see if we have a match at EACH depth, so keep a cloned version w/o the 'unknown/face.gif' portion
-            while (l >= 0) { // loop through however many pieces we have of the host
-				path += host_pieces[l]+"/"; // add that portion of the host (ex: 'edu' or 'gettysburg' or 'cs')
-				clonedLocal = path;
-				if(mfPiconDatabases[i] == "users/") { path += user+"/"; } // username for 'users' db folder (non-standard)
-				else { path += "unknown/"; }
-				path += "face.gif";
-				getMetaPicon(path, i, function(width, height, src) {
-					var pBox = document.getElementById("picons");
-					var pImg = document.createElement("img");
-					pImg.setAttribute("class", "face");
-					pImg.src = src;
-					pImg.title = "picon";
-					count++;
-					pBox.appendChild(pImg);
-				});
-				path = clonedLocal;
-				l--;
-            }
-		}
+	    var l = host_pieces.length-1; // get number of database folders (probably six, but could theoretically change)
+	    var clonedLocal; // we will check to see if we have a match at EACH depth, so keep a cloned version w/o the 'unknown/face.gif' portion
+	    while (l >= 0) { // loop through however many pieces we have of the host
+		path += host_pieces[l]+"/"; // add that portion of the host (ex: 'edu' or 'gettysburg' or 'cs')
+		clonedLocal = path;
+		if(mfPiconDatabases[i] == "users/") { path += user+"/"; } // username for 'users' db folder (non-standard)
+		else { path += "unknown/"; }
+		path += "face.gif";
+		getMetaPicon(path, i, function(width, height, src) {
+		    var pBox = document.getElementById("picons");
+		    var pImg = document.createElement("img");
+		    pImg.setAttribute("class", "face");
+		    pImg.src = src;
+		    pImg.title = "picon";
+		    count++;
+		    pBox.appendChild(pImg);
+		});
+		path = clonedLocal;
+		l--;
+	    }
+	}
     }
 
     async function getMetaPicon(url, i, callback) {
-		var img = new Image();
-		await sleep(1); // this ensures that the async callback will return the picons in proper oreder ... bad hack
-		if(i==mfPiconDatabases.length-1 && count==0) {
-			var path = '';
-			path+="picons/misc/MISC/noface/face.gif";
-			var pBox = document.getElementById("picons");
-			var pImg = document.createElement("img");
-			pImg.setAttribute("class", "face");
-			pImg.src = path;
-			pBox.appendChild(pImg);
-		}
-		img.onload = function() {
-			if(url.includes("picons/unknown") && count >0) {
-				return;
-			}
-			callback(this.width, this.height, this.src);
-		}
-		img.src = url;
+	var img = new Image();
+	await sleep(1); // this ensures that the async callback will return the picons in proper oreder ... bad hack
+	if(i==mfPiconDatabases.length-1 && count==0) {
+	    var path = '';
+	    path+="picons/misc/MISC/noface/face.gif";
+	    var pBox = document.getElementById("picons");
+	    var pImg = document.createElement("img");
+	    pImg.setAttribute("class", "face");
+	    pImg.src = path;
+	    pBox.appendChild(pImg);
+	}
+	img.onload = function() {
+	    if(url.includes("picons/unknown") && count >0) {
+		return;
+	    }
+	    callback(this.width, this.height, this.src);
+	}
+	img.src = url;
     }
 
     function sleep(ms) {
-		return new Promise(resolve => setTimeout(resolve, ms));
+	return new Promise(resolve => setTimeout(resolve, ms));
     }
 }
 
@@ -103,7 +103,7 @@ function doGravatar() {
     var gravURL = null;
     var gravFace = document.getElementById("gravatar");
     gravFace.setAttribute("class", "face");
-	gravFace.title = "Gravatar";
+    gravFace.title = "Gravatar";
     sender = sender.replace(/^.*\</, "");
     sender = sender.replace(/\>.*$/, "");
     sender = sender.toLowerCase();
@@ -114,15 +114,15 @@ function doGravatar() {
     setGravFace(gravURL, mfCalcMD5);
 
     function setGravFace(url, mfCalcMD5) {
-		getMeta(url, function(width, height) {
-			gravFace.src = url;
-		});
+	getMeta(url, function(width, height) {
+	    gravFace.src = url;
+	});
     }
 
     function getMeta(url, callback) {
-		var img = new Image();
-		img.src = url;
-		img.onload = function() { callback(this.width, this.height, this.src); }
+	var img = new Image();
+	img.src = url;
+	img.onload = function() { callback(this.width, this.height, this.src); }
     }
 }
 
