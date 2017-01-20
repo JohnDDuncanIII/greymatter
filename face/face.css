@@ -1,0 +1,20 @@
+#xface {
+	color: black;
+	background-color: white;
+}
+
+#picons {
+    display: inline-flex;
+}
+
+.face {
+    border-right: 1px solid black;
+    padding: 1px;
+}
+.face:last-child { border-right: none; padding-right: 0;  }
+
+
+#facesBox {
+    border: 3px double black;
+    display: inline-flex;
+}
