@@ -1,3 +1,14 @@
+html {
+    image-rendering: optimizeSpeed;		/* STOP SMOOTHING, GIVE ME SPEED */
+    image-rendering: -moz-crisp-edges;		/* Firefox*/
+    image-rendering: -o-crisp-edges;		/* Opera */
+    image-rendering: -webkit-optimize-contrast; /* Chrome (and eventually Safari) */
+    image-rendering: pixelated; /* Chrome */
+    image-rendering: optimize-contrast;		/* CSS3 Proposed */
+    -ms-interpolation-mode: nearest-neighbor;	/* IE8+ */
+    image-rendering: crisp-edges;
+}
+
 body {
     text-align:center;
     font-family: verdana, arial, helvetica, sans-serif;
@@ -138,4 +149,9 @@ table.calendar { margin-left: 10px; }
 .path {
     border-bottom: 1px dotted black;
     display: table-cell;
+}
+
+#comments {
+    border: 3px double black;
+    padding: 5px;
 }
