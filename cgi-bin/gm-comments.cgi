@@ -126,6 +126,8 @@ $IN{'newcommentbody'} =~        s/\|\*\|\|\*\|\|\*\|/\|\*\|\|\*\|/g;
 
 $IN{'newcommentauthor'} = Gm_Utils::sanitizeInput($IN{'newcommentauthor'});
 $IN{'newcommentemail'} = Gm_Utils::sanitizeInput($IN{'newcommentemail'});
+$IN{'newcommentxface'} = Gm_Utils::sanitizeInput($IN{'newcommentxface'});
+$IN{'newcommentface'} = Gm_Utils::sanitizeInput($IN{'newcommentface'});
 $IN{'newcommenthomepage'} = Gm_Utils::sanitizeInput($IN{'newcommenthomepage'});
 $IN{'newcommentbody'} = Gm_Utils::sanitizeInput($IN{'newcommentbody'});
 
@@ -467,6 +469,8 @@ my %newComment = ();
 $newComment{'name'} = $IN{'newcommentauthor'};
 $newComment{'ip'} = $userip;
 $newComment{'email'} = $IN{'newcommentemail'};
+$newComment{'xface'} = $IN{'newcommentxface'};
+$newComment{'face'} = $IN{'newcommentface'};
 $newComment{'homepage'} = $IN{'newcommenthomepage'};
 $newComment{'weekday'} = $wday;
 $newComment{'month'} = $mon;
@@ -493,6 +497,8 @@ if( $protectauthorname ne Gm_Constants::NO ){
 }
 
 $previewcommentemail = $IN{'newcommentemail'};
+$previewcommentxface = $IN{'newcommentxface'};
+$previewcommentface = $IN{'newcommentface'};
 $previewcommenthomepage = $IN{'newcommenthomepage'};
 $previewcommentbody = $IN{'newcommentbody'};
 
@@ -541,6 +547,8 @@ sub gm_addcomment {
 	$comment{'name'} = $IN{'newcommentauthor'};
 	$comment{'ip'} = $userip;
 	$comment{'email'} = $IN{'newcommentemail'};
+	$comment{'xface'} = $IN{'newcommentxface'};
+	$comment{'face'} = $IN{'newcommentface'};
 	$comment{'homepage'} = $IN{'newcommenthomepage'};
 	$comment{'weekday'} = $wday;
 	$comment{'month'} = $mon;
@@ -757,15 +765,19 @@ exit;
 sub gm_phphackcheck { 
 
 if ( Gm_Security::hackWebTest( $IN{'newcommentauthor'} ) || 
-		Gm_Security::hackWebTest( $IN{'newcommentbody'} ) || 
-		Gm_Security::hackWebTest( $IN{'newcommentemail'} ) || 
-		Gm_Security::hackWebTest( $IN{'newcommenthomepage'} ) ){
+     Gm_Security::hackWebTest( $IN{'newcommentbody'} ) || 
+     Gm_Security::hackWebTest( $IN{'newcommentxface'} ) || 
+     Gm_Security::hackWebTest( $IN{'newcommentface'} ) || 
+     Gm_Security::hackWebTest( $IN{'newcommentemail'} ) || 
+     Gm_Security::hackWebTest( $IN{'newcommenthomepage'} ) ){
     my ($gmdate) = Gm_Utils::getStdDate( $serveroffset );    
  
     if ($mailhacknotice eq Gm_Constants::YES) {
     &gm_readconfig;
     my $safeComment = Gm_Utils::toWebSafe( $IN{'newcommentbody'} );
     my $safeAuthor = Gm_Utils::toWebSafe( $IN{'newcommentauthor'} );
+    my $safeXFace = Gm_Utils::toWebSafe( $IN{'newcommentxface'} );
+    my $safeFace = Gm_Utils::toWebSafe( $IN{'newcommentface'} );
     my $safeEmail = Gm_Utils::toWebSafe( $IN{'newcommentemail'} );
     my $safeHomepage = Gm_Utils::toWebSafe( $IN{'newcommenthomepage'} );
     if ($NotifyEmail ne "") {
@@ -861,9 +873,11 @@ sub gm_authorcheck {
 	foreach my $author ( keys( %$gmauthors ) ) {
 		my $a_name = $gmauthors->{$author}{'author'};
 		my $a_password = $gmauthors->{$author}{'password'};
+		my $a_xface = $gmauthors->{$author}{'xface'};
+		my $a_face = $gmauthors->{$author}{'face'};
 		my $a_email = $gmauthors->{$author}{'email'};
 		my $a_homepage = $gmauthors->{$author}{'homepage'};
-		
+
 		my $commenter_auth_match = 0;
 		if( $protectauthorname eq 'STRICT'  && $authorname =~ m/^$a_name$/i){
 			## got a strict match, does catch leading white space
@@ -874,18 +888,20 @@ sub gm_authorcheck {
 			## Loose matching, only has to contain name
 			$commenter_auth_match = 1;
 		}
-	
+
 		## we are doing a regex to get a match since we don't want to be fooled by leading spaces (or case)
 		if( $commenter_auth_match ){
 			## We got an athor name match, lets check the pw
 			my $commentpassword = crypt($auth_pw, $auth_pw);
-			
+
 			## hmm, we are checking if the password matches both the plain and the crypted, because of Alice ...
 			if ( ($a_password eq $commentpassword) || ($a_password eq $auth_pw) ){
 				$IN{'newcommentauthor'} = $a_name;
 				$IN{'newcommenthomepage'} = $a_homepage;
+				$IN{'newcommentxface'}= $a_xface;
+				$IN{'newcommentface'}= $a_face;
 				$IN{'newcommentemail'}= $a_email;
-			
+
 			} else {
 				## Good to let someone know that people are trying to impersonate
 				Gm_Core::writeToCplog( "<B><FONT COLOR=\"#dd0000\">Invalid Password commenting on entry ".
@@ -953,6 +969,10 @@ sub _showVerifyScreen {
 		$commentAuthor.'" />'."\n";
 	$userMessage .= '<input type="hidden" name="newcommentemail" value="'.
 		$IN{'newcommentemail'}.'" />'."\n";
+	$userMessage .= '<input type="hidden" name="newcommentxface" value="'.
+		$IN{'newcommentxface'}.'" />'."\n";
+	$userMessage .= '<input type="hidden" name="newcommentface" value="'.
+		$IN{'newcommentface'}.'" />'."\n";
 	$userMessage .= '<input type="hidden" name="newcommenthomepage" value="'.
 		$IN{'newcommenthomepage'}.'" />'."\n";
 	$userMessage .= '<input type="hidden" name="newcommentbody" value="'.

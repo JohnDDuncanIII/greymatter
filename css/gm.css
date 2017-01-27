@@ -155,3 +155,7 @@ table.calendar { margin-left: 10px; }
     border: 3px double black;
     padding: 5px;
 }
+.post {
+    border: 3px double black;
+    padding: 5px;
+}

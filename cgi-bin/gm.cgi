@@ -254,7 +254,7 @@ sub frontPage {
 			}
 				
 			$item = '<a href="'.$gmConfigs->{'gmlogwebpath'}.$indexfilenamesmartcheck.'" target="NEW" '.
-				'class="link_button" STYLE="background: #D0FFD0; padding: 3px 5em 3px 5em">'.
+				'class="link_button" STYLE="background: #D0FFD0; padding: 4px 5em 3px 6.23em;">'.
 				Gm_Core::text( Gm_Constants::FRONTPAGE_VISIT ).'</a>'.
 				'<br />'.Gm_Core::text( Gm_Constants::FRONTPAGE_VISIT_DESC );
 			push( @actions, $item );
@@ -1863,9 +1863,9 @@ sub viewEntries {
 	## Search page
 	$page .= "\n\n".'<p><form action="gm.cgi" METHOD="post"> '.Gm_Security::getFormAuth( author=>\%AUTHOR ).
 		'<input type="hidden" name="section" value="'.$IN{'section'}.'"><table class="form_table" width="60%">'.
-		'<tr><td>'.
+		'<tr><td style="display:block;">'.
 		"\n<INPUT TYPE=TEXT NAME=\"entrysearch\" value=\"$IN{'entrysearch'}\" CLASS=\"inputfield\" SIZE=25 >\n".
-		"</td><td><input type=submit class=\"button\" name=\"search\" value=\"Search\" ".
+		"</td><td style=\"display:inline-block\"><input type=submit class=\"button\" name=\"search\" value=\"Search\" ".
 		"STYLE=\"width: 70; height: 22\"></td></tr></table>".
 		'</form></p>'."\n";
 	

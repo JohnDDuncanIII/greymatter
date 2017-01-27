@@ -1247,7 +1247,7 @@ sub translateEntryTemplates {
 		my $gmversion = Gm_Constants::GM_VERSION;
 		$entryreturn =~ s/{{gmversion}}/$gmversion/gi;
 		## TODO: this should use the constant!!
-		$entryreturn =~ s/{{gmicon}}/<a href="http:\/\/greymatterforum.proboards82.com\/" target="_top"><img border="0" src="$CONFIGS->{'gmlogwebpath'}\/gm-icon.gif" alt="Powered By Greymatter" \/><\/a>/gi;
+		$entryreturn =~ s/{{gmicon}}/<a href="http:\/\/greymatterforum.proboards.com\/" target="_top"><img src="$CONFIGS->{'gmlogwebpath'}\/img\/dm_1.8.3.gif" alt="Powered By Greymatter" \/><\/a><a href="http:\/\/validator.w3.org\/check\/referer"><img src="$CONFIGS->{'gmlogwebpath'}\/img\/w3c.png" alt="Valid HTML5!"><\/a>/gi;
 	}
 
 	# {{cookiescode}} template to facilitate setting cookies on commenters

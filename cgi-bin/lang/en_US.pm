@@ -96,7 +96,7 @@ $labels{ Gm_Constants::FRONTPAGE_REBUILD_DESC } = 'Regenerate part or all of you
 $labels{ Gm_Constants::FRONTPAGE_CPLOG } = 'View Control Panel Log';
 $labels{ Gm_Constants::FRONTPAGE_CPLOG_DESC } = 'A record of how your site\'s been used.';
 $labels{ Gm_Constants::FRONTPAGE_BMLETS } = 'Add Bookmarklets';
-$labels{ Gm_Constants::FRONTPAGE_BMLETS_DESC } = 'Post entries with one click (javascript required).';
+$labels{ Gm_Constants::FRONTPAGE_BMLETS_DESC } = 'Post entries with one click (js required).';
 $labels{ Gm_Constants::FRONTPAGE_UPLOAD } = 'Upload Files';
 $labels{ Gm_Constants::FRONTPAGE_UPLOAD_DESC } = 'Upload images or other files to your site.';
 $labels{ Gm_Constants::FRONTPAGE_BANNED } = 'Edit Banned IP List';
@@ -104,7 +104,7 @@ $labels{ Gm_Constants::FRONTPAGE_BANNED_DESC } = 'Ban someone from using your si
 $labels{ Gm_Constants::FRONTPAGE_RELOGIN } = 'Re-Login';
 $labels{ Gm_Constants::FRONTPAGE_RELOGIN_DESC } = 'Re-enter as another author.';
 $labels{ Gm_Constants::FRONTPAGE_VISIT } = 'Visit Your Site';
-$labels{ Gm_Constants::FRONTPAGE_VISIT_DESC } = 'Open your weblog/journal in a new browser window.';
+$labels{ Gm_Constants::FRONTPAGE_VISIT_DESC } = 'Open your weblog/journal.';
 
 $labels{ Gm_Constants::CPLOG_NO_ACCESS } = '$AUTHOR attempted to access the control panel log without authorization';
 $labels{ Gm_Constants::CPLOG_ACCESS_DENY } = 'You don\'t have access to the control panel log.';
