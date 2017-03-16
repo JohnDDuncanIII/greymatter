@@ -35,9 +35,9 @@ function doXFace(){
     xFace = xFace.replace(/ /g, "");
     var koComputedStyle = window.getComputedStyle(xFaceImg, null);
     if (xFaceCache[xFace] == null) {
-		// It'd be nice to do this asyncronously. Wonder how. Me no know.
-		//mfX_Cache[xFace] = mfXFaceJSm.FaceURL(xFace);
-		xFaceCache[xFace] = FaceURL(xFace, koComputedStyle);
+	// It'd be nice to do this asyncronously. Wonder how. Me no know.
+	//mfX_Cache[xFace] = mfXFaceJSm.FaceURL(xFace);
+	xFaceCache[xFace] = FaceURL(xFace, koComputedStyle);
     }
     xFaceImg.setAttribute("src", xFaceCache[xFace]);
     fbox[gCount-1].appendChild(xFaceImg);
@@ -58,7 +58,6 @@ function doFace() {
 }
 
 function doGravatar(sender) {
-    //alert(sender);
     var gravCache = new Array();
     var gravURL = null;
     //var gravFace = document.getElementById("gravatar");
@@ -75,110 +74,108 @@ function doGravatar(sender) {
     gravURL = "http://www.gravatar.com/avatar.php?gravatar_id=%ID%&size=%SIZE%&d=404";
     gravURL = gravURL.replace("%ID%", mfCalcMD5);
     gravURL = gravURL.replace("%SIZE%", 48);
-    //alert(gravURL);
     setGravFace(gravURL, mfCalcMD5);
 
     function setGravFace(url, mfCalcMD5) {
-		getMeta(url, function(width, height) {
-			gravFace.src = url;
-			gravFace.setAttribute("style", "display:inline");
-			//fbox[gCount-1].appendChild(gravFace);
-		});
+	getMeta(url, function(width, height) {
+	    gravFace.src = url;
+	    gravFace.setAttribute("style", "display:inline");
+	    //fbox[gCount-1].appendChild(gravFace);
+	});
     }
 
     function getMeta(url, callback) {
-		var img = new Image();
-		img.src = url;
-		img.onload = function() { callback(this.width, this.height, this.src); }
+	var img = new Image();
+	img.src = url;
+	img.onload = function() { callback(this.width, this.height, this.src); }
     }
     fbox[gCount-1].appendChild(gravFace);
 }
 
 function doPicon(sender) {
-    //alert(sender);
     var pBox = document.createElement("div");
     pBox.id="picons"+gCount;
     pBox.className = "picons";
     if(sender=="") {
-		var pImg = document.createElement("img");
-		pImg.setAttribute("class", "face");
-		pImg.src = "../face/picons/misc/MISC/noface/face.gif";
-		pImg.title = "picon";
-		count++;
-		pBox.appendChild(pImg);
+	var pImg = document.createElement("img");
+	pImg.setAttribute("class", "face");
+	pImg.src = "../face/picons/misc/MISC/noface/face.gif";
+	pImg.title = "picon";
+	count++;
+	pBox.appendChild(pImg);
     } else {
-		var atSign = sender.indexOf('@');
-		//var mfPiconDatabases = new Array("domains/", "users/", "misc/", "usenix/", "unknown/");
-		var mfPiconDatabases = new Array("domains/", "users/", "usenix/");
-		var count = 0;
-		if (atSign != -1) { // if we have a valid e-mail address..
-			var host = sender.substring(atSign + 1)
-			var user = sender.substring(0, atSign);
-			var host_pieces = host.split('.');
+	var atSign = sender.indexOf('@');
+	//var mfPiconDatabases = new Array("domains/", "users/", "misc/", "usenix/", "unknown/");
+	var mfPiconDatabases = new Array("domains/", "users/", "usenix/");
+	var count = 0;
+	if (atSign != -1) { // if we have a valid e-mail address..
+	    var host = sender.substring(atSign + 1)
+	    var user = sender.substring(0, atSign);
+	    var host_pieces = host.split('.');
 
-			var pDef = document.createElement("img");
-			pDef.setAttribute("class", "face");
-			pDef.src = "../face/picons/unknown/"+host_pieces[host_pieces.length-1]+"/unknown/face.gif";
-			pDef.title = host_pieces[host_pieces.length-1];
-			pBox.appendChild(pDef);
+	    var pDef = document.createElement("img");
+	    pDef.setAttribute("class", "face");
+	    pDef.src = "../face/picons/unknown/"+host_pieces[host_pieces.length-1]+"/unknown/face.gif";
+	    pDef.title = host_pieces[host_pieces.length-1];
+	    pBox.appendChild(pDef);
 
-			for (var i in mfPiconDatabases) {
-				var path = '';
-				path += "../face/picons/" + mfPiconDatabases[i]; // they are stored in $PROFILEPATH$/messagefaces/picons/ by default
-				if(mfPiconDatabases[i] == "misc/") { path += "MISC/"; } // special case MISC
+	    for (var i in mfPiconDatabases) {
+		var path = '';
+		path += "../face/picons/" + mfPiconDatabases[i]; // they are stored in $PROFILEPATH$/messagefaces/picons/ by default
+		if(mfPiconDatabases[i] == "misc/") { path += "MISC/"; } // special case MISC
 
-				var l = host_pieces.length-1; // get number of database folders (probably six, but could theoretically change)
-				var clonedLocal; // we will check to see if we have a match at EACH depth, so keep a cloned version w/o the 'unknown/face.gif' portion
-				while (l >= 0) { // loop through however many pieces we have of the host
-					path += host_pieces[l]+"/"; // add that portion of the host (ex: 'edu' or 'gettysburg' or 'cs')
-					clonedLocal = path;
-					if(mfPiconDatabases[i] == "users/") { path += user+"/"; } // username for 'users' db folder (non-standard)
-					else { path += "unknown/"; }
-					path += "face.gif";
-					getMetaPicon(path, l, function(width, height, src, loopIndex) {
-						//alert(loopIndex);
-						if(count==0) {
-							pDef.src = src;
-							if(src.includes("users")) { pDef.title =  user; }
-							else { pDef.title =  host_pieces[loopIndex]; }
-						}
-						else {
-							var pImg = document.createElement("img");
-							pImg.setAttribute("class", "face");
-							if(src.includes("users")) { pImg.title =  user;}
-							else { pImg.title =  host_pieces[loopIndex]; }
-							pImg.src = src;
-							pBox.appendChild(pImg);
-						}
-						count++;
-					});
-					path = clonedLocal;
-					l--;
-				}
+		var l = host_pieces.length-1; // get number of database folders (probably six, but could theoretically change)
+		var clonedLocal; // we will check to see if we have a match at EACH depth, so keep a cloned version w/o the 'unknown/face.gif' portion
+		while (l >= 0) { // loop through however many pieces we have of the host
+		    path += host_pieces[l]+"/"; // add that portion of the host (ex: 'edu' or 'gettysburg' or 'cs')
+		    clonedLocal = path;
+		    if(mfPiconDatabases[i] == "users/") { path += user+"/"; } // username for 'users' db folder (non-standard)
+		    else { path += "unknown/"; }
+		    path += "face.gif";
+		    getMetaPicon(path, l, function(width, height, src, loopIndex) {
+			//alert(loopIndex);
+			if(count==0) {
+			    pDef.src = src;
+			    if(src.includes("users")) { pDef.title =  user; }
+			    else { pDef.title =	 host_pieces[loopIndex]; }
 			}
+			else {
+			    var pImg = document.createElement("img");
+			    pImg.setAttribute("class", "face");
+			    if(src.includes("users")) { pImg.title =  user;}
+			    else { pImg.title =	 host_pieces[loopIndex]; }
+			    pImg.src = src;
+			    pBox.appendChild(pImg);
+			}
+			count++;
+		    });
+		    path = clonedLocal;
+		    l--;
 		}
+	    }
+	}
     }
 
-    async function getMetaPicon(url, l, callback) {
-		var img = new Image();
-		//await sleep(10); // this ensures that the async callback will return the picons in proper oreder ... bad hack
-		/*if(i==mfPiconDatabases.length-1 && count==0) {
-	      var path = '';
-	      path+="picons/misc/MISC/noface/face.gif";
-	      var pBox = document.getElementById("picons");
-	      var pImg = document.createElement("img");
-	      pImg.setAttribute("class", "face");
-	      pImg.src = path;
-	      pBox.appendChild(pImg);
-		  }*/
+    function getMetaPicon(url, l, callback) {
+	var img = new Image();
+	//await sleep(10); // this ensures that the async callback will return the picons in proper oreder ... bad hack
+	/*if(i==mfPiconDatabases.length-1 && count==0) {
+	  var path = '';
+	  path+="picons/misc/MISC/noface/face.gif";
+	  var pBox = document.getElementById("picons");
+	  var pImg = document.createElement("img");
+	  pImg.setAttribute("class", "face");
+	  pImg.src = path;
+	  pBox.appendChild(pImg);
+	  }*/
 
-		img.onload = async function() {
-			/*if(url.includes("picons/unknown") && count >0) {
-			  return;
-			  }*/
-			callback(this.width, this.height, this.src, l);
-		}
-		img.src = url;
+	img.onload = function() {
+	    /*if(url.includes("picons/unknown") && count >0) {
+	      return;
+	      }*/
+	    callback(this.width, this.height, this.src, l);
+	}
+	img.src = url;
     }
     //function sleep(ms) { return new Promise(resolve => setTimeout(resolve, ms)); }
     fbox[gCount-1].appendChild(pBox);

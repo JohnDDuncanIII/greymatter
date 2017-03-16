@@ -1,7 +1,5 @@
 #!/bin/bash
 mkdir archives/
-cd archives; ln -s ../css/ .; cd ..;
-cd cgi-bin; ln -s ../css/ .; cd ..;
 touch index.html
 touch archives/index.html
 chmod 666 cgi-bin/gm-counter.cgi
